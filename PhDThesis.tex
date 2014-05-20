@@ -199,11 +199,19 @@ Nonetheless Bayesian phylogenetic analyses remain highly computationally intensi
 
 \section{Reconstructing viral spread in time and space}
 
-Central assumption of phylogenetics is the assumption that the epidemiological processes that shape the fitness of viral populations leave a measurable footprint on their genomes.
-Due to the rapid nature of their evolution this process of character substitution can be observed in almost real time, and gives the opportunity to sample genetic data at different points in time, as opposed to ultrametricly sampled data. 
-% \ref{fig:}
+Central assumption of viral phylogenetics is that thee pidemiological processes that shape the fitness of viral populations leave a measurable footprint on their genomes.
+Due to the rapid nature of their evolution this process of character substitution can be observed in almost real time, and gives the opportunity to sample genetic data at different points in time, as opposed to ultrametricly sampled data (\ref{fig:ultrametric}).
 
-%TODO: ultrametric vs heterochronous tree plot
+%---ULTRAMETRIC TREE---%
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=0.35]{ultrametric} 
+\end{center}
+\caption{{ \footnotesize {\bf Different sampling schemes.} 
+Tree on the right has all of it's sampling dates set at $t=0$. Conversly the tree on the left is sampled at different points in time.
+}}
+\label{fig:ultrametric}
+\end{figure}
 
 Such data-sets are usually reffered to as time-heterogeneous and frequently arise when from studies involving viruses which accumulate statistically significant amounts of genetic change in a relatively short amount of time.
 Populations for which such data can be obtained have been called measurably evolving populations (MEPs, cite{Drummond2003}) and have been instrumental in providing  estimates of the evolutionary rate and in advances to the molecular clock models \citep{Drummond2006}.
@@ -214,30 +222,32 @@ In that sense the tree is not only a record of evolutionary ancestry, but also o
 Our research group has conducts research which aims at developing a full quantitative understanding of the processes that shape the epidemiology and evolution of MEP-like viruses.
 
 % TODO: this is a silly section name; alter
-\section{Main problems}
+\section{Model extension, simulation and visualisation}
 
+% models
 Generally phylogenetic analysis employing stochastic processes make strong restrictive assumptions regarding the underlying substitution process.
 They are mainly posited to reduce the number of free parameters of the models describing the molecular evolution and ease both the already mentioned computational tractability and mathematical tractability.
-
 Unfortunately many of these assumptions hamper the application of the methods to real-world, complex data-sets.
-Relaxing some of this assumptions and development of more biologically plausibe models, able to grasp the complex nature of phylodynamic dispersal processes is one the aims of the presented thesis.
+Relaxing some of this assumptions and development of more biologically plausibe models, able to grasp the complex nature of phylodynamic dispersal processes is one the aims of the presented thesis \citep{Bielejec2014a}.
 Another goal is to make the general applicability suitable for phylogeographic problems as well as beyond them, with potential to turn the findings into usefull predictions of the emergence of infectious diseases, e.g. by identifying the sources and sinks of the geographical dispersal.
 
+% simuation
 With the development of novel phylogenetic inference methods comes the need to synthesize evolutionary data in order to compare estimator performance and to characterize strengths and weaknesses of different approaches (e.g. \cite{Arenas2012}, \cite{Hoban2011}).
 Whereas the true underlying evolutionary relationships between biological sequences are generally unknown, Monte Carlo simulations allow generating test scenarios while controlling for the evolutionary history as well as the tempo and mode of evolution. 
 Part of this thesis is the development and introduction of a flexible utility software for for sequence simulation, that integrates both tree-generative processes as well as models responsible for shaping the molecular histories and geographical dispersal \citep{bielejec2014}.
 
-% visualisations
-%  phylogenetic inference, with 
+% visualisation
+Phylogenetic inference unevitably results in complex, multi-dimensional output data.
+This dimensionality is further incremented by adding the geography to the usuall time-component.
+Finally, Bayesian analysis result in posterior distributions of trees, with each tree containing estimated node locations and other traits of interest.
+These aspects represent a major challenge for visualizing the inference. 
+Yet clear and intuitive visualizations are an important aspect of every analysis (\cite{Hadley10}).
+Spatial phylogenetic projections have been undertaken in the field \citep{Kidd06,Parks09}, yet most of these applications remain limited to mapping phylogenetic tip taxa to their geographical coordinates, without providing robust statistical estimates of the geographic locations at the ancestral nodes nor the measures of uncertainty in the inference.
+Fortunately the advent of powerful and flexible Geographic Information Systems (GIS) has fostered an interesting possibility in icorporatin both spatial and temporal information into viral phylogenetic analysis.
+Presenting readily interpretable visual summaries of the inferences, that can in turn be communicated to the researchers across different fields is one of the more important aspects of this thesis.
+This has been materialized in the development of an user-friendly application for producing compelling and informative statistical visualizations of viral spread in time and space \citep{Bielejec2011}.
 
-
-
-
-
-
-
-
-
+\chapter{Methodology}
 
 \section{Evolution as a stochastic process}
 
@@ -548,13 +558,19 @@ We now move onto describing the connection between already discussed CTMC models
 Like before we focus on a single site of the alignment, and due to the assumption of 
 % markov chain unfolding on a tree
 % random walk on a graph
+% simulation
 % 39 ; 13
 
 
-
-\cite{bielejec2014}
-
 \subsection{Maximum likelihood of a sequence on a tree \label{seq:likelihood}}
+
+% to calculat elikelihood is to reverse the evolution as it happened
+
+
+
+
+
+
 
 \subsection{Computational burden}
 

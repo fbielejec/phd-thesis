@@ -283,3 +283,61 @@ p <- p + xlab("Time")
 print(p)
 
 
+##############################################
+#---TIME HETEROGENOUS AND ULTRAMETRIC TREE---#
+##############################################
+tree1        <- read.tree("data/SimTree.newick")
+phylo1       <- fortify.phylo(tree1)
+phylo1$label <- "Heterogenous"
+tree2        <- read.tree("data/SimTree_ultrametric.newick")
+phylo2       <- fortify.phylo(tree2)
+phylo2$label <- "Ultrametric"
+
+phylo <- rbind(phylo1, phylo2)
+
+phylo1Labels       <- label.phylo(tree1)
+phylo1Labels$label <- "Heterogenous"
+phylo2Labels       <- label.phylo(tree2)
+phylo2Labels$label <- "Ultrametric"
+
+phyloLabels <- rbind(phylo1Labels, phylo2Labels)
+
+dotSize = 4
+lineSize = 1.5
+
+p <- ggplot()
+p <- p + geom_segment2(aes(x = x, y = y, xend = xend, yend = yend), colour = "black", size = lineSize, data = phylo)
+p <- p + geom_point(aes(x = x, y = y), size = dotSize, data = phyloLabels)
+
+theme <- theme_update(
+  axis.text.y = element_blank(),
+  axis.ticks.y = element_blank(),
+  axis.title.x = element_text(colour = "black"),
+  axis.text.x = element_text(colour = "black"),
+  axis.title.y = element_blank(),
+  axis.line = element_line(colour = "black"),
+  axis.line.y = element_blank(),
+  legend.position = "none",
+  panel.background = element_rect(size = 1, fill = "white", colour = NA),
+  plot.background = element_rect(colour = NA),
+  panel.border = element_blank(),
+  panel.grid.major = element_blank(),
+  panel.grid.minor = element_blank(),
+  strip.text.x = element_text(size = 16, colour = "black")
+)
+
+p <- p + theme_set(theme)
+p <- p + facet_wrap( ~ label, ncol = 2, scales = "fixed")
+p <- p + xlab("Time")
+print(p)
+
+
+
+
+
+
+
+
+
+
+
