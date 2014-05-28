@@ -532,7 +532,7 @@ Condition \ref{eq:time_reversibility1} is also referred to as the \emph{detailed
 % Definition (\ref{eq:time_reversibility1}) and (\ref{eq:time_reversibility2}) are equivalent.
 This condition is assumed for strictly computational reasons, i.e. time-reversibility makes it easier to diagonalize $\mathbf{Q}$, which as we have described in 
 Subsection \ref{seq:exponentiation} is a strategy frequently employed in phylogenetic software to compute the exponentials of rate matrices.
-Time reversibility also simplifies the computation of the likelihood on a tree, since it is then indifferent to the position of the root, which we will discuss in Subsection \ref{seq:likelihood}.
+Time reversibility also simplifies the computation of the likelihood on a tree, since it is then indifferent to the position of the root, which we will discuss in Subsection \ref{sub:likelihood}.
 
 %TODO: GTR as example? see M USYB 4
 
@@ -618,7 +618,7 @@ In thi slight the CTMC process can be viewed as a continuous-time random-walk, u
 
 \section{Likelihood of sequence evolution}
 
-\subsection{Calculation of the Likelihood on a tree\label{seq:likelihood}}
+\subsection{Calculation of the Likelihood on a tree\label{sub:likelihood}}
 
 Likelihood is defined as a conditional probability of observing the data given the parameters, in a function of those parameters.
 Discrete molecular sequence data comes in a form of aligned matrix $\mathbf{X}$ of size $n \times l$, where $x_{jh}$ is the $h$-th character in $j$-th sequence.
@@ -662,10 +662,10 @@ According to the independence assumptions to calculate the probability at a sing
 
 \begin{equation}
 \underset{X_{0}\in S}{\sum}\underset{X_{6}\in S}{\sum}\underset{X_{7}\in S}{\sum}\underset{X_{8}\in S}{\sum}[\pi_{x_{0}}\cdot p_{x_{0}x_{8}}(t_{7})\cdot p_{x_{0}x_{7}}(t_{8})\cdot p_{x_{8}x_{6}}(t_{6})\cdot p_{x_{8}A}(t_{3})\cdot p_{x_{7}C}(t_{4})\cdot p_{x_{7}C}(t_{5})\cdot p_{x_{6}T}(t_{1})\cdot p_{x_{6}C}(t_{2})]
-\label{eq:likelihood}
+\label{eq:likelihoodNaive}
 \end{equation}
 
-We can break down the terms in (\ref{eq:likelihood}) to the probability of observing the data $TCACC$ for the tips and $x_{0},x_{6},x_{7},x_{8}$ for the ancestral nodes (inside the brackets) and the sum over all possible combination over the state space $S$ (outside the brackets).
+We can break down the terms in (\ref{eq:likelihoodNaive}) to the probability of observing the data $TCACC$ for the tips and $x_{0},x_{6},x_{7},x_{8}$ for the ancestral nodes (inside the brackets) and the sum over all possible combination over the state space $S$ (outside the brackets).
 Term $\pi_{0}$ is simply the probability that the root has character $x_{0}$ and comes from the assumption that the process generating the data has reached its equilibrium.
 
 Summing over all possible paths leading to the observed data is computationally expensive, as there are  $K^{n-1}$ possible combinations, where $n-1$ is the number of internal nodes of a rooted binary tree.
@@ -708,10 +708,43 @@ l(X)=\underset{j=1}{\overset{l}{\sum}}log\left(L(\mathbf{x}_{jh})\right)
 \label{eq:loglikelihood}
 \end{equation}
 
-\subsection{Computational burden}
+\subsection{Computational burden of the likelihood computation}
+% https://class.coursera.org/algo-004/lecture/11
 
-% define o notation
+We have already mentioned that the run-time of phylogenetic analysis is the caveat that hampers the development and application on novel, biologically plausible methods in the field.
+These limits are being actively stretched, mostly by porting the computationally expensive parts to high-performance parallel devices such as Graphics-Processng Units (GPUs, \cite{Nickolls2008}).
+In Subsection \ref{sub:exponentiation} we already discussed how the computation of finite-time transition probabilities can be reduced to simple matrix algebra operations, which can than be ported to high-performance libraries and APIs for statistical phylogenetics such as the Beagle library \citep{ Ayres2012, Suchard2009}. 
 
+Before we proceed to discussing the burden imposed by certain steps when calculating the likelihood of a sequence evolution on a tree we need a formal definition of the computational complexity of a sequential routine.
+Typically both mathematicians and computer scientists use the Big-O notation as a relative representation of the algorithms complexity.
+
+Let us assume two functions $f:\mathbb{R}_{>0}\rightarrow\mathbb{R}_{>0}$ and $T:\mathbb{R}_{>0}\rightarrow\mathbb{R}_{>0}$. 
+For $n \in \mathbb{R}_{>0}$ we write:
+
+\begin{equation}
+T(n) \in \mathcal{O}\left(f(n)\right)
+\label{eq:bigOh}
+\end{equation}
+
+\noindent
+if and only if there exists constant $M>0$ and some $n_0 \in \mathbb{R}_{>0}$ such that:
+
+\begin{equation}
+T(n)\leq M \cdot f(n)
+\end{equation}
+
+\noindent
+In other words $T(n)$ is $\mathcal{O}\left(f(n)\right)$ if and only if for all sufficiently large input values $T(n)$ is bounded from above by some constant multiple of $f(n)$.
+This makes Big O notation useful when analysing algorithms for run-time efficiency and makes it possible to for example compare routines without the added overhead of neglectable terms, such as the architecture at which th ecode was run, the choice of language or compiler.
+
+% TODO: examples of O(n) and O(n^2)
+
+
+
+
+
+
+% \noindent
 Calculating the log-likelihood of the tree involves:
 
 \begin{enumerate}
