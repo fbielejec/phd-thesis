@@ -331,12 +331,52 @@ p <- p + facet_wrap( ~ label, ncol = 2, scales = "fixed")
 p <- p + xlab("Time")
 print(p)
 
+#
 
+PriorLikePost <- function(N, x, a, b, length.out = 1000) {
+  
+  theta      = seq(0, 0.1, length.out = length.out)
+  prior      = dbeta(theta, a, b)
+  likelihood = dbinom(rep(x, length.out), N, theta)
+  posterior  = dbeta(theta, a + x, N - x + b)
+  
+    prior      = prior / sum(prior)
+    likelihood = likelihood / sum(likelihood)
+    posterior  = posterior / sum(posterior)
+  
+  data <- data.frame(
+    theta      = theta, 
+    prior      = prior, 
+    likelihood = likelihood, 
+    posterior  = posterior
+  )
+  
+  return(data)
+}
 
+# x successes in N trials modelled with binomial model and beta prior on probability of success
+data <- PriorLikePost(N = 1000, x = 20, a = 2, b = 100 )
+melt_data <- melt(data, id.vars = "theta")
 
+p <- ggplot(melt_data) 
+p <- p + geom_polygon(aes(x = theta, y = value, group = variable, fill = variable), color = I("black") )
 
+theme <- theme_update(
+  axis.title = element_text(colour = "black"),
+  axis.text = element_text(colour = "black"),
+  axis.line = element_line(colour = "black"),
+  axis.ticks = element_line(colour = "black"),
+  panel.background = element_rect(size = 1, fill = "white", colour = NA),
+  plot.background = element_rect(colour = NA),
+  panel.border = element_blank(),
+  panel.grid.major = element_blank(),
+  panel.grid.minor = element_blank()
+)
 
-
+p <- p + scale_fill_discrete("")
+p <- p + theme_set(theme)
+p <- p + ylab("") + xlab(expression(""*theta*""))
+print(p)
 
 
 

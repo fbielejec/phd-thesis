@@ -635,7 +635,7 @@ L\left(\mathbf{\theta}|\mathbf{X}\right)=P\left(\mathbf{\theta}|\mathbf{X}\right
 \end{equation}
 
 \noindent
-where $\theta$ it the topology, branch lengths, parameters of the substitution model and other parameters of interest that we aim at estimating.
+where $\theta$ is the topology, branch lengths, parameters of the substitution model and other parameters of interest that we aim at estimating.
 This quantity expresses how likely it is to observe the data given a specific value of the parameter of interest $\theta$.
 By finding the value of $\theta$ that maximizes (\ref{eq:likelihood}) we capture a model with the best possible fit.
 
@@ -712,12 +712,14 @@ l(X)=\underset{j=1}{\overset{l}{\sum}}log\left(L(\mathbf{x}_{jh})\right)
 % https://class.coursera.org/algo-004/lecture/11
 
 We have already mentioned that the run-time of phylogenetic analysis is the caveat that hampers the development and application on novel, biologically plausible methods in the field.
-These limits are being actively stretched, mostly by porting the computationally expensive parts to high-performance parallel devices such as Graphics-Processng Units (GPUs, \cite{Nickolls2008}).
+These limits are being actively stretched, mostly by porting the computationally expensive parts to high-performance parallel devices such as Graphics-Processing Units (GPUs, \cite{Nickolls2008}).
 In Subsection \ref{sub:exponentiation} we already discussed how the computation of finite-time transition probabilities can be reduced to simple matrix algebra operations, which can than be ported to high-performance libraries and APIs for statistical phylogenetics such as the Beagle library \citep{ Ayres2012, Suchard2009}. 
 
 Before we proceed to discussing the burden imposed by certain steps when calculating the likelihood of a sequence evolution on a tree we need a formal definition of the computational complexity of a sequential routine.
-Typically both mathematicians and computer scientists use the Big-O notation as a relative representation of the algorithms complexity.
-
+Efficiency of an algorithm can depend on various factors, like network usage, disk usage, operational memory usage or CPU real-time usage.
+All of these factors should be taken into consideration when designing and implementing a computational routine, yet for most of the routines in computational phylogenetics the latter, i.e. CPU time is th emost important.
+Typically both mathematicians and computer scientists use the Big-O notation as a relative representation of the algorithms complexity, like the execution time required.
+Here we give a formal definition of the Big-O notation.
 Let us assume two functions $f:\mathbb{R}_{>0}\rightarrow\mathbb{R}_{>0}$ and $T:\mathbb{R}_{>0}\rightarrow\mathbb{R}_{>0}$. 
 For $n \in \mathbb{R}_{>0}$ we write:
 
@@ -735,18 +737,110 @@ T(n)\leq M \cdot f(n)
 
 \noindent
 In other words $T(n)$ is $\mathcal{O}\left(f(n)\right)$ if and only if for all sufficiently large input values $T(n)$ is bounded from above by some constant multiple of $f(n)$.
-This makes Big O notation useful when analysing algorithms for run-time efficiency and makes it possible to for example compare routines without the added overhead of neglectable terms, such as the architecture at which th ecode was run, the choice of language or compiler.
+This makes Big O notation useful when analysing algorithms for run-time efficiency and makes it possible to for example compare routines without the added overhead of neglectable terms, such as the architecture at which the code was run, the choice of language or compiler.
+We will now briefly discuss some of the most common serial computational orders and their examples. 
 
-% TODO: examples of O(n) and O(n^2)
+\begin{algorithm}[H]
+\begin{center}
+\begin{algorithmic}[1]
+\footnotesize{
+\State $a \gets \text{\textbf{new int}}$;
+%
+\If{ $\left(a == 1 \right)$ }
+%
+\State \textbf{return} $true$;
+%
+\Else 
+%
+\State \textbf{return} $false$;
+%
+\EndIf
+}
+\end{algorithmic}
+\end{center}
+\caption{{ \footnotesize {\bf Single test operation.} 
+}}
+\label{alg:o1}
+\end{algorithm}
 
+The simplest, most basic example is an operation that takes the same amount of time every time it is called, thus requiring constant time, i.e. it's computational complexity is that of $\mathcal{O}\left(1\right)$ and does not depend on the input size.
+An example of such routine is listed in the Algorithm \ref{alg:o1} that checks for a specific value of a constant.
 
+\begin{algorithm}[H]
+\begin{center}
+\begin{algorithmic}[1]
+\footnotesize{
+\State $a \gets \text{\textbf{new int}}\left[n\right]$;
+%
+\For{int $\left(i=0; \; i<a.size(); \; i++\right)$}
+%
+\If{ $\left(a\left[i\right] == 1 \right)$ }
+%
+\State \textbf{return} $true$;
+%
+\Else 
+%
+\State \textbf{return} $false$;
+%
+\EndIf
+%
+\EndFor
+}
+\end{algorithmic}
+\end{center}
+\caption{{ \footnotesize {\bf Search for a value.} 
+}}
+\label{alg:on}
+\end{algorithm}
 
+Algorithm which proceeds at $\mathcal{O}\left(N\right)$ has it's run-time growing linearly with the size of input data.
+Example of such a routine is presented as Algorithm \ref{alg:on}, which searches ana array looking for a value.
+We should note that the Big-O notation always describes the performance in worst-case scenario, i.e. a full loop has to executed before a matching element is found, while for the actual real-world problem this does not have to be the case and the loop can return earlier.
 
+\begin{algorithm}
+\begin{center}
+\begin{algorithmic}[1]
+\footnotesize{
+\State $a \gets \text{\textbf{new int}}\left[n\right]$;
+%
+\For{int $\left(i=0; \; i<a.size(); \; i++\right)$}
+%
+\For{int $\left(j=0; \; j<a.size(); \; j++\right)$}
+%
+\If{ $\left(i == j \right)$ }
+%
+\State \textbf{do nothing};
+%
+\Else 
+%
+\If{ $a\left[ i \right] == a\left[ j \right]$ }
+%
+\State \textbf{return} $true$;
+%
+\EndIf
+%
+\EndIf \Comment{END: i == j check}
+%
+\EndFor \Comment{END: j loop}
+%
+\EndFor \Comment{END: i loop}
+}
+\end{algorithmic}
+\end{center}
+\caption{{ \footnotesize {\bf Search for a first duplicated value.} 
+}}
+\label{alg:on2}
+\end{algorithm}
 
+An algorithm can also require a quadratic, $\mathcal{O}\left(N^2\right)$ run-time, i.e. it's performance is directly proportional to the square of the size of the input data.
+Among examples of such algorithm is routine that searches for duplicated value in an array, and requires two nested loops as presented in Algorithm \ref{alg:on2}.
+Similarly nesting more loops will result in routines which proceed at polynomial times $\mathcal{O}\left(N^3\right)$, $\mathcal{O}\left(N^4\right)$, $\mathcal{O}\left(N^5\right)$ etc.
+An algorithm which proceeds at $\mathcal{O}\left(c^N\right)$, where $c>1$ is some constant, will have it's run-time growing c-times with every additional data element, i.e. exponentially. 
 
-% \noindent
-Calculating the log-likelihood of the tree involves:
+With those basic ideas described we can now come back to the original problem of calculating the likelihood of a sequence evolution on a fixed tree.
+From subsections \ref{sub:exponentiation} and \ref{sub:likelihood} we already know the steps involved:
 
+% I skipped site rate variability, but perhaps it should be mentioned? 
 \begin{enumerate}
 \item { Singular value decomposition of the rate matrix $\mathbf{Q}$. }
 \item { Taking the exponential of $\mathbf{Q}t$ for each branch length $t$. }
@@ -760,37 +854,125 @@ Step (3) takes ${\cal{O}}(K^2 \times n \times l)$ time and is the most computati
 Step (4) proceeds at ${\cal{O}}(l)$, linearly with the number of sites.
 Fortunately these operations are very regular and lend themselves to the computational parallelism, such as utilized in the BEAGLE library \citep{Suchard2009,Ayres2012}.
 
-% I skipped site rate variability, but perhaps it should be mentioned? 
+% TODO: maybe sub-section on GPUs here
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-%%%
 \section{Bayesian inference}
+
+\subsection{Bayesian evolutionary analysis}
+
+The Bayesian approach to statistical inference combines the prior information with the data to generate the posterior distribution of the parameters of interest.
+All other post-hoc inference is based on the generated posterior distribution of the parameters.
+Bayesian methodology has recently gained immense popularity, due to the advances in numerical algorithms and the easy, cheap and wide-spread access to powerfull computational hardware.
+Development of statistical programs for simulation from Bayesian hierarchical models like OpenBUGS \citep{Lunn2009} and JAGS \citep{Plummer2003} has also helped to bolster the popularity of the methods.
+
+In the field of phylogenetics Bayesian inference has been applied to some of the most complex problems and is now widely adopted, with the term \emph{Bayesian evolutionary analysis} used to describe the molecular evolutionary analysis set in the Bayesian framework.
+At the fore-front of these advancement lies the wide adoption of popular Bayesian evolutionary analysis software like MrBayes \citep{Ronquist2012} and BEAST \citep{Drummond2012}.
 
 \subsection{Bayes theorem}
 
+Just like before in subsection \ref{sub:likelihood} we will denote the tree topology, the branch lengths and the parameters of the substitution model, that we aim at inferring, by $\theta$.
+The central concept of Bayesian inference is that this parameter has a distribution of it's own.
+Before the molecular data $\mathbf{X}$ is observed we assume $\theta$ has a prior distribution $P(\theta)$.
+The prior reflects the prior beliefs about the shape and value of the parameter.
+
+The prior choice is perhaps one of the most controversial points of the Bayesian inference.
+The parameters in the model may come from the preceding analysis of the other sets of data, or they may come form some set of biologically plausible values.
+Yet in some cases there may be no suitable subjective prior to be used, which leads to the so called \emph{vague} priors, with large variance.
+All of these prior choices lead to proper posterior distribution, yet some controversies in their choice may still arise.
+% TODO: discuss hyperpriors?
+The prior information is then combined with the likelihood of the data $P\left(\mathbf{\theta}|\mathbf{X}\right)$ to form the posterior, via the Bayes theorem.
+The posterior distribution of $\theta$ is then:
+
+\begin{equation}
+P\left(\mathbf{\theta}|\mathbf{X}\right)=\frac{P(\theta)\cdot P\left(\mathbf{X}|\theta\right)}{P\left(\mathbf{X}\right)}=\frac{P(\theta)\cdot P\left(\mathbf{X}|\theta\right)}{\int P(\theta)\cdot P\left(\mathbf{X}|\theta\right)d\theta}\approx P(\theta)\cdot P\left(\mathbf{X}|\theta\right),
+\label{eq:bayesian1}
+\end{equation}
+
+\noindent
+where the marginal probability of the data $P\left(\mathbf{X}\right)$ is a normalizing constant that makes the posterior $P\left(\mathbf{\theta}|\mathbf{X}\right)$ integrate to one.
+The last approximation in Equation \ref{eq:bayesian1} means that the posterior is proportional to the prior times the likelihood.
+
+%---LIKELIHOOD---%
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=0.5]{bayes} 
+\end{center}
+\caption{{ \footnotesize {\bf Beta prior and posterior densities plotted with a scaled likelihood resulting from a binomial model.} 
+}}
+\label{fig:bayes1}
+\end{figure}
+
+% TODO: better illustration, perhaps distances under some model of evolution?
+As a simple illustration of the concept of Bayesian analysis let us consider a toy example where two sequences are compared and $x=20$ differences are found out of $N=1000$ sites compared.
+Suppose that the parameter $\theta$ we want to infer is the proportion of sites which differ between the two sequences.
+Assuming that the sites are independent we can use a binomial model and we put a beta prior with parameters $\alpha=2$, $\beta=100$ on the unknown proportion $\theta$.
+Figure \ref{fig:bayes1} shows the resulting posterior distribution along with prior and scaled likelihood.
+
+% nuisance parameters?
+Bayesian inference provides also a natural way of delaying with nuisance parameter.
+Suppose that $\Theta=\left(\theta,\mathbf{F}\right)$ is now a two dimensional vector of parameters, with $\theta$ being the parameter of interest, while 
+$\mathbf{F}$ (e.g. a tree topology) is the nuisance parameter.
+Joint posterior distribution of $\Theta$ is now:
+
+\begin{equation}
+P\left(\Theta|\mathbf{X}\right)=P\left(\theta,\mathbf{F}|\mathbf{X}\right)=\frac{P\left(\theta,\mathbf{F}\right)\cdot P\left(\mathbf{X}|\theta,\mathbf{F}\right)}{P\left(\mathbf{X}\right)}=\frac{P\left(\theta,\mathbf{F}\right)\cdot P\left(\mathbf{X}|\theta,\mathbf{F}\right)}{\int\int P(\theta,\mathbf{F})\cdot P\left(\mathbf{X}|\theta,\mathbf{F}\right)d\theta d\mathbf{F}}
+\label{eq:bayesian2}
+\end{equation}
+
+\noindent
+and the marginal posterior density of $\theta$ can be obtained from \ref{eq:bayesian2} as:
+
+\begin{equation}
+P\left(\theta|\mathbf{X}\right)=\int P\left(\mathbf{\theta},\mathbf{F}|\mathbf{X}\right)d\mathbf{F}
+\label{eq:bayesian3}
+\end{equation}
+
+
 \subsection{Marcov Chain Monte Carlo}
+
+For every but the most trivial problems involving conjugate priors, like our previous example, 
+the main problem of Bayesian inference lies in the calculation of the integral in Equation \ref{eq:bayesian1}.
+This integral leads to the marginal probability of the data $P\left(\mathbf{X}\right)$. 
+For even the simplest phylogenetic problems, one has to integrate over all possible tree topologies, all of the branch lengths in those trees and all of the substitution parameters in the applied model.
+Such highly-dimensional integrals are impossible to calculate analytically.
+This is where the Marcov Chain Monte Carlo (MCMC) algorithms show their strength and provide a powerful method of sampling from the posterior distributions without evaluating the marginal probability.
+
+Metropolis %-Hasting 
+algorithm, as proposed by \citet{Metropolis1953}, is an MCMC algorithms for sampling from multi-dimensional distributions.
+
+% metropolisHastings <- function(loglikelihood, prior, proposal, startvalue, data, Nsim) {
+% chain = array(dim = c(Nsim, 1))
+% chain[1, ] = startvalue
+% for (t in 1 : (Nsim - 1)) {
+% candidate = proposal(chain[t, ])
+% probab = exp( loglikelihood(candidate, data) + prior(candidate, chain[t, ]) - loglikelihood(chain[t, ], data) -
+% prior(chain[t, ], candidate) )
+% if (runif(1) < probab) {
+% chain[t + 1, ] = candidate
+% } else {
+% chain[t + 1, ] = chain[t, ]
+% }#END: accept check
+% }#END: iterations loop
+% return(chain)
+% }
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+%plots of gibbs sampler path etc
 
 %%%
 \section{Bayesian phylogeography}
