@@ -12,6 +12,58 @@ require(grid)
 #---SCRAPBOOK---#
 #################
 
+
+JC69 <- function (lambda, t) {
+  
+  p0 = 1/4 + 3/4 * exp(-4*lambda*t)
+  p1 = 1/4 - 1/4 * exp(-4*lambda*t)
+  
+  trans_prob = matrix(c(p0, p1, p1, p1,
+                        p1, p0, p1, p1,
+                        p1, p1, p0, p1,
+                        p1, p1, p1, p0
+  ), nrow = 4, ncol = 4, byrow = T)
+  
+  colnames(trans_prob) <- rownames(trans_prob) <- c("T", "C", "A", "G")
+  
+  return(trans_prob)
+}
+
+
+
+N <- 100
+meanWaitTime <- 3
+times = rexp(N, rate = 1 / meanWaitTime)
+
+lambda = 2
+states = array("", c(N, 1))
+states[1] = "T"
+
+for (i in 2 : N) {
+  time = times[i]
+  states[i] = sample(c("T", "C", "A", "G"), size = 1, prob = JC69(lambda, time)[state[i - 1], ])
+}
+
+
+fx <- function(x, delta) {
+  return( delta * dnorm(x, 7, 0.5^2) + (1 - delta) * dnorm(x, 10, 0.5^2) )
+}
+
+rf <- function(n, delta) {
+  u = I(runif(n) < delta)
+  y = u * rnorm(n, 7, 0.5) + (1 - u) *
+    rnorm(n, 10, 0.5)
+  
+  return(y)
+}
+
+N = 200
+delta = 0.7
+xs = rf(N, delta)
+hist(xs, freq = FALSE, ylim = c(0, 1) )
+xgrid <- seq(0, 11, 0.001) 
+lines(xgrid, fx(xgrid, delta = .7), col = "red")
+
 A = matrix(c(1,2,3,4), nrow = 2, ncol = 2)
 
 I = matrix(c(1,0,0,1), nrow = 2, ncol = 2)
@@ -377,6 +429,78 @@ p <- p + scale_fill_discrete("")
 p <- p + theme_set(theme)
 p <- p + ylab("") + xlab(expression(""*theta*""))
 print(p)
+
+
+#################
+#---SCRAPBOOK---#
+#################
+# estimate sequence distance theta under the JC69 model
+
+data = data.frame(x = 10, n = 100)
+
+loglikelihood <- function(theta, data) {
+  x = data$x
+  n = data$n
+  p = (3/4) * (1 - exp( -(4/3) * theta ))
+  like = dbinom(x, size = n, prob = p)
+  
+  return(log(like))
+}
+
+prior <- function(x) {
+  return(log(dexp(x, rate = 10)))
+}
+
+proposal <- function(xt) {
+  
+  window = 0.1
+  
+  d.cand = runif(1, min = xt - window, max = xt + window)
+  d.cand = ifelse((d.cand >= 0) & (d.cand <= 1), d.cand, 
+                  ifelse(d.cand < 0, 1 + d.cand, 
+                         ifelse(d.cand > 1,  d.cand - 1, cat("error"))))
+  return(d.cand)
+}
+
+
+metropolisHastings <- function(loglikelihood, prior, proposal, startvalue, data, Nsim) {
+  
+  chain = array(dim = c(Nsim, 1))
+  chain[1, ] = startvalue
+  for (t in 1 : (Nsim - 1)) {
+    
+    candidate = proposal(chain[t, ])
+    probab = exp( loglikelihood(candidate, data) + prior(chain[t, ]) - loglikelihood(chain[t, ], data) -
+                    prior(candidate) )
+    
+    if (runif(1) < probab) {
+      chain[t + 1, ] = candidate
+    } else {
+      chain[t + 1, ] = chain[t, ]
+    }#END: accept check
+    
+  }#END: iterations loop
+  
+  return(chain)
+}
+
+
+
+Nsim = 500
+startvalue = runif(1, min = 0, max = 1)
+
+chain = metropolisHastings(loglikelihood, prior, proposal, startvalue, data, Nsim)
+
+thetaHat = -(3/4) * log(1 - (4 / 3) * (data$x / data$n))
+
+par(mfrow = c(2, 1))
+plot(1 : Nsim, chain, "l", xlab = "")
+abline(h = thetaHat, col = "red")
+hist(chain, freq = FALSE, main = paste("acceptance rate:", round(length(unique(chain))/Nsim, 2), "\n",
+                                       "sample mean: ", round(mean(chain), 2), sep = " "))
+lines(density(chain), col = "red")
+par(mfrow = c(1, 1))
+
 
 
 

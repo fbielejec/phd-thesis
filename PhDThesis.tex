@@ -534,7 +534,8 @@ This condition is assumed for strictly computational reasons, i.e. time-reversib
 Subsection \ref{seq:exponentiation} is a strategy frequently employed in phylogenetic software to compute the exponentials of rate matrices.
 Time reversibility also simplifies the computation of the likelihood on a tree, since it is then indifferent to the position of the root, which we will discuss in Subsection \ref{sub:likelihood}.
 
-%TODO: GTR as example? see M USYB 4
+%TODO: JK69 as example
+% \subsection{Example: JK69 substitution model}
 
 \subsection{Phylogenetic tree}
 
@@ -892,22 +893,6 @@ P\left(\mathbf{\theta}|\mathbf{X}\right)=\frac{P(\theta)\cdot P\left(\mathbf{X}|
 where the marginal probability of the data $P\left(\mathbf{X}\right)$ is a normalizing constant that makes the posterior $P\left(\mathbf{\theta}|\mathbf{X}\right)$ integrate to one.
 The last approximation in Equation \ref{eq:bayesian1} means that the posterior is proportional to the prior times the likelihood.
 
-%---LIKELIHOOD---%
-\begin{figure}[h]
-\begin{center}
-\includegraphics[scale=0.5]{bayes} 
-\end{center}
-\caption{{ \footnotesize {\bf Beta prior and posterior densities plotted with a scaled likelihood resulting from a binomial model.} 
-}}
-\label{fig:bayes1}
-\end{figure}
-
-% TODO: better illustration, perhaps distances under some model of evolution?
-As a simple illustration of the concept of Bayesian analysis let us consider a toy example where two sequences are compared and $x=20$ differences are found out of $N=1000$ sites compared.
-Suppose that the parameter $\theta$ we want to infer is the proportion of sites which differ between the two sequences.
-Assuming that the sites are independent we can use a binomial model and we put a beta prior with parameters $\alpha=2$, $\beta=100$ on the unknown proportion $\theta$.
-Figure \ref{fig:bayes1} shows the resulting posterior distribution along with prior and scaled likelihood.
-
 % nuisance parameters?
 Bayesian inference provides also a natural way of delaying with nuisance parameter.
 Suppose that $\Theta=\left(\theta,\mathbf{F}\right)$ is now a two dimensional vector of parameters, with $\theta$ being the parameter of interest, while 
@@ -928,6 +913,25 @@ P\left(\theta|\mathbf{X}\right)=\int P\left(\mathbf{\theta},\mathbf{F}|\mathbf{X
 \end{equation}
 
 
+% TODO: better illustration, perhaps distances under some model of evolution?
+\subsection{Example}
+
+As a simple illustration of the concept of Bayesian analysis let us consider a toy example where two sequences are compared and $x=20$ differences are found out of $N=1000$ sites compared.
+Suppose that the parameter $\theta$ we want to infer is the proportion of sites which differ between the two sequences.
+Assuming that the sites are independent we can use a binomial model and we put a beta prior with parameters $\alpha=2$, $\beta=100$ on the unknown proportion $\theta$.
+
+%---LIKELIHOOD---%
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=0.5]{bayes} 
+\end{center}
+\caption{{ \footnotesize {\bf Beta prior and posterior densities plotted with a scaled likelihood resulting from a binomial model.} 
+}}
+\label{fig:bayes1}
+\end{figure}
+
+Figure \ref{fig:bayes1} shows the resulting posterior distribution along with prior and scaled likelihood.
+
 \subsection{Marcov Chain Monte Carlo}
 
 For every but the most trivial problems involving conjugate priors, like our previous example, 
@@ -940,23 +944,50 @@ This is where the Marcov Chain Monte Carlo (MCMC) algorithms show their strength
 Metropolis %-Hasting 
 algorithm, as proposed by \citet{Metropolis1953}, is an MCMC algorithms for sampling from multi-dimensional distributions.
 
-% metropolisHastings <- function(loglikelihood, prior, proposal, startvalue, data, Nsim) {
-% chain = array(dim = c(Nsim, 1))
-% chain[1, ] = startvalue
-% for (t in 1 : (Nsim - 1)) {
-% candidate = proposal(chain[t, ])
-% probab = exp( loglikelihood(candidate, data) + prior(candidate, chain[t, ]) - loglikelihood(chain[t, ], data) -
-% prior(chain[t, ], candidate) )
-% if (runif(1) < probab) {
-% chain[t + 1, ] = candidate
-% } else {
-% chain[t + 1, ] = chain[t, ]
-% }#END: accept check
-% }#END: iterations loop
-% return(chain)
-% }
 
 
+% Common choice is to sample from a continuous uniform distribution centered around the current state of the chain: 
+% $$\theta^{*}\sim U\left[\theta[t]-\omega,\theta[t]+\omega\right],$$
+% where $\omega$ is the arbitrary window size.
+
+
+\begin{algorithm}
+\begin{center}
+\begin{algorithmic}[1]
+\footnotesize{
+%
+\State Pick a starting value of the chain $\theta \left[ t \right]$ for $t=0$.
+%
+\For{int $\left(t=0; \; t<\text{chain length}; \; t++\right)$}
+%
+\State Generate a candidate state from the proposal distribution (kernel):
+$$\theta^{*} \sim q(\theta[t])$$
+%
+\State Calculate the acceptance ratio:
+$$r=\frac{prior\left(\theta^{*}\right)}{prior\left(\theta\left[t\right]\right)}\cdot\frac{Likelihood\left(\mathbf{X}|\theta^{*}\right)}{Likelihood\left(\mathbf{X}|\theta\left[t\right]\right)}.$$
+%
+\State Sample $u\sim U[0,1]$.
+%
+\If{$\left( u < r \right)$}
+%
+\State Set $\theta[t+1]=\theta^*.$
+%
+\Else 
+%
+\State Set $\theta[t+1]=\theta[t].$
+%
+\EndIf
+%
+\EndFor
+}
+\end{algorithmic}
+\end{center}
+\caption{{ \footnotesize {\bf AAA} 
+}}
+\end{algorithm}
+
+% TODO: better title
+\subsection{Example}
 
 
 
