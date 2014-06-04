@@ -383,11 +383,12 @@ p <- p + facet_wrap( ~ label, ncol = 2, scales = "fixed")
 p <- p + xlab("Time")
 print(p)
 
-#
-
+#######################################
+#---POSTERIOR PRIOR LIKELIHOOD PLOT---#
+#######################################
 PriorLikePost <- function(N, x, a, b, length.out = 1000) {
   
-  theta      = seq(0, 0.1, length.out = length.out)
+  theta      = seq(0, .25, length.out = length.out)
   prior      = dbeta(theta, a, b)
   likelihood = dbinom(rep(x, length.out), N, theta)
   posterior  = dbeta(theta, a + x, N - x + b)
@@ -407,7 +408,7 @@ PriorLikePost <- function(N, x, a, b, length.out = 1000) {
 }
 
 # x successes in N trials modelled with binomial model and beta prior on probability of success
-data <- PriorLikePost(N = 1000, x = 20, a = 2, b = 100 )
+data <- PriorLikePost(N = 100, x = 10, a = 2, b = 100 )
 melt_data <- melt(data, id.vars = "theta")
 
 p <- ggplot(melt_data) 
@@ -425,43 +426,48 @@ theme <- theme_update(
   panel.grid.minor = element_blank()
 )
 
-p <- p + scale_fill_discrete("")
 p <- p + theme_set(theme)
+p <- p + scale_fill_discrete("")
 p <- p + ylab("") + xlab(expression(""*theta*""))
 print(p)
 
 
-#################
-#---SCRAPBOOK---#
-#################
+##############################
+#---METROPOLIS SAMPLE PLOT---#
+##############################
 # estimate sequence distance theta under the JC69 model
-
 data = data.frame(x = 10, n = 100)
 
 loglikelihood <- function(theta, data) {
   x = data$x
   n = data$n
+  # probability from JC69 model
   p = (3/4) * (1 - exp( -(4/3) * theta ))
   like = dbinom(x, size = n, prob = p)
-  
+
   return(log(like))
 }
 
 prior <- function(x) {
-  return(log(dexp(x, rate = 10)))
+  mean = 0.1
+  return(log(dexp(x, rate = 1 / mean)))
 }
 
 proposal <- function(xt) {
   
   window = 0.1
   
-  d.cand = runif(1, min = xt - window, max = xt + window)
-  d.cand = ifelse((d.cand >= 0) & (d.cand <= 1), d.cand, 
-                  ifelse(d.cand < 0, 1 + d.cand, 
-                         ifelse(d.cand > 1,  d.cand - 1, cat("error"))))
-  return(d.cand)
+  r.cand = runif(1, min = xt - window, max = xt + window)
+  r.cand = ifelse((r.cand >= 0) & (r.cand <= 1), r.cand, 
+                  ifelse(r.cand < 0, 1 + r.cand, 
+                         ifelse(r.cand > 1,  r.cand - 1, cat("error"))))
+  
+  # they will be the same, proposal is symmetrical
+  d.cand = dunif(r.cand, min = xt - window, max = xt + window)
+  d.curr = dunif(xt, min = xt - window, max = xt + window)
+  
+  return(list(r.cand = r.cand, d.cand = d.cand, d.curr = d.curr))
 }
-
 
 metropolisHastings <- function(loglikelihood, prior, proposal, startvalue, data, Nsim) {
   
@@ -470,11 +476,16 @@ metropolisHastings <- function(loglikelihood, prior, proposal, startvalue, data,
   for (t in 1 : (Nsim - 1)) {
     
     candidate = proposal(chain[t, ])
-    probab = exp( loglikelihood(candidate, data) + prior(chain[t, ]) - loglikelihood(chain[t, ], data) -
-                    prior(candidate) )
+    r.candidate = candidate$r.cand
+    d.candidate = candidate$d.cand
+    d.curr = candidate$d.curr
+    
+    probab = exp( ( loglikelihood(r.candidate, data) + prior(r.candidate) + log(d.candidate) ) - 
+                    ( loglikelihood(chain[t, ], data) + prior(chain[t, ]) + log(d.curr) )
+    )
     
     if (runif(1) < probab) {
-      chain[t + 1, ] = candidate
+      chain[t + 1, ] = r.candidate
     } else {
       chain[t + 1, ] = chain[t, ]
     }#END: accept check
@@ -484,24 +495,50 @@ metropolisHastings <- function(loglikelihood, prior, proposal, startvalue, data,
   return(chain)
 }
 
-
-
-Nsim = 500
+Nsim = 10^3
 startvalue = runif(1, min = 0, max = 1)
-
 chain = metropolisHastings(loglikelihood, prior, proposal, startvalue, data, Nsim)
 
-thetaHat = -(3/4) * log(1 - (4 / 3) * (data$x / data$n))
+#---PLOT---#
+thetaHat = -(3/4) * log(1 - (4/3) * (data$x/data$n))
+plotData <- data.frame(iteration = c(1 : length(chain)), value = chain)
 
-par(mfrow = c(2, 1))
-plot(1 : Nsim, chain, "l", xlab = "")
-abline(h = thetaHat, col = "red")
-hist(chain, freq = FALSE, main = paste("acceptance rate:", round(length(unique(chain))/Nsim, 2), "\n",
-                                       "sample mean: ", round(mean(chain), 2), sep = " "))
-lines(density(chain), col = "red")
-par(mfrow = c(1, 1))
+thetaHat
+mean(chain)
 
+theme2 <- theme(
+  axis.title = element_text(colour = "black"),
+  axis.text = element_text(colour = "black"),
+  axis.line = element_line(colour = "black"),
+  axis.ticks = element_line(colour = "black"),
+  panel.background = element_rect(size = 1, fill = "white", colour = NA),
+  plot.background = element_rect(colour = NA),
+  panel.border = element_blank(),
+  panel.grid.major = element_blank(),
+  panel.grid.minor = element_blank()
+)
 
+labels <- paste("acceptance rate:", round(length(unique(chain))/Nsim, 2), "\n",
+                "sample mean: ", round(mean(chain), 2), sep = " ")
 
+grid.newpage()
+pushViewport(viewport(layout = grid.layout(2, 1)))
+vplayout <- function(x, y){
+  viewport(layout.pos.row = x, layout.pos.col = y)
+}
 
+p <- ggplot(plotData)
+p <- p + geom_line(aes(x = iteration, y = value))    
+p <- p + geom_hline(aes(yintercept = thetaHat), color = "red")
+p <- p + xlab("") + ylab("Chain state")
+p <- p + theme2
+print(p, vp = vplayout(1, 1))
+
+p <- ggplot(plotData)
+p <- p + geom_histogram(aes(x = value, y = ..density..), binwidth = 0.01 )    
+p <- p + geom_density(aes(x = value), color = "red", alpha = 0.2)
+p <- p + xlab("") + ylab("Density")
+p <- p + ggtitle(labels)
+p <- p + theme2
+print(p, vp = vplayout(2, 1))
 

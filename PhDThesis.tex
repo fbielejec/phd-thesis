@@ -108,7 +108,9 @@
 %%%%%%%%%%%%%%%%%%
 %---TITLE PAGE---%
 %%%%%%%%%%%%%%%%%%
-\title{Continous time Markov chain models in phylogenetics and phylogeography; model extension, simulation and visualisation}
+\title{Continous time Markov chain models; \\
+% in phylogenetics and phylogeography; model 
+extension, simulation and visualisation}
 
 \author{Filip Bielejec}
 
@@ -710,7 +712,6 @@ l(X)=\underset{j=1}{\overset{l}{\sum}}log\left(L(\mathbf{x}_{jh})\right)
 \end{equation}
 
 \subsection{Computational burden of the likelihood computation}
-% https://class.coursera.org/algo-004/lecture/11
 
 We have already mentioned that the run-time of phylogenetic analysis is the caveat that hampers the development and application on novel, biologically plausible methods in the field.
 These limits are being actively stretched, mostly by porting the computationally expensive parts to high-performance parallel devices such as Graphics-Processing Units (GPUs, \cite{Nickolls2008}).
@@ -916,12 +917,12 @@ P\left(\theta|\mathbf{X}\right)=\int P\left(\mathbf{\theta},\mathbf{F}|\mathbf{X
 % TODO: better illustration, perhaps distances under some model of evolution?
 \subsection{Example}
 
-As a simple illustration of the concept of Bayesian analysis let us consider a toy example where two sequences are compared and $x=20$ differences are found out of $N=1000$ sites compared.
+As a simple illustration of the concept of Bayesian analysis let us consider a toy example where two sequences are compared and $x=10$ differences are found out of $N=100$ sites compared.
 Suppose that the parameter $\theta$ we want to infer is the proportion of sites which differ between the two sequences.
 Assuming that the sites are independent we can use a binomial model and we put a beta prior with parameters $\alpha=2$, $\beta=100$ on the unknown proportion $\theta$.
 
 %---LIKELIHOOD---%
-\begin{figure}[h]
+\begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.5]{bayes} 
 \end{center}
@@ -931,25 +932,33 @@ Assuming that the sites are independent we can use a binomial model and we put a
 \end{figure}
 
 Figure \ref{fig:bayes1} shows the resulting posterior distribution along with prior and scaled likelihood.
+In this case we used a fact that the beta distribution is a so called \emph{conjugate prior} for the binomial model, resulting in the posterior which is also beta-distributed and can be calculated analytically.
+%TODO: proof in appendix?
 
 \subsection{Marcov Chain Monte Carlo}
 
-For every but the most trivial problems involving conjugate priors, like our previous example, 
-the main problem of Bayesian inference lies in the calculation of the integral in Equation \ref{eq:bayesian1}.
+For every but the most trivial problems involving conjugate priors, like our previous example, the main problem of Bayesian inference lies in the calculation of the integral in Equation \ref{eq:bayesian1}.
 This integral leads to the marginal probability of the data $P\left(\mathbf{X}\right)$. 
 For even the simplest phylogenetic problems, one has to integrate over all possible tree topologies, all of the branch lengths in those trees and all of the substitution parameters in the applied model.
 Such highly-dimensional integrals are impossible to calculate analytically.
 This is where the Marcov Chain Monte Carlo (MCMC) algorithms show their strength and provide a powerful method of sampling from the posterior distributions without evaluating the marginal probability.
 
-Metropolis %-Hasting 
+%TODO: word for word, description
+Metropolis-Hasting 
 algorithm, as proposed by \citet{Metropolis1953}, is an MCMC algorithms for sampling from multi-dimensional distributions.
+It proceeds by constructing a Markov chain with its states being the values of the parameter of interest $\theta$ and whose equilibrium distribution is the posterior $P\left(\theta|\mathbf{X}\right)$ as defined in Equation \ref{eq:bayesian1}.
+After choosing an arbitrary starting state for the chain new candidate states $\theta^{*}$ are generated from the proposal density $q(\theta^{*} | \theta[t])$ also called the kernel.
 
+Common choice is to sample from a continuous uniform distribution centered around the current state of the chain, the so called jumping kernel: 
 
+$$\theta^{*}\sim U\left[\theta[t]-\omega,\theta[t]+\omega\right],$$
 
-% Common choice is to sample from a continuous uniform distribution centered around the current state of the chain: 
-% $$\theta^{*}\sim U\left[\theta[t]-\omega,\theta[t]+\omega\right],$$
-% where $\omega$ is the arbitrary window size.
-
+\noindent
+where $\omega$ is the arbitrary window size.
+The chain then moves to the proposed value with probability defined by the acceptance ratio (see Equation \ref{eq:metropolis1}).
+If the proposal is rejected the chains remains at it's current state and the routine iterates between accept/reject steps a specified number of times.
+Both acceptance and rejection are counted as iterations od the algorithm, in fact the rejections ensure that the probabilistic properties of the target distribution are well represented in the generated sample.  
+Listing in Algorithm \ref{alg:metropolisHastings} presents the details of the Metropolis-Hastings.
 
 \begin{algorithm}
 \begin{center}
@@ -964,7 +973,7 @@ algorithm, as proposed by \citet{Metropolis1953}, is an MCMC algorithms for samp
 $$\theta^{*} \sim q(\theta[t])$$
 %
 \State Calculate the acceptance ratio:
-$$r=\frac{prior\left(\theta^{*}\right)}{prior\left(\theta\left[t\right]\right)}\cdot\frac{Likelihood\left(\mathbf{X}|\theta^{*}\right)}{Likelihood\left(\mathbf{X}|\theta\left[t\right]\right)}.$$
+$$r=\frac{prior\left(\theta^{*}\right)}{prior\left(\theta\left[t\right]\right)}\cdot\frac{Likelihood\left(\mathbf{X}|\theta^{*}\right)}{Likelihood\left(\mathbf{X}|\theta\left[t\right]\right)}\cdot\frac{q\left(\theta\left[t\right]|\theta^{*}\right)}{q\left(\theta^{*}|\theta\left[t\right]\right)}.$$
 %
 \State Sample $u\sim U[0,1]$.
 %
@@ -982,15 +991,42 @@ $$r=\frac{prior\left(\theta^{*}\right)}{prior\left(\theta\left[t\right]\right)}\
 }
 \end{algorithmic}
 \end{center}
-\caption{{ \footnotesize {\bf AAA} 
+\caption{{ \footnotesize {\bf Metropolis-Hastings algorithm} 
 }}
+\label{alg:metropolisHastings}
 \end{algorithm}
+
+We need to note several important features of the algorithm.
+The most important part of the algorithm is the proposal density. 
+Given the current state it proposes the next state independent of the past states.
+We can recall that this is the Markov property, in fact the output of the algorithm generates a Markov chain (hence the name).
+Metropolis-Hastings algorithm allows for the use of asymetrical proposal densities such that $q\left(\theta\left[t\right]|\theta^{*}\right)\neq q\left(\theta^{*}|\theta\left[t\right]\right)$.
+The acceptance probability is simply the ratio of the target posterior evaluated at the proposal and at the current state of the chain, times the ratio of the proposal: 
+% prior ratio times the likelihood ratio times the proposal ratio: 
+
+\begin{equation}
+\frac{P\left(\theta^{*}|\mathbf{X}\right)\cdot q\left(\theta\left[t\right]|\theta^{*}\right)}{P\left(\theta\left[t\right]|\mathbf{X}\right)\cdot q\left(\theta\left[t\right]|\theta^{*}\right)}=\frac{P(\theta^{*})\cdot P\left(\mathbf{X}|\theta^{*}\right)\cdot q\left(\theta\left[t\right]|\theta^{*}\right)}{P(\theta\left[t\right])\cdot P\left(\mathbf{X}|\theta\left[t\right]\right)\cdot q\left(\theta^{*}|\theta\left[t\right]\right)}.
+\label{eq:metropolis1}
+\end{equation}
+
+Note that the integral in (\ref{eq:bayesian1}) which is notoriously hard to compute cancels out in (\ref{eq:metropolis1}).
+Thus to estimate the posterior $P\left(\mathbf{\theta}|\mathbf{X}\right)$ one only needs to run the algorithm for a sufficiently long time to let the chain reach it's equilibrium, which is precisely the target posterior.
+
 
 % TODO: better title
 \subsection{Example}
 
+%TODO: explain probabilities
 
-
+%---METROPOLIS PATH---%
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.5]{metropolis} 
+\end{center}
+\caption{{ \footnotesize {\bf AAA.} 
+}}
+\label{fig:metropolis}
+\end{figure}
 
 
 
@@ -1002,8 +1038,6 @@ $$r=\frac{prior\left(\theta^{*}\right)}{prior\left(\theta\left[t\right]\right)}\
 
 
 
-
-%plots of gibbs sampler path etc
 
 %%%
 \section{Bayesian phylogeography}
