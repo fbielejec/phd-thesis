@@ -298,7 +298,7 @@ The particular sites of the alignment are then considered to be stochastically i
 As Figure \ref{fig:alignment} depicts not all of the differences can be observed, as due to multiple substitutions (multiple hits) some of the changes are silent.
 To accurately describe these processes one needs biologically plausible models of evolution that can grasp their complex nature. 
 
-\subsection{Poisson process}
+\subsection{Poisson process\label{sub:poisson}}
 
 Poisson process is an example of a continuous-time stochastic process frequently used to describe counts of independent rare events, occuring with some intensity (or rate) $r$, that remains constant over time. 
 Among the examples of such process we can mention requests for a single document on a web-server or goals scored in a football game \footnote{Unless it's Real - Barca, than the events are not so rare.}.
@@ -537,7 +537,11 @@ Subsection \ref{seq:exponentiation} is a strategy frequently employed in phyloge
 Time reversibility also simplifies the computation of the likelihood on a tree, since it is then indifferent to the position of the root, which we will discuss in Subsection \ref{sub:likelihood}.
 
 %TODO: JK69 as example
-% \subsection{Example: JK69 substitution model}
+\subsection{Example: Jukes and Cantor substitution model\label{sub:jc69}}
+
+\ref{Jukes1969}
+
+TODO
 
 \subsection{Phylogenetic tree}
 
@@ -1002,7 +1006,7 @@ Given the current state it proposes the next state independent of the past state
 We can recall that this is the Markov property, in fact the output of the algorithm generates a Markov chain (hence the name).
 Metropolis-Hastings algorithm allows for the use of asymetrical proposal densities such that $q\left(\theta\left[t\right]|\theta^{*}\right)\neq q\left(\theta^{*}|\theta\left[t\right]\right)$.
 The acceptance probability is simply the ratio of the target posterior evaluated at the proposal and at the current state of the chain, times the ratio of the proposal: 
-% prior ratio times the likelihood ratio times the proposal ratio: 
+% prior ratio times the likelihood ratio times the proposal ratio
 
 \begin{equation}
 \frac{P\left(\theta^{*}|\mathbf{X}\right)\cdot q\left(\theta\left[t\right]|\theta^{*}\right)}{P\left(\theta\left[t\right]|\mathbf{X}\right)\cdot q\left(\theta\left[t\right]|\theta^{*}\right)}=\frac{P(\theta^{*})\cdot P\left(\mathbf{X}|\theta^{*}\right)\cdot q\left(\theta\left[t\right]|\theta^{*}\right)}{P(\theta\left[t\right])\cdot P\left(\mathbf{X}|\theta\left[t\right]\right)\cdot q\left(\theta^{*}|\theta\left[t\right]\right)}.
@@ -1013,34 +1017,78 @@ Note that the integral in (\ref{eq:bayesian1}) which is notoriously hard to comp
 Thus to estimate the posterior $P\left(\mathbf{\theta}|\mathbf{X}\right)$ one only needs to run the algorithm for a sufficiently long time to let the chain reach it's equilibrium, which is precisely the target posterior.
 
 
-% TODO: better title
-\subsection{Example}
+% TODO: better title, show how to derive the probabilities (in JC69 chapter)
+\subsection{Example: Estimating genetic distance}
 
-%TODO: explain probabilities
+Let us revisit the toy example in which we compare two sequences and find $x=10$ differences among $n=100$ sites.
+This time however we will use MCMC to estimate the genetic distance between the two sequences using Jukes and Cantor model \ref{Jukes1969} of nucleotide substitution (see subsection \ref{sub:jc69}).
+Genetic distance is defined as the expected number of substitutions of nucleotide base pairs per site, which to match the convention form previous sections we will denote as $\theta=rt$, where $r$ is the substitution rate (see subsection \ref{sub:poisson}) and $t$ is the waiting time between the two sequences.
+The time and rate are typically confounded, therefore they are by convention estimated as a single parameter of interest $\theta$.
+From subsection \ref{sub:jc69} we know that under the JC69 model the probability the probability that a single site is different between two sequences separated by distance $\theta$ is given by:
+
+\begin{equation}
+p=\frac{3}{4}\left(1-e^{\left(-4/3\right)\theta}\right).
+\label{eq:distance1}
+\end{equation}
+
+\noindent
+From this we can model the likelihood of observing $x$ differences out of $n$ sites using the binomial model:
+
+\begin{equation}
+P\left(\mathbf{X}|\theta\right)=L\left(\mathbf{X}|\theta\right)=\left(\begin{array}{c}
+n\\
+k
+\end{array}\right)p^{x}(1-p)^{n-x},
+\label{eq:likelihood1}
+\end{equation}
+
+\noindent
+where $p$ is as defined by (\ref{eq:distance1}).
+We use an exponential prior on $\theta$ with mean $1/\lambda$:
+
+\begin{equation}
+P\left(\theta,\lambda\right)=\frac{1}{\lambda}e^{-(1/\lambda)\theta},
+\label{eq:expPrior}
+\end{equation}
+
+\noindent
+and set $\lambda=10$.
+For the proposal we choose a jumping kernel with a windows size of $w=0.1$.
 
 %---METROPOLIS PATH---%
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.5]{metropolis} 
 \end{center}
-\caption{{ \footnotesize {\bf AAA.} 
+\caption{{ \footnotesize {\bf MCMC output for estimating sequence disctance under JC69 model of nucleotide evolution..} 
 }}
 \label{fig:metropolis}
 \end{figure}
 
+Figure \ref{fig:metropolis} shows $1000$ iterations of the chain generated by Algorithm \ref{alg:metropolisHastings} in the upper row.
+The red line indicates the maximum likelihood estimate $\hat{\theta}$ of parameter $\theta$ which is calculated by setting $\frac{d\ell\left(\mathbf{X}|\theta\right)}{d\theta}=0$, where $l\left(\mathbf{X}|\theta\right)$ is the logarithm of likelihood defined by (\ref{eq:likelihood1}):
 
+\begin{equation}
+\hat{\theta}=\frac{3}{4}log\left(1-\frac{4}{3}\cdot\frac{x}{n}\right)
+\label{eq:mle}
+\end{equation}
 
+In the second row of Figure \ref{fig:metropolis} we can see an estimate of the posterior density, along with the sample mean.
+The acceptance rate is high, suggesting that almost as many steps are accepted as are rejected.
 
- 
-
-
-
-
-
-
-
-%%%
 \section{Bayesian phylogeography}
+
+
+
+
+
+
+
+
+
+
+
+
 
 %%%%%%%%%%%%%%%%%
 %---CHAPTER 1---%
