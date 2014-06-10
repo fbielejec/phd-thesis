@@ -425,7 +425,6 @@ Let us assume $\mathbf{Q}$ has $K$ linearly independent eigenvectors $\mathbf{v}
 \noindent
 This condition is sufficient for $\mathbf{Q}$ to be diagonizable, thus it's Jordan form is:
 
-% TODO: format
 \begin{equation}
 \mathbf{V}\times\mathbf{Q}\times\mathbf{V}^{-1}=\left[\begin{array}{cccc}
 \lambda_{1} & 0 & \cdots & 0\\
@@ -446,11 +445,9 @@ rt\mathbf{Q}=\mathbf{V}\times\text{diag}(rt\lambda_{1},\ldots,rt\lambda_{K})\tim
 \noindent Finally, using the power series definition of the transition probability matrix: 
 
 \begin{eqnarray}
-\mathbf{P}(t) & = & \exp\left(rt\mathbf{Q}\right) \\ \nonumber
-& = & \underset{k=0}{\overset{\infty}{\sum}}\left(rt\mathbf{Q}\right)^{k}/k! \\ \nonumber
-& = & \underset{k=0}{\overset{\infty}{\sum}}\left(\mathbf{V}\times\mathbf{D}\times\mathbf{V}^{-1}\right)^{k}/k! \\ \nonumber
-& = & \mathbf{V}\times\left(\underset{k=0}{\overset{\infty}{\sum}}\mathbf{D}^{k}/k!\right)\times\mathbf{V}^{-1} \\ \nonumber
-& = & \mathbf{V}\times\text{diag}(e^{rt\lambda_{1}},\ldots,e^{rt\lambda_{K}})\times\mathbf{V}^{-1} ,
+\mathbf{P}(t) & = & \exp\left(rt\mathbf{Q}\right)  =  \underset{k=0}{\overset{\infty}{\sum}}\left(rt\mathbf{Q}\right)^{k}/k! 
+ =  \underset{k=0}{\overset{\infty}{\sum}}\left(\mathbf{V}\times\mathbf{D}\times\mathbf{V}^{-1}\right)^{k}/k! \\ \nonumber
+& = & \mathbf{V}\times\left(\underset{k=0}{\overset{\infty}{\sum}}\mathbf{D}^{k}/k!\right)\times\mathbf{V}^{-1} = \mathbf{V}\times\text{diag}(e^{rt\lambda_{1}},\ldots,e^{rt\lambda_{K}})\times\mathbf{V}^{-1} ,
 \label{eq:eigen_decomposition}
 \end{eqnarray}
 
@@ -471,7 +468,6 @@ P\left\{ X(t_{n+1})=i_{n+1}\mid X(t_{n})=i_{n},\ldots, X(t_{0})=i_{0}\right\} =P
 
 The elements of $\mathbf{P}$ quantify the finite-time transition probabilities between the $K$ discrete state-space elements.
 We have described here a Continuous-time Markov chain (CTMC), that we will use to describe the substitution process at a single site of an alignment.
-% TODO: completely characterized by Q
 Every CTMC is completely characterized by its rate matrix $\mathbf{Q}$ and the stochastic matrix $\mathbf{P}(t),\ t\geq0$ is obtained via matrix exponentiation as decibed in Subsection \ref{seq:exponentiation}.
 
 %---SUBSTITUTION MODEL---%
@@ -542,8 +538,49 @@ Time reversibility also simplifies the computation of the likelihood on a tree, 
 
 In this subsection we will discuss the simplest model of nucleotide substitution, i.e. the JC69 model \citep{Jukes1969}.
 The JC69 model assumes that the instantaneous rates of change between every two nucleotides are the same.
+We also require that the rat ematrix $Q$ characterizing the model is a stochastic matrix (each row sums to 0).
+The infinitestimal rate matrix is thus given by:
 
+\begin{equation}
+\mathbf{Q}=\left[\begin{array}{cccc}
+-3r & r & r & r\\
+r & -3r & r & r\\
+r & r & -3r & r\\
+r & r & r & -3r.
+\end{array}\right]
+\label{eq:jc69}
+\end{equation}
 
+\noindent
+The finite-time transition probabilities matrix $\mathbf{P}(t)$ for time $t>0$ is calculated using matrix exponentiation  (see subsection \ref{sub:exponentiation}):
+
+\begin{equation}
+\mathbf{P}\left(t\right)=\left[\begin{array}{cccc}
+p_{0}(t) & p_{1}(t) & \cdots & p_{1}(t)\\
+p_{1}(t) & p_{0}(t) & \ddots & \vdots\\
+\vdots & \ddots & p_{0}(t) & p_{1}(t)\\
+p_{1}(t) & \cdots & p_{1}(t) & p_{0}(t)
+\end{array}\right],\text{ where }\ensuremath{\begin{cases}
+p_{0}(t)=\frac{1}{4}+\frac{3}{4}e^{-4rt}\\
+p_{1}(t)=\frac{1}{4}-\frac{1}{4}e^{-4rt}
+\end{cases}}.
+\label{eq:jc69Finite}
+\end{equation}
+
+\noindent
+There are few things worth mentioning about the Equation (\ref{eq:jc69Finite}).
+If we let $t\rightarrow \infty$ we can see that $\forall i,j\; p_{ij}(t)=1/4$, which means that the equilibrium distribution for the JC69 model is: 
+
+\begin{equation}
+\mathbf{\Pi}=\left\{ \pi_{T}=1/4,\pi_{C}=1/4,\pi_{A}=1/4,\pi_{G}=1/4\right\}
+\label{eq:jc69Steady}
+\end{equation}
+
+%TODO: confounded time & rate
+\noindent
+Second, the rate and time in (\ref{eq:jc69Finite}) occur as a product, which means that they are confounded.
+If we were to simulate two sequences, using Algorithm listed in (\ref{alg:simulation}) and starting the random number generators form the same seed, they will look the same for every $r$ and $t$ as long as their product $rt$ is the same.
+This means that typically any inference performed is focused on inferring the product parameter $\theta=rt$.
 
 
 
@@ -624,6 +661,7 @@ The state $j$ for the node $x_j$ is sampled conditional on the value $i$ already
 \caption{{ \footnotesize {\bf Fabrication evolution along a phylogeny.} 
 For a visited child node it's state is sampled with conditional probabilities of changing to state $j$ given state $i$ at the parental node.
 }}
+\label{alg:simulation}
 \end{algorithm}
 
 This constitutes the Markov property of a CTMC, as defined in (\ref{eq:markov}).
@@ -1029,8 +1067,10 @@ Thus to estimate the posterior $P\left(\mathbf{\theta}|\mathbf{X}\right)$ one on
 Let us revisit the toy example in which we compare two sequences and find $x=10$ differences among $n=100$ sites.
 This time however we will use MCMC to estimate the genetic distance between the two sequences using Jukes and Cantor model \ref{Jukes1969} of nucleotide substitution (see subsection \ref{sub:jc69}).
 Genetic distance is defined as the expected number of substitutions of nucleotide base pairs per site, which to match the convention form previous sections we will denote as $\theta=rt$, where $r$ is the substitution rate (see subsection \ref{sub:poisson}) and $t$ is the waiting time between the two sequences.
-The time and rate are typically confounded, therefore they are by convention estimated as a single parameter of interest $\theta$.
-From subsection \ref{sub:jc69} we know that under the JC69 model the probability the probability that a single site is different between two sequences separated by distance $\theta$ is given by:
+The time and rate are as we already mentioned typically confounded, therefore will be estimated as a single parameter of interest $\theta$.
+The probability that the any descending nucleotide in a sequence is different from the ancestral nucleotide can be obtained by summing over all possible paths, i.e. $p_{ij}(t)=\underset{k\neq i}{\sum}p_{ik}(t)$.
+
+From equation (\ref{eq:jc69Finite}) in subsection \ref{sub:jc69} we know that under the JC69 model those probabilities are equal, therefore the probability that a single site is different between two sequences separated by distance $\theta=rt$ is given by:
 
 \begin{equation}
 p=\frac{3}{4}\left(1-e^{\left(-4/3\right)\theta}\right).
