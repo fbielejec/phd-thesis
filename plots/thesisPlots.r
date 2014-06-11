@@ -542,3 +542,22 @@ p <- p + ggtitle(labels)
 p <- p + theme2
 print(p, vp = vplayout(2, 1))
 
+####################################
+#---BAYESIAN PHYLOGEOGRAPHY TREE---#
+####################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
