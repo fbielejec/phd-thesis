@@ -2,9 +2,7 @@
 
 \section{Introduction}
 
-
-
-
+First computationally trackable models of codon substitution were independently proposed by \cite{Muse1994} and \cite{Goldman1994} and published in the same issue of Molecular Biology and Evolution (MBE).
 
 
 
@@ -41,7 +39,49 @@
 
 
 \section{Methods}
+% TODO implement (14) from Huelsenbech 2007 ((6) Huelsenbeck 2005, (page 3) Heath 2011)
+We use Dirichlet process prior (DPP) to model branch specific codon parameters.
+We will use $\mathbf{z}$ to denote a vector of branch category assignments.
+Each branch receives a category $z_{i},\; i\in\left\{ 1,\ldots K\right\}$, where $K\in\left\{ 1,\ldots,2N-1\right\}$ denotes the a number of categories.
+We can thus view $\mathbf{z}=\left(z(1),\ldots,z(2N-1)\right)$ as a vector of mappings between branches and categories.
+ 
+As an example let us consider a fixed topology $\mathbf{F}$ with $N=2$ taxa and $K=2$ category classes.
+Then one possible realization of the vector of assignments would be:
 
+$$\mathbf{z}=\left(z(1)=1,\; z(2)=1,\; z(3)=2\right),$$
+ 
+\noindent
+meaning that branches one and two belong to the same category 1, and that the third branch belongs to the category 2.
+%TODO: plot
+
+Under our model both the number of categories $K$ and category assignments $z_{i}$ are random variables, controlled by a DPP with a concentration parameter $\gamma$ and a base distribution $B$.
+They are drawn from the probability distribution:
+
+\begin{equation}
+P(\mathbf{z},K|\gamma,2N-1)=\gamma^{K}\cdot\frac{\underset{k=1}{\overset{K}{\prod}}\left(\eta_{k}-1\right)!}{\underset{i=1}{\overset{2N-1}{\prod}}\left(\gamma+i-1\right)},
+\label{eq:dpp1} 
+\end{equation} 
+ 
+\noindent 
+where $\eta_{k}$ denotes the number of sites assigned to category $k$.
+
+By integrating (\ref{eq:dpp1}) over all possible branch assignments for $k$ categories we get the prior probability of having a given number of categories:
+
+\begin{equation}
+P(K|\gamma,2N-1)=\gamma^{K}\cdot\frac{S_{1}(2N-1,K)}{\underset{i=1}{\overset{2N-1}{\prod}}\left(\gamma+i-1\right)},
+\label{eq:dpp2} 
+\end{equation} 
+
+\noindent
+where $S_{1}(2N-1,K)$ is the Stirling number of the first kind. 
+
+% computing the number of ways to 
+% \begin{equation}
+% TODO: Stirling number of the first class
+% \label{eq:stirling} 
+% \end{equation} 
+
+Once all the branches are mapped to a category, the branch specific parameters $\theta_{k}\; k\in\left\{ 1,\ldots,K\right\}$ are drawn $K$ times from their respective parametric probability distribution $G$.
 
 
 \section{Results}
