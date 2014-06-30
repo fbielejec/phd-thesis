@@ -6,24 +6,43 @@ First computationally trackable models of codon substitution were independently 
 For codon models the non-stop codon triplet $n_{1}n_{2}n_{3}$ is considered as a smallest unit of evoluton.
 There are $4^3$ possible triplets minus three stop-codons, resulting in a state space size of $61$ codons.
 The standard assuption of independence is used, i.e. the substitutions at these three codon positions occur independently, thus only a single change per triplet can occur at a given time.
-
-
+There are several advantages in using codon models over nucleotide based substitution models.
+Not all DNA positions evolve at the same rate, with non-synonymous substitutions occuring more frequently the synonymous substitutions.
+Although this problem can be mitigated to some extent by using codon-positioned nucleotide substitution models, the fast evolving positions and the state space limited to 4 character alphabet leads to biased estimates of long evolutionary distances, as portrayed in the previous chapter (\ref{sub:deepRoot}).
 
 % differences between models
 % GY style models
+The model proposed by \cite{Goldman1994} is characterized by a substitution rate matrix with following entries:
+
+\begin{equation}
+q_{ij}^{GY94}=\begin{cases}
+\pi_{j} & \text{if \ensuremath{i\rightarrow j} is a synonymous transversion}\\
+\kappa\cdot\pi_{j} & \text{if \ensuremath{i\rightarrow j} is a synonymous transition}\\
+\omega\cdot\pi_{j} & \text{if \ensuremath{i\rightarrow j} is a non-synonymous transversion}\\
+\omega\cdot\kappa\cdot\pi_{j} & \text{if \ensuremath{i\rightarrow j} is a non-synonymous transversion}\\
+0 & \text{otherwise}
+\end{cases},
+\label{eq:gy94}
+\end{equation}
+
+\noindent
+where parameter $\kappa$ denotes the transition/transversion rate ratio, parameter $\omega$ denotes the non-synonymous/synonymous
+rate ratio and $\pi_j$ denotes the equilibrium frequency of codon triplet $j$.
+Parameter $\kappa$ and $\pi_j$ can be though of as controlling the CTMC process at the DNA level, while $\omega$ parameter characterizes the selection on non-synonymous substitutions.
+
+Different flavours of the GY94 model differ in the composition of the equilibrium codon frequency parameter $\pi_{j}$.
+One approach is to model the codon frequencies as each having the same long-time frequency of apperaring and such a model is reffered to as the F-equal.
+In the GY94-F$1\times4$ model, each codon position has 
+
+
+codon frequencies are expected from the four nucleotide frequencies, giving three free parameters, as they need to some to one.
+
+a separate set of nucleotide propensity parameters to each of the three codon positions.
 
 
 
-
-
-
-
-
-
-
-
-
-
+For the GY94-F$3\times4$ model frequencies are parametrized according to three sets of nucleotide frequencies for the three codon positions, resulting in nine free parameters.
+Finally in the GY94-F61 model every codon triplet has it's own frequncy parameter, with all parameters summing to one, resulting in 60 free parameter that need to be estimated.
 
 
 
@@ -46,7 +65,13 @@ The standard assuption of independence is used, i.e. the substitutions at these 
 
 
 \section{Methods}
-% TODO implement (14) from Huelsenbech 2007 ((6) Huelsenbeck 2005, (page 3) Heath 2011)
+
+% Dirichlet distribution
+
+% Dirichlet process
+% - different constructions
+
+
 We use Dirichlet process prior (DPP) to model branch specific codon parameters.
 We will use $\mathbf{z}$ to denote a vector of branch category assignments.
 Each branch receives a category $z_{i},\; i\in\left\{ 1,\ldots K\right\}$, where $K\in\left\{ 1,\ldots,2N-1\right\}$ denotes the a number of categories.
@@ -88,12 +113,13 @@ where $S_{1}(2N-1,K)$ is the Stirling number of the first kind.
 % \label{eq:stirling} 
 % \end{equation} 
 
+Special care needs to be taken when choosing the value of the concentration parameter $\gamma$ of the DPP. 
+Parameter $\gamma$ controls the 
+Small values will lead to a fewer, yet more populated categories, large values will result in more categories being occupied by less branches.
+%TODO: hierarchical prior on \gamma?
+
 Once all the branches are mapped to a category, the branch specific parameters $\theta_{k}\; k\in\left\{ 1,\ldots,K\right\}$ are drawn $K$ times from their respective parametric probability distribution $G$.
 
-% Dirichlet distribution
-
-% Dirichlet process
-% - different constructions
 
 \section{Results}
 
