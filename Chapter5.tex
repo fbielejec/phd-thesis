@@ -46,7 +46,7 @@ Finally in the GY94-F61 model every codon triplet has it's own frequncy paramete
 
 
 
-
+% #Suppose different branches different parameters -> fitt all different -> overparametrisation, computationally intensive -> DPP are better -> hyperpriors
 
 
 
@@ -66,60 +66,113 @@ Finally in the GY94-F61 model every codon triplet has it's own frequncy paramete
 
 \section{Methods}
 
-% Dirichlet distribution
-
-% Dirichlet process
-% - different constructions
-
-
 We use Dirichlet process prior (DPP) to model branch specific codon parameters.
-We will use $\mathbf{z}$ to denote a vector of branch category assignments.
-Each branch receives a category $z_{i},\; i\in\left\{ 1,\ldots K\right\}$, where $K\in\left\{ 1,\ldots,2N-1\right\}$ denotes the a number of categories.
-We can thus view $\mathbf{z}=\left(z(1),\ldots,z(2N-1)\right)$ as a vector of mappings between branches and categories.
- 
-As an example let us consider a fixed topology $\mathbf{F}$ with $N=2$ taxa and $K=2$ category classes.
-Then one possible realization of the vector of assignments would be:
+In real-world applications not every branch in the tree would display the same type of evolutonary behaviour, therefore it would be natural to expect some degree of clustering between them.
+Suppose one is interested in a branch-specific parameter $\theta_{i}\;i=1,\ldots,N$, where $N=2n-1$ is the number of branches in a tree with $n$ taxa. 
+This parameter might be multi-dimensional, yet for simplicity our notation will be limited to the univariate case.
+We expect \emph{a priori} that $K\ll N$, where $K$ denotes the number of unique clusters of branches.
+All of the branch-specific parameters have the same distribution $B$:
 
-$$\mathbf{z}=\left(z(1)=1,\; z(2)=1,\; z(3)=2\right),$$
- 
+\begin{equation}
+\forall i=1,\ldots,N \; \theta_{i}\sim B(\mu_{z_{i}}),
+\label{eq:dpp1}
+\end{equation}
+
+\noindent
+Where we will use $\mathbf{z}$ to denote the vector of branch category assignments.
+Each branch receives a category $z_{i},\; i\in\left\{ 1,\ldots K\right\}$, where $K\in\left\{ 1,\ldots,N\right\}$ denotes the a number of branch categories.
+As an example let us consider a topology $\mathbf{F}$ with $N=3$ branches and a fixed number of categories $K=2$.
+One possible realization of the vector of assignments would then be:
+
+$$\mathbf{z}=\left(z(1)=1,\; z(2)=1,\; z(3)=2\right),$$ 
+
 \noindent
 meaning that branches one and two belong to the same category 1, and that the third branch belongs to the category 2.
-%TODO: plot
-
-Under our model both the number of categories $K$ and category assignments $z_{i}$ are random variables, controlled by a DPP with a concentration parameter $\gamma$ and a base distribution $B$.
-They are drawn from the probability distribution:
+Let us denote the uniquely realized branch-specific parameter values by $\hat{\theta_{j}}\; j=1,\ldots,K$.
+Mechanistic function $f$ keeps track of the mapping between the branches and unique realizations $\hat{\theta_{j}}$:
 
 \begin{equation}
-P(\mathbf{z},K|\gamma,2N-1)=\gamma^{K}\cdot\frac{\underset{k=1}{\overset{K}{\prod}}\left(\eta_{k}-1\right)!}{\underset{i=1}{\overset{2N-1}{\prod}}\left(\gamma+i-1\right)},
-\label{eq:dpp1} 
-\end{equation} 
- 
-\noindent 
-where $\eta_{k}$ denotes the number of sites assigned to category $k$.
-
-By integrating (\ref{eq:dpp1}) over all possible branch assignments for $k$ categories we get the prior probability of having a given number of categories:
-
-\begin{equation}
-P(K|\gamma,2N-1)=\gamma^{K}\cdot\frac{S_{1}(2N-1,K)}{\underset{i=1}{\overset{2N-1}{\prod}}\left(\gamma+i-1\right)},
-\label{eq:dpp2} 
-\end{equation} 
+\mu_{z_{1}},\ldots,\mu_{z_{N}}=f\left(\hat{\theta}_{1},\ldots,\hat{\theta}_{K},z_{1},\ldots z_{N}\right).
+\label{eq:dpp2}
+\end{equation}
 
 \noindent
-where $S_{1}(2N-1,K)$ is the Stirling number of the first kind. 
+The idea behind using DP priors is to set up a kernel distribution with probability distribution function $P_{0}$ from which unique branch-specific candidate values $\hat{\theta_{j}}$ are drawn:
 
-% computing the number of ways to 
-% \begin{equation}
-% TODO: Stirling number of the first kind
-% \label{eq:stirling} 
-% \end{equation} 
+\begin{equation}
+\forall i=1,\ldots,N\;\hat{\theta_{j}}\sim P_{0}\left(\mu\right).
+\label{eq:dpp3}
+\end{equation}
 
-Special care needs to be taken when choosing the value of the concentration parameter $\gamma$ of the DPP. 
-Parameter $\gamma$ controls the 
-Small values will lead to a fewer, yet more populated categories, large values will result in more categories being occupied by less branches.
-%TODO: hierarchical prior on \gamma?
+\noindent
+Clustering indicators for each branch are sampled according to a Dirichlet process with intensity $\gamma$:
 
-Once all the branches are mapped to a category, the branch specific parameters $\theta_{k}\; k\in\left\{ 1,\ldots,K\right\}$ are drawn $K$ times from their respective parametric probability distribution $G$.
+\begin{equation}
+z_{1},\ldots,z_{N}\sim DP(\gamma).
+\label{eq:dpp4}
+\end{equation}
 
+\noindent
+By defining hyper-priors for the parameters of kernel distribution and concentration parameter of the DP, or alternatively fixing them to a specific values, we complete the specification of the DPP:
+
+\begin{equation}
+\begin{array}{c}
+\mu\sim P_{1}(\ldots)\\
+\gamma\sim P_{2}(\ldots)
+\end{array}.
+\label{eq:dpp5}
+\end{equation}
+
+% One of them is to consider the branch-specific values as coming from a mixture of distributions
+There are several possible implementations of the Dirichlet process for drawing the cluster indicators as defined in Equation \ref{eq:dpp4}. 
+One of them is the so called "stick-breaking" construction \citep{Sethuraman94}.
+The draws from a DP are composed of a weighted sum of point masses $P$, summing up to 1 and giving rise to a discrete distribution.
+The algorithm to generate a single draw from DP is given in Listing \ref{alg:stickBreaking}.
+
+\begin{algorithm}[H]
+\begin{center}
+\begin{algorithmic}[1]
+\footnotesize{
+%
+\State $remainingLength \gets 1.0$;
+%
+\For{$\left( \text{int } j=0; \; j<K; \; j++\right)$}
+%
+\State $r\sim Beta\left(1,\gamma\right)$;
+%
+\State $P\left[j\right]=r \cdot remainingLength$;
+%
+\State $remainingLength=\left(1-r\right) \cdot remainingLength$;
+%
+\EndFor \\
+%
+ \textbf{return} $P$;
+}
+\end{algorithmic}
+\end{center}
+\caption{ { \footnotesize {\bf Constructing the Dirichlet process by stick breaking.} } }
+\label{alg:stickBreaking}
+\end{algorithm}
+
+Colloquially we can describe it as follows: we start with a stick of length 1 and break it randomly at point $r_{1}$ chosen by drawing one value from $\text{Beta}(1, \gamma)$ and assign $p_{1}$ to the length of the part of the stick that we just broke off.
+We then recursively break other portions of the stick to obtain $p_{2}, p_{3}, \ldots$ and so forth, each time setting:
+
+$$p_{i}=r_{i}\cdot\underset{j}{\overset{i-1}{\prod}}\left(1-r_{j}\right)$$.
+
+\noindent
+Parameter $\gamma$ controls the clustering behaviour of the process.
+Smaller values will lead to a fewer, yet more populated categories, large values will result in more categories being occupied by less branches.
+
+Under our DPP model both the number of categories $K$ and category assignments $z_{i}$ are random variables, controlled by a DPP with a concentration parameter $\gamma$ and a base distribution given by $P_{0}$.
+The complete likelihood of the model can be written down as:
+
+\begin{equation}
+L(\mathbf{z},K|\gamma,N,\hat{\theta_{1}},\ldots,\hat{\theta_{K}})=\gamma^{K}\cdot\frac{\underset{j=1}{\overset{K}{\prod}}\left(\eta_{j}-1\right)!}{\underset{i=1}{\overset{N}{\prod}}\left(\gamma+i-1\right)}\cdot\underset{j=1}{\overset{K}{\prod}}P_{0}\left(\hat{\theta_{j}}\right)^{\eta_{j}},
+\label{eq:dppLike} 
+\end{equation} 
+
+\noindent 
+where $\eta_{k}$ denotes the number of sites assigned to category $k$.
 
 \section{Results}
 
