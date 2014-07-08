@@ -6,6 +6,18 @@ First computationally trackable models of codon substitution were independently 
 For codon models the non-stop codon triplet $n_{1}n_{2}n_{3}$ is considered as a smallest unit of evoluton.
 There are $4^3$ possible triplets minus three stop-codons, resulting in a state space size of $61$ codons.
 The standard assuption of independence is used, i.e. the substitutions at these three codon positions occur independently, thus only a single change per triplet can occur at a given time.
+Selective pressure is the main force behind the molecular evolution.
+Proteins are coded by a set of 20 amino acids, with each amino acid being coded by a codon triplet. 
+Because there are 61 non-stop codons, inevitably some amino acids will be redundantly coded by more than 1 codon.
+Such a change is called a synonymous substitution as they most likely will leave the protein function unchanged.
+Conversly non-synonymous substitutions are more likely to affect the fitness of a particular organism.
+Understanding and inferring the selective pressure is one of the central goals of molecular virology.
+That is why most of the codon substitution models are parametrized in terms of the rate of non-synonymous (denoted by convention $\beta$) and synonymous ($\alpha$ by convention) substitutions.
+Their ratio $\omega=\beta / \alpha$ is a standard measure of the selective pressure \citep{ThePhylogeneticHandbook}, which is sometimes also denoted $\omega = dN/dS$.
+Prevalence of synonymous substitutions over non-synonymous ones is leading to a \emph{purifying (negative)} selection, and corresponds to the ratio $\omega <1$.
+If non-synonymous substitutions accumulate at a faster rate than the synonymous substitutions this is the \emph{positive selection}, improving the fitness of the particular organism.
+$\omega\approx1$ signifies neutral evolution.
+
 There are several advantages in using codon models over nucleotide based substitution models.
 Not all DNA positions evolve at the same rate, with non-synonymous substitutions occuring more frequently the synonymous substitutions.
 Although this problem can be mitigated to some extent by using codon-positioned nucleotide substitution models, the fast evolving positions and the state space limited to 4 character alphabet leads to biased estimates of long evolutionary distances, as portrayed in the previous chapter (\ref{sub:deepRoot}).
@@ -31,18 +43,14 @@ rate ratio and $\pi_j$ denotes the equilibrium frequency of codon triplet $j$.
 Parameter $\kappa$ and $\pi_j$ can be though of as controlling the CTMC process at the DNA level, while $\omega$ parameter characterizes the selection on non-synonymous substitutions.
 
 Different flavours of the GY94 model differ in the composition of the equilibrium codon frequency parameter $\pi_{j}$.
-One approach is to model the codon frequencies as each having the same long-time frequency of apperaring and such a model is reffered to as the F-equal.
-In the GY94-F$1\times4$ model, each codon position has 
-
-
-codon frequencies are expected from the four nucleotide frequencies, giving three free parameters, as they need to some to one.
-
-a separate set of nucleotide propensity parameters to each of the three codon positions.
-
-
-
-For the GY94-F$3\times4$ model frequencies are parametrized according to three sets of nucleotide frequencies for the three codon positions, resulting in nine free parameters.
+One approach is to model the codon frequencies as each having the same long-time frequency of appearing. 
+Such model is reffered to as the GY94-Fequal.
+In the GY94-F$1\times4$ model codon frequencies are expected from the four nucleotide frequencies, leading to 3 free parameters.
+If the frequencies are parametrized according to three sets of nucleotide frequencies for the three codon positions, resulting in nine free parameters, the model is called the GY94-F$3\times4$.
 Finally in the GY94-F61 model every codon triplet has it's own frequncy parameter, with all parameters summing to one, resulting in 60 free parameter that need to be estimated.
+
+% pluses positive and negative of these models :)
+
 
 
 
