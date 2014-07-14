@@ -11,7 +11,7 @@ Proteins are coded by a set of 20 amino acids, with each amino acid being coded 
 Because there are 61 non-stop codons, inevitably some amino acids will be redundantly coded by more than 1 codon.
 Such a change is called a synonymous substitution as they most likely will leave the protein function unchanged.
 Conversly non-synonymous substitutions are more likely to affect the fitness of a particular organism.
-Understanding and inferring the selective pressure is one of the central goals of molecular virology.
+Understanding and inferring the selective pressure is one of the central goals of molecular virology, see for example \citet{Bielejec2014a}.
 That is why most of the codon substitution models are parametrized in terms of the rate of non-synonymous (denoted by convention $\beta$) and synonymous ($\alpha$ by convention) substitutions.
 Their ratio $\omega=\beta / \alpha$ is a standard measure of the selective pressure \citep{ThePhylogeneticHandbook}, which is sometimes also denoted $\omega = dN/dS$.
 Prevalence of synonymous substitutions over non-synonymous ones is leading to a \emph{purifying (negative)} selection, and corresponds to the ratio $\omega <1$.
@@ -22,11 +22,11 @@ There are several advantages in using codon models over nucleotide based substit
 Not all DNA positions evolve at the same rate, with non-synonymous substitutions occuring more frequently the synonymous substitutions.
 Although this problem can be mitigated to some extent by using codon-positioned nucleotide substitution models, the fast evolving positions and the state space limited to 4 character alphabet leads to biased estimates of long evolutionary distances, as portrayed in the previous chapter (\ref{sub:deepRoot}).
 
-% differences between models
 % GY style models
 The model proposed by \cite{Goldman1994} is characterized by a substitution rate matrix with following entries:
 
 \begin{equation}
+\footnotesize{
 q_{ij}^{GY94}=\begin{cases}
 \pi_{j} & \text{if \ensuremath{i\rightarrow j} is a synonymous transversion}\\
 \kappa\cdot\pi_{j} & \text{if \ensuremath{i\rightarrow j} is a synonymous transition}\\
@@ -34,6 +34,7 @@ q_{ij}^{GY94}=\begin{cases}
 \omega\cdot\kappa\cdot\pi_{j} & \text{if \ensuremath{i\rightarrow j} is a non-synonymous transversion}\\
 0 & \text{otherwise}
 \end{cases},
+} % END: size
 \label{eq:gy94}
 \end{equation}
 
@@ -41,15 +42,82 @@ q_{ij}^{GY94}=\begin{cases}
 where parameter $\kappa$ denotes the transition/transversion rate ratio, parameter $\omega$ denotes the non-synonymous/synonymous
 rate ratio and $\pi_j$ denotes the equilibrium frequency of codon triplet $j$.
 Parameter $\kappa$ and $\pi_j$ can be though of as controlling the CTMC process at the DNA level, while $\omega$ parameter characterizes the selection on non-synonymous substitutions.
+For the GY94 model the synonymous evolutionary rate is fixed to be 1, i.e. $\omega=\beta$.
 
 Different flavours of the GY94 model differ in the composition of the equilibrium codon frequency parameter $\pi_{j}$.
 One approach is to model the codon frequencies as each having the same long-time frequency of appearing. 
 Such model is reffered to as the GY94-Fequal.
-In the GY94-F$1\times4$ model codon frequencies are expected from the four nucleotide frequencies, leading to 3 free parameters.
+
+In the GY94-F$1\times4$ model codon frequencies are expected from the four nucleotide frequencies, with frequencies being pulled from all three codon positions, i.e. $\pi_{n_{1}}=\pi_{n_{3}}=\pi_{n_{3}}$ for all four nucleotides,.
+Thi smodel leads to 3 free parameters that need to be estimated from the data.
 If the frequencies are parametrized according to three sets of nucleotide frequencies for the three codon positions, resulting in nine free parameters, the model is called the GY94-F$3\times4$.
 Finally in the GY94-F61 model every codon triplet has it's own frequncy parameter, with all parameters summing to one, resulting in 60 free parameter that need to be estimated.
 
 % pluses positive and negative of these models :)
+The GY94-F61 model has been suggested as important in letting the model explain the data without constricting assumptions.
+\citet{Rodrigue2008} however argue that the model has no intepretation on the nucleotide level as well as confounds other effects. 
+Same authors criticize the GY94-F$3\times4$ setup as superficial, pointing that the periodic pattern along the nucleotide sequence positions represents the coding structure of the sequence but not the processes that shape the volution.
+
+% MG style models
+The Markov generator matrix for MG94 style models \citep{Muse1994} is given by:
+
+\begin{equation}
+\footnotesize{
+q_{ij}^{MG94}=\begin{cases}
+\alpha\cdot\kappa\cdot\pi_{n}^{p} & i\rightarrow j\text{ is a synonymous transition from nucleotide \ensuremath{m}to \ensuremath{n}at codon position \ensuremath{p}.}\\
+\alpha\cdot\pi_{n}^{p} & i\rightarrow j\text{ is a synonymous transversion from nucleotide \ensuremath{m}to \ensuremath{n}at codon position \ensuremath{p}.}\\
+\beta\cdot\kappa\cdot\pi_{n}^{p} & i\rightarrow j\text{ is a non-synonymous transition from nucleotide \ensuremath{m}to \ensuremath{n}at codon position \ensuremath{p}.}\\
+\beta\cdot\pi_{n}^{p} & i\rightarrow j\text{ is a non-synonymous transversion from nucleotide \ensuremath{m}to \ensuremath{n}at codon position \ensuremath{p}.}\\
+0 & \text{otherwise.}
+\end{cases},
+} % END: size
+\label{eq:gy94}
+\end{equation}
+
+
+There are two main differences to be noted with respect to the GY94 style codon models.
+First the model is parametrized in terms of both the non-synonymous ($\beta$) and synonymous ($\alpha$) rates, meaning that a change in the ratio may be due to alteration of the rate of non-synonymous or synonymous substitutions, or both.
+Second of all the model estimates the frequencies of the target nucleotide $\pi_{n}^{p}$ rather than of the target codon triplet $\pi_{j}$, as in GY94 model.
+As before the MG94 model can be used with frequencies specified as a single (MG94-F$1\times4$) or three (MG94-F$3\times4$) vectors with 4 dimensions.
+For the remainder of this chapter we will focus our estimation on the MG94 parametrization, mostly because the parametrization in terms of both the synonymous and non-synonymous substitution rates offers interesting opportunities for disentangling
+the patterns of correlation between
+the two.
+
+
+% first talk about across site variation
+Molecular phylogenetic analysis using codon models are typically restricted to fitting a single model, with constant parametrization across data, i.e. sites of the alignment.
+However there is no biological reason to assume that all the sites are under the same selection regime.
+\cite{NY98} point towards the fact that for most real world data-sets for which we know that evolved under positive selection pressure only a handfull of sites actually contributed towards the non-synonymous to synonyous rates ratio >1.
+Therefore applying constant model to the data, without accounting for across-data heterogeneity biases the estimates of $dN/dS$ ratio towards lower values.
+In some corner cases this might lead to a failure in detecting positive selection even if it actually exists.  
+In that respect \cite{NY98} propose two models in GY94 context, with fixed number of categories to which a particular site can belong.
+Their \emph{neutral model} assumes a category for sites where the nonsynonymous mutations are neutral ($\omega=1$) and a category for sites which are conserved ($\omega=0$).
+\emph{Positive selection model} adds an extra category of positively selected sites ($\omega>1$).
+\cite{Goode2008} employ this setup and further extend it by allowing for a change in $\omega$ parameter value at some specified time between the most-recent common ancestor and the most recent sampling time.
+These models, although undeniably a step in the right direction, still make strong assumptions, among which partitioning sites to fixed number of rate classes and estimating the rate for each class separately is probably the most restrictive one.
+Ideally the model should let the data decide how many rate classes there are, and what the site-specific values are.
+First modelling approach that comes to mind is to fit a different rate to each site in the alignment \citep{Nielsen1997}.
+Although this approach might seem naive at first it bears a valuable property in that no explicit assumption in the distribution of rates across the sites is being made.
+However other negative factors still persist, precluding such a class of methods from being generally applicable.
+Main problems is that, particularly for long sequences, many parameters need to be estimated, magnifying the computational costs.
+In case of shorter sequences such a method may overfit the data, leading to significant loss of statistical power and biased estimates.
+Another approach treats site-specific rates as independent draws from some common distribution, e.g. gamma distribution \citep{Yang1993} or inverse Gaussian probability distribution \citep{Waddell1997}, sometimes with a proportion of sites allowed to remain invariable \citep{Gu1995}.
+This approach allows to model the rate variation with relatively few parameters, as well as provides pooled estimates of the distribution parameters, which can in turned be compared across different data-sets.  
+In many scenarios though a single parametric distribution proves too naive of an approach to capture complex patterns of rate evolution \citep{Pond2005a}.
+\cite{Yang2000} proposed to model among-site substitution rate variation in codon models by a mixture of different distributions.
+Although mathematically possible it proved computationally too expensive to fit mixtures of continuous distribution for the parameters of interest and the authors resort to fitting discrete approximations.
+Although these constraints are being actively stretched \citep{Suchard2009,Ayres2012} averaging over a large array of distributions remains computationally intensive. 
+\citet{Pond2005a} propose a simple, yet flexible model of rate variation with an integrative method to reliably estimate the fluctuating parameters.
+This method proceeds by partitioning the rate distribution into countable number intervals, with each interval represented by some statistic.
+Then a beta model is used to decide what intervals the underlying rate distribution is partitioned into and calculate corresponding rate class values.
+This is perhaps the most flexible approach for evaluating site-specific rate variation to date, that provides a good fit to data with only a few extra parameters.
+
+In comparison to across-data variation relatively less work has been aimed at modelling across lineage rate heterogeneity.
+There is however no biological motivation to assume constant pattern of the parameters shaping the substitution process across branches, it is rather a computational convenience.
+In fact the evidence for heterogenous rates of evolution have been found and demonstrated in several studies \citep{EyreWalker1997,Andreasen2001}.
+
+
+
 
 
 
