@@ -112,33 +112,34 @@ This method proceeds by partitioning the rate distribution into countable number
 Then a beta model is used to decide what intervals the underlying rate distribution is partitioned into and calculate corresponding rate class values.
 This is perhaps the most flexible approach for evaluating site-specific rate variation to date, that provides a good fit to data with only a few extra parameters.
 
-In comparison to across-data variation relatively less work has been aimed at modelling across lineage rate heterogeneity.
+The molecular clock hypothesis \citep{Zuckerkandl1962} posits that the rate of evolution of any specified protein remains constant over time and over different lineages.
+This hypothesis is compelling, mostly because of it's simplicity and because it allows to date bifurcation events on the tree of life.
 There is however no biological motivation to assume constant pattern of the parameters shaping the substitution process across branches, it is rather a computational convenience.
-In fact the evidence for heterogenous rates of evolution have been found and demonstrated in several studies \citep{EyreWalker1997,Andreasen2001}.
+In fact the evidence for heterogenous rates of evolution have been found and demonstrated in several studies \citep{EyreWalker1997,Andreasen2001} and the strickt molecular clock hypothesis is often rejected for real-world data sets.
+In comparison to across-data variation relatively less work has been aimed at modelling across-lineage rate heterogeneity.
 
+Unfortunately allowing for an uconstrained changes in branch substitution rates does not facilitate the main advantage of molecular clock hypothesis - the ability to date the speciation events on the tree.
+% the rate and time along each branch can only be estimated as their product
+This is due to the fact that the branch time is a product of the expected number of substitutions per site (rate, $r$) and the branch length in time units ($t$), causing the two to be confounded in phylogenetic analysis (see also Subsection \ref{sub:rates}).
+These problems have lead to the proposal of so called "relaxed molecular clock" models, which allow for a changes in rate over time, but in a constrained manner, allowing for the divergence time estimation.
+\citet{Drummond2006} propose several uncorrelated relaxed clock models in which the substitution rate can vary among the branches of the tree by being drawn independently and identically from some distribution.
+This work has been further extended by \citet{Drummond2010} who developed a Random Local Clock (RLC) model, which does not rely on the number and location of rate changes being fixed.
+Instead RLC model allows for constructing proposal which move both in the tree space and in the clock structure space at the same time, allowing for a joint reconstruction of the topology as well as the divergence time estimation. 
+Their approach utilizes the fact that for most datasets there exists only a small number of rate changes and that subclades on a tree will share the same rate.
+This allows them to efficiently sample from the clock rate space using Bayesian Stochastic Search Variable Selection (BSSVS, \citet{Lemey2009}) 
 
-
-
-
-
-
-% #Suppose different branches different parameters -> fitt all different -> overparametrisation, computationally intensive -> DPP are better -> hyperpriors
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Here we propose an approach similar in spirit to the Random Local Clock models.
+Although our method allows for modelling the branch rates, our main interest lies in modelling across-lineage heterogeneity of the parameters of codon substitution models, such as the synonymous and non-synonymous substitution rates.
+Both the number and the clustering of the lineage specific parameters are treated as random, and are controlled by a Dirichlet Process Prior (DPP, \citet{Ferguson1973}).
+A DPP is a "distribution over distributions" and induces clusterings with a varyng number of components that can grow or shrink depending on the data and a concentration parameter.
+It is thus often used as a prior over possible clusterings where the exact number and population of distinct clusters is not known beforehand.
+We require no structure to be enforced on the clustering of the branches, and allow the data to drive the model in a descriptive fashion. 
+Our only requirement is the prior specification of the concentration parameter of DPP, controlling whether model preffers less clusters with many occupants or more less densely populated ones. 
+By implementing our model as part of BEASTs Bayesian inference framework we allow for a hyperprior to be put on this parameter to average over all of its possible values. 
+This approach avoid overparametrisation and computational overhead by achieving data-driven balance between simplicity and complexity of the model.
+We use Markov chain Monte Carlo (MCMC) techniques, in which a chain with a memoryless property i sconstructed to draw samples from the posterior.
+Although we focus our efforts on estimating the patterns of variation in codon substitution models our implementation is generally applicable to any parameters that exhibit across-data or across-time heterogeneity .
+Below we describe the main aspects of the model.
 
 \section{Methods}
 
