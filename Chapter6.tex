@@ -21,15 +21,58 @@ We discuss the future directions that the next releases of the SPREAD software \
 
 \section{Extending the Epoch model}
 % extending the epoch model (estimable placements of transition times - connects with DPP), Allen Rodrigos comments, GLM's with splines, 
+In Chapter \ref{chap:epoch} we presented our model of time-heterogeneous substitution model, for which rates of evolution remain constant across all lineages in any given epoch, but vary between epochs.
+We have demonstrated the validity of the method using simulations, and it's applicability to the real HIV and Influenza data-sets.
+We have stressed that by implementing th emodel as part of Bayesian framework we are able to incorporate uncertainty in the tree reconstruction into our analysis, and thus avoid the need to fix the tree topology.
+In that respect an interesting direction for further research is to couple epoch-specific parameters to other external covariates to inform the inference.
+In the Bayesian framework this could be achieved by formulating a hierarchical phylogenetic model \citep{Edo-Matas2011}, where one put "hyperpriors" on the parameters of prior distributions to avoid over-parametrisation of the model.
+\citet{Lemey2014} propose a model which extends the Generalized Linear Models (GLM) of \citet{Nelder1972} to the Bayesian phylogenetic framework.
+Every instantaneous rate $q_{ij}$, an entry of $K \times K$ generator matrix $\mathbf{Q}$, is parametrized as a log-linear function of the set of predictors $\mathbf{X}=\left( \mathbf{x_{1}},\ldots,\mathbf{x_{P}}\right)$, where each predictor $\mathbf{x_{p}}$ is characterized by it's own rate matrix such that:
+
+\begin{equation}
+log(q_{ij})=\beta_{1}\delta_{1}x_{i,j,1}+\ldots+\beta_{P}\delta_{P}x_{i,j,P}.
+\label{eq:glm}
+\end{equation}
+
+Coefficients $\mathbf{\beta}=\left(\beta_{1},\ldots,\beta_{P}\right)$ quantify the contribution of single predictor to the overall rate, and $\left(\delta_{1},\ldots,\delta_{P}\right)$ are binary indicators that decide whether a predictor is removed or excluded from th emodel via Bayesian stochastic search variable selection (BSSVS) procedure \citep{Kuo1998,Lemey2009}.
+
+For the within-host HIV evolution example analyzed in Chapter \ref{chap:epoch} \citet{Shankarappa99} report both viral load and CDT4 cell count data, which could be then used as a set of potential predictors, and with the epoch structure formulized for that model we could inferr how the linear effect of each of the covariates changes over time.
+
+For some classes of problems the substitution rate might vary not linearly, at the defined change-points, but rather as some arbitrarily complex function of time. 
+Such functions may be difficult or computationally demanding to fit. 
+Let us consider an interval $\left[0,T\right]$ and let elements of substitution rate matrix vary independenly as an integrable function of time, such that $\mathbf{Q}=\mathbf{Q}(t),\; t\in\left[0,T\right]$. 
+Finite-time transition probabilities can be then calculated as: 
+
+\begin{equation}
+\ensuremath{\mathbf{P}}(r,T)=exp\left(r\int_{0}^{T}\mathbf{Q}(t)dt\right).\label{eq:rodrigo}
+\end{equation}
+
+\noindent
+\citet{Rodrigo2008} propose a numerical approximation to $\int_{0}^{T}\mathbf{Q}(t)dt$. 
+By taking points $t_{0,}t_{1},\ldots t_{n}\in[0,T]$ such that $0=t_{0}<t_{1}<\ldots<t_{n}=T$ and dividing the interval $\left[0,T\right]$ into sub-intevals $\left[t_{i-1},t_{i}\right],\; i=1,\ldots n$ of length $\triangle t_{i}=t_{i}-t_{i-1}$ we have that:   
+
+\begin{equation}
+\int_{0}^{T}\mathbf{Q}(t)dt\approx\underset{i=0}{\overset{n}{\sum}}\mathbf{Q}(t_{i}^{*})\cdot\triangle t_{i},\; t_{i}^{*}\in[t_{i-1},t_{i}].\label{eq:approx}
+\end{equation}
+
+\noindent
+From \ref{eq:rodrigo} and \ref{eq:approx}, by the definition of the Riemannian integral we have that $\mathbf{P}(r,T)=\underset{n\rightarrow\infty}{lim}\underset{i=0}{\overset{n}{\prod}}\text{exp}\left(r\mathbf{Q}(t_{i}^{*})\cdot\triangle t_{i}\right)$, given that rate matrices $\mathbf{Q}(t_{i}^{*})$ commute 
+and are closed with respect to the matrix multiplication.
+\citet{Sumner2012} formalize the problem of multiplicative closure of the Markov models. 
+Given those regularity conditions, we can perform a numerical approximation of any function of rate change by using the epoch time-discretization, and by partitioning the time interval into a fine grid of intervals. 
+
+% evaluating change-points
+Both problems presented in Chapter \ref{chap:epoch} i.e. HIV within-host evolution before and after progression time and seasonal influenza migration represent hypothesis for which the number and placement of the transition times is known.
+There might however be a class of problems for which it remains interesting to investigate possible extensions that estimate the number and position of change points.
+First approach that comes to mind is to introduce priors on the number and location of the quantities and integrate over all possible values using the MCMC framework.
+This straight-forward approach will however inflate the variance of the epoch-specific parameters and for some problems, 
+like for example viral diffusion between discretely sampled geographical locations, the sparseness of availiable data might be a factor impeding any accurate inference.
+In those cases an interesting solution would be to couple the unknown transition-times between epochs to external covariates for which the change-points are known, such as  the fluctuations in population size recovered by the Bayesian skyline plot model \citep{Drummond2005}.
+
+% DPPs
 
 
-
-
-
-
-
-
-
+At the tim eof writing this chapter we are currently actively tetsing these possibilities, yet how exacly accurate the inference of the transition-times can be, and how we can quantify the predictive value of those covariates remains an open question for follow-up studies.
 
 
 
