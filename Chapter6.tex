@@ -81,7 +81,7 @@ Although we mainly pursue the inference of lineage-specific parameters of codon 
 At the time of writing this chapter we are actively testing these possibilities, yet exacly how accurate the inference of the transition-times can be, and how we can quantify the predictive value of those covariates remains an open question for follow-up studies.
 
 
-\section{pibuss, pibuss, pibuss}
+\section{Areas of improvement for $\pi$BUSS simulator software}
 
 With the exclusion of empirical models of evolution, most phylogenetic methods are built on mathematical theories that predict outcomes conditional on some specified assumptions.
 How well these models fit the real data, and how robust they are to the violations of these assumptions remains an open question.
@@ -104,11 +104,43 @@ Time-heterogenous models, for which evolutionary parameters change both across d
 In that sense $\pi$BUSS in addition to it's Command Line Interface for scripting purposes and XML parsers availiable via BEAST core implementation is similar to BEAUti software, which helps in setting analysis via user-friendly GUI.
 We will follow along that path, by providing even closer integration between the two programs and facilitating generation of joint simulation-analysis XML documents in which fabricated data is instantly passed to BEASTs XML parsers for inference.
 
+% indel models
+In the field of molecular biology insertion and deletion (indels) events exist on the other end of spectrum of mutations then substitution events, which we discussed in details in Subsection \ref{sub:subst_models}.
+Whereas substitutions are point mutations which replace one nucleotide with another, indels proceed by either inserting or deleting nucleotides in a sequence, thus altering it's length. 
+Indel mutations are well known to have a significant impact on processes of molecular evolution \citep{Fletcher2009}.
+Therefore without models of insertion/deletion sequence simulation is somewhat limited.
+
+
+% Without insertions/deletions, sequence simulation is very much limited. 
+% This is one reason why so many sequence simulators with indels have been developed recently. 
+% Since BEAGLE includes an indel model, I assume piBUSS can also include indels in its simulation. 
+% If so, I highly suggest the authors to incorporate this option.
+% 
+% 
+% We believe the reviewer is referring to the stochastic Dollo model -- this feature is indeed high on the TODO list of {\bussname} and will be implemented in a future release of the software.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \section{Future prospects for visualising viral diffusion}
 
 
 
+% rewrite, more responsive, instant color changes without re-computing
 
+% outputting KML and web interfaces
+
+% new analysis, spatial statistics
 
 
 

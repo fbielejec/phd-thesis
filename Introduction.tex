@@ -323,7 +323,7 @@ where the last transition is due to the fact that exponential of diagonal matrix
 We should note here that the repeated evaluations of $\exp\left(rt\mathbf{Q}\right)$ for different times $t$ are all based on the same SVD of the matrix $\mathbf{Q}$. 
 One needs only to scale and exponentiate the eigenvalues to calculate the diagonal matrix $D$ and perform two matrix multiplications, thus reducing all calculations to a simple and effective algorithm. 
 
-\subsection{Markov chain models of sequence substitution}
+\subsection{Markov chain models of sequence substitution\label{sub:subst_models}}
 
 % TODO markov property is inherited from Poisson process
 Drawing realizations with probabilities defined by $\mathbf{P}$  gives rise to a continuous-time stochastic process $\left\{ X(t):\; t\geq0\right\}$ satisfying the Markov property, such that for every $n\geq 0$, given the time points $0\leq t_{0}\leq t_{1}<\ldots<t_{n}\leq t_{n+1}$ and discrete states $i_{0},i_{1}, \ldots, i_{n},i_{n+1}$ it holds that: 
