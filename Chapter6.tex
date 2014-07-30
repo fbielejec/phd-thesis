@@ -109,47 +109,44 @@ In the field of molecular biology insertion and deletion (indels) events exist o
 Whereas substitutions are point mutations which replace one nucleotide with another, indels proceed by either inserting or deleting nucleotides in a sequence, thus altering it's length. 
 Indel mutations are well known to have a significant impact on processes of molecular evolution \citep{Fletcher2009}.
 Therefore without models of insertion/deletion sequence simulation is somewhat limited.
-
-
-% Without insertions/deletions, sequence simulation is very much limited. 
-% This is one reason why so many sequence simulators with indels have been developed recently. 
-% Since BEAGLE includes an indel model, I assume piBUSS can also include indels in its simulation. 
-% If so, I highly suggest the authors to incorporate this option.
-% 
-% 
-% We believe the reviewer is referring to the stochastic Dollo model -- this feature is indeed high on the TODO list of {\bussname} and will be implemented in a future release of the software.
-
-
-
-
-
-
-
-
-
-
-
-
-
+Next releases of $\pi$BUSS will implement that option.
 
 \section{Future prospects for visualising viral diffusion}
 
+%many citations, stressing th eneed for such a software
+SPREAD software for visualising phylogeographic diffusion processes (\citet{Bielejec2011}, presented in Chapter \ref{chap:spread}) has proven itself to be a valuable tool.
+With over 90 citations, by the time of writing this thesis, of the original manuscript presenting the package it is clear that there is a need for a software which can summarise the findings of molecular virology in a clear and concise way, that can then be presented to a wider audience.
 
-
-% rewrite, more responsive, instant color changes without re-computing
+With that in mind we will continue to support SPREAD by adding new functionalities and making new analysis possible.
+Next major release of the software will be aimed at a thorouh re-write of the internal engine that would result sin a more stable and responsive package.
+One of the feauture requests has been the instant color alteration, without the need to re-compute the analysis.
 
 % outputting KML and web interfaces
+The ability to output time-stamped KML documents which then can be played as animations is one of the most important functionalities of SPREAD and a source of its popularity.
+Future releases will continue to support that function, yet we will also add the ability to produce animated documents which can be embedded in webpages, viewed on mobile devices or locally on web browsers.
 
 % new analysis, spatial statistics
+New analysis will also be made attainable, with a possibilty to produce spatial statistics such as wavefront \citep{Pybus2012}, for visualising emerging epidemics.
+New release of SPREAD will also have a Command Line Interface that will make it easier to pipeline large or cyclic analysis, produce scripts or call SPREAD from interpretable languages like R \citep{RCran} or Python.
 
+\section{Other challenges}
 
+% high perf computin
+Ever growing availability of molecular sequences produced by High-throughput sequencing yields data which is difficult to store, yet alone analyse.
+This problem is dubbed the biggets challenge for the field of molecular virology.
 
+Due to hardware limitations and problems with heat dissipation we are approaching the limit of how many integrated circuits can be put into one CPU core.
+Because of these problems serial computation on next generations of CPUs no longer bring increases in speed and performance.
+If we want to capitalize on vast amounts of data that are availiable for us, future development of phylogenetic software should target high performance parallel devices such as GPUs \citep{Nickolls2008} or Field-programmable gate arrays (FPGA, \citet{Kuon2008}).
 
+% codon models
+Interesting, realistic models of evolution also bring new computational challenges with them.
+Codon models, such as discussed in Chapter \ref{chap:dpp} are an example of such challenging models.
+Fortunately recent advances in computing on GPUs \citep{Ayres2012} provide opportunities to accelerate phylogenetic inference.
+However we believe that more research will be needed to mitigate the imminent computational burdens that come with novel modelling approaches and high-throughput sequencing. 
 
-
-
-
-
-
+% visualisations
+The advent of next generation sequencing data is expected to allow us to generate complete genome sequences swiftly and a fraction of todays cost.
+This combined with high-performance computing will allows us to analyse the data in almost real time, and by coupling molecular sequence data with geographical information, to trace the diffusion of emerging epidemics and instantly identify postential hosts and sinks as well as other factors contributing to viral spread.   
 
 
