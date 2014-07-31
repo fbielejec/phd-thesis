@@ -1,16 +1,16 @@
 \chapter{General discussion and future directions}
 
-In this concluding chapter several aspect sof the presented work are put into a wider perspective.
-Much of the presented work resolves around relaxing the standard phylogenetic assumptions in search of more biologically plausible models. 
-In that light we view our work on the time-heterogenous modelling as presented in Chapter \ref{chap:epoch} as an introductory step towards a broader range of models.
-We begin with highlighting the possible extension in which time changes in a non-linear fashion.
-We then discuss how this work can be connected to the work on Generalised Linear Models presented by \citet{Lemey2014} in order to couple the changes of substitution rate parameters over time to the changes in external co-variates.
-Finally we talk about possibility to infer both the time and th enumber of change-points, or transition-times, in the epoch model specification vi aa promising family of priors driven by the Dirichlet process \citep{Ferguson1973}. 
+In this concluding chapter several aspects of the presented work are put into a wider perspective.
+Much of the work that constitutes this thesis resolves around relaxing the standard phylogenetic assumptions, in search of more biologically plausible models. 
+In that light the work on the time-heterogenous modelling, as presented in Chapter \ref{chap:epoch}, can be viewed as an introductory step towards a broader range of models that tackle different types of time-heterogeneity.
+We begin with highlighting one possible extension of the epoch model, in which time changes in a non-linear fashion.
+We then discuss how this work can be connected to the Generalised Linear Models presented by \citet{Lemey2014}, in order to couple the changes of substitution rate parameters over time to the changes in external co-variates.
+Finally we talk about possibility to infer both the time and the number of change-points, or transition-times, in the epoch model specification via a promising family of priors driven by the Dirichlet process \citep{Ferguson1973}. 
 
 % much of presented work is software
 % simulation
-Another substantial portion of the work presented in this thesis is devoted towards development of an easy-to-use software.
-In that light we talk about the continued effort to support and extend the $\pi$BUSS simulation software \citep{bielejec2014} with an ever-growing array of phylogenetic and population models.
+Another substantial portion of the work presented in this thesis is devoted towards development of a flexible, easy-to-use software.
+In that light we talk about the continued effort to support and extend the $\pi$BUSS simulation software \citep{bielejec2014}, with an ever-growing array of phylogenetic and population models.
 
 %visualising
 % difussion
@@ -18,34 +18,19 @@ In that light we talk about the continued effort to support and extend the $\pi$
 Highly dimensional estimates that result from Bayesian inference of viral spread in both time and space require dedicated software that is capable of producing visulaisations that are both visually pleasing and insightfull.
 We discuss the future directions that the next releases of the SPREAD software \citep{Bielejec2011} will take, ensuring that it keeps providing it's users with intuitive and user-friendly interfaces as well as access to a vast bulk of possible visualizations.
 
+Finally we talk about the challenges and opportunities that the future might bring, in the era of the so called "genomics plenty", where vast amount of molecular sequences can be sequenced fast and cheaply.
 
 \section{Extending the Epoch model}
 
-In Chapter \ref{chap:epoch} we presented our model of time-heterogeneous substitution model, for which rates of evolution remain constant across all lineages in any given epoch, but vary between epochs.
+In Chapter \ref{chap:epoch} we presented a time-heterogeneous substitution model, for which rates of evolution remain constant across all lineages in any given epoch, but vary between those epochs.
 We have demonstrated the validity of the method using simulations, and it's applicability to the real HIV and Influenza data-sets.
-We have stressed that by implementing the model as part of Bayesian framework we are able to incorporate uncertainty in the tree reconstruction into our analysis, and thus avoid the need to fix the tree topology.
+We have stressed that by implementing the model as part of Bayesian framework we are able to incorporate uncertainty in the tree reconstruction into our analysis, and thus avoid the need to fix the tree topology or any other evolutionary parameters.
 
-\subsection{Generalised Linear Models with epoch structure}
-
-An interesting direction for further research is to couple epoch-specific parameters to other external covariates to inform the inference.
-In the Bayesian framework this could be achieved by formulating a hierarchical phylogenetic model \citep{Edo-Matas2011}, where one put "hyperpriors" on the parameters of prior distributions to avoid over-parametrisation of the model.
-\citet{Lemey2014} propose a model which extends the Generalized Linear Models (GLM) of \citet{Nelder1972} to the Bayesian phylogenetic framework.
-Every instantaneous rate $q_{ij}$, an entry of $K \times K$ generator matrix $\mathbf{Q}$, is parametrized as a log-linear function of the set of predictors $\mathbf{X}=\left( \mathbf{x_{1}},\ldots,\mathbf{x_{P}}\right)$, where each predictor $\mathbf{x_{p}}$ is characterized by it's own rate matrix such that:
-
-\begin{equation}
-log(q_{ij})=\beta_{1}\delta_{1}x_{i,j,1}+\ldots+\beta_{P}\delta_{P}x_{i,j,P}.
-\label{eq:glm}
-\end{equation}
-
-Coefficients $\mathbf{\beta}=\left(\beta_{1},\ldots,\beta_{P}\right)$ quantify the contribution of single predictor to the overall rate, and $\left(\delta_{1},\ldots,\delta_{P}\right)$ are binary indicators that decide whether a predictor is removed or excluded from the model via Bayesian stochastic search variable selection (BSSVS) procedure \citep{Kuo1998,Lemey2009}.
-
-For the within-host HIV evolution example analyzed in Chapter \ref{chap:epoch} \citet{Shankarappa99} report both viral load and CDT4 cell count data, which could be then used as a set of potential predictors, and with the epoch structure formulized for that model we could inferr how the linear effect of each of the covariates changes over time.
-
-\subsection{Approximating non-linear functions of rate change in time}
+\subsection{Approximating non-linear functions of rate change in time\label{sub:nonlinear}}
 
 For some classes of problems the substitution rate might vary not linearly, at the defined change-points, but rather as some arbitrarily complex function of time. 
-Such functions may be difficult or computationally demanding to fit. 
-Let us consider an interval $\left[0,T\right]$ and let elements of substitution rate matrix vary independenly as an integrable function of time, such that $\mathbf{Q}=\mathbf{Q}(t),\; t\in\left[0,T\right]$. 
+Such functions may be difficult, or computationally demanding, to fit exacly and epoch model may offer and approximate solution to this types of problems.
+Let us consider an interval $\left[0,T\right]$ and let elements of substitution rate matrix $\mathbf{Q}$ vary independenly as an integrable function of time, such that $\mathbf{Q}=\mathbf{Q}(t),\; t\in\left[0,T\right]$. 
 Finite-time transition probabilities can be then calculated as: 
 
 \begin{equation}
@@ -66,86 +51,124 @@ and are closed with respect to the matrix multiplication.
 \citet{Sumner2012} formalize the problem of multiplicative closure of the Markov models. 
 Given those regularity conditions, we can perform a numerical approximation of any function of rate change by using the epoch time-discretization, and by partitioning the time interval into a fine grid of intervals. 
 
+\subsection{Generalised Linear Models with epoch structure}
+% TODO: how this connects to non-linear (splines)
+
+An interesting direction for further research is to couple epoch-specific parameters to other external covariates to inform the inference.
+In the Bayesian framework this could be achieved by formulating a hierarchical phylogenetic model \citep{Edo-Matas2011}, where one put "hyperpriors" on the parameters of prior distributions to avoid over-parametrisation of the model.
+\citet{Lemey2014} propose a model which extends the Generalized Linear Models (GLM) of \citet{Nelder1972} to the Bayesian phylogenetic framework.
+Every instantaneous rate $q_{ij}$, an entry of $K \times K$ generator matrix $\mathbf{Q}$, is parametrized as a log-linear function of the set of predictors $\mathbf{X}=\left( \mathbf{x_{1}},\ldots,\mathbf{x_{P}}\right)$, where each predictor $\mathbf{x_{p}}$ is characterized by it's own rate matrix such that:
+
+\begin{equation}
+log(q_{ij})=\beta_{1}\delta_{1}x_{i,j,1}+\ldots+\beta_{P}\delta_{P}x_{i,j,P}.
+\label{eq:glm}
+\end{equation}
+
+Coefficients $\mathbf{\beta}=\left(\beta_{1},\ldots,\beta_{P}\right)$ quantify the contribution of single predictor to the overall rate, and $\left(\delta_{1},\ldots,\delta_{P}\right)$ are binary indicators that decide whether a predictor is removed or excluded from the model via Bayesian stochastic search variable selection (BSSVS) procedure \citep{Kuo1998,Lemey2009}.
+
+For the within-host HIV evolution example analyzed in Chapter \ref{chap:epoch} \citet{Shankarappa99} report both viral load and CDT4 cell count data, which could be then used as a set of potential predictors, and with the epoch structure formulized for that model we could inferr how the linear effect of each of the covariates changes over time.
+If $\mathbf{x_{p}}$ is a single predictor we can use the epoch structure to divide it's time-domain into contiguous intervals.
+By fitting GLM models in those intervals a piecewise effect of predictors $\mathbf{x_{p}}$ can be obtained in each epoch. 
+One could begin with standard piecewise-linear changes or approximate e.g. polynomial or other complex functions of rate-change using approach presented in Subsection \ref{sub:nonlinear}.
+
 \subsection{Evaluating number and placement of change-points in time}
 
 Both problems presented in Chapter \ref{chap:epoch} i.e. HIV within-host evolution before and after progression time and seasonal influenza migration represent hypothesis for which the number and placement of the transition times is known.
-There might however be a class of problems for which it remains interesting to investigate possible extensions that estimate the number and position of change points.
-First approach that comes to mind is to introduce priors on the number and location of the quantities and integrate over all possible values using the MCMC framework.
-This straight-forward approach will however inflate the variance of the epoch-specific parameters and for some problems, 
-like for example viral diffusion between discretely sampled geographical locations, the sparseness of availiable data might be a factor impeding any accurate inference.
-In those cases an interesting solution would be to couple the unknown transition-times between epochs to external covariates for which the change-points are known, such as  the fluctuations in population size recovered by the Bayesian skyline plot model \citep{Drummond2005}.
+There might however be a class of problems for which those change points are not known and need to be estimated.
+% it remains interesting to investigate possible extensions that estimate the number and position of change points.
+First approach that comes to mind is to introduce priors on the number and location of the transition times and integrate over all their possible values using the standard MCMC framework.
+This straight-forward approach will however inflate the variance of the epoch-specific parameters and for some problems, e.g. viral diffusion between discretely sampled geographical locations where there is only one observation per taxon, the sparseness of data might be a factor impeding any accurate inference.
+In those cases an interesting solution might be to couple the unknown transition-times between epochs to external covariates for which the change-points are known, such as  the fluctuations in population size recovered by the Bayesian skyline plot model \citep{Drummond2005}.
+This approach is being investigated at the time of writing this thesis. %, yet no publishable results are currently availiable 
 % DPPs
-Finally in Chapter \ref{chap:dpp} we talk about an interesting class of non-parametric prior distributions, the so called Dirichlet Process Priors (DPP). 
-Although we mainly pursue the inference of lineage-specific parameters of codon models, it is interesting to note that the same class of priors could be used to inferr the number and placement of transition-times of the epoch model.
+In Chapter \ref{chap:dpp} we talk about an interesting class of non-parametric prior distributions, the so called Dirichlet Process Priors (DPP). 
+Although we mainly pursue the inference of lineage-specific parameters of codon models, it is interesting to note that the same class of priors could be used to infer the number and placement of transition-times of the epoch model.
 
-At the time of writing this chapter we are actively testing these possibilities, yet exacly how accurate the inference of the transition-times can be, and how we can quantify the predictive value of those covariates remains an open question for follow-up studies.
-
+At the time of writing this chapter we are actively testing these possibilities, yet exacly how accurate the inference of the transition-times can be, and how we can quantify the predictive value of those covariates remains an open question for the follow-up studies.
 
 \section{Areas of improvement for $\pi$BUSS simulator software}
 
 With the exclusion of empirical models of evolution, most phylogenetic methods are built on mathematical theories that predict outcomes conditional on some specified assumptions.
 How well these models fit the real data, and how robust they are to the violations of these assumptions remains an open question.
-Furthermore the complex biologicla systems being the topic of phylogentic studies undergo many processes, which interact and are difficult to accurately model or distinguish from the background noise in the data.
-Rapidly evolving viruses, which are the main interest of the research presented in this thesis, undergo mutaion, natural selection and spatial diffusion.
-Therefore for most of epidemiological the molecular data-sets the true underlying evolutionary process that generated them is unknown.
-These factors stress the need for development of flexible simulation software that can match the diversity, complexity and sheer amount of the real data that is currently being sampled.
+Furthermore, the complex biological systems being the topic of phylogentic studies undergo many processes, which interact and are difficult to accurately model or distinguish from the background noise in the data.
+Rapidly evolving viruses, which are the main interest of the research presented in this thesis, are subject to mutation, natural selection and spatial diffusion.
+Therefore for most of the molecular epidemiology data-sets the true underlying evolutionary process that generated them remains unknown.
+All of these factors stress the need for development of flexible simulation software, that can match the diversity, complexity and sheer amount of the real data that is currently being sampled.
 
 % adding more models
+\subsection{Model availiability}
+
 Phylogenetic simulation software $\pi$BUSS presented in Chapter \ref{chap:pibuss} allows for fabricating evolution under a vast array of coalescent, amino-acid, nucleotide and codon substitution models, as well as diffusion models, combined with various molecular clock models.
-In addition it offers an ability to apply different models across arbitrary partition schemes.
-In future releases of $\pi$BUSS the development will be aimed at extending the array of availiable models even further.
-The development effort will be aimed at matching the model richness available for inference in BEAST and supplying every model with it's simulation counterpart in $\pi$BUSS.
+In addition it offers an ability to apply different models across arbitrary partitioning schemes.
+In future releases of $\pi$BUSS the collection of availiable models will be extended even further.
+The development effort will be aimed at matching the model richness available for inference in BEAST, and supplying every method with it's simulation counterpart in $\pi$BUSS.
+
+
+\subsection{Graphical user interface and BEAUti integration}
 
 % gui for more complex models
-In particular the models specification will be availiable via the user-friendly Graphical User Interface (GUI), which allows to setup a simulation by choosing models from drop-down menus, partitioning data in tables and parsing parameters from text fields in an intuitive fashion.
-Time-heterogenous models, for which evolutionary parameters change both across different lineageas (see Chapter \ref{chap:dpp}) as well as models of pan-lineage change (see Chapter \ref{chap:epoch}), which form a vital part of this thesis will have a dedicated panels, where users can formulate them without the need to manually edit XML files.
-
+The models specification will continue to be availiable via the user-friendly Graphical User Interface (GUI), which allows to setup a simulation by choosing models from drop-down menus, partitioning data in tables and parsing parameters from text fields in an intuitive fashion.
+Time-heterogenous models, for which evolutionary parameters change both across different lineageas (see Chapter \ref{chap:dpp}) as well as models of pan-lineage change (see Chapter \ref{chap:epoch}) will have a dedicated panels, where users can formulate them without the need to manually edit XML files.
 % beauti integration
-In that sense $\pi$BUSS in addition to it's Command Line Interface for scripting purposes and XML parsers availiable via BEAST core implementation is similar to BEAUti software, which helps in setting analysis via user-friendly GUI.
+In that sense $\pi$BUSS in addition to it's Command Line Interface for scripting purposes and XML parsers availiable via BEAST core implementation is similar to BEAUti software, which helps BEAST users in setting analysis via user-friendly GUI.
 We will follow along that path, by providing even closer integration between the two programs and facilitating generation of joint simulation-analysis XML documents in which fabricated data is instantly passed to BEASTs XML parsers for inference.
 
 % indel models
-In the field of molecular biology insertion and deletion (indels) events exist on the other end of spectrum of mutations then substitution events, which we discussed in details in Subsection \ref{sub:subst_models}.
+\subsection{Simulation of insertion deletion events}
+
+In the field of molecular biology insertions and deletions (indels) exist on the other end of spectrum of mutations then substitution events, which we discussed in details in Subsection \ref{sub:subst_models}.
 Whereas substitutions are point mutations which replace one nucleotide with another, indels proceed by either inserting or deleting nucleotides in a sequence, thus altering it's length. 
 Indel mutations are well known to have a significant impact on processes of molecular evolution \citep{Fletcher2009}.
 Therefore without models of insertion/deletion sequence simulation is somewhat limited.
-Next releases of $\pi$BUSS will implement that option.
+Next releases of $\pi$BUSS will implement that option, starting with the stochastic Dollo model \ref{LeQuesne1974}.
 
 \section{Future prospects for visualising viral diffusion}
 
 %many citations, stressing th eneed for such a software
-SPREAD software for visualising phylogeographic diffusion processes (\citet{Bielejec2011}, presented in Chapter \ref{chap:spread}) has proven itself to be a valuable tool.
-With over 90 citations, by the time of writing this thesis, of the original manuscript presenting the package it is clear that there is a need for a software which can summarise the findings of molecular virology in a clear and concise way, that can then be presented to a wider audience.
+With over 90 citations by the time of writing this thesis, of the original manuscript presenting the SPREAD software (\citet{Bielejec2011}, see Chapter \ref{chap:spread}) it is clear that there is a need for a package that can visualise phylogeographic diffusion processes.
+Summarising the findings of molecular virology in a clear and concise way, that can be then presented to a wider audience, is as important of a step as the statistical analysis itself.
 
-With that in mind we will continue to support SPREAD by adding new functionalities and making new analysis possible.
-Next major release of the software will be aimed at a thorouh re-write of the internal engine that would result sin a more stable and responsive package.
-One of the feauture requests has been the instant color alteration, without the need to re-compute the analysis.
+With that in mind we will continue to support SPREAD by adding new functionalities and making more analysis possible.
+Next major release of the software will be aimed at a thorough re-write of the SPREADs internal engine, that would hopefully result in a more stable and responsive package.
+One of the feature requests has been the instant color alteration, without the need to re-compute the analysis.
 
 % outputting KML and web interfaces
+\subsection{Web interfaces}
+
 The ability to output time-stamped KML documents which then can be played as animations is one of the most important functionalities of SPREAD and a source of its popularity.
 Future releases will continue to support that function, yet we will also add the ability to produce animated documents which can be embedded in webpages, viewed on mobile devices or locally on web browsers.
 
 % new analysis, spatial statistics
+\subsection{Spatial statistics}
+
 New analysis will also be made attainable, with a possibilty to produce spatial statistics such as wavefront \citep{Pybus2012}, for visualising emerging epidemics.
-New release of SPREAD will also have a Command Line Interface that will make it easier to pipeline large or cyclic analysis, produce scripts or call SPREAD from interpretable languages like R \citep{RCran} or Python.
+New release of SPREAD will also have a Command Line Interface that will make it easier to pipeline large repeatable analysis, produce scripts or call SPREAD from interpretable languages like R \citep{RCran} or Python.
 
 \section{Other challenges}
 
 % high perf computin
-Ever growing availability of molecular sequences produced by High-throughput sequencing yields data which is difficult to store, yet alone analyse.
-This problem is dubbed the biggets challenge for the field of molecular virology.
+\subsection{High performance computing}
 
-Due to hardware limitations and problems with heat dissipation we are approaching the limit of how many integrated circuits can be put into one CPU core.
-Because of these problems serial computation on next generations of CPUs no longer bring increases in speed and performance.
+Ever growing availability of molecular sequences produced by high-throughput sequencing yields data which is difficult to store, yet alone analyse.
+This problem is dubbed the biggest challenge for the field of molecular virology. % citation
+
+Furthermore due to hardware limitations and problems with heat dissipation we are approaching the limit of how many transistors can be put into integrated circuits.
+An observation which became to be known as the Moore's law predicted the trend in which chip performance should double roughly every 18 months.
+However because of these problems serial computations on next generations of CPUs no longer bring the same increases in speed and performance.
+% citation
 If we want to capitalize on vast amounts of data that are availiable for us, future development of phylogenetic software should target high performance parallel devices such as GPUs \citep{Nickolls2008} or Field-programmable gate arrays (FPGA, \citet{Kuon2008}).
 
 % codon models
+\subsection{Biologically plausible models}
+
 Interesting, realistic models of evolution also bring new computational challenges with them.
-Codon models, such as discussed in Chapter \ref{chap:dpp} are an example of such challenging models.
+Models with large state spaces, such as codon models discussed in Chapter \ref{chap:dpp} are an example of such a challenge.
 Fortunately recent advances in computing on GPUs \citep{Ayres2012} provide opportunities to accelerate phylogenetic inference.
 However we believe that more research will be needed to mitigate the imminent computational burdens that come with novel modelling approaches and high-throughput sequencing. 
 
 % visualisations
+\subsection{Big data}
+
 The advent of next generation sequencing data is expected to allow us to generate complete genome sequences swiftly and a fraction of todays cost.
 This combined with high-performance computing will allows us to analyse the data in almost real time, and by coupling molecular sequence data with geographical information, to trace the diffusion of emerging epidemics and instantly identify postential hosts and sinks as well as other factors contributing to viral spread.   
 
