@@ -3,14 +3,14 @@
 \section{General Introduction}
 
 Rapidly evolving pathogens pose an ever increasing threat to the human population.
-This threats are exemplified by recent infections with H5N1 avian influenza A, pandemic spread of swine-origin H1N1 influenza \citep{Rambaut2008} or Severe Acute Respiratory Syndrome (SARS) \citep{Ksiazek2003}.
-Unlike zoonotic diseases human RNA viruses have no natural barriers that could hamper their escalation.
-, mainly due to the extensive nature of human mobility \citep{Brockmann2006}.
+This threats are exemplified by recent infections with H5N1 avian influenza A, pandemic spread of swine-origin H1N1 influenza \citep{Rambaut2008}, Severe Acute Respiratory Syndrome (SARS) \citep{Ksiazek2003} and the outbreak of the haemorrhagic fever in humans in Africa (Ebola virus, \citet{Dudas2014}).
+Unlike zoonotic diseases human RNA viruses have no natural barriers that could hamper their escalation, mainly due to the extensive nature of human mobility \citep{Brockmann2006}.
 
 Despite the ever increasing impact of emerging infectious diseases (EIDs) the first studies combining molecular evolution with geographical dispersal are less than 50 years old \citep{Henning1966}. 
-Most of these pioneering studies were limited to mapping phylogenetic tip taxa to their geographical coordinates \citep{Kidd2006} and comprehensive quantitative frameworks have only recently begun being developed.
+Most of these pioneering studies were limited to mapping phylogenetic tip taxa to their geographical coordinates \citep{Kidd2006} and comprehensive quantitative frameworks for analysing viral spread have only recently begun being developed.
 Models that combine the process of spatial diffusion with genetic substitution are only as recent as this decade \citep{Lemey2009,Lemey2010}.
-The hampered advances in the field of computational phylogenetics is mainly attributed to the computational burden that these compute-intensive calculations impose.
+% The hampered advances in the field of computational phylogenetics is mainly attributed to the computational burden that these compute-intensive calculations impose.
+Advances in the field of computational phylogenetics are mainly hampered by the the computational burden that these compute-intensive calculations impose.
 As an example, finding the maximum likelihood tree requires a search through the space of all possible tree topologies, which quickly becomes computationally intractable, as depicted in Table \ref{tab:maxLikeBurden}.
 
 \begin{table}
@@ -40,20 +40,15 @@ $55$ & $3.19\times10^{86}$\tabularnewline
 Adopting Bayesian statistical approach, implemented in a flexible framework of molecular evolution \citep{Drummond2012} helps circumvent some of these hindrances by focusing sampling efforts on the topologies 
 % parts of the tree space
 that best fit the data.
-Nonetheless Bayesian phylogenetic analyses remain highly computationally intensive and a vast area of research is now aiming at bringing new computational advances to actively stretch these limits \citep{Suchard2009}.
+Nonetheless Bayesian phylogenetic analyses remain highly computationally intensive and a vast area of research is now aiming at bringing new advances to actively stretch these limits \citep{Suchard2009}.
 This problem is further aggravated as the advent of high-throughput sequencing produces millions of sequences at low cost resulting in the availability of increasingly large data sets.
 
 %TODO: other problems
 
-
-
-
-
-
 \section{Reconstructing viral spread in time and space}
 
-Central assumption of viral phylogenetics is that the epidemiological processes that shape the fitness of viral populations leave a measurable footprint on their genomes.
-Due to the rapid nature of their evolution, the process of character substitution can be observed in almost real time, and gives the opportunity to sample genetic data at different points in time, as opposed to ultrametricly sampled data such as depicted in Figure \ref{fig:ultrametric}.
+Central assumption of viral phylogenetics posits that the epidemiological processes shaping the fitness of viral populations leave a measurable footprint on their genomes.
+Due to the rapid nature of the viral evolution, the process of character substitution can be observed in almost real time, and gives the opportunity to sample genetic data at different points in time, as opposed to ultrametricly sampled data such as depicted in Figure \ref{fig:ultrametric}.
 
 %---ULTRAMETRIC TREE---%
 \begin{figure}[h]
@@ -66,12 +61,13 @@ Tree on the right has all of it's sampling dates set at $t=0$. Conversly the tre
 \label{fig:ultrametric}
 \end{figure}
 
-Such data-sets are usually reffered to as time-heterogeneous and frequently arise from studies involving viruses which accumulate statistically significant amounts of genetic change in a relatively short amount of time.
-Populations for which such data can be obtained are called measurably evolving populations (MEPs, \cite{Drummond2003}) and have been instrumental in providing  estimates of the evolutionary rate and in making advances to the molecular clock models \citep{Drummond2006}.
+Such time stamped data-sets are usually reffered to as time-heterogeneous and frequently arise from studies involving viruses which accumulate statistically significant amounts of genetic change in a relatively short amount of time.
+Populations for which such data can be obtained are called measurably evolving populations (MEPs, \cite{Drummond2003}) and have been instrumental in providing estimates of the evolutionary rate and in making advances to the theory of molecular clock models \citep{Drummond2006}.
 
 In studies known as phylodynamics the processes which shape the viral genome are integrated with epidemiological dynamics, by assuming that both the evolution and 
 geographical dispersal are independent, stochastic processes which unfold on phylogenetic trees.
-In that sense the treedpes not only provide a record of evolutionary ancestry, but also of the dispersal in actual geographical coordinates, and both these processes happen simultaneously.
+In that sense the tree does not only provide a record of evolutionary ancestry, but also of the dispersal in actual geographical coordinates, and both these processes happen simultaneously.
+
 Our group has been involved in research which aims at developing a full quantitative understanding of the processes that shape the epidemiology and the evolution of MEP-like viruses.
 In the following section I present the problems on which my involvment in this fascinating area of research has been focused.
 
@@ -79,10 +75,11 @@ In the following section I present the problems on which my involvment in this f
 
 % models
 Phylogenetic analysis employing stochastic processes make strong restrictive assumptions regarding the underlying substitution process.
-These assumptions are mainly posited to reduce the number of free parameters of the models describing the molecular evolution and ease the already mentioned computational and mathematical tractability.
+These assumptions are mainly considered to reduce the number of free parameters of the models and ease the already mentioned computational and mathematical tractability.
 Unfortunately many of these assumptions hamper the application of the methods to the complex, real-world data-sets.
 Relaxing some of these assumptions and development of more biologically plausibe models, able to grasp the complex nature of phylodynamic dispersal processes is one the aims of the presented thesis \citep{Bielejec2014a}.
-Another goal is to make the general applicability suitable for epidemiological problems as well as beyond them, with potential to turn the findings into usefull predictions of the emergence of infectious diseases, e.g. by identifying the sources and sinks of the geographical dispersal.
+Another goal is to make the general applicability suitable for epidemiological problems as well as beyond them, with potential to turn the findings into usefull predictions of the emergence of infectious diseases, e.g. by identifying the sources and sinks of the viral spread.
+% geographical dispersal
 
 % simuation
 With the development of novel phylogenetic inference methods comes the need to synthesize evolutionary data, in order to compare estimator performance and characterize strengths and weaknesses of different approaches (e.g. \cite{Arenas2012}, \cite{Hoban2011}).
@@ -93,9 +90,11 @@ Part of the research presented in this thesis is devoted towards development of 
 Phylogenetic inference inevitably results in complex, multi-dimensional output data.
 This dimensionality is further incremented by adding the geography to the usuall evolutionary time component.
 Finally, Bayesian analysis result in posterior distributions of trees, with each tree branch annotated with estimated node locations and other traits of interest.
-These aspects represent a major challenge for visualizing the inference. 
+These aspects represent a major challenge for visualizing the phylogenetic inference.
 Yet clear and intuitive visualizations are an important aspect of every analysis \citep{Hadley2010}.
-Spatial phylogenetic projections have been already been utilized in the field \citep{Kidd2006,Parks2009}, yet most of these applications remain limited to mapping phylogenetic tip taxa to their geographical coordinates, without providing robust statistical estimates of the geographic locations at the ancestral nodes nor the measures of uncertainty in the inference.
+
+Spatial phylogenetic projections have already been utilized in the field \citep{Kidd2006,Parks2009}, yet most of these applications remain limited to mapping phylogenetic tip taxa to their geographical coordinates, without providing robust statistical estimates of the geographic locations at the ancestral nodes nor the measures of uncertainty in the inference.
+Fortunately the advent of powerful and flexible Geographic Information Systems (GIS) has fostered an interesting possibility to incorporate both spatial and temporal information into viral phylogenetic analysis.
 
 \begin{figure}[H]
 \begin{centering}
@@ -108,26 +107,26 @@ A. Conceptual representation of time-slicing a phylogeny and projecting the part
 \label{fig:spread}
 \end{figure}
 
-Fortunately the advent of powerful and flexible Geographic Information Systems (GIS) has fostered an interesting possibility to incorporate both spatial and temporal information into viral phylogenetic analysis.
 Presenting readily interpretable visual summaries of the inferences, that can in turn be communicated to the researchers across different fields is one of the more important aspects of this thesis.
-This has been materialized in the development of an user-friendly application that produces compelling and informative statistical visualizations of viral spread in time and space \citep{Bielejec2011}.
-An example visualisation finds itself in Figure \ref{fig:spread}.
-
-% \chapter{Methodology}
+This goal has been materialized in the development of a user-friendly application, that produces compelling and informative statistical visualizations of viral spread in time and space \citep{Bielejec2011}.
+An example of such a visualisation finds itself in Figure \ref{fig:spread}.
 
 \section{Evolution as a stochastic process}
 
-Molecular phylogenetic modelling typically assumes that the observed molecular sequence data has been generated by some stochastic process, which emits characters over time.
+Molecular phylogenetic modelling typically starts with an assumption that the observed sequence data has been generated by some stochastic process, which emits characters over time.
 We can think of stochastic processes as functions of time, which is regarded as a deterministic argument, whose values are random (non-deterministic) variables. 
 It is thus a statistical model of a random development, or evolution, in time.
 Phylogenetic inference often resorts to processes where time is considered to be continuous and the indexed set of outcomes, called the state space, is countable and finite (discrete).
 % The stochastic process $X$ is a collection $\left\{ X(t):\; t\in T\right\} $, where each drawn value $X(t)$ is a random variable drawn from state space $\mathcal{E}$, with $K$ possible values, indexed by orderer time $T$.
+With that in mind we can give a formal definition:
 
 \begin{defn} 
 The stochastic process $X$ is a collection $\left\{ X(t):\; t\in T\right\} $, where each drawn value $X(t)$ is a random variable drawn from state space $\mathcal{E}$, with $K$ possible values, indexed by orderer time $T$.
 \label{def:stochasticProc}
 \end{defn} 
 
+In the simplest case, for which the unit of evolution is a single nucleotide, we have $\mathcal{E}=\left\{ A,C,G,T\right\}$ and $K=4$.
+The particular sites of the alignment are then considered to be stochastically independent realisations of the process $X$, leading to the observed data (see Figure \ref{fig:alignment}). 
 
 \begin{figure}[H]
 \begin{center}
@@ -158,15 +157,13 @@ G\rightarrow C
 \label{fig:alignment}
 \end{figure}
 
-In the simplest case, for which the unit of evolution is a single nucleotide, we have $\mathcal{E}=\left\{ A,C,G,T\right\}$ and $K=4$.
-The particular sites of the alignment are then considered to be stochastically independent realisations of the process $X$, leading to the observed data (see Figure \ref{fig:alignment}). 
 As Figure \ref{fig:alignment} depicts not all of the differences can be observed, as due to multiple substitutions (multiple hits) some of the changes are silent.
-To accurately describe these processes one needs biologically plausible models of evolution that can grasp their complex nature. 
+To accurately describe these processes one needs a models of evolution that can account for those multiple hits.
 
 \subsection{Poisson process\label{sub:poisson}}
 
-Poisson process is an example of a continuous-time stochastic process frequently used to describe counts of independent rare events, occuring with some intensity (or rate) $r$, that remains constant over time. 
-Among the examples of such process we can mention requests for a single document on a web-server or goals scored in a football game \footnote{Unless it's Real - Barca, than the events are not so rare.}.
+Poisson process is an example of a continuous-time stochastic process that is frequently used to describe counts of independent, rare events, occuring with some intensity (or rate) $r$, that remains constant over time. 
+Among the examples of such process we can mention requests for a single document on a web-server, or goals scored in a football game \footnote{Unless it's Real - Barca, than the events are not so rare.}.
 The state space in this case is obviously $\mathcal{E} = \left\{ 0,1,2, \dots \right\}$.
 This makes Poisson process especially suitable for modelling the timing and number of DNA mutation events. 
 Let us formally define a Poisson process.
@@ -214,7 +211,7 @@ P\left\{ N(t+u)-N(u)=k\right\} =P\left\{ N(t)=k\right\}=\frac{e^{-r t}(r t)^{k}}
 
 In the Poisson process the time between any two mutations is exponentially distributed with parameter $r$, thus the average waiting time between the arrival of events is $1/r$.
 To show this important property we can consider $T_1,T_2,\ldots$ to be the the inter-arrival times, where $T_k$ is the waiting times between the $(k-1)\text{'st}$ and $k\text{'th}$ mutation. 
-Obviously the number of mutations before some time $t>0$ is less than some integer $k>0$ if and only if the waiting time $T_k$ until the $k\text{'th}$ mutation is larger than $t$:
+Obviously, the number of mutations before some time $t>0$ is less than some integer $k>0$ if and only if the waiting time $T_k$ until the $k\text{'th}$ mutation is larger than $t$:
 
 \begin{equation}
 P\left(N(t)<k\right)=P\left(T_{k}>t\right).
@@ -254,8 +251,8 @@ Similarly we can show that $T_3$ is indepenent of $T_1$ and $T_2$ and by repeati
 
 Within phylogenetic framework one is typically interested not only in modelling the number of events (mutations), but also the actual probabilities of changing states at the particular site in the alignment. 
 Let $\mathbf{R}$ denote a $K \times K$ matrix filled with probabilities of exchanging states between any pair $i,j\in \mathcal{E}$.
-To express the probability of going from state $i$ to $j$ in some time interval $t$, we multiple the probability of the state change times the probability of having exacly $k$ events leading to the observed change and integrate over all possible values of $k$.
-This allows us to accomodate all possible path that the evolution might have taken, and account for multiple hits that might have occured at the site as depicted in Figure \ref{fig:alignment}.
+To express the probability of going from state $i$ to $j$ in some time interval $t$, we multiple the probability of the state change times the probability of having exacly $k$ events leading to the observed change, and integrate over all possible values of $k$.
+This allows us to accomodate all possible path that the evolution might have taken, and account for multiple hits that might have occured at the site, as we saw in Figure \ref{fig:alignment}.
 From equation (\ref{eq:poissonDist}) we know the probability of having $k$ mutations in time interval $t$, thus:
 
 \begin{equation}
