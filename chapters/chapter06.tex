@@ -1,5 +1,6 @@
 \chapter{General discussion and future directions}
 
+\begin{remark}{Outline}
 In this concluding chapter several aspects of the presented work are put into a wider perspective.
 Much of the work that constitutes this thesis resolves around relaxing the standard phylogenetic assumptions, in search of more biologically plausible models. 
 In that light the work on the time-heterogenous modelling, as presented in Chapter \ref{chap:epoch}, can be viewed as an introductory step towards a broader range of models that tackle different types of time-heterogeneity.
@@ -10,7 +11,7 @@ Finally we talk about possibility to infer both the time and the number of chang
 % much of presented work is software
 % simulation
 Another substantial portion of the work presented in this thesis is devoted towards development of a flexible, easy-to-use software.
-In that light we talk about the continued effort to support and extend the $\pi$BUSS simulation software \citep{bielejec2014}, with an ever-growing array of phylogenetic and population models.
+In that light we talk about the continued effort to support and extend the $\pi$BUSS simulation software \citep{Bielejec2014b}, with an ever-growing array of phylogenetic and population models.
 
 %visualising
 % difussion
@@ -18,7 +19,8 @@ In that light we talk about the continued effort to support and extend the $\pi$
 Highly dimensional estimates that result from Bayesian inference of viral spread in both time and space require dedicated software that is capable of producing visulaisations that are both visually pleasing and insightfull.
 We discuss the future directions that the next releases of the SPREAD software \citep{Bielejec2011} will take, ensuring that it keeps providing it's users with intuitive and user-friendly interfaces as well as access to a vast bulk of possible visualizations.
 
-Finally we talk about the challenges and opportunities that the future might bring, in the era of the so called "genomics plenty", where vast amount of molecular sequences can be sequenced fast and cheaply.
+Finally we talk about the challenges and opportunities that the future might bring, in the era of the so called ``genomics plenty'', where vast amount of molecular sequences can be sequenced fast and cheaply.
+\end{remark}
 
 \section{Extending the Epoch model}
 
@@ -46,7 +48,7 @@ By taking points $t_{0,}t_{1},\ldots t_{n}\in[0,T]$ such that $0=t_{0}<t_{1}<\ld
 \end{equation}
 
 \noindent
-From \ref{eq:rodrigo} and \ref{eq:approx}, by the definition of the Riemannian integral we have that $\mathbf{P}(r,T)=\underset{n\rightarrow\infty}{lim}\underset{i=0}{\overset{n}{\prod}}\text{exp}\left(r\mathbf{Q}(t_{i}^{*})\cdot\triangle t_{i}\right)$, given that rate matrices $\mathbf{Q}(t_{i}^{*})$ commute 
+From Equations~(\ref{eq:rodrigo}) and (\ref{eq:approx}), by the definition of the Riemannian integral we have that $\mathbf{P}(r,T)=\underset{n\rightarrow\infty}{lim}\underset{i=0}{\overset{n}{\prod}}\text{exp}\left(r\mathbf{Q}(t_{i}^{*})\cdot\triangle t_{i}\right)$, given that rate matrices $\mathbf{Q}(t_{i}^{*})$ commute 
 and are closed with respect to the matrix multiplication.
 \citet{Sumner2012} formalize the problem of multiplicative closure of the Markov models. 
 Given those regularity conditions, we can perform a numerical approximation of any function of rate change by using the epoch time-discretization, and by partitioning the time interval into a fine grid of intervals. 
@@ -64,16 +66,16 @@ log(q_{ij})=\beta_{1}\delta_{1}x_{i,j,1}+\ldots+\beta_{P}\delta_{P}x_{i,j,P}.
 \label{eq:glm}
 \end{equation}
 
-Coefficients $\mathbf{\beta}=\left(\beta_{1},\ldots,\beta_{P}\right)$ quantify the contribution of single predictor to the overall rate, and $\left(\delta_{1},\ldots,\delta_{P}\right)$ are binary indicators that decide whether a predictor is removed or excluded from the model via Bayesian stochastic search variable selection (BSSVS) procedure \citep{Kuo1998,Lemey2009}.
+Coefficients $\beta=\left(\beta_{1},\ldots,\beta_{P}\right)$ quantify the contribution of single predictor to the overall rate, and $\left(\delta_{1},\ldots,\delta_{P}\right)$ are binary indicators that decide whether a predictor is removed or excluded from the model via Bayesian stochastic search variable selection (BSSVS) procedure \citep{Kuo1998,Lemey2009}.
 
-For the within-host HIV evolution example analyzed in Chapter \ref{chap:epoch} \citet{Shankarappa99} report both viral load and CDT4 cell count data, which could be then used as a set of potential predictors, and with the epoch structure formulized for that model we could inferr how the linear effect of each of the covariates changes over time.
+For the within-host HIV evolution example analyzed in Chapter~\ref{chap:epoch} \citet{Shankarappa1999} report both viral load and CDT4 cell count data, which could be then used as a set of potential predictors, and with the epoch structure formulized for that model we could inferr how the linear effect of each of the covariates changes over time.
 If $\mathbf{x_{p}}$ is a single predictor we can use the epoch structure to divide it's time-domain into contiguous intervals.
 By fitting GLM models in those intervals a piecewise effect of predictors $\mathbf{x_{p}}$ can be obtained in each epoch. 
-One could begin with standard piecewise-linear changes or approximate e.g. polynomial or other complex functions of rate-change using approach presented in Subsection \ref{sub:nonlinear}.
+One could begin with standard piecewise-linear changes or approximate e.g. polynomial or other complex functions of rate-change using approach presented in Subsection~\ref{sub:nonlinear}.
 
 \subsection{Evaluating number and placement of change-points in time}
 
-Both problems presented in Chapter \ref{chap:epoch} i.e. HIV within-host evolution before and after progression time and seasonal influenza migration represent hypothesis for which the number and placement of the transition times is known.
+Both problems presented in Chapter~\ref{chap:epoch}, i.e. HIV within-host evolution before and after progression time and seasonal influenza migration represent hypothesis for which the number and placement of the transition times is known.
 There might however be a class of problems for which those change points are not known and need to be estimated.
 % it remains interesting to investigate possible extensions that estimate the number and position of change points.
 First approach that comes to mind is to introduce priors on the number and location of the transition times and integrate over all their possible values using the standard MCMC framework.
@@ -85,6 +87,29 @@ In Chapter \ref{chap:dpp} we talk about an interesting class of non-parametric p
 Although we mainly pursue the inference of lineage-specific parameters of codon models, it is interesting to note that the same class of priors could be used to infer the number and placement of transition-times of the epoch model.
 
 At the time of writing this chapter we are actively testing these possibilities, yet exacly how accurate the inference of the transition-times can be, and how we can quantify the predictive value of those covariates remains an open question for the follow-up studies.
+
+\section{Future prospects for visualising viral diffusion}
+
+%many citations, stressing th eneed for such a software
+With over 90 citations by the time of writing this thesis, of the original manuscript presenting the SPREAD software (\citet{Bielejec2011}, see Chapter \ref{chap:spread}) it is clear that there is a need for a package that can visualise phylogeographic diffusion processes.
+Summarising the findings of molecular virology in a clear and concise way, that can be then presented to a wider audience, is as important of a step as the statistical analysis itself.
+
+With that in mind we will continue to support SPREAD by adding new functionalities and making more analysis possible.
+Next major release of the software will be aimed at a thorough re-write of the SPREADs internal engine, that would hopefully result in a more stable and responsive package.
+One of the feature requests has been the instant color alteration, without the need to re-compute the analysis.
+
+% outputting KML and web interfaces
+\subsection{Web interfaces}
+
+The ability to output time-stamped KML documents which then can be played as animations is one of the most important functionalities of SPREAD and a source of its popularity.
+Future releases will continue to support that function, yet we will also add the ability to produce animated documents which can be embedded in webpages, viewed on mobile devices or locally on web browsers.
+
+% new analysis, spatial statistics
+\subsection{Spatial statistics}
+
+New analysis will also be made attainable, with a possibilty to produce spatial statistics such as wavefront \citep{Pybus2012}, for visualising emerging epidemics.
+New release of SPREAD will also have a Command Line Interface that will make it easier to pipeline large repeatable analysis, produce scripts or call SPREAD from interpretable languages like R \citep{RCran} or Python.
+
 
 \section{Areas of improvement for $\pi$BUSS simulator software}
 
@@ -120,29 +145,7 @@ In the field of molecular biology insertions and deletions (indels) exist on the
 Whereas substitutions are point mutations which replace one nucleotide with another, indels proceed by either inserting or deleting nucleotides in a sequence, thus altering it's length. 
 Indel mutations are well known to have a significant impact on processes of molecular evolution \citep{Fletcher2009}.
 Therefore without models of insertion/deletion sequence simulation is somewhat limited.
-Next releases of $\pi$BUSS will implement that option, starting with the stochastic Dollo model \ref{LeQuesne1974}.
-
-\section{Future prospects for visualising viral diffusion}
-
-%many citations, stressing th eneed for such a software
-With over 90 citations by the time of writing this thesis, of the original manuscript presenting the SPREAD software (\citet{Bielejec2011}, see Chapter \ref{chap:spread}) it is clear that there is a need for a package that can visualise phylogeographic diffusion processes.
-Summarising the findings of molecular virology in a clear and concise way, that can be then presented to a wider audience, is as important of a step as the statistical analysis itself.
-
-With that in mind we will continue to support SPREAD by adding new functionalities and making more analysis possible.
-Next major release of the software will be aimed at a thorough re-write of the SPREADs internal engine, that would hopefully result in a more stable and responsive package.
-One of the feature requests has been the instant color alteration, without the need to re-compute the analysis.
-
-% outputting KML and web interfaces
-\subsection{Web interfaces}
-
-The ability to output time-stamped KML documents which then can be played as animations is one of the most important functionalities of SPREAD and a source of its popularity.
-Future releases will continue to support that function, yet we will also add the ability to produce animated documents which can be embedded in webpages, viewed on mobile devices or locally on web browsers.
-
-% new analysis, spatial statistics
-\subsection{Spatial statistics}
-
-New analysis will also be made attainable, with a possibilty to produce spatial statistics such as wavefront \citep{Pybus2012}, for visualising emerging epidemics.
-New release of SPREAD will also have a Command Line Interface that will make it easier to pipeline large repeatable analysis, produce scripts or call SPREAD from interpretable languages like R \citep{RCran} or Python.
+Next releases of $\pi$BUSS will implement that option, starting with the stochastic Dollo model \citep{LeQuesne1974}.
 
 \section{Other challenges}
 
@@ -171,5 +174,26 @@ However we believe that more research will be needed to mitigate the imminent co
 
 The advent of next generation sequencing data is expected to allow us to generate complete genome sequences swiftly and a fraction of todays cost.
 This combined with high-performance computing will allows us to analyse the data in almost real time, and by coupling molecular sequence data with geographical information, to trace the diffusion of emerging epidemics and instantly identify postential hosts and sinks as well as other factors contributing to viral spread.   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

@@ -1,0 +1,158 @@
+\documentclass[twoside,openright,titlepage,numbers=noenddot,headinclude,%
+               footinclude=true,cleardoublepage=empty,abstractoff,BCOR=5mm,%
+               paper=a4,fontsize=11pt,english]{scrreprt}
+
+%%%%%%%%%%%%%%%%
+%---PACKAGES---%
+%%%%%%%%%%%%%%%%
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{algpseudocode}
+\usepackage{framed}
+\usepackage{color}
+\usepackage{colortbl}
+\usepackage{float}
+\usepackage[all]{xy}
+\usepackage[T1]{fontenc}
+\usepackage{rotating}
+\usepackage{dcolumn}
+\usepackage{multirow}
+\usepackage{multicol}  
+\usepackage{afterpage}
+% \usepackage{minted}
+% \usepackage{rotating}
+% \usepackage{pstricks,auto-pst-pdf}
+% \usepackage{pifont}% http://ctan.org/pkg/pifont
+% \usepackage{ltablex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%---USER SPECIFIED LaTeX COMMANDS---%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Classic thesis
+\input{classicthesis-config}
+
+% Theorems and definitions
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}{Definition}
+\newtheorem{algorithm}{Algorithm}
+
+% \theoremstyle{plain}
+% \newtheorem{thm}{\protect\theoremname}
+%   \theoremstyle{definition}
+%   \newtheorem{defn}[thm]{\protect\definitionname}
+%   \theoremstyle{remark}
+%   \newtheorem{rem}[thm]{\protect\remarkname}
+
+% Counters
+\renewcommand{\labelenumi}{{\color{halfgray}(\roman{enumi})}}
+% \renewcommand{\labelenumii}{\color{halfgray}{\alph{enumii}.}}
+\renewcommand{\labelitemi}{{\color{halfgray}$\bullet$}}%\raisebox{0.3ex}{\tiny$\blacksquare$}}}
+
+\numberwithin{theorem}{chapter}
+\numberwithin{definition}{chapter}
+\numberwithin{algorithm}{chapter}
+\numberwithin{figure}{chapter}
+\numberwithin{table}{chapter}
+
+% Math
+% \DeclareMathOperator*{\argmin}{arg\,min}
+% \DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareSymbolFont{letters}{OML}{ztmcm}{m}{it}
+\DeclareSymbolFontAlphabet{\mathnormal}{letters}
+
+\numberwithin{equation}{chapter}
+\allowdisplaybreaks
+
+% Shaded boxes
+\newenvironment{remark}[1]{%
+  \definecolor{shadecolor}{gray}{0.9}%
+  \begin{shaded}{\color{maroon}\noindent\textsc{#1}}\\%
+}{%
+  \end{shaded}%
+}
+
+% Colors
+\definecolor{rulecolor}{rgb}{0.80,0.80,0.80}
+\definecolor{bgcolor}{rgb}{1.0,1.0,1.0}
+\definecolor{maroon}{rgb}{0.5,0,0}
+\definecolor{gray1}{gray}{0.9}
+\definecolor{gray2}{gray}{0.5}
+\definecolor{fgcolor}{rgb}{0.2, 0.2, 0.2}
+% \newminted{python}{bgcolor=bgcolor}
+
+% Checkmarks
+% \newcommand{\cmark}{\ding{51}}%
+% \newcommand{\xmark}{\ding{55}}%
+
+% Algorithms
+\floatstyle{ruled}
+\newfloat{algorithm}{tbp}{loa}
+\providecommand{\algorithmname}{Algorithm}
+\floatname{algorithm}{\protect\algorithmname}
+
+% dcolumn definition of decimally aligned table
+\newcolumntype{.}{D{.}{.}{-1}}
+
+% grey row colors
+\newcommand{\gray}{\rowcolor{gray1}}
+
+% TODO: shortcuts for all names, typed in \sc
+\def \bussname {$\pi$BUSS}
+
+\graphicspath{{figures/}}
+
+%%%%%%%%%%%%%%%%
+%---DOCUMENT---%
+%%%%%%%%%%%%%%%%
+
+\begin{document}
+\frenchspacing
+\raggedbottom
+\selectlanguage{english}
+\pagenumbering{roman}
+\pagestyle{plain}
+
+%%%%%%%%%%%%%
+%---COVER---%
+%%%%%%%%%%%%%
+
+%TODO 
+
+%%%%%%%%%%%%%%%%%%%
+%---FRONT PAGES---%
+%%%%%%%%%%%%%%%%%%%
+\include{frontback/titlepage}
+\cleardoublepage\include{frontback/disclaimer}
+\cleardoublepage\include{frontback/jury}
+\cleardoublepage\include{frontback/summary}
+\cleardoublepage\include{frontback/acknowledgments}
+\pagestyle{scrheadings}
+\cleardoublepage\include{frontback/toc}
+
+%%%%%%%%%%%%%%%
+%---CONTENT---%
+%%%%%%%%%%%%%%%
+\pagenumbering{arabic}
+
+\cleardoublepage
+\include{chapters/chapter01}\cleardoublepage
+\include{chapters/chapter02}\cleardoublepage
+\include{chapters/chapter03}\cleardoublepage
+\include{chapters/chapter04}\cleardoublepage
+\include{chapters/chapter05}\cleardoublepage
+\include{chapters/chapter06}\cleardoublepage
+
+%%%%%%%%%%%%%%%%%%
+%---BACK PAGES---%
+%%%%%%%%%%%%%%%%%%
+\cleardoublepage\include{frontback/bibliography}
+% TODO: all software and code availibility and requirements (copy from paper abstracts)
+% TODO: notation
+% TODO: appendix with R code for plots ?
+
+\end{document}

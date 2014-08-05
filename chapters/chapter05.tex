@@ -1,5 +1,10 @@
 \chapter{Branch specific codon models\label{chap:dpp}}
 
+\begin{remark}{Outline}
+In this chapter
+TODO
+\end{remark}
+
 \section{Introduction}
 
 First computationally trackable models of codon substitution were independently proposed by \cite{Muse1994} and \cite{Goldman1994} and published in the same issue of Molecular Biology and Evolution (MBE).
@@ -20,7 +25,7 @@ $\omega\approx1$ signifies neutral evolution.
 
 There are several advantages in using codon models over nucleotide based substitution models.
 Not all DNA positions evolve at the same rate, with non-synonymous substitutions occuring more frequently the synonymous substitutions.
-Although this problem can be mitigated to some extent by using codon-positioned nucleotide substitution models, the fast evolving positions and the state space limited to 4 character alphabet leads to biased estimates of long evolutionary distances, as portrayed in the previous chapter (\ref{sub:deepRoot}).
+Although this problem can be mitigated to some extent by using codon-positioned nucleotide substitution models, the fast evolving positions and the state space limited to 4 character alphabet leads to biased estimates of long evolutionary distances, as portrayed in the previous Chapter~\ref{chap:pibuss}.
 
 % GY style models
 The model proposed by \cite{Goldman1994} is characterized by a substitution rate matrix with following entries:
@@ -209,7 +214,7 @@ The algorithm to generate a single draw from DP is given in Listing \ref{alg:sti
 \begin{algorithm}[H]
 \begin{center}
 \begin{algorithmic}[1]
-\footnotesize{
+% \footnotesize{
 %
 \State $remainingLength \gets 1.0$;
 %
@@ -224,17 +229,24 @@ The algorithm to generate a single draw from DP is given in Listing \ref{alg:sti
 \EndFor \\
 %
  \textbf{return} $P$;
-}
+% }
 \end{algorithmic}
 \end{center}
-\caption{ { \footnotesize {\bf Constructing the Dirichlet process by stick breaking.} } }
+\caption{ 
+{ \footnotesize 
+{\bf Constructing the Dirichlet process by stick breaking.} 
+}% END: footnotesize
+}
 \label{alg:stickBreaking}
 \end{algorithm}
 
 Colloquially we can describe it as follows: we start with a stick of length 1 and break it randomly at point $r_{1}$ chosen by drawing one value from $\text{Beta}(1, \gamma)$ and assign $p_{1}$ to the length of the part of the stick that we just broke off.
 We then recursively break other portions of the stick to obtain $p_{2}, p_{3}, \ldots$ and so forth, each time setting:
 
-$$p_{i}=r_{i}\cdot\underset{j}{\overset{i-1}{\prod}}\left(1-r_{j}\right)$$.
+\begin{equation}
+p_{i}=r_{i}\cdot\underset{j}{\overset{i-1}{\prod}}\left(1-r_{j}\right).
+\label{eq:sticks}
+\end{equation}
 
 \noindent
 Parameter $\gamma$ controls the clustering behaviour of the process.
@@ -251,12 +263,11 @@ L(\mathbf{z},K|\gamma,N,\hat{\theta_{1}},\ldots,\hat{\theta_{K}})=\gamma^{K}\cdo
 \noindent 
 where $\eta_{k}$ denotes the number of sites assigned to category $k$.
 
-\section{Results}
+
+% \section{Results}
 
 
 
-
-\section{Discussion}
-
+% \section{Discussion}
 
 

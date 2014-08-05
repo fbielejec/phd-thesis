@@ -1,0 +1,265 @@
+\chapter{Evolutionary simulation\label{chap:pibuss}}
+
+\begin{remark}{Outline}
+This chapter is adapted from the following publication: \\
+% F. Bielejec, A. Rambaut, M.A. Suchard and P. Lemey
+F. Bielejec, P. Lemey, L. Carvalho, G. Baele, A. Rambaut, and M.A. Suchard.
+\bussname: a parallel BEAST/BEAGLE utility for sequence simulation under complex evolutionary scenarios.
+BMC Bioinformatics, 2014, 15(133)
+\end{remark}
+
+\section{Abstract}
+        
+\textbf{Background:} \\
+Simulated nucleotide or amino acid sequences are frequently used to assess the performance of phylogenetic reconstruction methods.
+BEAST, a Bayesian statistical framework that focuses on reconstructing time-calibrated molecular evolutionary processes,
+supports a wide array of evolutionary models, but lacked matching machinery 
+for simulation of character evolution along phylogenies. \\
+
+\noindent
+\textbf{Results:} \\
+We present a flexible Monte Carlo simulation tool, called {\bussname}, that employs the BEAGLE high performance library for phylogenetic computations to rapidly generate large sequence alignments under complex evolutionary models.
+{\bussname} sports a user-friendly graphical user interface (GUI) that allows combining a rich array of models across an arbitrary number of partitions. 
+A command-line interface mirrors the options available through the GUI and facilitates scripting in large-scale simulation studies.
+{\bussname} may serve as an easy-to-use, standard sequence simulation tool, but the available models and data types are particularly useful to assess the performance of complex BEAST inferences.
+The connection with BEAST is further strengthened through the use of a common extensible markup language (XML), allowing to specify also more advanced evolutionary models.
+To support simulation under the latter, as well as to support simulation and analysis in a single run, we also add the {\bussname} core simulation routine to the list of BEAST XML parsers.\\
+
+\noindent
+\textbf{Conclusions:} \\
+{\bussname} offers a unique combination of flexibility and ease-of-use for sequence simulation under realistic evolutionary scenarios. 
+Through different interfaces, {\bussname} supports simulation studies ranging from modest endeavors for illustrative purposes  to complex and large-scale assessments of evolutionary inference procedures.
+Applications are not restricted to the BEAST framework, or even time-measured evolutionary histories, and {\bussname} can be connected to various other programs using standard input and output format. \\
+
+%%%%%%%%%%%%%%5
+
+\noindent
+\textbf{Availability and requirements:} \\
+The parallel BEAST/BEAGLE utility for sequence simulation is licensed under the GNU Lesser GPL and its source code is freely available as part of the BEAST Google Code repository: \url{www.code.google.com/p/beast-mcmc/}
+Compiled, runnable packages targeting all major platforms along with a tutorial and supplementary data are hosted at:
+\url{www.rega.kuleuven.be/cev/ecv/software/pibuss}.
+{\bussname} requires Java runtime environment version 1.5 or later to run its executables and the BEAGLE library to be present and configured to fully utilize its capabilities.
+Bayesian Evolutionary Analysis by Sampling Trees (BEAST) is a cross-platform program for Bayesian inference in evolution and phylogenetics using molecular sequences. 
+The current stable release can be obtained from \url{www.beast.bio.ed.ac.uk}.
+The Broad-platform Evolutionary Analysis General Likelihood Evaluator (BEAGLE) library is free, open-source software licensed under the GNU LGPL. Both the source code and binary installers are available from \url{www.code.google.com/p/beagle-lib}. 
+Scripts and input files required for repeating the simulation study presented in {\bf{Example application}} are hosted at \url{www.github.com/phylogeography/DeepRoot}.
+
+%%%%%%%%%%%%%%5
+
+\section{Background}
+
+Recent decades have seen extensive development in phylogenetic inference, resulting in a myriad of techniques, each with specific properties concerning
+evolutionary model complexity, inference procedures and performance both in terms of speed of execution and estimation accuracy.
+With the development of such phylogenetic inference methods comes the need to synthesize evolutionary data in order to compare estimator performance and to characterize strengths and weaknesses of different approaches (e.g. \cite{Arenas2012}, \cite{Hoban2011}).
+Whereas the true underlying evolutionary relationships between biological sequences are generally unknown,
+Monte Carlo simulations allow generating test scenarios while controlling for the evolutionary history as well as the tempo and mode of evolution. 
+This has been frequently used to compare the performance of tree topology estimation (e.g. \cite{Stamatakis2005}), but it also applies to evolutionary parameter estimation and ancestral reconstruction problems (e.g. \cite{Blanchette2008}).
+In addition, Monte Carlo sequence simulation has proven useful for assessing model adequacy (e.g. \cite{Brown2009}) and for testing competing evolutionary hypotheses (e.g. \cite{Goldman1993}).
+It is therefore not surprising 
+that several general sequence simulation programs have been developed (e.g. Seq-Gen \cite{Rambaut1997}), but also inference packages that do not primarily focus on tree reconstruction, such as PAML \cite{PAML} and HyPhy \cite{HyPhy}, maintain code to simulate sequence data under the models they implement.
+
+As a major application of phylogenetics, estimating divergence times from molecular sequences requires an assumption of roughly constant substitution rates throughout evolutionary history \citep{Zuckerkandl1962}. 
+Despite the restrictive nature of this molecular clock assumption, its application in a phylogenetic context has profoundly influenced modern views on the timing of many important events in evolutionary history \citep{Arbogast2002}. 
+Following a long history of applying molecular clock models on fixed tree topologies, the Bayesian Evolutionary Analysis by Sampling Trees (BEAST) package \citep{Drummond2012} fully integrates these models, including more realistic relaxed clock models \citep{Drummond2006,Drummond2010}, in a phylogenetic inference framework.
+Despite its popularity this framework has lacked a flexible and efficient simulation tool.
+Here, we address this pitfall by introducing a parallel BEAST/BEAGLE utility for sequence simulation ({\bussname}) that integrates substitution models, molecular clock models, tree-generative (coalescent or birth-death) models and trait evolutionary models in a modular fashion, allowing the user to simulate sequences under different parameterizations for each module.
+
+{\bussname} readily 
+incorporates the temporal dimension of evolution through the possibility of specifying different molecular clock model.
+Further, many models and data types available for BEAST inference are matched by their simulation counter-parts in {\bussname}, including
+relatively specific processes, such as for discrete phylogeography with rate matrices that can be sparse or non-reversible \cite{Lemey2009} that are generally beyond the scope of most sequence simulation tools.
+The BEAST-{\bussname} connection is further reinforced by the fact that {\bussname} can easily generate simulation specification in XML format for BEAST.
+Finally, we implement the core simulation routine within the BEAST code-base to ensure a shared XML syntax between the two packages and to allow for joint simulation and inference analysis using a single input file.
+
+\section{Implementation}
+
+Through different implementations, we support several sequence simulation procedures that balance between ease-of-use and accessibility, to model complexity.
+On the one hand, the core simulation routine can be performed following specifications in an XML input file that is understood by BEAST (Figure~\ref{fig:screenshot} A).
+This procedure provides the most comprehensive access to the {\bussname} arsenal of models, but may require custom XML editing.
+On the other hand, {\bussname} also represents a stand-alone package that conveniently wraps the simulation routines in a user-friendly graphical user interface (GUI), allowing users to set up and run simulations by loading input, selecting models from drop-down lists, setting their parameter values, and generating output in different formats (Figure~\ref{fig:screenshot} B).
+To facilitate scripting, {\bussname} is further accessible through a command-line interface (CLI), with options that mirror the GUI.
+The simulation routines are implemented in Java and interface with the Broad-platform Evolutionary Analysis General Likelihood Evaluator (BEAGLE) high-performance library \cite{Ayres2012} through its application programming interface (API) for computationally intensive tasks. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{schema.pdf} 
+\caption{
+{ \footnotesize 
+{\bf Overview of the {\bussname} simulation procedures and GUI screenshot.}
+A. Schematic representation of the different ways to employ the {\bussname} simulation software.
+Based on an XML input file, simulations can be performed using the core implementation. %in BEAST.
+BEAST can parse the specified {\bussname} instructions and generate sequence data as well as analyze the replicate data in a single run.
+Using both the GUI or CLI, {\bussname} can run simulations based on an input tree or a list of taxa and their heights.
+The software can also write the simulation settings to an XML file that can be then read by BEAST. 
+B. The screenshot example shows the set-up of a codon position partitioned simulation in the Partitions panel of the graphical user interface.
+The Hasegawa, Kishino and Yano (HKY) model is being set as the substitution model for partition 1, with a $\kappa$ (the transition-transversion bias) parameter value of $4.0$.
+}% END: footnotesize 
+}
+\label{fig:screenshot}
+\end{figure}
+
+
+The core of {\bussname} consists of a recursive tree-traversal that is independent of the BEAST inference machinery. 
+The algorithm simulates discrete state realizations by visiting the tree nodes in pre-order fashion, i.e., parental nodes are visited before child nodes.
+When a child node is visited, {\bussname} samples its state from the conditional probabilities of changing to state $j$ given state $i$ at the parental node.
+For a branch length $t$ and clock rate $r$, the finite-time transition probability matrix $\mathbf{P}\left(r \times t\right)$ is calculated through the eigen-decomposition of the infinitesimal rate matrix $\mathbf{Q}$ along that branch. 
+For a review of methods to numerically approximate a matrix exponential, we refer to \cite{Moler1978}.
+
+By sharing the set of XML parsers with BEAST, we
+simplify the simultaneous development of both packages and facilitate the ability to perform joint simulation and inference analyses.
+
+\subsection{Program input} 
+
+The core implementation of the software can be invoked by loading an XML file with simulation settings in the BEAST software.
+The simulation procedure requires a user-specified tree topology or a set of taxa with their heights (inversely proportional to their sampling time) for which a tree topology can be simulated using a coalescent model.
+Setting all heights to 0 would be equivalent to contemporaneously-sampled taxa.
+In {\bussname}, such a tree can be loaded in NEXUS or NEWICK format, or a taxa list can be set-up in the Data panel for subsequent coalescent simulation of the genealogy.
+Creating the latter is further facilitated by the ability to load a tab-delimited file with a set of taxa and their corresponding heights.
+The input tree or taxon list can also be specified through the command-line interface of {\bussname}.
+ 
+\subsection{Program output} 
+
+{\bussname} generates sequence output in FASTA or NEXUS format but it also supports XML output of the simulation settings. 
+The XML provides a notation for the models used, it can also be used to store a record of the settings.
+Similar to BEAuti for BEAST, {\bussname} can generate an xml template for editing more complex simulations, or this can be amended with BEAST analysis settings order to directly analyze the generated sequence data, which avoids writing to an intermediate file.
+The tutorial hosted on {\bussname} webpage provides examples of these possibilities.
+
+\subsection{Models of evolution} 
+
+{\bussname} is capable of generating trees from a list of taxa using simple coalescent models, including a constant population size or exponential growth model.
+The software supports simulation of nucleotide, amino acid and codon data along the simulated or user-specified phylogeny using standard substitution models.
+For nucleotide data, the Hasegawa, Kishino and Yano model (HKY; \cite{Hasegawa1985}), the Tamura Nei model (TN93; \cite{Tamura1993}) and the general time-reversible model (GTR; \cite{GTR}) can be selected from a drop-down list, and more restrictive continuous-time Markov chain (CTMC) models can be specified by tailoring parameters values.  
+Coding sequences can be simulated following the Goldman and Yang model of codon evolution (GY94; \cite{Goldman1994}), which is parameterized in terms of a non-synonymous and synonymous substitution rate ratio ($dN/dS$ or $\omega$) and a transition/transversion rate ratio ($\kappa$) or following the Muse and Gaut model (MG94; \cite{Muse1994}).
+Several empirical amino acid substitution models are implemented, including the Dayhoff \cite{Dayhoff1978}, JTT \cite{Jones1992}, BLOSUM \cite{Henikoff1992}, WAG \cite{WAG} and LG \cite{LG} model.
+Equilibrium frequencies can be specified for all substitution models as well as among-site rate heterogeneity through the widely-used discrete-gamma distribution \cite{Yang1996} and proportion of invariant sites \cite{Gu1995}. 
+
+An important feature of {\bussname} is the ability to set up an arbitrary number of partitions for the sequence data and associate independent substitution models to them.
+Such settings may reflect codon position-specific evolutionary patterns or approximate genome architecture with separate substitution patterns for coding and non-coding regions.
+Partitions may also be set to evolve along different phylogenies, which could be used, for example, to investigate the impact of recombination or to assess the performance of recombination detection programs in specific cases.
+Finally, partitions do not need to share the exact same taxa (e.g. reflecting differential taxon sampling), and in partitions where a particular taxon is not represented the relevant sequence will be padded with gaps. 
+
+{\bussname} is equipped with the ability to simulate evolutionary processes on trees calibrated in time units. 
+Under the strict clock assumption, this is achieved by specifying an evolutionary rate parameter that scales each branch from time units into substitution units.
+{\bussname} also supports branch-specific scalers drawn independently and identically from an underlying distribution (e.g. log normal or inverse Gaussian distributions), modeling an uncorrelated relaxed clock process \cite{Drummond2006}.
+Simulations do not need to accommodate an explicit temporal dimension and input trees with branch lengths in substitution units will maintain these units with the default clock rate of 1 (substitution/per site/per time unit).
+
+The data types and models described above are available through the {\bussname} GUI or CLI, but additional data types and more complex models can be specified directly in an XML file.
+This allows, for example, simulating any discrete trait, e.g. representing phylogeographic locations, under reversible and nonreversible models \cite{Lemey2009,Edwards2011}, with potentially sparse CTMC matrices \cite{Lemey2009}, as well as simulating a combination of sequence data and such traits.
+As an example of available model extensions is the ability to specify different CTMC matrices over different time intervals of the evolutionary history, allowing for example to model changing selective constraints through different codon model parameterizations or seasonal migration processes for viral phylogeographic traits \citep{Bielejec2014a}.
+
+\section{Results and Discussion}
+
+We have developed a new simulation tool, called {\bussname}, that we consider to be a rejuvenation of Seq-Gen \citep{Rambaut1997}, with several extensions to better integrate with the BEAST inference framework.
+Compared to Seq-Gen and other simulation software (Table~\ref{tab:Sim}), {\bussname} covers a relatively wide range of models while, similar to Mesquite, offering a cross-platform, user-friendly GUI.
+{\bussname} is implemented in the Java programming language, and therefore requires a Java runtime environment, and depends on the BEAGLE library.
+Although speed is unlikely to be an impeding factor in most simulation efforts, the core implementation using the BEAGLE library provides substantial increases in speed for large-scale simulations, in particular when invoking multi-core architecture to produce highly partitioned synthetic sequence data.
+
+\afterpage{\clearpage
+\begin{sidewaystable}
+\centering
+% {\tiny{}}%
+\begin{tabular}{ccccccccccc}
+\hline 
+\multicolumn{8}{c}{\textbf{\tiny{Evolutionary modelling}}} & \multicolumn{3}{c}{\textbf{\tiny{Implementation}}}\tabularnewline
+\textbf{\tiny{Program}} & \textbf{\tiny{Codons\footnote{$\pi$BUSS: GY94, MG94; PhyloSim: GY94 x M0 - M4; Recodon: GY94 x M0, M1, M7, M8; NetRecodon: GY94 x M0, M1, M7, M8; Indelible: GY94 x M0 - M10; Evolver: GY94 x M0, M1, M2, M3, M7, M8; ALF: GY94 x M0, M1, M7 and M8; GenomePop: MG94}}} & \textbf{\tiny{Amino}} & \textbf{\tiny{Indels}} & \textbf{\tiny{Partitions}} & \textbf{\tiny{Molecular}} & \textbf{\tiny{Ancestral}} & \textbf{\tiny{Coalescent}} & \textbf{\tiny{GUI}} & \textbf{\tiny{Multi-}} & \textbf{\tiny{Cross-}}\tabularnewline
+ &  & \textbf{\tiny{acids}\footnote{$\pi$BUSS: BLOSUM \cite{Henikoff1992}, CPREV \cite{cprev}, Dayhoff \cite{Dayhoff1978}, FLU \cite{FLU}, JTT \cite{Jones1992}, LG \cite{LG}, MTREV \cite{mtrev}, WAG \cite{WAG}; Seq-Gen: JTT, WAG, PAM \cite{PAM}, BLOSUM, MTREV; indel-Seq-Gen2: PAM, JTT, MTREV, CPREV; PhyloSim: CPREV, JTT, LG , MTART \cite{MTART}, MTMAM \cite{MTMAM}, MTREV24 \cite{MTREV24}, MTZOA \cite{MTZOA}, PAM, WAG; Indelible: Dayhoff, JTT, WAG, VT \cite{VT}, LG, BLOSUM, MTMAM, MTREV, MTART, CPREV, RTREV \cite{rtrev}, HIVb \cite{Nickle2007}, HIVw \cite{Nickle2007}; Evolver: Dayhoff, JTT, WAG, MTMAM, MTREV; ProteinEvolver: BLOSUM, CPREV, Dayhoff, HIVb, HIVw, JTT, Jones \cite{Jones1992}, LG, MTART, MTMAM, MTREV24, RTREV, VT, WAG; ALF: PAM,GTT,LG,WAG; SIMPROT: PAM, JTT, PMB}} &  &  & \textbf{\tiny{clocks}} & \textbf{\tiny{sequences}} &  \textbf{\tiny{models}\footnote{$\pi$BUSS: demography; Recodon: recombination, migration, demography; NetRecodon: recombination, migration, demography; Mesquite: speciation; ProteinEvolver: recombination, migration, demography; SIMCOAL: demography and migration}} &  &  \textbf{\tiny{core}}  &  \textbf{\tiny{platform}\footnote{PhyloSim: R package; Indelible: Executables for Windows and MacOS; ALF: Web interface; GenomePop: Executables for Windows and Linux; SIMCOAL: Executables for Windows; SIMPROT: GUI, Web interface; SIMPROT: Executables for Windows and Linux}}  \tabularnewline
+\hline 
+{\tiny{$\pi$BUSS}} & {\tiny{X}} & {\tiny{X}} &  & {\tiny{X}} & {\tiny{X}} & {\tiny{X}} & {\tiny{X}} & {\tiny{X}} & {\tiny{X}} & {\tiny{X}}\tabularnewline
+\gray
+{\tiny{Seq-Gen \cite{Rambaut1997}}} &  & {\tiny{X}} &  & {\tiny{X}} &  &  &  &  &  & {\tiny{X}}\tabularnewline
+{\tiny{indel-Seq-Gen2 \cite{Strope2009}}} &  & {\tiny{X}} & {\tiny{X}} & {\tiny{X}} &  & {\tiny{X}} &  &  &  & {\tiny{X}}\tabularnewline
+\gray
+{\tiny{PhyloSim \cite{Sipos2011}}} & {\tiny{X}} & {\tiny{X}} & {\tiny{X}} & {\tiny{X}} &  & {\tiny{X}} &  &   &  & {\tiny{X}}\tabularnewline
+{\tiny{Recodon \cite{Arenas2007}}} & {\tiny{X}} &  &  &  &  & {\tiny{X}} & {\tiny{X}} &  & {\tiny{X}} & {\tiny{X}}\tabularnewline
+\gray
+{\tiny{NetRecodon \cite{Arenas2010}}} & {\tiny{X}} &  &  &  &  & {\tiny{X}} & {\tiny{X}} &  & {\tiny{X}} & {\tiny{X}}\tabularnewline
+{\tiny{Indelible \cite{Fletcher2009}}} & {\tiny{X}} & {\tiny{X}} &  {\tiny{X}}  &  {\tiny{X}}  &  &   &  & {\tiny{X}}\tabularnewline
+\gray
+{\tiny{DAWG \cite{dawg}}} &  &  & {\tiny{X}} &  &  & {\tiny{X}} & {\tiny{X}} &  &  & {\tiny{X}}\tabularnewline
+{\tiny{Mesquite \cite{mesquite}}} &  &  &  &  &  & {\tiny{X}} & {\tiny{X}} & {\tiny{X}} &  & {\tiny{X}}\tabularnewline
+\gray
+{\tiny{Rose \cite{Stoye1998}}} &  &  & {\tiny{X}} &  &  & {\tiny{X}} &  &  &  & \tabularnewline
+{\tiny{Evolver \cite{PAML}}} & {\tiny{X}} & {\tiny{X}} &  & {\tiny{X}} &  & {\tiny{X}} &  &  &  & {\tiny{X}}\tabularnewline
+\gray
+{\tiny{ProteinEvolver \cite{Arenas2013}}} &  & {\tiny{X}} &  &  &  & {\tiny{X}}  & {\tiny{X}} &  & {\tiny{X}} & {\tiny{X}} \tabularnewline
+{\tiny{ALF \cite{alf}}} & {\tiny{X}} & {\tiny{X}} & {\tiny{X}} & {\tiny{X}}  &  & {\tiny{X}} & {\tiny{X}}  & {\tiny{X}} &  & {\tiny{X}}\tabularnewline
+\gray
+{\tiny{GenomePop \cite{Carvajal2008}}} & {\tiny{X}} &  &  &  &  & {\tiny{X}} & {\tiny{X\footnote{Forward simulation including recombination, demography and migration}}} &  &  & {\tiny{X}}\tabularnewline
+{\tiny{SIMCOAL \cite{Excoffier2000}}} &  &  &  &  &  & {\tiny{X}} & {\tiny{X}}  &  &  & {\tiny{X}}\tabularnewline
+\gray
+{\tiny{SIMPROT \cite{Pang2005}}} &  & {\tiny{X}} & {\tiny{X}} &  &  & {\tiny{X}} &  & {\tiny{X}} &  & {\tiny{X}}\tabularnewline
+\end{tabular}
+% {\tiny \par}
+\caption{
+{ \footnotesize 
+{\bf Comparison between a selection of sequence simulation packages.} 
+% We compare the availability of evolutionary modeling options and software implementation aspects of 16 sequence simulation packages. We indicate the general presence of a feature or option and provide more detail . 
+}% END: footnotesize
+}
+\label{tab:Sim} 
+\end{sidewaystable}
+\clearpage }% END: afterpage
+
+\subsection{Program validation}
+
+We validate {\bussname} in several ways. 
+First, we compare the expected site probabilities, as calculated using tree pruning recursion \cite{Felsenstein1981}, with the observed counts resulting from {\bussname} simulations. 
+To this purpose, we calculate the probabilities for all $4^3$ possible nucleotide site patterns observed at the tips of a particular 3-taxon topology using an HKY model with a discrete gamma distribution to model rate variation among sites.
+We then compare these probabilities to long-run ($n = 100,000$) site pattern frequencies simulated under this model and observe good correspondence in distribution (Pearson's $\chi^2$ test, $p = 0.42$).
+
+We also perform simulations over larger trees and estimate substitution parameters (e.g. $\kappa$ in the HKY model) using BEAST for a large number of replicates. 
+Not only do the posterior mean estimates agree very well with the simulated values, but we also find close to nominal coverage, and relatively small bias and variance (mean squared error).
+These good performance measures have also recently been demonstrated for more complex substitution processes \cite{Bielejec2014a}.
+
+\subsection{Example application}
+
+We illustrate the use of simulating sequence data along time-calibrated phylogenies to explore the limitations of estimating old divergence times for rapidly-evolving viruses.  
+Wertheim and Kosakovsky Pond \citep{Wertheim2011} examine the evolutionary history of Ebola virus from sequences sampled over the span of three decades.
+Although maintaining remarkable amino acid conservation, the authors estimate nucleotide substitution rates on the order of $10^{-3}$ substitutions/per site/per year and a time to most recent common ancestor (tMRCA) of about 1,000 years ago.
+These estimates suggest a strong action of purifying selection to preserve amino acid residues over longer evolutionary time scales, which may not be accommodated by standard nucleotide substitution models.
+The authors demonstrate that accounting for variable selective pressure using codon models can result in substantially older origins in such cases.
+
+Here, we explore the effect of temporally varying selection pressure throughout evolutionary history on estimates of the tMRCA using nucleotide substitution models.
+In particular, we model a process that is characterized by increasingly stronger purifying selection as we go further back in to time. 
+To this purpose, we set up an ``epoch model'' that specifies different GY94 codon substitution processes along the evolutionary history \citep{Bielejec2014a}, and parameterize them according to a log-linear relationship between time and $\omega$.
+Specifically, we let the process transition from $\omega$ = $1.0$, $0.2$, $0.1$, $0.02$, $0.01$, $0.002$, and $0.001$ at time = $10$, $50$, $100$, $500$, $1000$ and $5000$ years in the past, respectively.
+We simulate a constant population size genealogy of 50 taxa, sampled evenly during a time interval of 25 years, and simulate sequences according to the time-heterogeneous codon substitution process with a constant clock rate of $3 \times 10^{-3}$ codon substitutions/codon site/year.
+We simulate 100 replicates over genealogies with varying tMRCAs, by generating topologies under different population sizes parameterized by the product of effective population size ($N_{e}$) and generation time scaled in years ($\tau$):
+
+\begin{equation}
+N_{e} \times \tau=1,\; 5,\; 10,\; 50,\; 100,\; 500,\; 1000
+\label{eq:gener_times}
+\end{equation}
+
+We note that under this model, trees with tMRCAs of about 10,000 years still result in sequences with a noticeable degree of homology (resulting in a mean amino acid distance of about 0.5, which is in the same range of the mean amino acid distance for sequences representative of the primate immunodeficiency virus diversity).
+Using a constant $\omega$ of 0.5 on the other hand results in fairly randomized sequences.
+We subsequently analyze the replicate data using a codon position partitioned nucleotide substitution model in BEAST and plot the correspondence between simulated and estimated tMRCAs in Figure~\ref{fig:deep_root}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{deep_root} 
+\caption{
+{ \footnotesize
+{\bf Correspondence between simulated and estimated tMRCAs when purifying selection increases back in time in simulated data sets.} 
+}% END: footnotesize
+}
+\label{fig:deep_root}
+\end{figure}
+
+Our simulation exercise shows that a linear relationship between simulated and estimated tMRCAs only holds for 100 to 200 years in the past, and estimates quickly level off after about 1000 years in the past.
+This can be explained by the unaccounted decline in amino acid substitutions and saturation of the synonymous substitutions as we go further back in time.
+Although we are not claiming that evolution occurs quantitatively or even qualitatively according to the particular process we simulate under, and we ignore other confounding factors (such as potential selective constraints on non-neutral synonymous sites), this simulation does conceptualize some of the limitations to estimating ancient origins for rapidly evolving viruses that experience strong purifying selection over longer evolutionary time scales.
+
+\section{Conclusion}
+
+{\bussname} provides simulation procedures under many evolutionary models or combinations of models available in the BEAST framework.  
+This feature facilitates the evaluation of estimator performance during the development of novel inference techniques and the generation of predictive distributions under a wide range of evolutionary scenarios that remain critical for testing competing evolutionary hypotheses.
+Combinations of different evolutionary models can be accessed through a GUI or CLI, and further extensions can be specified in XML format with a syntax familiar to the BEAST user community.
+Analogous to the continuing effort to support model set-up for BEAST in BEAUti, future releases of {\bussname} aim to provide simulation counterparts to the BEAST inference tools, both in terms of data types and models, while also maintaining general purposes simulation capabilities.
+Interesting targets include discrete traits, which can already be simulated through XML specification, continuously-valued phenotype data \cite{Lemey2010} and indel models.
+Finally, {\bussname} provides opportunities to pursue further computational efficiency through parallelization on advancing computing technology.
+We therefore hope that {\bussname} will further stimulate the development of sequence and trait evolutionary models and contribute to advancement of our knowledge about evolutionary processes.
+
+
+
+
