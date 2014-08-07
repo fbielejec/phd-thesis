@@ -20,11 +20,7 @@
 \usepackage{multirow}
 \usepackage{multicol}  
 \usepackage{afterpage}
-% \usepackage{minted}
-% \usepackage{rotating}
-% \usepackage{pstricks,auto-pst-pdf}
-% \usepackage{pifont}% http://ctan.org/pkg/pifont
-% \usepackage{ltablex}
+% \usepackage{eso-pic}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %---USER SPECIFIED LaTeX COMMANDS---%
@@ -41,13 +37,6 @@
 \newtheorem{definition}{Definition}
 \newtheorem{algorithm}{Algorithm}
 
-% \theoremstyle{plain}
-% \newtheorem{thm}{\protect\theoremname}
-%   \theoremstyle{definition}
-%   \newtheorem{defn}[thm]{\protect\definitionname}
-%   \theoremstyle{remark}
-%   \newtheorem{rem}[thm]{\protect\remarkname}
-
 % Counters
 \renewcommand{\labelenumi}{{\color{halfgray}(\roman{enumi})}}
 % \renewcommand{\labelenumii}{\color{halfgray}{\alph{enumii}.}}
@@ -60,8 +49,6 @@
 \numberwithin{table}{chapter}
 
 % Math
-% \DeclareMathOperator*{\argmin}{arg\,min}
-% \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareSymbolFont{letters}{OML}{ztmcm}{m}{it}
 \DeclareSymbolFontAlphabet{\mathnormal}{letters}
 
@@ -83,11 +70,6 @@
 \definecolor{gray1}{gray}{0.9}
 \definecolor{gray2}{gray}{0.5}
 \definecolor{fgcolor}{rgb}{0.2, 0.2, 0.2}
-% \newminted{python}{bgcolor=bgcolor}
-
-% Checkmarks
-% \newcommand{\cmark}{\ding{51}}%
-% \newcommand{\xmark}{\ding{55}}%
 
 % Algorithms
 \floatstyle{ruled}
@@ -111,6 +93,7 @@
 %%%%%%%%%%%%%%%%
 
 \begin{document}
+
 \frenchspacing
 \raggedbottom
 \selectlanguage{english}
