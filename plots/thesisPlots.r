@@ -1,13 +1,3 @@
-################
-#---PACKAGES---#
-################
-require(ggplot2)
-require(reshape2)
-require(proto)
-require(ape)
-require(grid)
-
-
 #################
 #---SCRAPBOOK---#
 #################
@@ -72,25 +62,40 @@ A %*% I
 
 
 x <- 
-c(
- 0.450165759800979 ,
- 0.5226732705308421 ,
- 0.02263020875055116 ,
- 0.002694186745651535 ,
- 0.0013598061297214168 ,
- 3.2425993395277794E-4 ,
- 1.4765164171136013E-4 ,
- 7.321189371973964E-7 ,
- 1.6324887117420784E-6 ,
- 2.4138011602695543E-6 )
+  c(
+    0.450165759800979 ,
+    0.5226732705308421 ,
+    0.02263020875055116 ,
+    0.002694186745651535 ,
+    0.0013598061297214168 ,
+    3.2425993395277794E-4 ,
+    1.4765164171136013E-4 ,
+    7.321189371973964E-7 ,
+    1.6324887117420784E-6 ,
+    2.4138011602695543E-6 )
 
 median(x)
 quantile(x, probs = 0.5)
 
 7.321189371973964E-7 +
- 1.6324887117420784E-6+ 
- 2.4138011602695543E-6 
+  1.6324887117420784E-6+ 
+  2.4138011602695543E-6 
 
+################
+#---PACKAGES---#
+################
+require(ggplot2)
+require(reshape2)
+require(proto)
+require(ape)
+require(grid)
+
+require("extrafont")
+# for pdf
+loadfonts()
+# for postscript
+loadfonts(device = "postscript")
+          
 ###################
 ###################
 ##---FUNCTIONS---##
@@ -192,6 +197,11 @@ geom_segment2 <- function(mapping = NULL, data = NULL, stat =
                             "identity", position = "identity", arrow = NULL, ...)  {
   GeomSegment2$new(mapping = mapping, data = data, stat = stat,
                    position = position, arrow = arrow, ...)
+}
+
+#---GET_EXPR---#
+get_expr <- function(eq) {
+  return(as.character(as.expression(eq)));  
 }
 
 ###########################
@@ -541,6 +551,69 @@ p <- p + xlab("") + ylab("Density")
 p <- p + ggtitle(labels)
 p <- p + theme2
 print(p, vp = vplayout(2, 1))
+
+
+############################
+#---LIKELIHOOD ON A TREE---#
+############################
+tree <- read.tree(text="(((T1:0.5,T2:2.0):2.5,T3:4.5):2.0,(T4:2.0,T5:4.0):3.0);")
+
+phylo = fortify.phylo(tree)
+phyloLabels = label.phylo(tree)
+yrng  = range(phylo$y)
+xrng  = range(phylo$x)
+xlim = 8
+phylo$x = max(phylo$x) - phylo$x
+phylo$xend = max(phylo$x) - phylo$xend
+phyloLabels$x = max(phyloLabels$x) - phyloLabels$x
+
+source("indices.r")
+# epochs = data.frame(start = c(min(phylo$x)), end   = c(xlim), epoch = c("Q1") )
+
+nodeSize = 4
+lineSize = 1.5
+textSize = 5
+dotSize = 12
+
+p <- ggplot()
+
+p <- p + geom_segment2(aes(x = x, y = y, xend = xend, yend = yend), colour = "black", size = lineSize, data = phylo)
+p <- p + geom_point(aes(x = x, y = y), size = nodeSize, pch = 21,  colour = "black", fill = "black", data = phyloLabels)
+p <- p + geom_text(data = phyloLabels, aes(x = x, y = y, label = c("T", "C", "A", "C", "C")), hjust = -1.0, 
+#                    family = "Arial Black", 
+                   vjust = 0.5, size = textSize)
+
+p <- p + geom_point(aes(x = x, y = y, colour = type, fill = type), size = dotSize, pch = 21, data = indices)
+p <- p + geom_text(aes(x = x, y = y, label = get_expr(label), colour = type), size = textSize, data = indices, parse = TRUE, family="Arial Black")
+
+theme <- theme_update(
+  axis.line = element_line(colour = "black"),
+  axis.title.y = element_blank(),
+  axis.text.x = element_text(colour = "black"),
+  axis.ticks.x = element_line(colour = "black"),
+  legend.position = "none",
+  panel.background = element_rect(size = 1, fill = "white", colour = NA),
+  panel.border = element_blank(),
+  panel.grid.major = element_blank(),
+  panel.grid.minor = element_blank(),
+  
+  axis.text.y = element_blank(),
+  axis.ticks.y = element_blank(),
+  axis.line.y = element_blank()
+)
+
+p <- p + theme_set(theme)
+p <- p + scale_x_reverse(limits = c(xlim, 0))
+p <- p + xlab(NULL)
+
+p <- p + scale_fill_grey()
+gs.pal <- colorRampPalette(c("white","black"))
+p <- p + scale_colour_manual(values = gs.pal(2))
+
+print(p)
+
+
+
 
 ####################################
 #---BAYESIAN PHYLOGEOGRAPHY TREE---#
