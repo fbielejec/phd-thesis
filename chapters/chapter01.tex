@@ -7,53 +7,100 @@ TODO
 
 \section{General Introduction}
 
-Rapidly evolving pathogens pose an ever increasing threat to the human population.
-This threats are exemplified by recent infections with H5N1 avian influenza A, pandemic spread of swine-origin H1N1 influenza \citep{Rambaut2008}, Severe Acute Respiratory Syndrome (SARS) \citep{Ksiazek2003} and the outbreak of the haemorrhagic fever in humans in Africa (Ebola virus, \citet{Dudas2014}).
-Unlike zoonotic diseases human RNA viruses have no natural barriers that could hamper their escalation, mainly due to the extensive nature of human mobility \citep{Brockmann2006}.
+\subsection{Viral Epidemiology and the Emergence of Phylodynamics}
 
-Despite the ever increasing impact of emerging infectious diseases (EIDs) the first studies combining molecular evolution with geographical dispersal are less than 50 years old \citep{Henning1966}. 
-Most of these pioneering studies were limited to mapping phylogenetic tip taxa to their geographical coordinates \citep{Kidd2006} and comprehensive quantitative frameworks for analysing viral spread have only recently begun being developed.
-Models that combine the process of spatial diffusion with genetic substitution are only as recent as this decade \citep{Lemey2009,Lemey2010}.
-% The hampered advances in the field of computational phylogenetics is mainly attributed to the computational burden that these compute-intensive calculations impose.
-Advances in the field of computational phylogenetics are mainly hampered by the the computational burden that these compute-intensive calculations impose.
-As an example, finding the maximum likelihood tree requires a search through the space of all possible tree topologies, which quickly becomes computationally intractable, as depicted in Table~\ref{tab:maxLikeBurden}.
+%PL: I have taken this from the final plan and worked in some bits of text you had as intro. The final plan was stripped of many references because it was restricted to 10 citations, so please put them back there 
+Many pathogens represent a clear and eminent threat to public health. 
+This has been exemplified by the H1N1 swine-origin influenza A virus outbreak in 2009, %perhaps cite fraser, science 2009 here
+which attained pandemic status in only a few months time, but also more recently by a large outbreak of the Ebola haemorrhagic fever in humans in West Africa \citep{Dudas2014}. 
+Many studies on emerging infectious diseases (EIDs) have highlighted viral pathogens as a major threat to the public health, owing to their high rates of nucleotide substitution, and therefore high capacity to adapt to new hosts. 
+Alarmingly, EIDs are not only widespread, with their impact and spread only rising over time. %I believe there is a Nature paper to cite here, by jones or something
+This may not be surprising since it is well-acknowledged that disease emergence is largely a product of anthropogenic and demographic changes, making it a hidden cost of human economic development.
+ 
+Combating viral spread and their associated disease burden is a tremendous challenge requiring significant research efforts and decided public health measures. 
+Viral sequence data has been recognized as a major asset in the characterization of pathogens that threaten public health.
+Molecular epidemiology complements traditional epidemiological studies because it primarily focuses on the etiological agent rather than the host. %PL the reference should be a Chapter by Leitner in a book of his on the molecular epidemiology of (human) viruses
+In particular, the historical information contained in viral gene sequences contributes to a better insight in emergence and early transmission dynamics, even before systematic epidemiological surveillance has been initiated. 
+For many years, phylogenetic analysis has been the primary tool in molecular epidemiology. 
+By reconstructing a phylogenetic tree, we are able to study the evolutionary history of viral strains, assess epidemiological linkage amongst them, and shed light on transmission patterns. 
+With the advent of high-throughput DNA sequencing, genomic data from RNA viruses is becoming available in unprecedented quantities and with remarkable rapidity. 
 
-\begin{table}
-\centering
-% \footnotesize{
-\begin{tabular}{cc}
-% {@{}l*{2}{D{.}{.}{7}}@{}}
-\hline 
-Tips & Rooted trees $\frac{(2N-3)!}{2^{N-2}\cdot(N-2)!}$ \tabularnewline
-\hline 
-\rowcolor{gray1}
-$3$ & $3$\tabularnewline
-$6$ & $945$\tabularnewline
-\rowcolor{gray1}
-$9$ & $2'027'025$\tabularnewline
-$15$ & $2\times10^{14}$\tabularnewline
-\rowcolor{gray1}
-$20$ & $8\times10^{21}$\tabularnewline
-$55$ & $3.19\times10^{86}$\tabularnewline
-\end{tabular}
-% }
-\caption{
-{ \footnotesize 
-{\bf{Number of rooted trees per number of taxa.}} $4 \times 10^{80} $ is the no of atoms in the observable universe.
-}% END: footnotesize
-}
-\label{tab:maxLikeBurden}
-\end{table}
 
-Adopting Bayesian statistical approach, implemented in a flexible framework of molecular evolution \citep{Drummond2012} helps circumvent some of these hindrances by focusing sampling efforts on the topologies 
-% parts of the tree space
-that best fit the data.
-Nonetheless Bayesian phylogenetic analyses remain highly computationally intensive and a vast area of research is now aiming at bringing new advances to actively stretch these limits \citep{Suchard2009}.
-This problem is further aggravated as the advent of high-throughput sequencing produces millions of sequences at low cost resulting in the availability of increasingly large data sets.
+The last decade has witnessed a particular focus of analyses of viral evolutionary dynamics on integrating concepts of phylogenetic and epidemiological dynamics, a research direction originally coined `phylodynamics'. %PL: cite Grenfell, Science
+By aiming at the development a full quantitative understanding of the processes that shape the epidemiology and evolution of RNA viruses,
+phylodynamics has now become a burgeoning area of research.
+In order to perform comprehensive and quantitative analyses of the interaction between the ecological and evolutionary dynamics of RNA viruses, new computational developments are needed... [PL: get some inspiration from  DOI: 10.1371/journal.pcbi.1002947 to add some meat to this paragraph / finish it]...
+% http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1002947
+In order to position these recent developments, I first provide a general and brief account of the field of molecular evolution and phylogenetics and then introduce recent developments and models specific for rapidly-evolving RNA viruses, and how this culminated in to a comprehensive statistical framework for phylodynamics. Finally, I outline how the current doctoral thesis work extends and complements this framework in the objectives.
+The remainder of this chapter provides a more mathematically oriented description on how to model evolution evolution as a stochastic process on trees, the computational aspects involved and how to treat the problem from a Bayesian statistical perspective.
+
+
+
+
+
+
+
+%Rapidly evolving pathogens pose an ever continuing public health threat.
+%This threats are exemplified by recent infections with H5N1 avian influenza A, pandemic spread of swine-origin H1N1 influenza \citep{Rambaut2008}, Severe Acute Respiratory Syndrome (SARS) \citep{Ksiazek2003} and the outbreak of the haemorrhagic fever in humans in Africa (Ebola virus, \citet{Dudas2014}).
+%Unlike zoonotic diseases human RNA viruses have no natural barriers that could hamper their escalation, mainly due to the extensive nature of human mobility \citep{Brockmann2006}.
+%
+%Despite the ever increasing impact of emerging infectious diseases (EIDs) the first studies combining molecular evolution with geographical dispersal are less than 50 years old \citep{Henning1966}. 
+%Most of these pioneering studies were limited to mapping phylogenetic tip taxa to their geographical coordinates \citep{Kidd2006} and comprehensive quantitative frameworks for analysing viral spread have only recently begun being developed.
+%Models that combine the process of spatial diffusion with genetic substitution are only as recent as this decade \citep{Lemey2009,Lemey2010}.
+%% The hampered advances in the field of computational phylogenetics is mainly attributed to the computational burden that these compute-intensive calculations impose.
+%Advances in the field of computational phylogenetics are mainly hampered by the the computational burden that these compute-intensive calculations impose.
+%As an example, finding the maximum likelihood tree requires a search through the space of all possible tree topologies, which quickly becomes computationally intractable, as depicted in Table~\ref{tab:maxLikeBurden}.
+%
+%\begin{table}
+%\centering
+%% \footnotesize{
+%\begin{tabular}{cc}
+%% {@{}l*{2}{D{.}{.}{7}}@{}}
+%\hline 
+%Tips & Rooted trees $\frac{(2N-3)!}{2^{N-2}\cdot(N-2)!}$ \tabularnewline
+%\hline 
+%\rowcolor{gray1}
+%$3$ & $3$\tabularnewline
+%$6$ & $945$\tabularnewline
+%\rowcolor{gray1}
+%$9$ & $2'027'025$\tabularnewline
+%$15$ & $2\times10^{14}$\tabularnewline
+%\rowcolor{gray1}
+%$20$ & $8\times10^{21}$\tabularnewline
+%$55$ & $3.19\times10^{86}$\tabularnewline
+%\end{tabular}
+%% }
+%\caption{
+%{ \footnotesize 
+%{\bf{Number of rooted trees per number of taxa.}} $4 \times 10^{80} $ is the no of atoms in the observable universe.
+%}% END: footnotesize
+%}
+%\label{tab:maxLikeBurden}
+%\end{table}
+%
+%Adopting Bayesian statistical approach, implemented in a flexible framework of molecular evolution \citep{Drummond2012} helps circumvent some of these hindrances by focusing sampling efforts on the topologies 
+%% parts of the tree space
+%that best fit the data.
+%Nonetheless Bayesian phylogenetic analyses remain highly computationally intensive and a vast area of research is now aiming at bringing new advances to actively stretch these limits \citep{Suchard2009}.
+%This problem is further aggravated as the advent of high-throughput sequencing produces millions of sequences at low cost resulting in the availability of increasingly large data sets.
+
+
+
+
+
+\subsection{Molecular evolution and Phylogenetics}
+
+[PL: briefly introduce the field of molecular evolution, touching upon the essence of some basic evolutionary concepts (mutation<->substitution, selection, fitness), and how phylogenetics can be useful int this context. 
+Describe the very basics of a tree (branches, nodes, taxa, rooted, outgroup), and provide some history on phylogenies and what they are used for. I would suggest to start by showing a figure combining Darwin's speciation tree in one panel, because that directly relates to the evolutionary and speciation process you need to bring up in the paragraph above, and the first estimated tree, which I believe is from Fitch in seventies science paper.
+And then follow up on this with a brief account of phylogenetic inference -- bring on the classics, acknowledge some milestones: distance-based trees, parsimony inference, Joe and Likelihood inference (no formal stuff/math just yet), ...
+This is also where you can describe the computational burden and that table.
+
 
 %TODO: other problems
 
-\section{Reconstructing viral spread in time and space}
+\subsection{Time-Calibrated Trees and Measurably Evolving Populations}
+
+%PL: a central concept that really needs to be introduced here is molecular clocks (something that goes back to Zuckerkandl and Pauling). So first decribe this and then talk about how this needs to be adapted for MEPs
 
 Central assumption of viral phylogenetics posits that the epidemiological processes shaping the fitness of viral populations leave a measurable footprint on their genomes.
 Due to the rapid nature of the viral evolution, the process of character substitution can be observed in almost real time, and gives the opportunity to sample genetic data at different points in time, as opposed to ultrametricly sampled data such as depicted in Figure~\ref{fig:ultrametric}.
@@ -80,7 +127,22 @@ In that sense the tree does not only provide a record of evolutionary ancestry, 
 Our group has been involved in research which aims at developing a full quantitative understanding of the processes that shape the epidemiology and the evolution of MEP-like viruses.
 In the following section I present the problems on which my involvment in this fascinating area of research has been focused.
 
-\section{Model extension, simulation and visualisation}
+
+\subsection{Processes Giving Rise to Genealogies: Demography and Migration}
+
+
+Discuss variable size coalescent (demographic) models priors (which are
+Introduce phylogeography -- discete ancestral state reconstruction is only one way of doing this (see Bloomquist, Lemey, Suchard)
+
+
+\subsection{Bayesian evolutionary inference in BEAST}
+
+
+How this all integrates in a flexible framework and publicly available software
+
+
+
+\subsection{Objectives: model extension, simulation and visualisation}
 
 % models
 Phylogenetic analysis employing stochastic processes make strong restrictive assumptions regarding the underlying substitution process.
