@@ -31,7 +31,7 @@ By aiming at the development a full quantitative understanding of the processes 
 phylodynamics has now become a burgeoning area of research.
 In order to perform comprehensive and quantitative analyses of the interaction between the ecological and evolutionary dynamics of RNA viruses, new computational developments are needed... [PL: get some inspiration from  DOI: 10.1371/journal.pcbi.1002947 to add some meat to this paragraph / finish it]...
 % http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1002947
-In order to position these recent developments, I first provide a brief general account of the field of molecular evolution and phylogenetics and then introduce recent developments and models specific for rapidly-evolving RNA viruses, and how this culminated in to a state-of-the-art statistical framework for phylodynamics. As a final part of the general introduction, I outline how the current doctoral thesis work extends and complements this framework in the objectives.
+In order to position these recent developments, we first provide a brief general account of the field of molecular evolution and phylogenetics and then introduce recent developments and models specific for rapidly-evolving RNA viruses, and how this culminated in to a state-of-the-art statistical framework for phylodynamics. As a final part of the general introduction, we outline how the current doctoral thesis work extends and complements this framework in the objectives.
 The remainder of the chapter provides a more mathematically-oriented description of how to model evolution evolution as a stochastic process on trees, the computational aspects involved, and how to treat the problem from a Bayesian statistical perspective.
 
 
@@ -126,7 +126,7 @@ geographical dispersal are independent, stochastic processes which unfold on phy
 In that sense the tree does not only provide a record of evolutionary ancestry, but also of the dispersal in actual geographical coordinates, and both these processes happen simultaneously.
 
 Our group has been involved in research which aims at developing a full quantitative understanding of the processes that shape the epidemiology and the evolution of MEP-like viruses.
-In the following section I present the problems on which my involvement in this fascinating area of research has been focused.
+In the following section, I present the problems on which my involvement in this fascinating area of research has been focused.
 
 
 \subsection{Processes Giving Rise to Genealogies: Demography and Migration}
@@ -232,14 +232,15 @@ G\rightarrow C
 As Figure~\ref{fig:alignment} depicts not all of the differences can be observed, as due to multiple substitutions (multiple hits) some of the changes are silent.
 %PL: better not use silent as this also used for 'non synonymous substitutions'
 To accurately describe these processes one needs a models of evolution that can account for those multiple hits.
+%PL: you need to state the obvious here: because of multiple hits, observed differences in the sampled genetic data will underestimate the underlying genetic distance, and this is what we can to account for using models.
 
-\subsection{Poisson process\label{sub:poisson}}
+\subsection{The Poisson process\label{sub:poisson}}
 
-Poisson process is an example of a continuous-time stochastic process that is frequently used to describe counts of independent, rare events, occuring with some intensity (or rate) $r$, that remains constant over time. 
-Among the examples of such process we can mention requests for a single document on a web-server, or goals scored in a football game \footnote{Unless it's Real - Barca, than the events are not so rare.}.
-The state space in this case is obviously $\mathcal{E} = \left\{ 0,1,2, \dots \right\}$.
-This makes Poisson process especially suitable for modelling the timing and number of DNA mutation events. 
-Let us formally define a Poisson process.
+The Poisson process is an example of a continuous-time stochastic process that is frequently used to describe counts of independent, rare events, occurring with some intensity (or rate) $r$, that remains constant over time. 
+Examples of such a process are the requests for a single document on a web-server, or the goals scored in a football game \footnote{Unless it's Real - Barca, than the events are not so rare.}.%PL or Brazil - Germany...
+%The state space in this case is obviously $\mathcal{E} = \left\{ 0,1,2, \dots \right\}$.
+The Poisson process is equally suitable to model the number and waiting times of DNA mutation of sequence substitution events. 
+We can formally define a Poisson process as following:
 
 \begin{definition} 
 A Poisson process with rate $r>0$ is continuous-time counting process $\left\{ N(t):\; t\geq0\right\}$ such that:
@@ -250,7 +251,7 @@ A Poisson process with rate $r>0$ is continuous-time counting process $\left\{ N
 \item The number of events in any interval of length $t$ is $\text{Poisson}(r t)$.
 \end{itemize}
 
-Figure~\ref{fig:poisson} shows sample trajectories of such a process.
+Figure~\ref{fig:poisson} shows a sample of different trajectories of such a process.
 
 \label{def:poisson}
 \end{definition}
@@ -260,7 +261,7 @@ Figure~\ref{fig:poisson} shows sample trajectories of such a process.
 \includegraphics[scale=0.5]{poisson}
 \caption{
 { \footnotesize 
-{\bf Independent realisations of the Poisson process with intensity $r=1$.}
+{\bf Independent realizations of the Poisson process with intensity $r=1$.}
 Times between mutations (the branch lengths) are \emph{iid} exponentially distributed random variables with mean $1/r$.
 } % END: footnotesize
 }
@@ -268,7 +269,7 @@ Times between mutations (the branch lengths) are \emph{iid} exponentially distri
 \end{figure}
 
 Let's assume that evolution at a single site is governed by a Poisson process $N$ with some intensity $r$.
-From the Definition~\ref{def:poisson} under this model the number of mutations $N(t+u)-N(u)$ in some time interval $(u,t+u]$ of length $t$ follows a Poisson distribution with expected number of events $r t$.
+Definition~\ref{def:poisson} implies that under this model the number of mutations $N(t+u)-N(u)$ in some time interval $(u,t+u]$ of length $t$ follows a Poisson distribution with expected number of events $r t$.
 Thus we can write:
 
 \begin{equation}
@@ -276,7 +277,7 @@ P\left\{ N(t+u)-N(u)=k\right\} =P\left\{ N(t)=k\right\}=\frac{e^{-r t}(r t)^{k}}
 \label{eq:poissonDist} 
 \end{equation}
 
-In the Poisson process the time between any two mutations is exponentially distributed with parameter $r$, thus the average waiting time between the arrival of events is $1/r$.
+In the Poisson process the time between any two mutations is exponentially distributed with parameter $r$, thus the average waiting time between the occurrence of events is $1/r$.
 To show this important property we can consider $T_1,T_2,\ldots$ to be the the inter-arrival times, where $T_k$ is the waiting times between the $(k-1)\text{'st}$ and $k\text{'th}$ mutation. 
 Obviously, the number of mutations before some time $t>0$ is less than some integer $k>0$ if and only if the waiting time $T_k$ until the $k\text{'th}$ mutation is larger than $t$:
 
@@ -300,7 +301,7 @@ F_{T_{1}}(t)=1-P\left(T_{1}>t\right)=1-e^{-r t},
 
 \noindent
 therefore $T_1$ follows the exponential distribution with parameter $r$.
-For the second waiting time $T_2$ and some arbitrary $u>0$ and $t>0$, by the independent increments property we have that:
+For the second waiting time $T_2$ and some arbitrary $u>0$ and $t>0$, the independent increments property implies that:
 
 \begin{eqnarray}
 F_{T_{2}}(t) &=& 1-P\left(T_{2}>t|T_{1}=u\right) \\ \nonumber
@@ -310,7 +311,7 @@ F_{T_{2}}(t) &=& 1-P\left(T_{2}>t|T_{1}=u\right) \\ \nonumber
 
 \noindent
 Therefore $T_2$ is independent of $T_1$ and $\text{Exponential}(r)$. 
-Similarly we can show that $T_3$ is indepenent of $T_1$ and $T_2$ and by repeating the same argument $T_1,T_2,\ldots$ are indepenent and identically distributed (i.i.d.) $\text{Exponential}(r)$ random variables.
+Similarly we can show that $T_3$ is independent of $T_1$ and $T_2$ and by repeating the same argument $T_1,T_2,\ldots$ are independent and identically distributed (i.i.d.) $\text{Exponential}(r)$ random variables.
 
 % TODO: memoryless property does not depend at all, vide poiss)
 % TODO: markovian (depends only a little)
@@ -318,10 +319,11 @@ Similarly we can show that $T_3$ is indepenent of $T_1$ and $T_2$ and by repeati
 
 \subsection{Instantaneous rates of mutation\label{sub:rates}}
 
-Within phylogenetic framework one is typically interested not only in modelling the number of events (mutations), but also the actual probabilities of changing states at the particular site in the alignment. 
+Within a phylogenetic framework the interest typically lies not only in modeling the number of events (mutations), but also the actual probabilities of changing states at the particular site in the alignment. 
+We therefore need to generalize the process to a finite number of discrete states.
 Let $\mathbf{R}$ denote a $K \times K$ matrix filled with probabilities of exchanging states between any pair $i,j\in \mathcal{E}$.
-To express the probability of going from state $i$ to $j$ in some time interval $t$, we multiple the probability of the state change times the probability of having exacly $k$ events leading to the observed change, and integrate over all possible values of $k$.
-This allows us to accomodate all possible path that the evolution might have taken, and account for multiple hits that might have occured at the site, as we saw in Figure~\ref{fig:alignment}.
+To express the probability of going from state $i$ to $j$ in some time interval $t$, we multiply the probability of the state change by the probability of having exactly $k$ events leading to the observed change, and integrate over all possible values of $k$.
+This allows us to accommodate all possible paths that evolution might have taken, and to account for multiple hits that might have occurred at the site, as illustrated in Figure~\ref{fig:alignment}.
 From Equation~(\ref{eq:poissonDist}) we know the probability of having $k$ mutations in time interval $t$, thus:
 
 \begin{equation}
@@ -330,8 +332,8 @@ From Equation~(\ref{eq:poissonDist}) we know the probability of having $k$ mutat
 \end{equation}
 
 \noindent
-where $\left\{ P(t)\right\} _{ij}$ denotes the $ij\text{-th}$ element of transition probabilities matrix $\mathbf{P}$ over time $t \geq 0$.
-Let us denote the matrix $\mathbf{R}-\mathbf{I}$, where $\mathbf{I}$ is a $K \times K$ identity matrix by $\mathbf{Q}$.
+where $\left\{ P(t)\right\} _{ij}$ denotes the $ij\text{-th}$ element of the transition probability matrix $\mathbf{P}$ over time $t \geq 0$.
+Let us denote the matrix $\mathbf{R}-\mathbf{I}$, where $\mathbf{I}$ is a $K \times K$ identity matrix, by $\mathbf{Q}$.
 Using the power series definition of the transition probability matrix $\exp(\mathbf{R})=\underset{k=0}{\overset{\infty}{\sum}}\mathbf{R}^{k}/k!$ we can write Equation~(\ref{eq:matrixExp1}) as:
 
 \begin{equation}
@@ -340,7 +342,7 @@ Using the power series definition of the transition probability matrix $\exp(\ma
 \end{equation}
 
 \noindent
-Single entry $q_{ij} \ge 0$ for $i \neq j$ of matrix $\mathbf{Q}$ quantifies the probability of changing from state $i$ to $j$ in an infinitely small amount of time, therefore we will reffer to $\mathbf{Q}$ as the \emph{instantaneous rates matrix}.
+Single entry $q_{ij} \ge 0$ for $i \neq j$ in matrix $\mathbf{Q}$ quantifies the probability of changing from state $i$ to $j$ in an infinitely small amount of time, therefore we will refer to $\mathbf{Q}$ as the \emph{instantaneous rate matrix}.
 
 \subsection{Computing the matrix exponent \label{sub:exponentiation}}
 
@@ -369,13 +371,13 @@ This condition is sufficient for $\mathbf{Q}$ to be diagonizable, thus it's Jord
 \end{equation}
 
 \noindent where $\mathbf{V}$ is a matrix composed of eigenvectors of $\mathbf{Q}$. 
-Multiplying both sides of Equation~(\ref{eq:diagonalization}) with the edge length $t$ and scaling by the appropriate rate scalar $r$, we can write $\mathbf{Q}$ in form:
+Multiplying both sides of Equation~(\ref{eq:diagonalization}) with the edge length $t$ and scaling by the appropriate rate scalar $r$, we can write $\mathbf{Q}$ in the following form:
 
 \begin{equation}
 rt\mathbf{Q}=\mathbf{V}\times\text{diag}(rt\lambda_{1},\ldots,rt\lambda_{K})\times\mathbf{V}^{-1} .
 \end{equation}
 
-\noindent Finally, using the power series definition of the transition probability matrix: 
+\noindent Finally, using the power series definition of the transition probability matrix, we obtain: 
 
 \begin{eqnarray}
 \mathbf{P}(t) & = & \exp\left(rt\mathbf{Q}\right)  =  \underset{k=0}{\overset{\infty}{\sum}}\left(rt\mathbf{Q}\right)^{k}/k! 
@@ -385,7 +387,7 @@ rt\mathbf{Q}=\mathbf{V}\times\text{diag}(rt\lambda_{1},\ldots,rt\lambda_{K})\tim
 \end{eqnarray}
 
 \noindent 
-where the last transition is due to the fact that exponential of diagonal matrix is obtained by exponentiating every entry on the main diagonal.
+where the last transition is due to the fact that the exponential of the diagonal matrix is obtained by exponentiating every entry on the main diagonal.
 We should note here that the repeated evaluations of $\exp\left(rt\mathbf{Q}\right)$ for different times $t$ are all based on the same SVD of the matrix $\mathbf{Q}$. 
 One needs only to scale and exponentiate the eigenvalues to calculate the diagonal matrix $D$ and perform two matrix multiplications, thus reducing all calculations to a simple and effective algorithm. 
 
@@ -401,8 +403,8 @@ P\left\{ X(t_{n+1})=i_{n+1}\mid X(t_{n})=i_{n}\right\} .
 \end{eqnarray}
 
 The elements of $\mathbf{P}$ quantify the finite-time transition probabilities between the $K$ discrete state-space elements.
-We have described here a Continuous-time Markov chain (CTMC), that we will use to describe the substitution process at a single site of an alignment.
-Every CTMC is completely characterized by its rate matrix $\mathbf{Q}$ and the stochastic matrix $\mathbf{P}(t),\ t\geq0$ is obtained via matrix exponentiation as described in Subsection~\ref{sub:exponentiation}.
+This describes a Continuous-time Markov chain (CTMC), which  we will use to model the substitution process at a single site of an alignment.
+Every CTMC is completely characterized by its rate matrix $\mathbf{Q}$ and the stochastic matrix $\mathbf{P}(t),\ t\geq0$ is obtained via matrix exponentiation as described in the previous subsection (Subsection~\ref{sub:exponentiation}).
 
 %---SUBSTITUTION MODEL---%
 \begin{figure}[H]
@@ -410,13 +412,13 @@ Every CTMC is completely characterized by its rate matrix $\mathbf{Q}$ and the s
 \includegraphics[scale=0.5]{substitution} 
 \caption{
 { \footnotesize 
-{\bf  Nucleotide substitution model.} Markov substitution model with symmetrical matrix.
+{\bf  Graphical representation of  a nucleotide substitution model.} A Markov substitution model with a symmetrical matrix.
 } % END: footnotesize
 }
 \label{fig:substitution}
 \end{figure}
 
-Figure~\ref{fig:substitution} depicts an example of such a CTMC substitution model, governing the substitution rates between four discrete nucleotide base pairs, where all the pairs communicate (all states have a non-zero transitional probability of exiting from, i.e. all states are non-absorbing).
+Figure~\ref{fig:substitution} depicts an example of such a CTMC substitution model, governing the substitution rates between four discrete nucleotides, where all the pairs communicate (all states have a non-zero transitional probability of exiting from, i.e. all states are non-absorbing).
 Let us denote a transition probability between two states $i$ and $j$ over time $u$ to $t+u$ by:
 
 \begin{equation}
@@ -424,15 +426,16 @@ p_{ij}\left(u,t+u\right)=P\left\{ X(t+u)=j\mid X(u)=i\right\} .
 \end{equation}
 
 In the phylogenetic setting, researchers often constrain the CTMC processes, mostly for computational and mathematical convenience.
-One of the frequently applied restrictions is the assumption of time-homogeneity of the substitution process, which states that the evolution does not change in pattern over time, and therefore transition probabilities depend only on the time difference $t$ between $u$ and $t + u$:
+A frequently applied restriction is to assume time-homogeneity of the substitution process, which states that the evolution does not change in pattern over time, and therefore transition probabilities depend only on the time difference $t$ between $u$ and $t + u$:
 
 \begin{equation}
 p_{ij}\left(t\right) = p_{ij}\left(0,t\right) = p_{ij}\left(u,t+u\right).
 \label{eq:time_homogeneity}
 \end{equation}
 
-Unfortunately this assumption clearly does not hold for many real-world data-sets, as the temporal dynamics clearly do shift in time, often in a seasonal, observable manner \citep{Bahl2011}.
-One of the goals of the research presented in this thesis is the development of a model that relaxes this strict assumption.
+Unfortunately this assumption does not hold for many real-world data-sets and precludes the identification of biologically interesting patterns in the evolutionary process. %, as the temporal dynamics clearly do shift in time, often in a seasonal, observable manner \citep{Bahl2011}.
+%PL: deleted the above subsentence as it is too specific to phylogeography
+One of the goals of the research presented in this thesis is to efficiently confront situations in which this assumption does not hold.
 % can grasp such situations.
 
 Substitution models are further constructed to be ergodic, meaning that there exist positive values $\pi_{1},\pi_{2},\ldots,\pi_{K}$ such that:
@@ -467,12 +470,12 @@ Condition~\ref{eq:time_reversibility1} is also referred to as the \emph{detailed
 % \end{equation}
 % 
 % Definition (\ref{eq:time_reversibility1}) and (\ref{eq:time_reversibility2}) are equivalent.
-This condition is assumed for strictly computational reasons, i.e. time-reversibility makes it easier to diagonalize $\mathbf{Q}$, which as we have described in 
-Subsection~\ref{sub:exponentiation} is a strategy frequently employed in phylogenetic software to compute the exponentials of rate matrices.
-Time reversibility also simplifies the computation of the likelihood on a tree, since it is then indifferent to the position of the root, which we will discuss in Subsection~\ref{sub:likelihood}.
+This condition is assumed for strictly computational reasons, i.e. time-reversibility makes it easier to diagonalize $\mathbf{Q}$, which - as we have described in 
+Subsection~\ref{sub:exponentiation} - is a strategy frequently employed in phylogenetic software to compute the exponentials of rate matrices.
+Time reversibility also simplifies the computation of the likelihood on a tree, since it makes the computation indifferent to the position of the root, which we will discuss in Subsection~\ref{sub:likelihood}.
 
 %TODO: JK69 as example
-\subsection{Example: Jukes and Cantor substitution model\label{sub:jc69}}
+\subsection{A simple example: the Jukes and Cantor substitution model\label{sub:jc69}}
 
 In this subsection we will discuss the simplest model of nucleotide substitution, i.e. the JC69 model \citep{Jukes1969}.
 The JC69 model assumes that the instantaneous rates of change between every two nucleotides are the same.
@@ -490,7 +493,7 @@ r & r & r & -3r.
 \end{equation}
 
 \noindent
-The finite-time transition probabilities matrix $\mathbf{P}(t)$ for time $t>0$ is calculated using matrix exponentiation  (see Subsection~\ref{sub:exponentiation}):
+The finite-time transition probability matrix $\mathbf{P}(t)$ for time $t>0$ is calculated using matrix exponentiation  (see Subsection~\ref{sub:exponentiation}):
 
 \begin{equation}
 \mathbf{P}\left(t\right)=\left[\begin{array}{cccc}
@@ -506,7 +509,7 @@ p_{1}(t)=\frac{1}{4}-\frac{1}{4}e^{-4rt}
 \end{equation}
 
 \noindent
-There are few things worth mentioning about the Equation~(\ref{eq:jc69Finite}).
+A few things are worth mentioning about Equation~(\ref{eq:jc69Finite}).
 If we let $t\rightarrow \infty$ we can see that $\forall i,j\; p_{ij}(t)=1/4$, which means that the equilibrium distribution for the JC69 model is: 
 
 \begin{equation}
@@ -515,11 +518,14 @@ If we let $t\rightarrow \infty$ we can see that $\forall i,j\; p_{ij}(t)=1/4$, w
 \end{equation}
 
 \noindent
-Second, the rate and time in Equation~(\ref{eq:jc69Finite}) occur as a product, which means that they are confounded.
-If we were to simulate two sequences, using Algorithm listed in (\ref{alg:simulation}) and starting the random number generators form the same seed, they will look the same for every $r$ and $t$ as long as their product $rt$ is the same.
-This is true for most of the substitution models and means that typically any inference performed focuses on inferring the product parameter $\theta=rt$.
+Second, the rate and time in Equation~(\ref{eq:jc69Finite}) occur as a product, which means that rate and time are confounded.
+If we were to simulate two sequences, using the algorithm listed in (\ref{alg:simulation}) and starting the random number generators form the same seed, they will look the same for every $r$ and $t$ as long as their product $rt$ is the same.
+This is true for most of the substitution models and implies that typical phylogenetic estimation focuses on inferring the product parameter $\theta=rt$ or genetic distance.
+%PL: perhaps mention that the section on molecular clocks (cfr supra) discusses the conditions for which we can start separating time and rate
 
 \subsection{Phylogenetic tree}
+
+%PL: According to the extension I recommend for the general intro, a tree should already be introduced properly there, and this should from the biological perspective but can also include this more formal description..
 
 A phylogenetic tree, or phylogeny for short, depicts the genealogical relationship between character sequences.
 Mathematically, a phylogeny $\mathbf{F}$ represents a directed, acyclic graph with sets of \emph{nodes} connected by \emph{branches} (e.g., Figure~\ref{fig:treeconcept}).
@@ -545,15 +551,15 @@ The branching pattern of the tree is called the \emph{topology}.
 
 \subsection{Sequence evolution on a tree\label{sub:evolutionOnTree}}
 
-We now move onto describing the connection between already discussed CTMC models of character sequence evolution and the phylogenetic trees.
-Like before we focus on a single site of the alignment, and due to the assumption of independence the probability of an alignment is simply the product of probabilities calculated at individual sites.
+In this section we proceed by describing the connection between the CTMC models of character substitution discussed above and phylogenetic histories.
+We keep the focus on a single site of the alignment, and due to the assumption of independence the probability of observing an alignment is simply the product of probabilities for observing the individual sites.
 
-To gain a better understanding of the process shaping the data observed at the tips of a phylogenetic tree let us consider the problem of simulating a sequence evolution on a tree according to a model with rate matrix $\mathbf{Q}$.
+To gain a better understanding of the process shaping the data observed at the tips of a phylogenetic tree let us consider the problem of simulating sequence evolution on a tree according to a model with rate matrix $\mathbf{Q}$.
 We start with a first character $i$ sampled at the root of the tree $x_0$ from the stationary distribution $\mathbf{\Pi}$.
-Let us assume that two directly neighboring nodes are $x_j$ and $x_k$.
-The character sampled at the root waits an Exponentialy distributed amount of time $t\geq0$ (see Figure~\ref{fig:poisson}) before moving down the tree to one of the children nodes $x_i$.
+Let us assume that two direct descendent nodes are $x_j$ and $x_k$.
+The character sampled at the root waits an exponentially distributed amount of time $t\geq0$ (see Figure~\ref{fig:poisson}) before moving to one of the descendent or child nodes.
 Such traversal is said to be following the pre-order, i.e. parental nodes are visited before child nodes.   
-The process then randomly decides by a coin flip to which of the two neighbouring nodes to move next.
+The process then randomly decides by a coin flip to which of the two descendent nodes to move next (assuming that the visited node is not a tip).
 Let us assume that the process moved to $x_j$.
 The state $j$ for the node $x_j$ is sampled conditional on the value $i$ already sampled at the root using the branch length expressed in real time $t$ and the vector probabilities in the row $i$ of the finite-time probabilities matrix $\mathbf{P}(t)$, calculated using SVD of the rate matrix $\mathbf{Q}$ that characterizes the CTMC.   
 
@@ -591,30 +597,31 @@ The state $j$ for the node $x_j$ is sampled conditional on the value $i$ already
 \end{algorithmic}
 \caption{
 { \footnotesize 
-{\bf Fabrication evolution along a phylogeny.} 
-For a visited child node it's state is sampled with conditional probabilities of changing to state $j$ given state $i$ at the parental node.
+%PL: Perhaps add: Pseudo code for simulating...
+{\bf Simulation an evolutionary process along a phylogeny.} 
+When a child node is visited, the state is sampled with conditional probabilities of changing to state $j$ given state $i$ at the parental node.
 }% END: footnotesize
 }
 \label{alg:simulation}
 \end{algorithm}
 
-This constitutes the Markov property of a CTMC, as defined in Equation~(\ref{eq:markov}).
+This illustrates the Markov property of a CTMC, as defined in Equation~(\ref{eq:markov}).
 The sampling is then repeated on the node $x_j$, before recursively proceeding to the other trio of nodes.
 The states sampled at the tips of the tree constitute the character sequence for one site of the alignment.
-In this light the CTMC process can be viewed as a continuous-time random-walk, unfolding on the topology $\mathbf{F}$, with it's behaviour described by a rate-matrix $\mathbf{Q}$.
+In this light the CTMC process can be viewed as a continuous-time random-walk, unfolding on the topology $\mathbf{F}$, with its behaviour described by a rate-matrix $\mathbf{Q}$.
 The complete algorithm is listed in Algorithm~\ref{alg:simulation}.
 
 \section{Likelihood of sequence evolution}
 
 \subsection{Calculation of the likelihood on a tree\label{sub:likelihood}}
 
-Likelihood is defined as a conditional probability of observing the data given the parameters, in a function of those parameters.
-Discrete molecular sequence data comes in a form of aligned matrix $\mathbf{X}$ of size $n \times l$, where $x_{jh}$ is the $h$-th character in $j$-th sequence.
-Single column $\mathbf{x}_{h}$ of data matrix constitutes a single site.
-Like before the standard assumption of independence posits that different sites evolve independently and that once two branches split at a node, the evolution on those branches is also independent.
+Likelihood is defined as a conditional probability of observing the data given the parameters, as a function of those parameters.
+Phylogenetic inference considers discrete molecular sequence data in the form of aligned matrix $\mathbf{X}$ of size $n \times l$, where $x_{jh}$ is the $h$-th character in $j$-th sequence.
+Single column $\mathbf{x}_{h}$ of the data matrix constitutes a single site.
+Again, the standard assumption of independence posits that different sites evolve independently and that once two branches split at a node, the evolution on those branches is also independent.
 
 In Subsection~\ref{sub:evolutionOnTree} we described how evolution according to some process $\mathbf{Q}$ gives rise to the observed data $\mathbf{X}$.
-In the typicall situation we start with just the observed data and aim the inference efforts at modelling the process that generated the alignment.
+In the typical situation we start with just the observed data and aim the inference efforts at modeling the process that generated the alignment.
 We can therefore denote the likelihood simply as: 
 
 \begin{equation}
