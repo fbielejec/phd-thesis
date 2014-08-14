@@ -381,9 +381,12 @@ rt\mathbf{Q}=\mathbf{V}\times\text{diag}(rt\lambda_{1},\ldots,rt\lambda_{K})\tim
 \noindent Finally, using the power series definition of the transition probability matrix, we obtain: 
 
 \begin{eqnarray}
-\mathbf{P}(t) & = & \exp\left(rt\mathbf{Q}\right)  =  \underset{k=0}{\overset{\infty}{\sum}}\left(rt\mathbf{Q}\right)^{k}/k! 
- =  \underset{k=0}{\overset{\infty}{\sum}}\left(\mathbf{V}\times\mathbf{D}\times\mathbf{V}^{-1}\right)^{k}/k! \\ \nonumber
-& = & \mathbf{V}\times\left(\underset{k=0}{\overset{\infty}{\sum}}\mathbf{D}^{k}/k!\right)\times\mathbf{V}^{-1} = \mathbf{V}\times\text{diag}(e^{rt\lambda_{1}},\ldots,e^{rt\lambda_{K}})\times\mathbf{V}^{-1} ,
+\mathbf{P}(t) &=& \exp\left(rt\mathbf{Q}\right)  =  \underset{k=0}{\overset{\infty}{\sum}}\left(rt\mathbf{Q}\right)^{k}/k! \\ \nonumber
+ &=&  \underset{k=0}{\overset{\infty}{\sum}}\left(\mathbf{V}\times\mathbf{D}\times\mathbf{V}^{-1}\right)^{k}/k! \\ \nonumber
+ &=& \mathbf{V}\times\left(\underset{k=0}{\overset{\infty}{\sum}}\mathbf{D}^{k}/k!\right)\times\mathbf{V}^{-1} = \mathbf{V}\times\text{diag}(e^{rt\lambda_{1}},\ldots,e^{rt\lambda_{K}})\times\mathbf{V}^{-1} ,
+% \mathbf{P}(t) & = & \exp\left(rt\mathbf{Q}\right)  =  \underset{k=0}{\overset{\infty}{\sum}}\left(rt\mathbf{Q}\right)^{k}/k! 
+%  =  \underset{k=0}{\overset{\infty}{\sum}}\left(\mathbf{V}\times\mathbf{D}\times\mathbf{V}^{-1}\right)^{k}/k! \\ \nonumber
+% & = & \mathbf{V}\times\left(\underset{k=0}{\overset{\infty}{\sum}}\mathbf{D}^{k}/k!\right)\times\mathbf{V}^{-1} = \mathbf{V}\times\text{diag}(e^{rt\lambda_{1}},\ldots,e^{rt\lambda_{K}})\times\mathbf{V}^{-1} ,
 \label{eq:eigen_decomposition}
 \end{eqnarray}
 
@@ -496,18 +499,19 @@ r & r & r & -3r.
 \noindent
 The finite-time transition probability matrix $\mathbf{P}(t)$ for time $t>0$ is calculated using matrix exponentiation  (see Subsection~\ref{sub:exponentiation}):
 
-\begin{equation}
-\mathbf{P}\left(t\right)=\left[\begin{array}{cccc}
+\begin{eqnarray}
+\mathbf{P}\left(t\right) &=& \left[\begin{array}{cccc}
 p_{0}(t) & p_{1}(t) & \cdots & p_{1}(t)\\
 p_{1}(t) & p_{0}(t) & \ddots & \vdots\\
 \vdots & \ddots & p_{0}(t) & p_{1}(t)\\
 p_{1}(t) & \cdots & p_{1}(t) & p_{0}(t)
-\end{array}\right],\text{ where }\ensuremath{\begin{cases}
+\end{array}\right], \\ \nonumber
+&\text{ where }& \ensuremath{\begin{cases}
 p_{0}(t)=\frac{1}{4}+\frac{3}{4}e^{-4rt}\\
 p_{1}(t)=\frac{1}{4}-\frac{1}{4}e^{-4rt}
 \end{cases}}.
 \label{eq:jc69Finite}
-\end{equation}
+\end{eqnarray}
 
 \noindent
 A few things are worth mentioning about Equation~(\ref{eq:jc69Finite}).
@@ -893,10 +897,11 @@ All of these prior choices lead to proper posterior distribution, yet some contr
 The prior information is then combined with the likelihood of the data $P\left(\theta|\mathbf{X}\right)$ to form the posterior, via the Bayes theorem (Equation~(\ref{eq:bayesian1})).
 The posterior distribution of $\theta$ then becomes:
 
-\begin{equation}
-P\left(\theta|\mathbf{X}\right)=\frac{P(\theta)\cdot P\left(\mathbf{X}|\theta\right)}{P\left(\mathbf{X}\right)}=\frac{P(\theta)\cdot P\left(\mathbf{X}|\theta\right)}{\int P(\theta)\cdot P\left(\mathbf{X}|\theta\right)d\theta}\approx P(\theta)\cdot P\left(\mathbf{X}|\theta\right),
+\begin{eqnarray}
+P\left(\theta|\mathbf{X}\right) &=& \frac{P(\theta)\cdot P\left(\mathbf{X}|\theta\right)}{P\left(\mathbf{X}\right)}=\frac{P(\theta)\cdot P\left(\mathbf{X}|\theta\right)}{\int P(\theta)\cdot P\left(\mathbf{X}|\theta\right)d\theta} \\ \nonumber
+& \approx & P(\theta)\cdot P\left(\mathbf{X}|\theta\right),
 \label{eq:bayesian1}
-\end{equation}
+\end{eqnarray}
 
 \noindent
 where the marginal probability of the data $P\left(\mathbf{X}\right)$ is a normalizing constant that makes the posterior $P\left(\theta|\mathbf{X}\right)$ integrate to one.
@@ -908,16 +913,17 @@ Suppose that $\mathbf{\Theta}=\left(\theta,\mathbf{F}\right)$ is now a two dimen
 $\mathbf{F}$ (e.g. a tree topology) is the nuisance parameter.
 Joint posterior distribution of $\mathbf{\Theta}$ is now:
 
-\begin{equation}
-P\left(\mathbf{\Theta}|\mathbf{X}\right)=P\left(\theta,\mathbf{F}|\mathbf{X}\right)=\frac{P\left(\theta,\mathbf{F}\right)\cdot P\left(\mathbf{X}|\theta,\mathbf{F}\right)}{P\left(\mathbf{X}\right)}=\frac{P\left(\theta,\mathbf{F}\right)\cdot P\left(\mathbf{X}|\theta,\mathbf{F}\right)}{\int\int P(\theta,\mathbf{F})\cdot P\left(\mathbf{X}|\theta,\mathbf{F}\right)d\theta d\mathbf{F}}
+\begin{eqnarray}
+P\left(\mathbf{\Theta}|\mathbf{X}\right) &=& P\left(\theta,\mathbf{F}|\mathbf{X}\right)=\frac{P\left(\theta,\mathbf{F}\right)\cdot P\left(\mathbf{X}|\theta,\mathbf{F}\right)}{P\left(\mathbf{X}\right)} \\ \nonumber
+&=& \frac{P\left(\theta,\mathbf{F}\right)\cdot P\left(\mathbf{X}|\theta,\mathbf{F}\right)}{\int\int P(\theta,\mathbf{F})\cdot P\left(\mathbf{X}|\theta,\mathbf{F}\right)d\theta d\mathbf{F}}
 \label{eq:bayesian2}
-\end{equation}
+\end{eqnarray}
 
 \noindent
 and the marginal posterior density of $\theta$ can be obtained from Equation~\ref{eq:bayesian2} as:
 
 \begin{equation}
-P\left(\theta|\mathbf{X}\right)=\int P\left(\mathbf{\Theta},\mathbf{F}|\mathbf{X}\right)d\mathbf{F}
+P\left(\theta|\mathbf{X}\right) =\int P\left(\mathbf{\Theta},\mathbf{F}|\mathbf{X}\right)d\mathbf{F}
 \label{eq:bayesian3}
 \end{equation}
 
