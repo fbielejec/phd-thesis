@@ -482,7 +482,7 @@ Condition~\ref{eq:time_reversibility1} is also referred to as the \emph{detailed
 % Definition (\ref{eq:time_reversibility1}) and (\ref{eq:time_reversibility2}) are equivalent.
 This condition is assumed for strictly computational reasons, i.e. time-reversibility makes it easier to diagonalize $\mathbf{Q}$, which - as we have described in 
 Subsection~\ref{sub:exponentiation} - is a strategy frequently employed in phylogenetic software to compute the exponentials of rate matrices.
-Time reversibility also simplifies the computation of the likelihood on a tree, since it makes the computation indifferent to the position of the root, which we will discuss in Subsection~\ref{sub:likelihood}.
+Time reversibility also simplifies the computation of the likelihood on a tree, since it makes the computation independent of the position of the root, which we will discuss in Subsection~\ref{sub:likelihood}.
 
 %TODO: JK69 as example
 \subsection{A simple example: the Jukes and Cantor substitution model\label{sub:jc69}}
@@ -530,7 +530,7 @@ If we let $t\rightarrow \infty$ we can see that $\forall i,j\; p_{ij}(t)=1/4$, w
 \noindent
 Second, the rate and time in Equation~(\ref{eq:jc69Finite}) occur as a product, which means that rate and time are confounded.
 If we were to simulate two sequences, using the algorithm listed in (\ref{alg:simulation}) and starting the random number generators form the same seed, they will look the same for every $r$ and $t$ as long as their product $rt$ is the same.
-This is true for most of the substitution models and implies that typical phylogenetic estimation focuses on inferring the product parameter $\theta=rt$ or genetic distance.
+This is true for most of the substitution models and implies that typical phylogenetic estimation focuses on inferring the product parameter $\theta=rt$, or genetic distance.
 %PL: perhaps mention that the section on molecular clocks (cfr supra) discusses the conditions for which we can start separating time and rate
 
 \subsection{Phylogenetic tree}
@@ -626,6 +626,7 @@ The complete algorithm is listed in Algorithm~\ref{alg:simulation}.
 \subsection{Calculation of the likelihood on a tree\label{sub:likelihood}}
 
 Likelihood is defined as a conditional probability of observing the data given the parameters, as a function of those parameters.
+%PL: mention perhaps Fisher, Edwards..?
 Phylogenetic inference considers discrete molecular sequence data in the form of aligned matrix $\mathbf{X}$ of size $n \times l$, where $x_{jh}$ is the $h$-th character in $j$-th sequence.
 Single column $\mathbf{x}_{h}$ of the data matrix constitutes a single site.
 Again, the standard assumption of independence posits that different sites evolve independently and that once two branches split at a node, the evolution on those branches is also independent.
@@ -640,13 +641,16 @@ L\left(\mathbf{\Theta}|\mathbf{X}\right)=P\left(\mathbf{\Theta}|\mathbf{X}\right
 \end{equation}
 
 \noindent
-where $\mathbf{\Theta}$ is the topology, branch lengths, parameters of the substitution model and other parameters of interest that we aim at estimating.
+where $\mathbf{\Theta}$ represents the tree topology, the branch lengths, the parameters of the substitution model and other parameters of interest that we aim at estimating.
 This quantity expresses how likely it is to observe the data given a specific value of the parameter of interest $\mathbf{\Theta}$.
-By finding the value of $\mathbf{\Theta}$ that maximizes (\ref{eq:likelihood}) we capture a model with the best possible fit.
+By finding the value of $\mathbf{\Theta}$ that maximizes (\ref{eq:likelihood}) we capture a model with the best possible fit to the data.
 
-In this thesis we will not discuss the maximum likelihood estimation itself, rather focus on closely related methods of Bayesian inference.
-The likelihood is nontheless required for both frameworks, and it enters the Bayesian schema as the data component.
-We will now discuss how to calculate the likelihood of observing a certain realised sequence of characters on the tips of a tree, given a substitution model with fixed parameters.
+In this thesis we will not discuss the maximum likelihood estimation itself, %PL: good, who wants to consider the data to be fixed anyway..
+rather focus on closely related 
+%PL: I would add: ".., but philosophically very different,"
+methods of Bayesian inference.
+The likelihood concept is also required in Bayesian inference and enters the framework as the data component.
+We will now discuss how to calculate the likelihood of observing a particular realization of character sequences at the tips of a tree, given a substitution model with fixed parameters.
 
 %---LIKELIHOOD---%
 \begin{figure}[H]
@@ -654,18 +658,22 @@ We will now discuss how to calculate the likelihood of observing a certain reali
 \includegraphics[scale=0.5]{likelihood} 
 \caption{
 { \footnotesize 
-{\bf  A tree with five taxa.} Character sequence data for single site is observed at the tips of the tree.
+{\bf  A hypothetical tree for five taxa.} Character data for single site is observed at the tips of the tree.
 } % END: footnotesize
 }
 \label{fig:LIKELIHOOD}
 \end{figure}
 
-To calculate the likelihood means thus to reverse-engineer the evolution as it happened.
+%PL: I could recommend to align the char's, increase their size, relate them to the tips with horizontal dashed lines, but just increasing their size may do
+% also, why not label the external nodes with x1-to x5 as you mention in the text, consistent with the internal models?
+% the i indices do not correspond between the nodes and branches for x7 and x8
+
+To calculate the likelihood means in a sense to reverse-engineer the evolution as it happened.
 Figure~\ref{fig:LIKELIHOOD} presents single site with data $TCACC$ observed at the tips of the tree.
 External nodes are numbered $x_{1}, \ldots x_{5}$, internal nodes $x_{6}, \ldots x_{8}$ and the root is placed at the node $x_{0}$.
-Length of each branches leading to node $i$ is denoted as $t_{i}$.
-Using methods presented in Subsection~\ref{sub:exponentiation} we calculate the finite-time transition probabilities $p_{ij}(t_{i})$ between all pairs of characters in the alignment.
-According to the independence assumptions to calculate the probability at a single site we need to sum over all possible combinations that could give rise to the observed sequence. Thus:
+The length of each branch leading to node $i$ is denoted as $t_{i}$. %PL: the i indices do not correspond between the nodes and branches for x7 and x8
+Using the methods presented in Subsection~\ref{sub:exponentiation} we calculate the finite-time transition probabilities $p_{ij}(t_{i})$ between all pairs of characters in the alignment.
+To calculate the probability at a single site, we need to sum over all possible combinations that could give rise to the observed character data at that site, in this case:
 
 \begin{eqnarray}
 \underset{x_{0}\in \mathcal{E}}{\sum}\;\underset{x_{6}\in \mathcal{E}}{\sum}\;\underset{x_{7}\in \mathcal{E}}{\sum}\;\underset{x_{8}\in \mathcal{E}}{\sum}[\pi_{x_{0}}\cdot p_{x_{0}x_{8}}(t_{7})\cdot p_{x_{0}x_{7}}(t_{8})\cdot p_{x_{8}x_{6}}(t_{6})\cdot p_{x_{8}A}(t_{3}) \cdot \\ \nonumber
@@ -673,13 +681,14 @@ p_{x_{7}C}(t_{4})\cdot p_{x_{7}C}(t_{5})\cdot p_{x_{6}T}(t_{1})\cdot p_{x_{6}C}(
 \label{eq:likelihoodNaive}
 \end{eqnarray}
 
-We can break down the terms in Equation~(\ref{eq:likelihoodNaive}) to the probability of observing the data $TCACC$ for the tips and $x_{0},x_{6},x_{7},x_{8}$ for the ancestral nodes (inside the brackets) and the sum over all possible path combinations over the state space $\mathcal{E}$ (outside the brackets).
-Term $\pi_{0}$ is simply the probability that the root has character $x_{0}$ and comes from the assumption that the process generating the data has reached its equilibrium.
+We can break down the terms in Equation~(\ref{eq:likelihoodNaive}) %for some reason this says 1.22 in my pdf build and not 1.21 as it should be, or is this just due to my TeX environment?
+to the probability of observing the data $TCACC$ for the tips and $x_{0},x_{6},x_{7},x_{8}$ for the ancestral nodes (inside the brackets) and the sum over all possible path combinations over the state space $\mathcal{E}$ (outside the brackets).
+Term $\pi_{0}$ is simply the probability that the root has character $x_{0}$ and is based on the assumption that the process generating the data has reached its equilibrium.
 
 Summing over all possible paths leading to the observed data is computationally expensive, as there are  $K^{n-1}$ possible combinations, where $n-1$ is the number of internal nodes of a rooted binary tree.
-Fortunately we can used the assumption of independence of the process in the two sub-trees below every node.
-\citet{Felsenstein1981} provides an efficient algorithm for computing the likelihood of observing the data on a topology $\mathbf{F}$ given the substitution model that quantifies transition probabilities.
-This routine, known as \emph{tree pruning} conveniently expresses the partial likelihood $L_{i}(x_{i})$ of observing data at the descendant tips of node $i$ given state $x_{i}$ at node $i$ in terms of partial likelihoods at nodes $j$ and $k$.
+Fortunately, we can rely on the assumption of independence of the process in the two sub-trees below every node.
+Based on this, \citet{Felsenstein1981} provides an efficient algorithm for computing the likelihood of observing the data on a topology $\mathbf{F}$ given the substitution model that quantifies transition probabilities.
+This routine, known as \emph{tree pruning} conveniently expresses the partial likelihood $L_{i}(x_{i})$ of observing data at the descendants of node $i$ given state $x_{i}$ at node $i$ in terms of partial likelihoods at nodes $j$ and $k$.
 For all internal nodes of $\mathbf{F}$ we have:
 
 \begin{equation}
@@ -709,24 +718,27 @@ L(\mathbf{x}_{h})=\underset{x_{0}\in\mathcal{E}}{\sum}\pi_{x_{0}}\cdot L_{0}(x_{
 \end{equation}
 
 \noindent
-The log-likelihood of the whole alignment $X$ is computed by summing the logarithms of the likelihoods at the particular sites, due to the assumption of their independence:
+Thanks to the assumption of site-independence, the log-likelihood of the whole alignment $X$ can be computed by summing the logarithms of the likelihoods at the particular sites:
 
 \begin{equation}
 l(X)=\underset{j=1}{\overset{l}{\sum}}log\left(L(\mathbf{x}_{jh})\right)
 \label{eq:loglikelihood}
 \end{equation}
 
-\subsection{Computational burden of the likelihood computation}
+%PL: perhaps note that you moved to Log L in the last step to avoid underflow when multiplying small numbers or something?
 
-We have already mentioned that the run-time of phylogenetic analysis is the caveat, hampering the development and application of novel, more biologically plausible methods in the field.
-These limits are being actively stretched, mostly by porting the computationally expensive calculations to high-performance parallel devices such as Graphics-Processing Units (GPUs, \cite{Nickolls2008}).
-In Subsection~\ref{sub:exponentiation} we already discussed how the computation of finite-time transition probabilities can be reduced to simple matrix algebra operations, which can than be ported to high-performance libraries and APIs for statistical phylogenetics such as the BEAGLE library \citep{Ayres2012, Suchard2009}. 
+\subsection{The computational burden of likelihood computations}
 
-Before we proceed to discussing the burden imposed by certain steps when calculating the likelihood of a sequence evolution on a tree we need a formal definition of the computational complexity of a sequential routine.
-Efficiency of an algorithm can depend on various factors, like network usage, disk usage, operational memory usage or CPU real-time usage.
-All of these factors should be taken into consideration when designing and implementing a computational routine, however for most of the calculations the latter, i.e. CPU time will be the rate-limiting factor.
-Typically both mathematicians and computer scientists use the Big-O notation as a relative representation of the algorithms complexity, like the execution time required.
-Here we give a formal definition of the Big-O notation:
+We have already mentioned that for large data sets the run-time of statistical phylogenetic analysis is a major caveat that hampers the development and application of novel, more biologically relevant models and inference in the field.
+These limits are being actively stretched, for example by porting the computationally expensive calculations to high-performance parallel devices such as Graphics-Processing Units (GPUs, \cite{Nickolls2008}).
+In Subsection~\ref{sub:exponentiation} we already discussed how the computation of finite-time transition probabilities can be reduced to simple matrix algebra operations, which can handled by high-performance libraries and APIs for statistical phylogenetics such as the BEAGLE library \citep{Ayres2012, Suchard2009}. 
+
+Before we proceed with discussing the burden imposed by certain steps when calculating the likelihood of a sequence evolution on a tree we need a formal definition of the computational complexity of a sequential routine.
+The efficiency of an algorithm can depend on various factors, like network usage, disk usage, operational memory usage or CPU real-time usage.
+All of these factors should be taken into consideration when designing and implementing a computational routine. 
+However, for most of the calculations the CPU time will be the rate-limiting factor.
+Typically both mathematicians and computer scientists use the Big-O notation as a relative representation of algorithm complexity, like the execution time required.
+Here we formally define the Big-O notation as:
 
 \begin{definition}
 Let us assume two functions $f:\mathbb{R}_{>0}\rightarrow\mathbb{R}_{>0}$ and $T:\mathbb{R}_{>0}\rightarrow\mathbb{R}_{>0}$. 
@@ -738,7 +750,7 @@ T(n) \in \mathcal{O}\left(f(n)\right)
 \end{equation}
 
 \noindent
-if and only if there exists constant $M>0$ and some $n_0 \in \mathbb{R}_{>0}$ such that:
+if and only if there exists a constant $M>0$ and some $n_0 \in \mathbb{R}_{>0}$ such that:
 
 \begin{equation}
 T(n)\leq M \cdot f(n)
@@ -748,7 +760,7 @@ T(n)\leq M \cdot f(n)
 
 % \noindent
 In other words $T(n)$ is $\mathcal{O}\left(f(n)\right)$ if and only if for all sufficiently large input values $T(n)$ is bounded from above by some constant multiple of $f(n)$.
-This makes the Big-O notation useful when analysing algorithms for run-time efficiency and makes it possible to for example compare routines without the added overhead of neglectable terms, such as the architecture at which the code was run, the choice of language or compiler.
+This makes the Big-O notation useful when analyzing algorithms for run-time efficiency and makes it possible to, for example, compare routines without the added overhead of negligible terms, such as the architecture at which the code was run, the choice of language or compiler.
 We will now briefly discuss some of the most common serial computational orders and their examples. 
 
 \begin{algorithm}[H]
@@ -777,7 +789,7 @@ We will now briefly discuss some of the most common serial computational orders 
 \end{algorithm}
 
 The simplest, most basic example is an operation that takes the same amount of time every time it is called, thus requiring constant time, i.e. it's computational complexity is that of $\mathcal{O}\left(1\right)$ and does not depend on the input size.
-An example of such routine is listed in the Algorithm~\ref{alg:o1} that checks for a specific value of a constant.
+An example of such routine is listed in the Algorithm~\ref{alg:o1} that evaluates a specific value of a constant.
 
 \begin{algorithm}[H]
 \centering
@@ -808,8 +820,8 @@ An example of such routine is listed in the Algorithm~\ref{alg:o1} that checks f
 \label{alg:on}
 \end{algorithm}
 
-Algorithm which proceeds at $\mathcal{O}\left(N\right)$ has it's run-time growing linearly with the size of input data.
-Example of such a routine is presented as Algorithm~\ref{alg:on}, which searches an array looking for a specific value.
+An algorithm proceeding at $\mathcal{O}\left(N\right)$ has a run-time that grows linearly with the size of input data.
+An example of such a routine is presented as Algorithm~\ref{alg:on}, which searches an array looking for a specific value.
 We should note that the Big-O notation always describes the performance in worst-case scenario, i.e. a full loop has to be executed before a matching element is found, while for the actual real-world problem this does not have to be the case and the loop can return earlier.
 
 \begin{algorithm}[H]
@@ -849,12 +861,12 @@ We should note that the Big-O notation always describes the performance in worst
 \label{alg:on2}
 \end{algorithm}
 
-An algorithm can also require a quadratic, $\mathcal{O}\left(N^2\right)$ run-time, i.e. it's performance is directly proportional to the square of the size of the input data.
+An algorithm can also require a quadratic run-time, $\mathcal{O}\left(N^2\right)$, i.e. its performance is directly proportional to the square of the size of the input data.
 Among examples of such an algorithm is the routine that searches for a duplicated value in an array, and requires two nested loops as presented in Algorithm~\ref{alg:on2}.
-Similarly nesting more loops will result in routines which proceed at polynomial times $\mathcal{O}\left(N^3\right)$, $\mathcal{O}\left(N^4\right)$, $\mathcal{O}\left(N^5\right)$ etc.
-An algorithm which proceeds at $\mathcal{O}\left(c^N\right)$, where $c>1$ is some constant, will have it's run-time growing c-times with every additional data element, i.e. exponentially. 
+Similarly nesting more loops will result in routines which proceed at polynomial times $\mathcal{O}\left(N^3\right)$, $\mathcal{O}\left(N^4\right)$, $\mathcal{O}\left(N^5\right)$, etc.
+An algorithm proceeding at $\mathcal{O}\left(c^N\right)$, where $c>1$ is some constant, will have a run-time that grows c-times with every additional data element, i.e. exponentially. 
 
-With those basic ideas described we can now come back to the original problem of calculating the likelihood of a sequence evolution on a fixed tree.
+Having described these basic concepts, we can now come back to the original problem of calculating the likelihood of sequence evolution on a fixed tree.
 From Subsections \ref{sub:exponentiation} and \ref{sub:likelihood} we already know the steps involved:
 
 % I skipped site rate variability, but perhaps it should be mentioned? 
@@ -865,11 +877,11 @@ From Subsections \ref{sub:exponentiation} and \ref{sub:likelihood} we already kn
 \item { Taking the logarithm and summing over all sites in the alignment. }
 \end{enumerate}
 
-Step (i) proceeds at ${\cal{O}}(K^3)$, however for typical, time-homogeneous applications this is not the a rate-limiting step, as repeated evaluations of $\exp(\mathbf{Q}t)$ in (ii) are based on the same decomposition of the matrix \citep{Suchard2009}. 
+Step (i) proceeds at ${\cal{O}}(K^3)$; however, for typical, time-homogeneous applications this is not the a rate-limiting step, as repeated evaluations of $\exp(\mathbf{Q}t)$ in (ii) are based on the same decomposition of the matrix \citep{Suchard2009}. 
 Step (ii) typically boils down to repeated matrix-vector-matrix multiplications and its serial computational order is ${\cal{O}}(K^3 \times n)$. 
 Step (iii) takes ${\cal{O}}(K^2 \times n \times l)$ time and is the most computationally expensive part of the routine. 
 Step (iv) proceeds at ${\cal{O}}(l)$, linearly with the number of sites.
-Fortunately these operations are very regular and lend themselves to the computational parallelism, such as utilized in the BEAGLE library \citep{Suchard2009,Ayres2012}.
+Fortunately, these operations are very regular and lend themselves to the computational parallelism, such as utilized in the BEAGLE library \citep{Suchard2009,Ayres2012}.
 
 % TODO: maybe sub-section on GPUs here
 
