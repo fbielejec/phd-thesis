@@ -188,6 +188,7 @@ A. Conceptual representation of time-slicing a phylogeny and projecting the part
 Presenting readily interpretable visual summaries of the inferences, that can in turn be communicated to the researchers across different fields is one of the more important aspects of this thesis.
 This goal has been materialized in the development of a user-friendly application, that produces compelling and informative statistical visualizations of viral spread in time and space \citep{Bielejec2011}.
 An example of such a visualisation finds itself in Figure~\ref{fig:spread}.
+%PL: never say 'there is a figure for you' without bothering to discuss it. At this point the reader has no idea what to make of time slicing, etc... This is an explanation of a SPREAD approach and does not belong here in the intro. Perhaps if you pick it up in the discussion, you could say that the paper format did not allow you to go into the visualization strategy all that much and you expand it on it a bit before discussing how you see the future for such things
 
 \section{Evolution as a stochastic process}
 
@@ -207,6 +208,7 @@ The stochastic process $X$ is a collection $\left\{ X(t):\; t\in T\right\} $, wh
 In the simplest case, for which the unit of evolution is a single nucleotide, we have $\mathcal{E}=\left\{ A,C,G,T\right\}$ and $K=4$.
 The particular sites of the sequence alignment are then considered to be stochastically independent realizations of the process $X$, leading to the observed data (see Figure~\ref{fig:alignment}). 
 
+%PL: I refer to our conversation about this fig.
 % TODO change that plot, show multiple subst per branch (and how it alters time estimates)
 \begin{figure}[H]
 \centering
@@ -259,6 +261,10 @@ Figure~\ref{fig:poisson} shows a sample of different trajectories of such a proc
 
 \label{def:poisson}
 \end{definition}
+
+
+%PL: I don't understand the figure composition: upper part OK, but if you use color as you do now, different realizations can be plotted on the same panel. However, I would keep the printing issues for color figures  to a minimum (only use colors when you really need it -- it requires separate paper printing and merging with the rest, and is bloody expensive), so separate gray-scale panels can work. bottom part: is what I do not understand: should the paths assemble into a tree somehow? The discussion of the process makes no relationship to a tree just yet -- you do that later on. And if you do intend to relate them to a tree, I do not understand how the mutational process for a site only relates to part of the tree?
+
 
 \begin{figure}[H]
 \centering
