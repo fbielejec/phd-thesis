@@ -891,28 +891,28 @@ Fortunately, these operations are very regular and lend themselves to the comput
 
 The Bayesian approach to statistical inference combines the prior information with the data to generate the posterior distributions of the parameters of interest.
 All other post-hoc inference is based on those generated posterior distributions.
-Bayesian methodology has recently gained immense popularity, due to the advances in numerical algorithms and the progressively cheaper access to powerfull computational hardware.
-Development of statistical programs for simulation from Bayesian hierarchical models like OpenBUGS \citep{Lunn2009} and JAGS \citep{Plummer2003} has also helped to bolster the popularity and accessibility of the Bayesian framework.
+Bayesian methodology has recently gained immense popularity, due to the advances in numerical algorithms and the progressively cheaper access to powerful computational hardware.
+The development of statistical programs for simulation from Bayesian hierarchical models like OpenBUGS \citep{Lunn2009} and JAGS \citep{Plummer2003} has also helped to bolster the popularity and accessibility of the Bayesian framework.
 
-In the field of phylogenetics Bayesian inference has been applied to some of the most complex problems and is now widely adopted, with the term \emph{Bayesian evolutionary analysis} used to describe the molecular evolutionary analysis set in the Bayesian framework.
-At the fore-front of these advancements lies the wide adoption of popular Bayesian evolutionary analysis software packages like MrBayes \citep{Ronquist2012} and BEAST \citep{Drummond2012}.
+In the field of phylogenetics, Bayesian inference has been applied to some of the most complex problems and is now widely adopted, with the term \emph{Bayesian evolutionary analysis} used to describe the molecular evolutionary analysis set in the Bayesian framework.
+At the fore-front of these advancements lies the active development and wide adoption of popular Bayesian evolutionary analysis software packages like MrBayes \citep{Ronquist2012} and BEAST \citep{Drummond2012}.
 
 \subsection{Bayes theorem\label{sub:bayesTheorem}}
 
 % Following the notation defined in Subsection \ref{sub:likelihood} we will denote the tree topology, the branch lengths and the parameters of the substitution model that we aim at inferring by $\mathbf{\Theta}$.
-Following the notation defined in Subsection~\ref{sub:likelihood}  let us denote a single-dimensional parameter of interest that we aim at inferring by $\theta$.
-The central concept of Bayesian inference is that this parameter has a distribution of it's own.
+Following the notation defined in Subsection~\ref{sub:likelihood}, let us denote a single-dimensional parameter of interest that we aim to learn about as $\theta$.
+The central concept of Bayesian inference is that this parameter has a distribution of its own.
 Before the molecular data $\mathbf{X}$ is observed we assume that $\theta$ has a prior distribution $P(\theta)$.
 The prior reflects the prior beliefs about the possible values of the parameter.
 
 The prior choice is perhaps one of the most controversial points of the Bayesian inference.
 The prior distributions may come from the preceding analysis of the other sets of data, or they may form some set of biologically plausible values.
-However in some cases there may be no suitable subjective distribution to be used, which leads to the so called \emph{vague} priors, with large variance.
-All of these prior choices lead to proper posterior distribution, yet some controversies in their choice may still arise.
+However in some cases there may be no suitable objective distribution at hand, which case one often resorts to the so called \emph{vague} priors, with large variance.
+All of these proper prior choices lead to a proper posterior distribution, yet some controversies about their choice may still arise.
 
 % TODO: discuss hyperpriors?
 The prior information is then combined with the likelihood of the data $P\left(\theta|\mathbf{X}\right)$ to form the posterior, via the Bayes theorem (Equation~(\ref{eq:bayesian1})).
-The posterior distribution of $\theta$ then becomes:
+The posterior distribution of $\theta$ follows:
 
 \begin{equation}
 P\left(\theta|\mathbf{X}\right)=\frac{P(\theta)\cdot P\left(\mathbf{X}|\theta\right)}{P\left(\mathbf{X}\right)}=\frac{P(\theta)\cdot P\left(\mathbf{X}|\theta\right)}{\int P(\theta)\cdot P\left(\mathbf{X}|\theta\right)d\theta}\approx P(\theta)\cdot P\left(\mathbf{X}|\theta\right),
@@ -924,10 +924,10 @@ where the marginal probability of the data $P\left(\mathbf{X}\right)$ is a norma
 The last approximation in Equation~(\ref{eq:bayesian1}) means that the posterior is proportional to the prior times the likelihood.
 
 % nuisance parameters?
-Bayesian inference provides also a natural way of delaying with nuisance parameter.
+Bayesian inference provides a natural way of dealing with nuisance parameter.
 Suppose that $\mathbf{\Theta}=\left(\theta,\mathbf{F}\right)$ is now a two dimensional vector of parameters, with $\theta$ being the parameter of interest, while 
 $\mathbf{F}$ (e.g. a tree topology) is the nuisance parameter.
-Joint posterior distribution of $\mathbf{\Theta}$ is now:
+The joint posterior distribution of $\mathbf{\Theta}$ is now:
 
 \begin{equation}
 P\left(\mathbf{\Theta}|\mathbf{X}\right)=P\left(\theta,\mathbf{F}|\mathbf{X}\right)=\frac{P\left(\theta,\mathbf{F}\right)\cdot P\left(\mathbf{X}|\theta,\mathbf{F}\right)}{P\left(\mathbf{X}\right)}=\frac{P\left(\theta,\mathbf{F}\right)\cdot P\left(\mathbf{X}|\theta,\mathbf{F}\right)}{\int\int P(\theta,\mathbf{F})\cdot P\left(\mathbf{X}|\theta,\mathbf{F}\right)d\theta d\mathbf{F}}
@@ -944,9 +944,12 @@ P\left(\theta|\mathbf{X}\right)=\int P\left(\mathbf{\Theta},\mathbf{F}|\mathbf{X
 
 \subsection{Example: Comparing two sequences with the beta-binomial model}
 
-As a simple illustration of the concept of Bayesian analysis let us consider a toy example where two sequences are compared and $x=10$ differences are found out of $N=100$ sites compared.
+As a simple illustration of the concept of Bayesian analysis, let us consider a toy example where two sequences are compared and $x=10$ differences are found out of $N=100$ sites compared.
 Suppose that the parameter $\theta$ we want to infer is the proportion of sites which differ between the two sequences.
-Assuming that the sites are independent we can use a binomial model and put a beta prior with parameters $\alpha=2$, $\beta=100$ on the unknown proportion $\theta$.
+Assuming that the sites are independent we can use a binomial model and put a beta prior with parameters $\alpha=2$, $\beta=100$ on the unknown proportion $\theta$. %PL: maybe add explicitly: ".., which prefers small values of the $\theta$ a priori
+
+
+%PL: to avoid color, use a white filled distribution for the prior, a black one for the likelihood, and a grey for the posterior (which conceptually fits with the fact that the posterior combines black and white)
 
 %---LIKELIHOOD---%
 \begin{figure}[H]
@@ -961,16 +964,18 @@ Assuming that the sites are independent we can use a binomial model and put a be
 \end{figure}
 
 Figure~\ref{fig:bayes1} shows the resulting posterior distribution along with prior and scaled likelihood.
-In this case we used a fact that the beta distribution is a so called \emph{conjugate prior} for the binomial model, resulting in the posterior which is also beta-distributed and can therefore be calculated analytically.
+This shows that the data `pulls' the posterior away from the prior, and the strength by which is does so depends on its variance, resulting in a posterior centered around 0.6 in this case.
+In this example, the posterior distribution can be obtained analytically because the beta distribution is a so called \emph{conjugate prior} for the binomial model, resulting in the posterior that is also beta-distributed.
 %TODO: proof in appendix?
+%PL: nah, unless you are the first to prove this :-)
 
-\subsection{Marcov Chain Monte Carlo\label{sub:MCMC}}
+\subsection{Markov Chain Monte Carlo\label{sub:MCMC}}
 
 For every but the most trivial problems involving conjugate priors, like in our previous example, the main problem of Bayesian inference lies in the calculation of the integral in Equation~(\ref{eq:bayesian1}).
 This integral leads to the marginal probability of the data $P\left(\mathbf{X}\right)$. 
 For even the simplest phylogenetic problems, one has to integrate over all possible tree topologies, all of the branch lengths in those trees and all of the substitution parameters in the applied model.
 Such highly-dimensional integrals are impossible to calculate analytically.
-This is where the Marcov Chain Monte Carlo (MCMC) algorithms show their strength and provide a powerful method of sampling from the posterior distributions without evaluating the marginal probability.
+This is where the Markov Chain Monte Carlo (MCMC) algorithms show their strength and provide a powerful method of sampling from the posterior distributions without evaluating the marginal probability.
 
 Metropolis-Hasting algorithm, as proposed by \citet{Metropolis1953}, is an MCMC algorithm for sampling from multi-dimensional distributions.
 It proceeds by constructing a Markov chain with its states being the values of the parameter of interest $\theta$ and whose equilibrium distribution is the posterior $P\left(\theta|\mathbf{X}\right)$ as defined in Equation~\ref{eq:bayesian1}.
