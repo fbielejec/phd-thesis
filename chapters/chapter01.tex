@@ -964,33 +964,33 @@ Assuming that the sites are independent we can use a binomial model and put a be
 \end{figure}
 
 Figure~\ref{fig:bayes1} shows the resulting posterior distribution along with prior and scaled likelihood.
-This shows that the data `pulls' the posterior away from the prior, and the strength by which is does so depends on its variance, resulting in a posterior centered around 0.6 in this case.
+This illustrates that the data `pulls' the posterior away from the prior, and the strength by which is does so depends on its variance, resulting in a posterior centered around 0.6 in this case.
 In this example, the posterior distribution can be obtained analytically because the beta distribution is a so called \emph{conjugate prior} for the binomial model, resulting in the posterior that is also beta-distributed.
 %TODO: proof in appendix?
 %PL: nah, unless you are the first to prove this :-)
 
 \subsection{Markov Chain Monte Carlo\label{sub:MCMC}}
 
-For every but the most trivial problems involving conjugate priors, like in our previous example, the main problem of Bayesian inference lies in the calculation of the integral in Equation~(\ref{eq:bayesian1}).
+Except for the most trivial problems, involving conjugate priors as in our previous example, the calculation of the integral in Equation~(\ref{eq:bayesian1}) poses a considerable challenge in Bayesian inference.
 This integral leads to the marginal probability of the data $P\left(\mathbf{X}\right)$. 
 For even the simplest phylogenetic problems, one has to integrate over all possible tree topologies, all of the branch lengths in those trees and all of the substitution parameters in the applied model.
 Such highly-dimensional integrals are impossible to calculate analytically.
-This is where the Markov Chain Monte Carlo (MCMC) algorithms show their strength and provide a powerful method of sampling from the posterior distributions without evaluating the marginal probability.
+This is where the Markov Chain Monte Carlo (MCMC) algorithm shows its strength and provides a powerful method of sampling from the posterior distributions without evaluating the marginal probability. %PL: it is a supa-dupa algorithm: http://oldweb.cecm.sfu.ca/~jborwein/algorithms.html
 
-Metropolis-Hasting algorithm, as proposed by \citet{Metropolis1953}, is an MCMC algorithm for sampling from multi-dimensional distributions.
+The Metropolis-Hasting algorithm, as proposed by \citet{Metropolis1953}, is an MCMC algorithm for sampling from multi-dimensional distributions.
 It proceeds by constructing a Markov chain with its states being the values of the parameter of interest $\theta$ and whose equilibrium distribution is the posterior $P\left(\theta|\mathbf{X}\right)$ as defined in Equation~\ref{eq:bayesian1}.
-After choosing an arbitrary starting state for the chain new candidate states $\theta^{*}$ are generated from the proposal density $q(\theta^{*} | \theta[t])$ also called the kernel.
+After choosing an arbitrary starting state for the chain, new candidate states $\theta^{*}$ are generated from the proposal density $q(\theta^{*} | \theta[t])$ also called the kernel.
 
-Common choice for the kernel is to sample from a continuous uniform distribution centered around the current state of the chain, the so called jumping kernel: 
+A common kernel choice to propose new state for continuous parameter is to sample from a uniform distribution centered around the current state of the chain, the so called jumping kernel: %PL: are you sure this sliding window kernel is commonly referred to as the 'jumping kernel", or do you mean as a general term?
 
 $$\theta^{*}\sim U\left[\theta[t]-\omega,\theta[t]+\omega\right],$$
 
 \noindent
 where $\omega$ is the arbitrary window size.
-The chain then moves to the proposed value with probability defined by the acceptance ratio (see Equation~(\ref{eq:metropolis1})), or if the proposal is rejected the chain remains at it's current state.
+The chain then moves to the proposed value with probability defined by the acceptance ratio (see Equation~(\ref{eq:metropolis1})), or if the proposal is rejected the chain remains at the current state.
 The routine iterates between accept/reject steps for a specified number of times.
-Both acceptance and rejection are counted as iterations od the algorithm, in fact the rejections ensure that the probabilistic properties of the target distribution are well represented in the generated sample.  
-Listing in Algorithm~\ref{alg:metropolisHastings} presents the details of the Metropolis-Hastings algorithm.
+Both acceptance and rejection are counted as iterations of the algorithm; in fact the rejections ensure that the probabilistic properties of the target distribution are well represented in the generated sample.  
+Algorithm~\ref{alg:metropolisHastings} presents the details of the Metropolis-Hastings algorithm.
 
 \begin{algorithm}[H]
 \centering
@@ -1024,17 +1024,17 @@ $$r=\frac{prior\left(\theta^{*}\right)}{prior\left(\theta\left[t\right]\right)}\
 \end{algorithmic}
 \caption{
 { \footnotesize 
-{\bf Metropolis-Hastings algorithm} 
+{\bf The Metropolis-Hastings algorithm} 
 }% END: footnotesize
 }
 \label{alg:metropolisHastings}
 \end{algorithm}
 
-We need to note several important features of the algorithm.
+Several important features of the algorithm can be noted.
 The most important part of the algorithm is the proposal density. 
 Given the current state it proposes the next state independent of the past states.
 We can recall that this is the Markov property, in fact the output of the algorithm generates a Markov chain, hence the name MCMC.
-Metropolis-Hastings algorithm allows for the use of an asymetrical proposal densities such that $q\left(\theta\left[t\right]|\theta^{*}\right)\neq q\left(\theta^{*}|\theta\left[t\right]\right)$.
+The Metropolis-Hastings algorithm allows for the use of an asymmetrical proposal densities such that $q\left(\theta\left[t\right]|\theta^{*}\right)\neq q\left(\theta^{*}|\theta\left[t\right]\right)$.
 The acceptance probability is simply the ratio of the target posterior evaluated at the proposal and at the current state of the chain, times the ratio of the proposal: 
 % prior ratio times the likelihood ratio times the proposal ratio
 
@@ -1045,17 +1045,18 @@ The acceptance probability is simply the ratio of the target posterior evaluated
 
 Note that the integral in Equation~(\ref{eq:bayesian1}) which is notoriously hard to compute cancels out in (\ref{eq:metropolis1}).
 Thus to estimate the posterior $P\left(\theta|\mathbf{X}\right)$ one only needs to run the algorithm for a sufficiently long time to let the chain reach it's equilibrium, which is precisely the target posterior.
+%PL: maybe mention that this can be formally proven using the ergodic theorem... and no, you don't have to prove it in the appendix ;-)
 
 % TODO: better title, show how to derive the probabilities (in JC69 chapter)
 \subsection{Example: Estimating genetic distance}
 
 Let us revisit the toy example in which we compare two sequences and find $x=10$ differences among $n=100$ sites.
-This time however we will use MCMC to estimate the genetic distance between the two sequences using Jukes and Cantor model of nucleotide substitution (see Subsection~\ref{sub:jc69}).
-Genetic distance is defined as the expected number of substitutions of nucleotide base pairs per site, which to match the convention form previous sections we will denote as $\theta=rt$, where $r$ is the substitution rate (see Subsection~\ref{sub:poisson}) and $t$ is the waiting time between the two sequences.
-The time and rate are as we already mentioned typically confounded, therefore they will be estimated as a single parameter of interest $\theta$.
+This time however we will use MCMC to estimate the genetic distance between the two sequences using the Jukes and Cantor model of nucleotide substitution (see Subsection~\ref{sub:jc69}).
+Genetic distance is defined as the expected number of substitutions per nucleotide site, which we will denote as $\theta=rt$ in line with previous sections, where $r$ is the substitution rate (see Subsection~\ref{sub:poisson}) and $t$ is the evolutionary time separating the two sequences.
+The time and rate are generally confounded as we already mentioned, and hence they will be estimated as a single parameter of interest $\theta$.
 The probability that the any descending nucleotide in a sequence is different from the ancestral nucleotide can be obtained by summing over all possible paths, between two pairs of nucleotides, i.e. $p_{ij}(t)=\underset{k\neq i}{\sum}p_{ik}(t)$.
 
-From Equation~(\ref{eq:jc69Finite}) in Subsection~\ref{sub:jc69} we know that under the JC69 model those probabilities are all equal, therefore the probability that a single site is different between two sequences separated by distance $\theta=rt$ is given by:
+From Equation~(\ref{eq:jc69Finite}) in Subsection~\ref{sub:jc69}, we know that under the JC69 model those probabilities are all equal, therefore the probability that a single site is different between two sequences separated by distance $\theta=rt$ is given by:
 
 \begin{equation}
 p=3p_{1}\left(t\right)=\frac{3}{4}\left(1-e^{\left(-4/3\right)\theta}\right).
@@ -1063,7 +1064,7 @@ p=3p_{1}\left(t\right)=\frac{3}{4}\left(1-e^{\left(-4/3\right)\theta}\right).
 \end{equation}
 
 \noindent
-From this we can model the likelihood of observing $x$ differences out of $n$ sites using the binomial model:
+From this we can formalize the likelihood function using the binomial model given that we observe $x$ differences out of $n$ sites :
 
 \begin{equation}
 P\left(\mathbf{X}|\theta\right)=L\left(\mathbf{X}|\theta\right)=\left(\begin{array}{c}
@@ -1092,14 +1093,19 @@ For the proposal we choose a uniformly distributed jumping kernel with a window 
 \includegraphics[scale=0.5]{metropolis} 
 \caption{
 { \footnotesize 
-{\bf MCMC output for estimating sequence disctance under JC69 model of nucleotide evolution..} 
+{\bf MCMC output for estimating genetic distance under the JC69 model of nucleotide substitution.
+%PL: a bit thin as a caption; at least describe what we see in the two panels (in a slightly different way as the text) -- Figures should be able to be read in isolation
+%PL: use a grey line instead of the two red lines to avoid color.
+} 
 }% END: footnotesize
 }
 \label{fig:metropolis}
 \end{figure}
 
 Figure~\ref{fig:metropolis} shows $1000$ iterations of the chain generated by Algorithm~\ref{alg:metropolisHastings} in the upper row and applied to the genetic distance problem.
-The red line indicates the maximum likelihood estimate (MLE) $\hat{\theta}$ of parameter $\theta$ which is calculated by setting $\frac{d\ell\left(\mathbf{X}|\theta\right)}{d\theta}=0$, where $l\left(\mathbf{X}|\theta\right)$ is the logarithm of likelihood defined by Equation~(\ref{eq:likelihood1}):
+The red line 
+%PL: let's make it grey
+indicates the maximum likelihood estimate (MLE) $\hat{\theta}$ of parameter $\theta$ which is calculated by setting $\frac{d\ell\left(\mathbf{X}|\theta\right)}{d\theta}=0$, where $l\left(\mathbf{X}|\theta\right)$ is the logarithm of likelihood defined by Equation~(\ref{eq:likelihood1}):
 
 \begin{equation}
 \hat{\theta}=\frac{3}{4}log\left(1-\frac{4}{3}\cdot\frac{x}{n}\right)
@@ -1107,8 +1113,10 @@ The red line indicates the maximum likelihood estimate (MLE) $\hat{\theta}$ of p
 \end{equation}
 
 In the second row of Figure~\ref{fig:metropolis} we can see an estimate of the posterior density, along with the sample mean.
-We can see that the posterior sample mean is identical to the MLE up to the second decimal place, although we have not run the chain for long.
+The posterior sample mean is identical to the MLE up to the second decimal place, although we have not run the chain for long.
 The acceptance rate is high, suggesting that almost as many steps are accepted as are rejected.
+
+%PL: you could potentially mention the importance of tuning kernels, like the window size, and show the same trace plot for a  too high and too low window, and their acceptance ratio. This can lead to a mention of diagnozing mcmc runs, convergence, ESSs, and shit... which is a practical issue for complex problems/large data sets, etc.
 
 \subsection{Bayesian phylogeography}
 
