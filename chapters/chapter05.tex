@@ -58,9 +58,9 @@ One approach is to model the codon frequencies as each having the same long-time
 Such model is reffered to as the GY94-Fequal.
 
 In the GY94-F$1\times4$ model codon frequencies are expected from the four nucleotide frequencies, with frequencies being pulled from all three codon positions, i.e. $\pi_{n_{1}}=\pi_{n_{3}}=\pi_{n_{3}}$ for all four nucleotides,.
-Thi smodel leads to 3 free parameters that need to be estimated from the data.
+This model leads to 3 free parameters that need to be estimated from the data.
 If the frequencies are parametrized according to three sets of nucleotide frequencies for the three codon positions, resulting in nine free parameters, the model is called the GY94-F$3\times4$.
-Finally in the GY94-F61 model every codon triplet has it's own frequncy parameter, with all parameters summing to one, resulting in 60 free parameter that need to be estimated.
+Finally in the GY94-F61 model every codon triplet has it's own frequency parameter, with all parameters summing to one, resulting in 60 free parameter that need to be estimated.
 
 % pluses positive and negative of these models :)
 The GY94-F61 model has been suggested as important in letting the model explain the data without constricting assumptions.
@@ -100,8 +100,8 @@ However there is no biological reason to assume that all the sites are under the
 Therefore applying constant model to the data, without accounting for across-data heterogeneity biases the estimates of $dN/dS$ ratio towards lower values.
 In some corner cases this might lead to a failure in detecting positive selection even if it actually exists.  
 In that respect \cite{NY98} propose two models in GY94 context, with fixed number of categories to which a particular site can belong.
-Their \emph{neutral model} assumes a category for sites where the nonsynonymous mutations are neutral ($\omega=1$) and a category for sites which are conserved ($\omega=0$).
-\emph{Positive selection model} adds an extra category of positively selected sites ($\omega>1$).
+Their \emph{neutral model} assumes a category for sites where the nonsynonymous mutations are neutral ($\omega_1=1$) and a category for sites which are conserved ($\omega_2=0$).
+\emph{Positive selection model} adds an extra category of positively selected sites ($\omega_3>1$).
 \cite{Goode2008} employ this setup and further extend it by allowing for a change in $\omega$ parameter value at some specified time between the most-recent common ancestor and the most recent sampling time.
 These models, although undeniably a step in the right direction, still make strong assumptions, among which partitioning sites to fixed number of rate classes and estimating the rate for each class separately is probably the most restrictive one.
 Ideally the model should let the data decide how many rate classes there are, and what the site-specific values are.
