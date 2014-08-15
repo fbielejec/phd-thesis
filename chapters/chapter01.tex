@@ -14,14 +14,16 @@ Many pathogens represent a clear and eminent threat to public health.
 This has been exemplified by the H1N1 swine-origin influenza A virus outbreak in 2009, %perhaps cite fraser, science 2009 here
 which attained pandemic status in only a few months time, but also more recently by a large outbreak of the Ebola haemorrhagic fever in humans in West Africa \citep{Dudas2014}. 
 Many studies on emerging infectious diseases (EIDs) have highlighted viral pathogens as a major threat to the public health, owing to their high rates of nucleotide substitution, and therefore high capacity to adapt to new hosts. 
+%GB: the sentence below, starting at 'with their impact ...' sounds strange to me ...
 Alarmingly, EIDs are not only widespread, with their impact and spread only rising over time. %I believe there is a Nature paper to cite here, by jones or something
 This may not be surprising since it is well-acknowledged that disease emergence is largely a product of anthropogenic and demographic changes, making it a hidden cost of human economic development.
  
-Combating viral spread and their associated disease burden is a tremendous challenge requiring significant research efforts and decided public health measures. 
+Combating viral spread and its associated disease burden is a tremendous challenge requiring significant research efforts and decided public health measures. 
 Viral sequence data has been recognized as a major asset in the characterization of pathogens that threaten public health.
 Molecular epidemiology complements traditional epidemiological studies because it primarily focuses on the etiological agent rather than the host. %PL the reference should be a Chapter by Leitner in a book of his on the molecular epidemiology of (human) viruses
 In particular, the historical information contained in viral gene sequences contributes to a better insight in emergence and early transmission dynamics, even before systematic epidemiological surveillance has been initiated. 
 For many years, phylogenetic analysis has been the primary tool in molecular epidemiology. 
+%GB: By reconstructing a time-calibrated phylogenetic tree?
 By reconstructing a phylogenetic tree, we are able to study the evolutionary history of viral strains, assess epidemiological linkage amongst them, and shed light on transmission patterns. 
 With the advent of high-throughput DNA sequencing, genomic data from RNA viruses is becoming available in unprecedented quantities and with remarkable rapidity. 
 
@@ -103,8 +105,16 @@ This is also where you can describe the computational burden and that table.
 
 %PL: a central concept that really needs to be introduced here is molecular clocks (something that goes back to Zuckerkandl and Pauling). So first decribe this and then talk about how this needs to be adapted for MEPs
 
-Central assumption of viral phylogenetics posits that the epidemiological processes shaping the fitness of viral populations leave a measurable footprint on their genomes.
+%GB: I think you should discuss some properties of EIDs at the nucleotide/amino acid/codon level (since that's what we've ended up extending) and link this to what you've done.
+%Perhaps you can get some inspiration from the following paper: http://jvi.asm.org/content/84/19/9864.long
+%Jeff Thorne is incorporating ''disease properties'' (for example, if they know that a certain non-synonymous mutation can be lethal) into his new codon models, explicitly taking into account likely lethal mutations.
+
+The central assumption of viral phylogenetics posits that the epidemiological processes shaping the fitness of viral populations leave a measurable footprint on their genomes.
+%GB: Perhaps you can give an example of what type of footprints can be observed in the genome? What would one see in particular in a genome due to a virus?
 Due to the rapid nature of the viral evolution, the process of character substitution can be observed in almost real time, and gives the opportunity to sample genetic data at different points in time, as opposed to ultrametricly sampled data such as depicted in Figure~\ref{fig:ultrametric}.
+%GB: Can you give a (or some) know example(s) of such substitution or the importance of some particular substitutions?
+%How about the fact that a very dangerous virus (which made the news and hence readers will be able to relate to) is only a few mutations away from current bird flu viruses?
+%Check this article (the links to the actual Nature and Science papers are at the bottom of the page): http://www.medicalnewstoday.com/articles/246964.php
 
 %PL: this figure is a bit weak. If you only illustrate it with three taxa (I would use more), than reduce the vertical space and use the horizontal space better. thickened the branches and tips for visibility; increase the size of the axis and its labels for readability -- try to develop some sensitivity for such visual aspects.
 %PL; alternatively, valorize the efforts of others and use figures from papers like our AIDS Reviews one: https://www.dropbox.com/s/8p5d4fqo3wup2lp/figure1.pdf
@@ -121,6 +131,7 @@ Due to the rapid nature of the viral evolution, the process of character substit
 \label{fig:ultrametric}
 \end{figure}
 
+%GB: remove the 'significant' in the sentence below?
 Such time stamped data-sets are usually reffered to as time-heterogeneous and frequently arise from studies involving viruses which accumulate statistically significant amounts of genetic change in a relatively short amount of time.
 Populations for which such data can be obtained are called measurably evolving populations (MEPs, \cite{Drummond2003}) and have been instrumental in providing estimates of the evolutionary rate and in making advances to the theory of molecular clock models \citep{Drummond2006}.
 
@@ -150,23 +161,25 @@ If there is too little here to build a subsection, you can attach it to the prev
 
 \subsection{Objectives: model extension, simulation and visualisation}
 
+%GB: perhaps this subsection can be structured more clearly by using the \paragraph command for each of the 3 subtopics?
+
 % models
-Phylogenetic analysis employing stochastic processes make strong restrictive assumptions regarding the underlying substitution process.
+Phylogenetic analyses employing stochastic processes make strong restrictive assumptions regarding the underlying substitution process.
 These assumptions are mainly considered to reduce the number of free parameters of the models and ease the already mentioned computational and mathematical tractability.
 Unfortunately many of these assumptions hamper the application of the methods to the complex, real-world data-sets.
-Relaxing some of these assumptions and development of more biologically plausibe models, able to grasp the complex nature of phylodynamic dispersal processes is one the aims of the presented thesis \citep{Bielejec2014a}.
-Another goal is to make the general applicability suitable for epidemiological problems as well as beyond them, with potential to turn the findings into usefull predictions of the emergence of infectious diseases, e.g. by identifying the sources and sinks of the viral spread.
+Relaxing some of these assumptions and development of more biologically plausible models, able to grasp the complex nature of phylodynamic dispersal processes is one the aims of the presented thesis \citep{Bielejec2014a}.
+Another goal is to make the general applicability suitable for epidemiological problems as well as beyond them, with potential to turn the findings into useful predictions of the emergence of infectious diseases, e.g. by identifying the sources and sinks of the viral spread.
 % geographical dispersal
 
-% simuation
+% simulation
 With the development of novel phylogenetic inference methods comes the need to synthesize evolutionary data, in order to compare estimator performance and characterize strengths and weaknesses of different approaches (e.g. \cite{Arenas2012}, \cite{Hoban2011}).
 Whereas the true underlying evolutionary relationships between biological sequences are generally unknown, Monte Carlo simulations allow generating test scenarios while controlling for the evolutionary history as well as the tempo and mode of evolution. 
 Part of the research presented in this thesis is devoted towards development of a flexible software for sequence simulation, that integrates both the tree-generative processes, as well as models responsible for shaping the molecular histories and geographical dispersal \citep{Bielejec2014a}.
 
 % visualisation
 Phylogenetic inference inevitably results in complex, multi-dimensional output data.
-This dimensionality is further incremented by adding the geography to the usuall evolutionary time component.
-Finally, Bayesian analysis result in posterior distributions of trees, with each tree branch annotated with estimated node locations and other traits of interest.
+This dimensionality is further incremented by adding the geography to the usual evolutionary time component.
+Finally, Bayesian analyses result in posterior distributions of trees, with each tree branch annotated with estimated node locations and other traits of interest.
 These aspects represent a major challenge for visualizing the phylogenetic inference.
 Yet clear and intuitive visualizations are an important aspect of every analysis \citep{Hadley2010}.
 
@@ -187,8 +200,15 @@ A. Conceptual representation of time-slicing a phylogeny and projecting the part
 
 Presenting readily interpretable visual summaries of the inferences, that can in turn be communicated to the researchers across different fields is one of the more important aspects of this thesis.
 This goal has been materialized in the development of a user-friendly application, that produces compelling and informative statistical visualizations of viral spread in time and space \citep{Bielejec2011}.
-An example of such a visualisation finds itself in Figure~\ref{fig:spread}.
+An example of such a visualisation can be found in Figure~\ref{fig:spread}.
 %PL: never say 'there is a figure for you' without bothering to discuss it. At this point the reader has no idea what to make of time slicing, etc... This is an explanation of a SPREAD approach and does not belong here in the intro. Perhaps if you pick it up in the discussion, you could say that the paper format did not allow you to go into the visualization strategy all that much and you expand it on it a bit before discussing how you see the future for such things
+
+
+%GB: so after section 1.1, the formulas start creeping in (they should at some point), but I feel section 1.1 should be expanded.
+%I personally really like Sandra Baldauf's 'phylogeny for the faint of heart' tutorial: http://www.ncbi.nlm.nih.gov/pubmed/12801728
+%I think that one is nicely structured and eases the reader into a complex topic such as phylogenetic reconstruction.
+%It also discusses homology, basic terminology and many other aspects. From looking at it, a figure of an alignment (well, part of it) can help explain substitutions/mutations.
+
 
 \section{Evolution as a stochastic process}
 
@@ -206,6 +226,7 @@ The stochastic process $X$ is a collection $\left\{ X(t):\; t\in T\right\} $, wh
 \end{definition} 
 
 In the simplest case, for which the unit of evolution is a single nucleotide, we have $\mathcal{E}=\left\{ A,C,G,T\right\}$ and $K=4$.
+%GB: perhaps point out that they're in fact not independent?
 The particular sites of the sequence alignment are then considered to be stochastically independent realizations of the process $X$, leading to the observed data (see Figure~\ref{fig:alignment}). 
 
 %PL: I refer to our conversation about this fig.
@@ -237,7 +258,7 @@ G\rightarrow C
 
 As Figure~\ref{fig:alignment} depicts not all of the differences can be observed, as due to multiple substitutions (multiple hits) some of the changes are silent.
 %PL: better not use silent as this also used for 'non synonymous substitutions'
-To accurately describe these processes one needs a models of evolution that can account for those multiple hits.
+To accurately describe these processes one needs a model of evolution that can account for those multiple hits.
 %PL: you need to state the obvious here: because of multiple hits, observed differences in the sampled genetic data will underestimate the underlying genetic distance, and this is what we can to account for using models.
 
 \subsection{The Poisson process\label{sub:poisson}}
@@ -249,7 +270,7 @@ The Poisson process is equally suitable to model the number and waiting times of
 We can formally define a Poisson process as following:
 
 \begin{definition} 
-A Poisson process with rate $r>0$ is continuous-time counting process $\left\{ N(t):\; t\geq0\right\}$ such that:
+A Poisson process with rate $r>0$ is a continuous-time counting process $\left\{ N(t):\; t\geq0\right\}$ such that:
 
 \begin{itemize}
 \item $N(0)=0$.
@@ -288,7 +309,7 @@ P\left\{ N(t+u)-N(u)=k\right\} =P\left\{ N(t)=k\right\}=\frac{e^{-r t}(r t)^{k}}
 \end{equation}
 
 In the Poisson process the time between any two mutations is exponentially distributed with parameter $r$, thus the average waiting time between the occurrence of events is $1/r$.
-To show this important property we can consider $T_1,T_2,\ldots$ to be the the inter-arrival times, where $T_k$ is the waiting times between the $(k-1)\text{'st}$ and $k\text{'th}$ mutation. 
+To show this important property we can consider $T_1,T_2,\ldots$ to be the inter-arrival times, where $T_k$ is the waiting time between the $(k-1)\text{'st}$ and $k\text{'th}$ mutation. 
 Obviously, the number of mutations before some time $t>0$ is less than some integer $k>0$ if and only if the waiting time $T_k$ until the $k\text{'th}$ mutation is larger than $t$:
 
 \begin{equation}
