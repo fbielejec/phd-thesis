@@ -561,7 +561,7 @@ This is true for most of the substitution models and implies that typical phylog
 A phylogenetic tree, or phylogeny for short, depicts the genealogical relationship between character sequences.
 Mathematically, a phylogeny $\mathbf{F}$ represents a directed, acyclic graph with sets of \emph{nodes} connected by \emph{branches} (e.g., Figure~\ref{fig:treeconcept}).
 Data is observed only at the external nodes (\emph{tips}), while internal nodes represent extinct ancestors for which data is usually missing.
-The ancestor of all observed samples is called the \emph{root} of the tree and it's height is reffered to as the time to the most recent common ancestor (TMRCA).
+The ancestor of all observed samples is called the \emph{root} of the tree and it's height is referred to as the time to the most recent common ancestor (TMRCA).
 
 %---TREE CONCEPT---%
 \begin{figure}[H]
@@ -754,6 +754,7 @@ We have already mentioned that for large data sets the run-time of statistical p
 These limits are being actively stretched, for example by porting the computationally expensive calculations to high-performance parallel devices such as Graphics-Processing Units (GPUs, \cite{Nickolls2008}).
 In Subsection~\ref{sub:exponentiation} we already discussed how the computation of finite-time transition probabilities can be reduced to simple matrix algebra operations, which can handled by high-performance libraries and APIs for statistical phylogenetics such as the BEAGLE library \citep{Ayres2012, Suchard2009}. 
 
+%GB: do we need this computational complexity section? Not sure if we want to go into that much detail ...
 Before we proceed with discussing the burden imposed by certain steps when calculating the likelihood of a sequence evolution on a tree we need a formal definition of the computational complexity of a sequential routine.
 The efficiency of an algorithm can depend on various factors, like network usage, disk usage, operational memory usage or CPU real-time usage.
 All of these factors should be taken into consideration when designing and implementing a computational routine. 
@@ -944,7 +945,7 @@ P\left(\theta|\mathbf{X}\right)=\frac{P(\theta)\cdot P\left(\mathbf{X}|\theta\ri
 where the marginal probability of the data $P\left(\mathbf{X}\right)$ is a normalizing constant that makes the posterior $P\left(\theta|\mathbf{X}\right)$ integrate to one.
 The last approximation in Equation~(\ref{eq:bayesian1}) means that the posterior is proportional to the prior times the likelihood.
 
-% nuisance parameters?
+% nuisance parameters? GB: I second that
 Bayesian inference provides a natural way of dealing with nuisance parameter.
 Suppose that $\mathbf{\Theta}=\left(\theta,\mathbf{F}\right)$ is now a two dimensional vector of parameters, with $\theta$ being the parameter of interest, while 
 $\mathbf{F}$ (e.g. a tree topology) is the nuisance parameter.
@@ -1071,11 +1072,13 @@ Thus to estimate the posterior $P\left(\theta|\mathbf{X}\right)$ one only needs 
 % TODO: better title, show how to derive the probabilities (in JC69 chapter)
 \subsection{Example: Estimating genetic distance}
 
+%GB: I don't really like these kinds of examples or tutorials. They're great when teaching a workshop, but this is an introduction for a PhD dissertation ...
+
 Let us revisit the toy example in which we compare two sequences and find $x=10$ differences among $n=100$ sites.
 This time however we will use MCMC to estimate the genetic distance between the two sequences using the Jukes and Cantor model of nucleotide substitution (see Subsection~\ref{sub:jc69}).
 Genetic distance is defined as the expected number of substitutions per nucleotide site, which we will denote as $\theta=rt$ in line with previous sections, where $r$ is the substitution rate (see Subsection~\ref{sub:poisson}) and $t$ is the evolutionary time separating the two sequences.
 The time and rate are generally confounded as we already mentioned, and hence they will be estimated as a single parameter of interest $\theta$.
-The probability that the any descending nucleotide in a sequence is different from the ancestral nucleotide can be obtained by summing over all possible paths, between two pairs of nucleotides, i.e. $p_{ij}(t)=\underset{k\neq i}{\sum}p_{ik}(t)$.
+The probability that the descendant nucleotide in a sequence is different from the ancestral nucleotide can be obtained by summing over all possible paths, between two pairs of nucleotides, i.e. $p_{ij}(t)=\underset{k\neq i}{\sum}p_{ik}(t)$.
 
 From Equation~(\ref{eq:jc69Finite}) in Subsection~\ref{sub:jc69}, we know that under the JC69 model those probabilities are all equal, therefore the probability that a single site is different between two sequences separated by distance $\theta=rt$ is given by:
 
@@ -1136,8 +1139,10 @@ indicates the maximum likelihood estimate (MLE) $\hat{\theta}$ of parameter $\th
 In the second row of Figure~\ref{fig:metropolis} we can see an estimate of the posterior density, along with the sample mean.
 The posterior sample mean is identical to the MLE up to the second decimal place, although we have not run the chain for long.
 The acceptance rate is high, suggesting that almost as many steps are accepted as are rejected.
+%GB: acceptance rates don't necessarily have to be this high, not sure if you want to discuss this though.
 
 %PL: you could potentially mention the importance of tuning kernels, like the window size, and show the same trace plot for a  too high and too low window, and their acceptance ratio. This can lead to a mention of diagnozing mcmc runs, convergence, ESSs, and shit... which is a practical issue for complex problems/large data sets, etc.
+%GB: I wouldn't discuss tuning, but acceptance ratios I think are more important.
 
 \subsection{Bayesian phylogeography}
 
