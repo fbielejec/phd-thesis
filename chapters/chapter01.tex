@@ -14,14 +14,16 @@ Many pathogens represent a clear and eminent threat to public health.
 This has been exemplified by the H1N1 swine-origin influenza A virus outbreak in 2009, %perhaps cite fraser, science 2009 here
 which attained pandemic status in only a few months time, but also more recently by a large outbreak of the Ebola haemorrhagic fever in humans in West Africa \citep{Dudas2014}. 
 Many studies on emerging infectious diseases (EIDs) have highlighted viral pathogens as a major threat to the public health, owing to their high rates of nucleotide substitution, and therefore high capacity to adapt to new hosts. 
+%GB: the sentence below, starting at 'with their impact ...' sounds strange to me ...
 Alarmingly, EIDs are not only widespread, with their impact and spread only rising over time. %I believe there is a Nature paper to cite here, by jones or something
 This may not be surprising since it is well-acknowledged that disease emergence is largely a product of anthropogenic and demographic changes, making it a hidden cost of human economic development.
  
-Combating viral spread and their associated disease burden is a tremendous challenge requiring significant research efforts and decided public health measures. 
+Combating viral spread and its associated disease burden is a tremendous challenge requiring significant research efforts and decided public health measures. 
 Viral sequence data has been recognized as a major asset in the characterization of pathogens that threaten public health.
 Molecular epidemiology complements traditional epidemiological studies because it primarily focuses on the etiological agent rather than the host. %PL the reference should be a Chapter by Leitner in a book of his on the molecular epidemiology of (human) viruses
 In particular, the historical information contained in viral gene sequences contributes to a better insight in emergence and early transmission dynamics, even before systematic epidemiological surveillance has been initiated. 
 For many years, phylogenetic analysis has been the primary tool in molecular epidemiology. 
+%GB: By reconstructing a time-calibrated phylogenetic tree?
 By reconstructing a phylogenetic tree, we are able to study the evolutionary history of viral strains, assess epidemiological linkage amongst them, and shed light on transmission patterns. 
 With the advent of high-throughput DNA sequencing, genomic data from RNA viruses is becoming available in unprecedented quantities and with remarkable rapidity. 
 
@@ -103,8 +105,19 @@ This is also where you can describe the computational burden and that table.
 
 %PL: a central concept that really needs to be introduced here is molecular clocks (something that goes back to Zuckerkandl and Pauling). So first decribe this and then talk about how this needs to be adapted for MEPs
 
-Central assumption of viral phylogenetics posits that the epidemiological processes shaping the fitness of viral populations leave a measurable footprint on their genomes.
+%GB: I think you should discuss some properties of EIDs at the nucleotide/amino acid/codon level (since that's what we've ended up extending) and link this to what you've done.
+%Perhaps you can get some inspiration from the following paper: http://jvi.asm.org/content/84/19/9864.long
+%Jeff Thorne is incorporating ''disease properties'' (for example, if they know that a certain non-synonymous mutation can be lethal) into his new codon models, explicitly taking into account likely lethal mutations.
+
+The central assumption of viral phylogenetics posits that the epidemiological processes shaping the fitness of viral populations leave a measurable footprint on their genomes.
+%GB: Perhaps you can give an example of what type of footprints can be observed in the genome? What would one see in particular in a genome due to a virus?
 Due to the rapid nature of the viral evolution, the process of character substitution can be observed in almost real time, and gives the opportunity to sample genetic data at different points in time, as opposed to ultrametricly sampled data such as depicted in Figure~\ref{fig:ultrametric}.
+%GB: Can you give a (or some) know example(s) of such substitution or the importance of some particular substitutions?
+%How about the fact that a very dangerous virus (which made the news and hence readers will be able to relate to) is only a few mutations away from current bird flu viruses?
+%Check this article (the links to the actual Nature and Science papers are at the bottom of the page): http://www.medicalnewstoday.com/articles/246964.php
+
+%PL: this figure is a bit weak. If you only illustrate it with three taxa (I would use more), than reduce the vertical space and use the horizontal space better. thickened the branches and tips for visibility; increase the size of the axis and its labels for readability -- try to develop some sensitivity for such visual aspects.
+%PL; alternatively, valorize the efforts of others and use figures from papers like our AIDS Reviews one: https://www.dropbox.com/s/8p5d4fqo3wup2lp/figure1.pdf
 
 %---ULTRAMETRIC TREE---%
 \begin{figure}[H]
@@ -118,6 +131,7 @@ Due to the rapid nature of the viral evolution, the process of character substit
 \label{fig:ultrametric}
 \end{figure}
 
+%GB: remove the 'significant' in the sentence below?
 Such time stamped data-sets are usually reffered to as time-heterogeneous and frequently arise from studies involving viruses which accumulate statistically significant amounts of genetic change in a relatively short amount of time.
 Populations for which such data can be obtained are called measurably evolving populations (MEPs, \cite{Drummond2003}) and have been instrumental in providing estimates of the evolutionary rate and in making advances to the theory of molecular clock models \citep{Drummond2006}.
 
@@ -147,23 +161,25 @@ If there is too little here to build a subsection, you can attach it to the prev
 
 \subsection{Objectives: model extension, simulation and visualisation}
 
+%GB: perhaps this subsection can be structured more clearly by using the \paragraph command for each of the 3 subtopics?
+
 % models
-Phylogenetic analysis employing stochastic processes make strong restrictive assumptions regarding the underlying substitution process.
+Phylogenetic analyses employing stochastic processes make strong restrictive assumptions regarding the underlying substitution process.
 These assumptions are mainly considered to reduce the number of free parameters of the models and ease the already mentioned computational and mathematical tractability.
 Unfortunately many of these assumptions hamper the application of the methods to the complex, real-world data-sets.
-Relaxing some of these assumptions and development of more biologically plausibe models, able to grasp the complex nature of phylodynamic dispersal processes is one the aims of the presented thesis \citep{Bielejec2014a}.
-Another goal is to make the general applicability suitable for epidemiological problems as well as beyond them, with potential to turn the findings into usefull predictions of the emergence of infectious diseases, e.g. by identifying the sources and sinks of the viral spread.
+Relaxing some of these assumptions and development of more biologically plausible models, able to grasp the complex nature of phylodynamic dispersal processes is one the aims of the presented thesis \citep{Bielejec2014a}.
+Another goal is to make the general applicability suitable for epidemiological problems as well as beyond them, with potential to turn the findings into useful predictions of the emergence of infectious diseases, e.g. by identifying the sources and sinks of the viral spread.
 % geographical dispersal
 
-% simuation
+% simulation
 With the development of novel phylogenetic inference methods comes the need to synthesize evolutionary data, in order to compare estimator performance and characterize strengths and weaknesses of different approaches (e.g. \cite{Arenas2012}, \cite{Hoban2011}).
 Whereas the true underlying evolutionary relationships between biological sequences are generally unknown, Monte Carlo simulations allow generating test scenarios while controlling for the evolutionary history as well as the tempo and mode of evolution. 
 Part of the research presented in this thesis is devoted towards development of a flexible software for sequence simulation, that integrates both the tree-generative processes, as well as models responsible for shaping the molecular histories and geographical dispersal \citep{Bielejec2014a}.
 
 % visualisation
 Phylogenetic inference inevitably results in complex, multi-dimensional output data.
-This dimensionality is further incremented by adding the geography to the usuall evolutionary time component.
-Finally, Bayesian analysis result in posterior distributions of trees, with each tree branch annotated with estimated node locations and other traits of interest.
+This dimensionality is further incremented by adding the geography to the usual evolutionary time component.
+Finally, Bayesian analyses result in posterior distributions of trees, with each tree branch annotated with estimated node locations and other traits of interest.
 These aspects represent a major challenge for visualizing the phylogenetic inference.
 Yet clear and intuitive visualizations are an important aspect of every analysis \citep{Hadley2010}.
 
@@ -184,7 +200,15 @@ A. Conceptual representation of time-slicing a phylogeny and projecting the part
 
 Presenting readily interpretable visual summaries of the inferences, that can in turn be communicated to the researchers across different fields is one of the more important aspects of this thesis.
 This goal has been materialized in the development of a user-friendly application, that produces compelling and informative statistical visualizations of viral spread in time and space \citep{Bielejec2011}.
-An example of such a visualisation finds itself in Figure~\ref{fig:spread}.
+An example of such a visualisation can be found in Figure~\ref{fig:spread}.
+%PL: never say 'there is a figure for you' without bothering to discuss it. At this point the reader has no idea what to make of time slicing, etc... This is an explanation of a SPREAD approach and does not belong here in the intro. Perhaps if you pick it up in the discussion, you could say that the paper format did not allow you to go into the visualization strategy all that much and you expand it on it a bit before discussing how you see the future for such things
+
+
+%GB: so after section 1.1, the formulas start creeping in (they should at some point), but I feel section 1.1 should be expanded.
+%I personally really like Sandra Baldauf's 'phylogeny for the faint of heart' tutorial: http://www.ncbi.nlm.nih.gov/pubmed/12801728
+%I think that one is nicely structured and eases the reader into a complex topic such as phylogenetic reconstruction.
+%It also discusses homology, basic terminology and many other aspects. From looking at it, a figure of an alignment (well, part of it) can help explain substitutions/mutations.
+
 
 \section{Evolution as a stochastic process}
 
@@ -202,8 +226,10 @@ The stochastic process $X$ is a collection $\left\{ X(t):\; t\in T\right\} $, wh
 \end{definition} 
 
 In the simplest case, for which the unit of evolution is a single nucleotide, we have $\mathcal{E}=\left\{ A,C,G,T\right\}$ and $K=4$.
+%GB: perhaps point out that they're in fact not independent?
 The particular sites of the sequence alignment are then considered to be stochastically independent realizations of the process $X$, leading to the observed data (see Figure~\ref{fig:alignment}). 
 
+%PL: I refer to our conversation about this fig.
 % TODO change that plot, show multiple subst per branch (and how it alters time estimates)
 \begin{figure}[H]
 \centering
@@ -232,7 +258,7 @@ G\rightarrow C
 
 As Figure~\ref{fig:alignment} depicts not all of the differences can be observed, as due to multiple substitutions (multiple hits) some of the changes are silent.
 %PL: better not use silent as this also used for 'non synonymous substitutions'
-To accurately describe these processes one needs a models of evolution that can account for those multiple hits.
+To accurately describe these processes one needs a model of evolution that can account for those multiple hits.
 %PL: you need to state the obvious here: because of multiple hits, observed differences in the sampled genetic data will underestimate the underlying genetic distance, and this is what we can to account for using models.
 
 \subsection{The Poisson process\label{sub:poisson}}
@@ -244,7 +270,7 @@ The Poisson process is equally suitable to model the number and waiting times of
 We can formally define a Poisson process as following:
 
 \begin{definition} 
-A Poisson process with rate $r>0$ is continuous-time counting process $\left\{ N(t):\; t\geq0\right\}$ such that:
+A Poisson process with rate $r>0$ is a continuous-time counting process $\left\{ N(t):\; t\geq0\right\}$ such that:
 
 \begin{itemize}
 \item $N(0)=0$.
@@ -256,6 +282,10 @@ Figure~\ref{fig:poisson} shows a sample of different trajectories of such a proc
 
 \label{def:poisson}
 \end{definition}
+
+
+%PL: I don't understand the figure composition: upper part OK, but if you use color as you do now, different realizations can be plotted on the same panel. However, I would keep the printing issues for color figures  to a minimum (only use colors when you really need it -- it requires separate paper printing and merging with the rest, and is bloody expensive), so separate gray-scale panels can work. bottom part: is what I do not understand: should the paths assemble into a tree somehow? The discussion of the process makes no relationship to a tree just yet -- you do that later on. And if you do intend to relate them to a tree, I do not understand how the mutational process for a site only relates to part of the tree?
+
 
 \begin{figure}[H]
 \centering
@@ -279,7 +309,7 @@ P\left\{ N(t+u)-N(u)=k\right\} =P\left\{ N(t)=k\right\}=\frac{e^{-r t}(r t)^{k}}
 \end{equation}
 
 In the Poisson process the time between any two mutations is exponentially distributed with parameter $r$, thus the average waiting time between the occurrence of events is $1/r$.
-To show this important property we can consider $T_1,T_2,\ldots$ to be the the inter-arrival times, where $T_k$ is the waiting times between the $(k-1)\text{'st}$ and $k\text{'th}$ mutation. 
+To show this important property we can consider $T_1,T_2,\ldots$ to be the inter-arrival times, where $T_k$ is the waiting time between the $(k-1)\text{'st}$ and $k\text{'th}$ mutation. 
 Obviously, the number of mutations before some time $t>0$ is less than some integer $k>0$ if and only if the waiting time $T_k$ until the $k\text{'th}$ mutation is larger than $t$:
 
 \begin{equation}
@@ -476,7 +506,7 @@ Condition~\ref{eq:time_reversibility1} is also referred to as the \emph{detailed
 % Definition (\ref{eq:time_reversibility1}) and (\ref{eq:time_reversibility2}) are equivalent.
 This condition is assumed for strictly computational reasons, i.e. time-reversibility makes it easier to diagonalize $\mathbf{Q}$, which - as we have described in 
 Subsection~\ref{sub:exponentiation} - is a strategy frequently employed in phylogenetic software to compute the exponentials of rate matrices.
-Time reversibility also simplifies the computation of the likelihood on a tree, since it makes the computation indifferent to the position of the root, which we will discuss in Subsection~\ref{sub:likelihood}.
+Time reversibility also simplifies the computation of the likelihood on a tree, since it makes the computation independent of the position of the root, which we will discuss in Subsection~\ref{sub:likelihood}.
 
 %TODO: JK69 as example
 \subsection{A simple example: the Jukes and Cantor substitution model\label{sub:jc69}}
@@ -525,7 +555,7 @@ If we let $t\rightarrow \infty$ we can see that $\forall i,j\; p_{ij}(t)=1/4$, w
 \noindent
 Second, the rate and time in Equation~(\ref{eq:jc69Finite}) occur as a product, which means that rate and time are confounded.
 If we were to simulate two sequences, using the algorithm listed in (\ref{alg:simulation}) and starting the random number generators form the same seed, they will look the same for every $r$ and $t$ as long as their product $rt$ is the same.
-This is true for most of the substitution models and implies that typical phylogenetic estimation focuses on inferring the product parameter $\theta=rt$ or genetic distance.
+This is true for most of the substitution models and implies that typical phylogenetic estimation focuses on inferring the product parameter $\theta=rt$, or genetic distance.
 %PL: perhaps mention that the section on molecular clocks (cfr supra) discusses the conditions for which we can start separating time and rate
 
 \subsection{Phylogenetic tree}
@@ -535,7 +565,7 @@ This is true for most of the substitution models and implies that typical phylog
 A phylogenetic tree, or phylogeny for short, depicts the genealogical relationship between character sequences.
 Mathematically, a phylogeny $\mathbf{F}$ represents a directed, acyclic graph with sets of \emph{nodes} connected by \emph{branches} (e.g., Figure~\ref{fig:treeconcept}).
 Data is observed only at the external nodes (\emph{tips}), while internal nodes represent extinct ancestors for which data is usually missing.
-The ancestor of all observed samples is called the \emph{root} of the tree and it's height is reffered to as the time to the most recent common ancestor (TMRCA).
+The ancestor of all observed samples is called the \emph{root} of the tree and it's height is referred to as the time to the most recent common ancestor (TMRCA).
 
 %---TREE CONCEPT---%
 \begin{figure}[H]
@@ -621,6 +651,7 @@ The complete algorithm is listed in Algorithm~\ref{alg:simulation}.
 \subsection{Calculation of the likelihood on a tree\label{sub:likelihood}}
 
 Likelihood is defined as a conditional probability of observing the data given the parameters, as a function of those parameters.
+%PL: mention perhaps Fisher, Edwards..?
 Phylogenetic inference considers discrete molecular sequence data in the form of aligned matrix $\mathbf{X}$ of size $n \times l$, where $x_{jh}$ is the $h$-th character in $j$-th sequence.
 Single column $\mathbf{x}_{h}$ of the data matrix constitutes a single site.
 Again, the standard assumption of independence posits that different sites evolve independently and that once two branches split at a node, the evolution on those branches is also independent.
@@ -635,13 +666,16 @@ L\left(\mathbf{\Theta}|\mathbf{X}\right)=P\left(\mathbf{\Theta}|\mathbf{X}\right
 \end{equation}
 
 \noindent
-where $\mathbf{\Theta}$ is the topology, branch lengths, parameters of the substitution model and other parameters of interest that we aim at estimating.
+where $\mathbf{\Theta}$ represents the tree topology, the branch lengths, the parameters of the substitution model and other parameters of interest that we aim at estimating.
 This quantity expresses how likely it is to observe the data given a specific value of the parameter of interest $\mathbf{\Theta}$.
-By finding the value of $\mathbf{\Theta}$ that maximizes (\ref{eq:likelihood}) we capture a model with the best possible fit.
+By finding the value of $\mathbf{\Theta}$ that maximizes (\ref{eq:likelihood}) we capture a model with the best possible fit to the data.
 
-In this thesis we will not discuss the maximum likelihood estimation itself, rather focus on closely related methods of Bayesian inference.
-The likelihood is nontheless required for both frameworks, and it enters the Bayesian schema as the data component.
-We will now discuss how to calculate the likelihood of observing a certain realised sequence of characters on the tips of a tree, given a substitution model with fixed parameters.
+In this thesis we will not discuss the maximum likelihood estimation itself, %PL: good, who wants to consider the data to be fixed anyway..
+rather focus on closely related 
+%PL: I would add: ".., but philosophically very different,"
+methods of Bayesian inference.
+The likelihood concept is also required in Bayesian inference and enters the framework as the data component.
+We will now discuss how to calculate the likelihood of observing a particular realization of character sequences at the tips of a tree, given a substitution model with fixed parameters.
 
 %---LIKELIHOOD---%
 \begin{figure}[H]
@@ -649,18 +683,22 @@ We will now discuss how to calculate the likelihood of observing a certain reali
 \includegraphics[scale=0.5]{likelihood} 
 \caption{
 { \footnotesize 
-{\bf  A tree with five taxa.} Character sequence data for single site is observed at the tips of the tree.
+{\bf  A hypothetical tree for five taxa.} Character data for single site is observed at the tips of the tree.
 } % END: footnotesize
 }
 \label{fig:LIKELIHOOD}
 \end{figure}
 
-To calculate the likelihood means thus to reverse-engineer the evolution as it happened.
+%PL: I could recommend to align the char's, increase their size, relate them to the tips with horizontal dashed lines, but just increasing their size may do
+% also, why not label the external nodes with x1-to x5 as you mention in the text, consistent with the internal models?
+% the i indices do not correspond between the nodes and branches for x7 and x8
+
+To calculate the likelihood means in a sense to reverse-engineer the evolution as it happened.
 Figure~\ref{fig:LIKELIHOOD} presents single site with data $TCACC$ observed at the tips of the tree.
 External nodes are numbered $x_{1}, \ldots x_{5}$, internal nodes $x_{6}, \ldots x_{8}$ and the root is placed at the node $x_{0}$.
-Length of each branches leading to node $i$ is denoted as $t_{i}$.
-Using methods presented in Subsection~\ref{sub:exponentiation} we calculate the finite-time transition probabilities $p_{ij}(t_{i})$ between all pairs of characters in the alignment.
-According to the independence assumptions to calculate the probability at a single site we need to sum over all possible combinations that could give rise to the observed sequence. Thus:
+The length of each branch leading to node $i$ is denoted as $t_{i}$. %PL: the i indices do not correspond between the nodes and branches for x7 and x8
+Using the methods presented in Subsection~\ref{sub:exponentiation} we calculate the finite-time transition probabilities $p_{ij}(t_{i})$ between all pairs of characters in the alignment.
+To calculate the probability at a single site, we need to sum over all possible combinations that could give rise to the observed character data at that site, in this case:
 
 \begin{eqnarray}
 \underset{x_{0}\in \mathcal{E}}{\sum}\;\underset{x_{6}\in \mathcal{E}}{\sum}\;\underset{x_{7}\in \mathcal{E}}{\sum}\;\underset{x_{8}\in \mathcal{E}}{\sum}[\pi_{x_{0}}\cdot p_{x_{0}x_{8}}(t_{7})\cdot p_{x_{0}x_{7}}(t_{8})\cdot p_{x_{8}x_{6}}(t_{6})\cdot p_{x_{8}A}(t_{3}) \cdot \\ \nonumber
@@ -668,13 +706,14 @@ p_{x_{7}C}(t_{4})\cdot p_{x_{7}C}(t_{5})\cdot p_{x_{6}T}(t_{1})\cdot p_{x_{6}C}(
 \label{eq:likelihoodNaive}
 \end{eqnarray}
 
-We can break down the terms in Equation~(\ref{eq:likelihoodNaive}) to the probability of observing the data $TCACC$ for the tips and $x_{0},x_{6},x_{7},x_{8}$ for the ancestral nodes (inside the brackets) and the sum over all possible path combinations over the state space $\mathcal{E}$ (outside the brackets).
-Term $\pi_{0}$ is simply the probability that the root has character $x_{0}$ and comes from the assumption that the process generating the data has reached its equilibrium.
+We can break down the terms in Equation~(\ref{eq:likelihoodNaive}) %for some reason this says 1.22 in my pdf build and not 1.21 as it should be, or is this just due to my TeX environment?
+to the probability of observing the data $TCACC$ for the tips and $x_{0},x_{6},x_{7},x_{8}$ for the ancestral nodes (inside the brackets) and the sum over all possible path combinations over the state space $\mathcal{E}$ (outside the brackets).
+Term $\pi_{0}$ is simply the probability that the root has character $x_{0}$ and is based on the assumption that the process generating the data has reached its equilibrium.
 
 Summing over all possible paths leading to the observed data is computationally expensive, as there are  $K^{n-1}$ possible combinations, where $n-1$ is the number of internal nodes of a rooted binary tree.
-Fortunately we can used the assumption of independence of the process in the two sub-trees below every node.
-\citet{Felsenstein1981} provides an efficient algorithm for computing the likelihood of observing the data on a topology $\mathbf{F}$ given the substitution model that quantifies transition probabilities.
-This routine, known as \emph{tree pruning} conveniently expresses the partial likelihood $L_{i}(x_{i})$ of observing data at the descendant tips of node $i$ given state $x_{i}$ at node $i$ in terms of partial likelihoods at nodes $j$ and $k$.
+Fortunately, we can rely on the assumption of independence of the process in the two sub-trees below every node.
+Based on this, \citet{Felsenstein1981} provides an efficient algorithm for computing the likelihood of observing the data on a topology $\mathbf{F}$ given the substitution model that quantifies transition probabilities.
+This routine, known as \emph{tree pruning} conveniently expresses the partial likelihood $L_{i}(x_{i})$ of observing data at the descendants of node $i$ given state $x_{i}$ at node $i$ in terms of partial likelihoods at nodes $j$ and $k$.
 For all internal nodes of $\mathbf{F}$ we have:
 
 \begin{equation}
@@ -704,24 +743,28 @@ L(\mathbf{x}_{h})=\underset{x_{0}\in\mathcal{E}}{\sum}\pi_{x_{0}}\cdot L_{0}(x_{
 \end{equation}
 
 \noindent
-The log-likelihood of the whole alignment $X$ is computed by summing the logarithms of the likelihoods at the particular sites, due to the assumption of their independence:
+Thanks to the assumption of site-independence, the log-likelihood of the whole alignment $X$ can be computed by summing the logarithms of the likelihoods at the particular sites:
 
 \begin{equation}
 l(X)=\underset{j=1}{\overset{l}{\sum}}log\left(L(\mathbf{x}_{jh})\right)
 \label{eq:loglikelihood}
 \end{equation}
 
-\subsection{Computational burden of the likelihood computation}
+%PL: perhaps note that you moved to Log L in the last step to avoid underflow when multiplying small numbers or something?
 
-We have already mentioned that the run-time of phylogenetic analysis is the caveat, hampering the development and application of novel, more biologically plausible methods in the field.
-These limits are being actively stretched, mostly by porting the computationally expensive calculations to high-performance parallel devices such as Graphics-Processing Units (GPUs, \cite{Nickolls2008}).
-In Subsection~\ref{sub:exponentiation} we already discussed how the computation of finite-time transition probabilities can be reduced to simple matrix algebra operations, which can than be ported to high-performance libraries and APIs for statistical phylogenetics such as the BEAGLE library \citep{Ayres2012, Suchard2009}. 
+\subsection{The computational burden of likelihood computations}
 
-Before we proceed to discussing the burden imposed by certain steps when calculating the likelihood of a sequence evolution on a tree we need a formal definition of the computational complexity of a sequential routine.
-Efficiency of an algorithm can depend on various factors, like network usage, disk usage, operational memory usage or CPU real-time usage.
-All of these factors should be taken into consideration when designing and implementing a computational routine, however for most of the calculations the latter, i.e. CPU time will be the rate-limiting factor.
-Typically both mathematicians and computer scientists use the Big-O notation as a relative representation of the algorithms complexity, like the execution time required.
-Here we give a formal definition of the Big-O notation:
+We have already mentioned that for large data sets the run-time of statistical phylogenetic analysis is a major caveat that hampers the development and application of novel, more biologically relevant models and inference in the field.
+These limits are being actively stretched, for example by porting the computationally expensive calculations to high-performance parallel devices such as Graphics-Processing Units (GPUs, \cite{Nickolls2008}).
+In Subsection~\ref{sub:exponentiation} we already discussed how the computation of finite-time transition probabilities can be reduced to simple matrix algebra operations, which can handled by high-performance libraries and APIs for statistical phylogenetics such as the BEAGLE library \citep{Ayres2012, Suchard2009}. 
+
+%GB: do we need this computational complexity section? Not sure if we want to go into that much detail ...
+Before we proceed with discussing the burden imposed by certain steps when calculating the likelihood of a sequence evolution on a tree we need a formal definition of the computational complexity of a sequential routine.
+The efficiency of an algorithm can depend on various factors, like network usage, disk usage, operational memory usage or CPU real-time usage.
+All of these factors should be taken into consideration when designing and implementing a computational routine. 
+However, for most of the calculations the CPU time will be the rate-limiting factor.
+Typically both mathematicians and computer scientists use the Big-O notation as a relative representation of algorithm complexity, like the execution time required.
+Here we formally define the Big-O notation as:
 
 \begin{definition}
 Let us assume two functions $f:\mathbb{R}_{>0}\rightarrow\mathbb{R}_{>0}$ and $T:\mathbb{R}_{>0}\rightarrow\mathbb{R}_{>0}$. 
@@ -733,7 +776,7 @@ T(n) \in \mathcal{O}\left(f(n)\right)
 \end{equation}
 
 \noindent
-if and only if there exists constant $M>0$ and some $n_0 \in \mathbb{R}_{>0}$ such that:
+if and only if there exists a constant $M>0$ and some $n_0 \in \mathbb{R}_{>0}$ such that:
 
 \begin{equation}
 T(n)\leq M \cdot f(n)
@@ -743,7 +786,7 @@ T(n)\leq M \cdot f(n)
 
 % \noindent
 In other words $T(n)$ is $\mathcal{O}\left(f(n)\right)$ if and only if for all sufficiently large input values $T(n)$ is bounded from above by some constant multiple of $f(n)$.
-This makes the Big-O notation useful when analysing algorithms for run-time efficiency and makes it possible to for example compare routines without the added overhead of neglectable terms, such as the architecture at which the code was run, the choice of language or compiler.
+This makes the Big-O notation useful when analyzing algorithms for run-time efficiency and makes it possible to, for example, compare routines without the added overhead of negligible terms, such as the architecture at which the code was run, the choice of language or compiler.
 We will now briefly discuss some of the most common serial computational orders and their examples. 
 
 \begin{algorithm}[H]
@@ -772,7 +815,7 @@ We will now briefly discuss some of the most common serial computational orders 
 \end{algorithm}
 
 The simplest, most basic example is an operation that takes the same amount of time every time it is called, thus requiring constant time, i.e. it's computational complexity is that of $\mathcal{O}\left(1\right)$ and does not depend on the input size.
-An example of such routine is listed in the Algorithm~\ref{alg:o1} that checks for a specific value of a constant.
+An example of such routine is listed in the Algorithm~\ref{alg:o1} that evaluates a specific value of a constant.
 
 \begin{algorithm}[H]
 \centering
@@ -803,8 +846,8 @@ An example of such routine is listed in the Algorithm~\ref{alg:o1} that checks f
 \label{alg:on}
 \end{algorithm}
 
-Algorithm which proceeds at $\mathcal{O}\left(N\right)$ has it's run-time growing linearly with the size of input data.
-Example of such a routine is presented as Algorithm~\ref{alg:on}, which searches an array looking for a specific value.
+An algorithm proceeding at $\mathcal{O}\left(N\right)$ has a run-time that grows linearly with the size of input data.
+An example of such a routine is presented as Algorithm~\ref{alg:on}, which searches an array looking for a specific value.
 We should note that the Big-O notation always describes the performance in worst-case scenario, i.e. a full loop has to be executed before a matching element is found, while for the actual real-world problem this does not have to be the case and the loop can return earlier.
 
 \begin{algorithm}[H]
@@ -844,12 +887,12 @@ We should note that the Big-O notation always describes the performance in worst
 \label{alg:on2}
 \end{algorithm}
 
-An algorithm can also require a quadratic, $\mathcal{O}\left(N^2\right)$ run-time, i.e. it's performance is directly proportional to the square of the size of the input data.
+An algorithm can also require a quadratic run-time, $\mathcal{O}\left(N^2\right)$, i.e. its performance is directly proportional to the square of the size of the input data.
 Among examples of such an algorithm is the routine that searches for a duplicated value in an array, and requires two nested loops as presented in Algorithm~\ref{alg:on2}.
-Similarly nesting more loops will result in routines which proceed at polynomial times $\mathcal{O}\left(N^3\right)$, $\mathcal{O}\left(N^4\right)$, $\mathcal{O}\left(N^5\right)$ etc.
-An algorithm which proceeds at $\mathcal{O}\left(c^N\right)$, where $c>1$ is some constant, will have it's run-time growing c-times with every additional data element, i.e. exponentially. 
+Similarly nesting more loops will result in routines which proceed at polynomial times $\mathcal{O}\left(N^3\right)$, $\mathcal{O}\left(N^4\right)$, $\mathcal{O}\left(N^5\right)$, etc.
+An algorithm proceeding at $\mathcal{O}\left(c^N\right)$, where $c>1$ is some constant, will have a run-time that grows c-times with every additional data element, i.e. exponentially. 
 
-With those basic ideas described we can now come back to the original problem of calculating the likelihood of a sequence evolution on a fixed tree.
+Having described these basic concepts, we can now come back to the original problem of calculating the likelihood of sequence evolution on a fixed tree.
 From Subsections \ref{sub:exponentiation} and \ref{sub:likelihood} we already know the steps involved:
 
 % I skipped site rate variability, but perhaps it should be mentioned? 
@@ -860,11 +903,11 @@ From Subsections \ref{sub:exponentiation} and \ref{sub:likelihood} we already kn
 \item { Taking the logarithm and summing over all sites in the alignment. }
 \end{enumerate}
 
-Step (i) proceeds at ${\cal{O}}(K^3)$, however for typical, time-homogeneous applications this is not the a rate-limiting step, as repeated evaluations of $\exp(\mathbf{Q}t)$ in (ii) are based on the same decomposition of the matrix \citep{Suchard2009}. 
+Step (i) proceeds at ${\cal{O}}(K^3)$; however, for typical, time-homogeneous applications this is not the a rate-limiting step, as repeated evaluations of $\exp(\mathbf{Q}t)$ in (ii) are based on the same decomposition of the matrix \citep{Suchard2009}. 
 Step (ii) typically boils down to repeated matrix-vector-matrix multiplications and its serial computational order is ${\cal{O}}(K^3 \times n)$. 
 Step (iii) takes ${\cal{O}}(K^2 \times n \times l)$ time and is the most computationally expensive part of the routine. 
 Step (iv) proceeds at ${\cal{O}}(l)$, linearly with the number of sites.
-Fortunately these operations are very regular and lend themselves to the computational parallelism, such as utilized in the BEAGLE library \citep{Suchard2009,Ayres2012}.
+Fortunately, these operations are very regular and lend themselves to the computational parallelism, such as utilized in the BEAGLE library \citep{Suchard2009,Ayres2012}.
 
 % TODO: maybe sub-section on GPUs here
 
@@ -874,28 +917,28 @@ Fortunately these operations are very regular and lend themselves to the computa
 
 The Bayesian approach to statistical inference combines the prior information with the data to generate the posterior distributions of the parameters of interest.
 All other post-hoc inference is based on those generated posterior distributions.
-Bayesian methodology has recently gained immense popularity, due to the advances in numerical algorithms and the progressively cheaper access to powerfull computational hardware.
-Development of statistical programs for simulation from Bayesian hierarchical models like OpenBUGS \citep{Lunn2009} and JAGS \citep{Plummer2003} has also helped to bolster the popularity and accessibility of the Bayesian framework.
+Bayesian methodology has recently gained immense popularity, due to the advances in numerical algorithms and the progressively cheaper access to powerful computational hardware.
+The development of statistical programs for simulation from Bayesian hierarchical models like OpenBUGS \citep{Lunn2009} and JAGS \citep{Plummer2003} has also helped to bolster the popularity and accessibility of the Bayesian framework.
 
-In the field of phylogenetics Bayesian inference has been applied to some of the most complex problems and is now widely adopted, with the term \emph{Bayesian evolutionary analysis} used to describe the molecular evolutionary analysis set in the Bayesian framework.
-At the fore-front of these advancements lies the wide adoption of popular Bayesian evolutionary analysis software packages like MrBayes \citep{Ronquist2012} and BEAST \citep{Drummond2012}.
+In the field of phylogenetics, Bayesian inference has been applied to some of the most complex problems and is now widely adopted, with the term \emph{Bayesian evolutionary analysis} used to describe the molecular evolutionary analysis set in the Bayesian framework.
+At the fore-front of these advancements lies the active development and wide adoption of popular Bayesian evolutionary analysis software packages like MrBayes \citep{Ronquist2012} and BEAST \citep{Drummond2012}.
 
 \subsection{Bayes theorem\label{sub:bayesTheorem}}
 
 % Following the notation defined in Subsection \ref{sub:likelihood} we will denote the tree topology, the branch lengths and the parameters of the substitution model that we aim at inferring by $\mathbf{\Theta}$.
-Following the notation defined in Subsection~\ref{sub:likelihood}  let us denote a single-dimensional parameter of interest that we aim at inferring by $\theta$.
-The central concept of Bayesian inference is that this parameter has a distribution of it's own.
+Following the notation defined in Subsection~\ref{sub:likelihood}, let us denote a single-dimensional parameter of interest that we aim to learn about as $\theta$.
+The central concept of Bayesian inference is that this parameter has a distribution of its own.
 Before the molecular data $\mathbf{X}$ is observed we assume that $\theta$ has a prior distribution $P(\theta)$.
 The prior reflects the prior beliefs about the possible values of the parameter.
 
 The prior choice is perhaps one of the most controversial points of the Bayesian inference.
 The prior distributions may come from the preceding analysis of the other sets of data, or they may form some set of biologically plausible values.
-However in some cases there may be no suitable subjective distribution to be used, which leads to the so called \emph{vague} priors, with large variance.
-All of these prior choices lead to proper posterior distribution, yet some controversies in their choice may still arise.
+However in some cases there may be no suitable objective distribution at hand, which case one often resorts to the so called \emph{vague} priors, with large variance.
+All of these proper prior choices lead to a proper posterior distribution, yet some controversies about their choice may still arise.
 
 % TODO: discuss hyperpriors?
 The prior information is then combined with the likelihood of the data $P\left(\theta|\mathbf{X}\right)$ to form the posterior, via the Bayes theorem (Equation~(\ref{eq:bayesian1})).
-The posterior distribution of $\theta$ then becomes:
+The posterior distribution of $\theta$ follows:
 
 \begin{eqnarray}
 P\left(\theta|\mathbf{X}\right) &=& \frac{P(\theta)\cdot P\left(\mathbf{X}|\theta\right)}{P\left(\mathbf{X}\right)}=\frac{P(\theta)\cdot P\left(\mathbf{X}|\theta\right)}{\int P(\theta)\cdot P\left(\mathbf{X}|\theta\right)d\theta} \\ \nonumber
@@ -907,11 +950,11 @@ P\left(\theta|\mathbf{X}\right) &=& \frac{P(\theta)\cdot P\left(\mathbf{X}|\thet
 where the marginal probability of the data $P\left(\mathbf{X}\right)$ is a normalizing constant that makes the posterior $P\left(\theta|\mathbf{X}\right)$ integrate to one.
 The last approximation in Equation~(\ref{eq:bayesian1}) means that the posterior is proportional to the prior times the likelihood.
 
-% nuisance parameters?
-Bayesian inference provides also a natural way of delaying with nuisance parameter.
+% nuisance parameters? GB: I second that
+Bayesian inference provides a natural way of dealing with nuisance parameter.
 Suppose that $\mathbf{\Theta}=\left(\theta,\mathbf{F}\right)$ is now a two dimensional vector of parameters, with $\theta$ being the parameter of interest, while 
 $\mathbf{F}$ (e.g. a tree topology) is the nuisance parameter.
-Joint posterior distribution of $\mathbf{\Theta}$ is now:
+The joint posterior distribution of $\mathbf{\Theta}$ is now:
 
 \begin{eqnarray}
 P\left(\mathbf{\Theta}|\mathbf{X}\right) &=& P\left(\theta,\mathbf{F}|\mathbf{X}\right)=\frac{P\left(\theta,\mathbf{F}\right)\cdot P\left(\mathbf{X}|\theta,\mathbf{F}\right)}{P\left(\mathbf{X}\right)} \\ \nonumber
@@ -929,9 +972,12 @@ P\left(\theta|\mathbf{X}\right) =\int P\left(\mathbf{\Theta},\mathbf{F}|\mathbf{
 
 \subsection{Example: Comparing two sequences with the beta-binomial model}
 
-As a simple illustration of the concept of Bayesian analysis let us consider a toy example where two sequences are compared and $x=10$ differences are found out of $N=100$ sites compared.
+As a simple illustration of the concept of Bayesian analysis, let us consider a toy example where two sequences are compared and $x=10$ differences are found out of $N=100$ sites compared.
 Suppose that the parameter $\theta$ we want to infer is the proportion of sites which differ between the two sequences.
-Assuming that the sites are independent we can use a binomial model and put a beta prior with parameters $\alpha=2$, $\beta=100$ on the unknown proportion $\theta$.
+Assuming that the sites are independent we can use a binomial model and put a beta prior with parameters $\alpha=2$, $\beta=100$ on the unknown proportion $\theta$. %PL: maybe add explicitly: ".., which prefers small values of the $\theta$ a priori
+
+
+%PL: to avoid color, use a white filled distribution for the prior, a black one for the likelihood, and a grey for the posterior (which conceptually fits with the fact that the posterior combines black and white)
 
 %---LIKELIHOOD---%
 \begin{figure}[H]
@@ -946,31 +992,33 @@ Assuming that the sites are independent we can use a binomial model and put a be
 \end{figure}
 
 Figure~\ref{fig:bayes1} shows the resulting posterior distribution along with prior and scaled likelihood.
-In this case we used a fact that the beta distribution is a so called \emph{conjugate prior} for the binomial model, resulting in the posterior which is also beta-distributed and can therefore be calculated analytically.
+This illustrates that the data `pulls' the posterior away from the prior, and the strength by which is does so depends on its variance, resulting in a posterior centered around 0.6 in this case.
+In this example, the posterior distribution can be obtained analytically because the beta distribution is a so called \emph{conjugate prior} for the binomial model, resulting in the posterior that is also beta-distributed.
 %TODO: proof in appendix?
+%PL: nah, unless you are the first to prove this :-)
 
-\subsection{Marcov Chain Monte Carlo\label{sub:MCMC}}
+\subsection{Markov Chain Monte Carlo\label{sub:MCMC}}
 
-For every but the most trivial problems involving conjugate priors, like in our previous example, the main problem of Bayesian inference lies in the calculation of the integral in Equation~(\ref{eq:bayesian1}).
+Except for the most trivial problems, involving conjugate priors as in our previous example, the calculation of the integral in Equation~(\ref{eq:bayesian1}) poses a considerable challenge in Bayesian inference.
 This integral leads to the marginal probability of the data $P\left(\mathbf{X}\right)$. 
 For even the simplest phylogenetic problems, one has to integrate over all possible tree topologies, all of the branch lengths in those trees and all of the substitution parameters in the applied model.
 Such highly-dimensional integrals are impossible to calculate analytically.
-This is where the Marcov Chain Monte Carlo (MCMC) algorithms show their strength and provide a powerful method of sampling from the posterior distributions without evaluating the marginal probability.
+This is where the Markov Chain Monte Carlo (MCMC) algorithm shows its strength and provides a powerful method of sampling from the posterior distributions without evaluating the marginal probability. %PL: it is a supa-dupa algorithm: http://oldweb.cecm.sfu.ca/~jborwein/algorithms.html
 
-Metropolis-Hasting algorithm, as proposed by \citet{Metropolis1953}, is an MCMC algorithm for sampling from multi-dimensional distributions.
+The Metropolis-Hasting algorithm, as proposed by \citet{Metropolis1953}, is an MCMC algorithm for sampling from multi-dimensional distributions.
 It proceeds by constructing a Markov chain with its states being the values of the parameter of interest $\theta$ and whose equilibrium distribution is the posterior $P\left(\theta|\mathbf{X}\right)$ as defined in Equation~\ref{eq:bayesian1}.
-After choosing an arbitrary starting state for the chain new candidate states $\theta^{*}$ are generated from the proposal density $q(\theta^{*} | \theta[t])$ also called the kernel.
+After choosing an arbitrary starting state for the chain, new candidate states $\theta^{*}$ are generated from the proposal density $q(\theta^{*} | \theta[t])$ also called the kernel.
 
-Common choice for the kernel is to sample from a continuous uniform distribution centered around the current state of the chain, the so called jumping kernel: 
+A common kernel choice to propose new state for continuous parameter is to sample from a uniform distribution centered around the current state of the chain, the so called jumping kernel: %PL: are you sure this sliding window kernel is commonly referred to as the 'jumping kernel", or do you mean as a general term?
 
 $$\theta^{*}\sim U\left[\theta[t]-\omega,\theta[t]+\omega\right],$$
 
 \noindent
 where $\omega$ is the arbitrary window size.
-The chain then moves to the proposed value with probability defined by the acceptance ratio (see Equation~(\ref{eq:metropolis1})), or if the proposal is rejected the chain remains at it's current state.
+The chain then moves to the proposed value with probability defined by the acceptance ratio (see Equation~(\ref{eq:metropolis1})), or if the proposal is rejected the chain remains at the current state.
 The routine iterates between accept/reject steps for a specified number of times.
-Both acceptance and rejection are counted as iterations od the algorithm, in fact the rejections ensure that the probabilistic properties of the target distribution are well represented in the generated sample.  
-Listing in Algorithm~\ref{alg:metropolisHastings} presents the details of the Metropolis-Hastings algorithm.
+Both acceptance and rejection are counted as iterations of the algorithm; in fact the rejections ensure that the probabilistic properties of the target distribution are well represented in the generated sample.  
+Algorithm~\ref{alg:metropolisHastings} presents the details of the Metropolis-Hastings algorithm.
 
 \begin{algorithm}[H]
 \centering
@@ -1004,17 +1052,17 @@ $$r=\frac{prior\left(\theta^{*}\right)}{prior\left(\theta\left[t\right]\right)}\
 \end{algorithmic}
 \caption{
 { \footnotesize 
-{\bf Metropolis-Hastings algorithm} 
+{\bf The Metropolis-Hastings algorithm} 
 }% END: footnotesize
 }
 \label{alg:metropolisHastings}
 \end{algorithm}
 
-We need to note several important features of the algorithm.
+Several important features of the algorithm can be noted.
 The most important part of the algorithm is the proposal density. 
 Given the current state it proposes the next state independent of the past states.
 We can recall that this is the Markov property, in fact the output of the algorithm generates a Markov chain, hence the name MCMC.
-Metropolis-Hastings algorithm allows for the use of an asymetrical proposal densities such that $q\left(\theta\left[t\right]|\theta^{*}\right)\neq q\left(\theta^{*}|\theta\left[t\right]\right)$.
+The Metropolis-Hastings algorithm allows for the use of an asymmetrical proposal densities such that $q\left(\theta\left[t\right]|\theta^{*}\right)\neq q\left(\theta^{*}|\theta\left[t\right]\right)$.
 The acceptance probability is simply the ratio of the target posterior evaluated at the proposal and at the current state of the chain, times the ratio of the proposal: 
 % prior ratio times the likelihood ratio times the proposal ratio
 
@@ -1025,17 +1073,20 @@ The acceptance probability is simply the ratio of the target posterior evaluated
 
 Note that the integral in Equation~(\ref{eq:bayesian1}) which is notoriously hard to compute cancels out in (\ref{eq:metropolis1}).
 Thus to estimate the posterior $P\left(\theta|\mathbf{X}\right)$ one only needs to run the algorithm for a sufficiently long time to let the chain reach it's equilibrium, which is precisely the target posterior.
+%PL: maybe mention that this can be formally proven using the ergodic theorem... and no, you don't have to prove it in the appendix ;-)
 
 % TODO: better title, show how to derive the probabilities (in JC69 chapter)
 \subsection{Example: Estimating genetic distance}
 
-Let us revisit the toy example in which we compare two sequences and find $x=10$ differences among $n=100$ sites.
-This time however we will use MCMC to estimate the genetic distance between the two sequences using Jukes and Cantor model of nucleotide substitution (see Subsection~\ref{sub:jc69}).
-Genetic distance is defined as the expected number of substitutions of nucleotide base pairs per site, which to match the convention form previous sections we will denote as $\theta=rt$, where $r$ is the substitution rate (see Subsection~\ref{sub:poisson}) and $t$ is the waiting time between the two sequences.
-The time and rate are as we already mentioned typically confounded, therefore they will be estimated as a single parameter of interest $\theta$.
-The probability that the any descending nucleotide in a sequence is different from the ancestral nucleotide can be obtained by summing over all possible paths, between two pairs of nucleotides, i.e. $p_{ij}(t)=\underset{k\neq i}{\sum}p_{ik}(t)$.
+%GB: I don't really like these kinds of examples or tutorials. They're great when teaching a workshop, but this is an introduction for a PhD dissertation ...
 
-From Equation~(\ref{eq:jc69Finite}) in Subsection~\ref{sub:jc69} we know that under the JC69 model those probabilities are all equal, therefore the probability that a single site is different between two sequences separated by distance $\theta=rt$ is given by:
+Let us revisit the toy example in which we compare two sequences and find $x=10$ differences among $n=100$ sites.
+This time however we will use MCMC to estimate the genetic distance between the two sequences using the Jukes and Cantor model of nucleotide substitution (see Subsection~\ref{sub:jc69}).
+Genetic distance is defined as the expected number of substitutions per nucleotide site, which we will denote as $\theta=rt$ in line with previous sections, where $r$ is the substitution rate (see Subsection~\ref{sub:poisson}) and $t$ is the evolutionary time separating the two sequences.
+The time and rate are generally confounded as we already mentioned, and hence they will be estimated as a single parameter of interest $\theta$.
+The probability that the descendant nucleotide in a sequence is different from the ancestral nucleotide can be obtained by summing over all possible paths, between two pairs of nucleotides, i.e. $p_{ij}(t)=\underset{k\neq i}{\sum}p_{ik}(t)$.
+
+From Equation~(\ref{eq:jc69Finite}) in Subsection~\ref{sub:jc69}, we know that under the JC69 model those probabilities are all equal, therefore the probability that a single site is different between two sequences separated by distance $\theta=rt$ is given by:
 
 \begin{equation}
 p=3p_{1}\left(t\right)=\frac{3}{4}\left(1-e^{\left(-4/3\right)\theta}\right).
@@ -1043,7 +1094,7 @@ p=3p_{1}\left(t\right)=\frac{3}{4}\left(1-e^{\left(-4/3\right)\theta}\right).
 \end{equation}
 
 \noindent
-From this we can model the likelihood of observing $x$ differences out of $n$ sites using the binomial model:
+From this we can formalize the likelihood function using the binomial model given that we observe $x$ differences out of $n$ sites :
 
 \begin{equation}
 P\left(\mathbf{X}|\theta\right)=L\left(\mathbf{X}|\theta\right)=\left(\begin{array}{c}
@@ -1072,14 +1123,19 @@ For the proposal we choose a uniformly distributed jumping kernel with a window 
 \includegraphics[scale=0.5]{metropolis} 
 \caption{
 { \footnotesize 
-{\bf MCMC output for estimating sequence disctance under JC69 model of nucleotide evolution..} 
+{\bf MCMC output for estimating genetic distance under the JC69 model of nucleotide substitution.
+%PL: a bit thin as a caption; at least describe what we see in the two panels (in a slightly different way as the text) -- Figures should be able to be read in isolation
+%PL: use a grey line instead of the two red lines to avoid color.
+} 
 }% END: footnotesize
 }
 \label{fig:metropolis}
 \end{figure}
 
 Figure~\ref{fig:metropolis} shows $1000$ iterations of the chain generated by Algorithm~\ref{alg:metropolisHastings} in the upper row and applied to the genetic distance problem.
-The red line indicates the maximum likelihood estimate (MLE) $\hat{\theta}$ of parameter $\theta$ which is calculated by setting $\frac{d\ell\left(\mathbf{X}|\theta\right)}{d\theta}=0$, where $l\left(\mathbf{X}|\theta\right)$ is the logarithm of likelihood defined by Equation~(\ref{eq:likelihood1}):
+The red line 
+%PL: let's make it grey
+indicates the maximum likelihood estimate (MLE) $\hat{\theta}$ of parameter $\theta$ which is calculated by setting $\frac{d\ell\left(\mathbf{X}|\theta\right)}{d\theta}=0$, where $l\left(\mathbf{X}|\theta\right)$ is the logarithm of likelihood defined by Equation~(\ref{eq:likelihood1}):
 
 \begin{equation}
 \hat{\theta}=\frac{3}{4}log\left(1-\frac{4}{3}\cdot\frac{x}{n}\right)
@@ -1087,8 +1143,12 @@ The red line indicates the maximum likelihood estimate (MLE) $\hat{\theta}$ of p
 \end{equation}
 
 In the second row of Figure~\ref{fig:metropolis} we can see an estimate of the posterior density, along with the sample mean.
-We can see that the posterior sample mean is identical to the MLE up to the second decimal place, although we have not run the chain for long.
+The posterior sample mean is identical to the MLE up to the second decimal place, although we have not run the chain for long.
 The acceptance rate is high, suggesting that almost as many steps are accepted as are rejected.
+%GB: acceptance rates don't necessarily have to be this high, not sure if you want to discuss this though.
+
+%PL: you could potentially mention the importance of tuning kernels, like the window size, and show the same trace plot for a  too high and too low window, and their acceptance ratio. This can lead to a mention of diagnozing mcmc runs, convergence, ESSs, and shit... which is a practical issue for complex problems/large data sets, etc.
+%GB: I wouldn't discuss tuning, but acceptance ratios I think are more important.
 
 \subsection{Bayesian phylogeography}
 
