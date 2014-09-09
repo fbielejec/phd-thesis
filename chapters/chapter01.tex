@@ -9,31 +9,49 @@ TODO
 
 \subsection{Viral Epidemiology and the Emergence of Phylodynamics}
 
-% TODO: mention more epidemics (HIV, H5n1)
-%PL: I have taken this from the final plan and worked in some bits of text you had as intro. The final plan was stripped of many references because it was restricted to 10 citations, so please put them back there 
 Many pathogens represent a clear and eminent threat to public health. 
 This has been exemplified by 
 the outbreak of the Severe Acute Respiratory Syndrome (SARS) in China \citep{Ksiazek2003},
-the H1N1 swine-origin influenza A virus outbreak in 2009, %perhaps cite fraser, science 2009 here
+the H1N1 swine-origin influenza A virus outbreak in 2009 \citep{Fraser2009},
 which attained pandemic status in only a few months time, but also more recently by a large outbreak of the Ebola haemorrhagic fever in humans in West Africa \citep{Dudas2014}. 
 
 Many studies on emerging infectious diseases (EIDs) have highlighted viral pathogens as a major threat to the public health, owing to their high rates of nucleotide substitution, and therefore high capacity to adapt to new hosts. 
-In the recent decades EIDs are becoming increasingly widespread, with their impact and spread only rising over time. %I believe there is a Nature paper to cite here, by jones or something
+Due to the intensive nature of human mobility there are no natural barriers for the spread of human RNA viruses \citep{Brockmann2006}.
+In the recent decades EIDs are becoming increasingly widespread, with their impact and spread only rising over time \citep{Jones2008}.
 This may not be surprising since it is well-acknowledged that disease emergence is largely a product of anthropogenic and demographic changes, making it a hidden cost of human economic development.
  
 Combating viral spread and its associated disease burden is a tremendous challenge requiring significant research efforts and decided public health measures. 
 Viral sequence data has been recognized as a major asset in the characterization of pathogens that threaten public health.
-Molecular epidemiology complements traditional epidemiological studies because it primarily focuses on the etiological agent rather than the host. %PL the reference should be a Chapter by Leitner in a book of his on the molecular epidemiology of (human) viruses
+Molecular epidemiology complements traditional epidemiological studies because it primarily focuses on the etiological agent rather than the host \citep{Leitner2002}.
 In particular, the historical information contained in viral gene sequences contributes to a better insight in emergence and early transmission dynamics, even before systematic epidemiological surveillance has been initiated. 
 For many years, phylogenetic analysis has been the primary tool in molecular epidemiology. 
 By reconstructing a ime-calibrated phylogenetic tree, we are able to study the evolutionary history of viral strains, assess epidemiological linkage amongst them, and shed light on transmission patterns. 
 With the advent of high-throughput DNA sequencing, genomic data from RNA viruses is becoming available in unprecedented quantities and with remarkable rapidity. 
 
-The last decade has witnessed a particular focus of analyses of viral evolutionary dynamics on integrating concepts of phylogenetic and epidemiological dynamics, a research direction originally coined `phylodynamics'. %PL: cite Grenfell, Science
-By aiming at the development a full quantitative understanding of the processes that shape the epidemiology and evolution of RNA viruses,
+The last decade has witnessed a particular focus of analyses of viral evolutionary dynamics on integrating concepts of phylogenetic and epidemiological dynamics, a research direction originally coined `phylodynamics' \citep{Grenfell2004}.
+By aiming at the development of a full quantitative understanding of the processes that shape the epidemiology and evolution of RNA viruses,
 phylodynamics has now become a burgeoning area of research.
-In order to perform comprehensive and quantitative analyses of the interaction between the ecological and evolutionary dynamics of RNA viruses, new computational developments are needed... [PL: get some inspiration from  DOI: 10.1371/journal.pcbi.1002947 to add some meat to this paragraph / finish it]...
-% http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1002947
+In order to perform comprehensive and quantitative analyses of the interaction between the ecological and evolutionary dynamics of RNA viruses, new computational developments are needed.
+
+% ... [PL: get some inspiration from  DOI: 10.1371/journal.pcbi.1002947 to add some meat to this paragraph / finish it]...
+
+Recent advances in epidemiological modelling make it possible to describe the transmission of contagions through individuals.
+Perhaps a simplest and well-studied model is the ${\mathcal{S} \rightarrow \mathcal{I} \rightarrow \mathcal{R}}$  compartmental model % TODO:c itation
+, which describes how the (S)usceptible individuals become (I)nfected and the (R)ecover, as a function of time.  
+These models can be extended to include birth and death events % TODO: citation
+and are instrumental in finding the number of secondary infections caused by a single infected individual in an entirely susceptible population, a basic reproductive quantity denoted by $R_{0}$.
+This quantity determines whether and epidemic occurs or whether the diseases will die out.
+Traditionally these models were inferred using surveilance data, yet more complicated epidemiological studies involving e.g. seasonality, multiple populations with varying $R_0$ or other possible epidemiological predictors are often analytically intracktable.
+In that light recent developments allow to infer parameters of compartmental models by studying molecular sequence data \citep{Volz2009}.
+Prevaling patterns of geographic diffusion of infectious diseases can be inferred by combining sequence data with information on the geographic movement \citep{Lemey2009}.
+Combining these phylogeographical models with compartmental models which explicitely track the transmission between the infected individuals can provide new avenues for inferring patterns of viral spread.
+
+Much like for EIDs, where research efforts are typically focused on providing estimates of the basic reproduction number, for ongoing epidemics one is typically interested in quantifying the effects of control and preventive measures on between-host scales and of treatment on within-host scale.
+For that reason most efforts are focused on reliable detection of adaptive selection pressure, the main driving force of viral evolution.
+\cite{Volz2013} report nine Influenza A H1N1 vaccine updates being recommended by the World Health Organization (WHO) between 1978 and 2009, as compared to 20 updates recommended for Influenza H3N2, suggesting that the latter undergoes much more adaptive evolution that the former.
+Unfortunately positive selection is notoriously difficult to detect, as on sequence level it may apply to only a handfull of sites, on a topology level it may apply to only some of the branches, or even only to particular time, i.e. a portion of branches length.
+Homogenous analysis will not detect such changes, which is why substantial work has been aimed at developing models which can detect selection acting heterogenously between sites, between branchs or between a combination of those \citep{NY98, Pond2005a, Goode2008}.
+
 In order to position these recent developments, we first provide a brief general account of the field of molecular evolution and phylogenetics and then introduce recent developments and models specific for rapidly-evolving RNA viruses, and how this culminated in to a state-of-the-art statistical framework for phylodynamics. As a final part of the general introduction, we outline how the current doctoral thesis work extends and complements this framework in the objectives.
 The remainder of the chapter provides a more mathematically-oriented description of how to model evolution evolution as a stochastic process on trees, the computational aspects involved, and how to treat the problem from a Bayesian statistical perspective.
 
