@@ -348,10 +348,10 @@ print(p)
 ##############################################
 #---TIME HETEROGENOUS AND ULTRAMETRIC TREE---#
 ##############################################
-tree1        <- read.tree("data/SimTree.newick")
+tree1        <- read.tree("data/epoch_2rate_true_data_ordered.newick")
 phylo1       <- fortify.phylo(tree1)
 phylo1$label <- "Heterogenous"
-tree2        <- read.tree("data/SimTree_ultrametric.newick")
+tree2        <- read.tree("data/epoch_2rate_ultrametric.newick")
 phylo2       <- fortify.phylo(tree2)
 phylo2$label <- "Ultrametric"
 
@@ -364,7 +364,7 @@ phylo2Labels$label <- "Ultrametric"
 
 phyloLabels <- rbind(phylo1Labels, phylo2Labels)
 
-dotSize = 4
+dotSize = 3
 lineSize = 1.5
 
 p <- ggplot()

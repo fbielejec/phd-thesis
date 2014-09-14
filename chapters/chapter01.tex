@@ -33,8 +33,6 @@ By aiming at the development of a full quantitative understanding of the process
 phylodynamics has now become a burgeoning area of research.
 In order to perform comprehensive and quantitative analyses of the interaction between the ecological and evolutionary dynamics of RNA viruses, new computational developments are needed.
 
-% ... [PL: get some inspiration from  DOI: 10.1371/journal.pcbi.1002947 to add some meat to this paragraph / finish it]...
-
 Recent advances in epidemiological modelling make it possible to describe the transmission of contagions through individuals.
 Perhaps a simplest and well-studied model is the ${\mathcal{S} \rightarrow \mathcal{I} \rightarrow \mathcal{R}}$  compartmental model % TODO:c itation
 , which describes how the (S)usceptible individuals become (I)nfected and the (R)ecover, as a function of time.  
@@ -55,12 +53,6 @@ Homogenous analysis will not detect such changes, which is why substantial work 
 In order to position these recent developments, we first provide a brief general account of the field of molecular evolution and phylogenetics and then introduce recent developments and models specific for rapidly-evolving RNA viruses, and how this culminated in to a state-of-the-art statistical framework for phylodynamics. As a final part of the general introduction, we outline how the current doctoral thesis work extends and complements this framework in the objectives.
 The remainder of the chapter provides a more mathematically-oriented description of how to model evolution evolution as a stochastic process on trees, the computational aspects involved, and how to treat the problem from a Bayesian statistical perspective.
 
-
-
-
-
-
-
 %Rapidly evolving pathogens pose an ever continuing public health threat.
 %This threats are exemplified by recent infections with H5N1 avian influenza A, pandemic spread of swine-origin H1N1 influenza \citep{Rambaut2008}, Severe Acute Respiratory Syndrome (SARS) \citep{Ksiazek2003} and the outbreak of the haemorrhagic fever in humans in Africa (Ebola virus, \citet{Dudas2014}).
 %Unlike zoonotic diseases human RNA viruses have no natural barriers that could hamper their escalation, mainly due to the extensive nature of human mobility \citep{Brockmann2006}.
@@ -72,53 +64,137 @@ The remainder of the chapter provides a more mathematically-oriented description
 %Advances in the field of computational phylogenetics are mainly hampered by the the computational burden that these compute-intensive calculations impose.
 %As an example, finding the maximum likelihood tree requires a search through the space of all possible tree topologies, which quickly becomes computationally intractable, as depicted in Table~\ref{tab:maxLikeBurden}.
 %
-%\begin{table}
-%\centering
-%% \footnotesize{
-%\begin{tabular}{cc}
-%% {@{}l*{2}{D{.}{.}{7}}@{}}
-%\hline 
-%Tips & Rooted trees $\frac{(2N-3)!}{2^{N-2}\cdot(N-2)!}$ \tabularnewline
-%\hline 
-%\rowcolor{gray1}
-%$3$ & $3$\tabularnewline
-%$6$ & $945$\tabularnewline
-%\rowcolor{gray1}
-%$9$ & $2'027'025$\tabularnewline
-%$15$ & $2\times10^{14}$\tabularnewline
-%\rowcolor{gray1}
-%$20$ & $8\times10^{21}$\tabularnewline
-%$55$ & $3.19\times10^{86}$\tabularnewline
-%\end{tabular}
-%% }
-%\caption{
-%{ \footnotesize 
-%{\bf{Number of rooted trees per number of taxa.}} $4 \times 10^{80} $ is the no of atoms in the observable universe.
-%}% END: footnotesize
-%}
-%\label{tab:maxLikeBurden}
-%\end{table}
-%
 %Adopting Bayesian statistical approach, implemented in a flexible framework of molecular evolution \citep{Drummond2012} helps circumvent some of these hindrances by focusing sampling efforts on the topologies 
 %% parts of the tree space
 %that best fit the data.
 %Nonetheless Bayesian phylogenetic analyses remain highly computationally intensive and a vast area of research is now aiming at bringing new advances to actively stretch these limits \citep{Suchard2009}.
 %This problem is further aggravated as the advent of high-throughput sequencing produces millions of sequences at low cost resulting in the availability of increasingly large data sets.
 
-
-
-
-
 \subsection{Molecular evolution and Phylogenetics}
 
-% 1 / 1.5 page, history and shit, old vs new tree plots (estimated and not), distance / parsimony, ML, Bayesian...
-[PL: briefly introduce the field of molecular evolution, touching upon the essence of some basic evolutionary concepts (mutation<->substitution, selection, fitness), and how phylogenetics can be useful int this context. 
-Describe the very basics of a tree (branches, nodes, taxa, rooted, outgroup), and provide some history on phylogenies and what they are used for. I would suggest to start by showing a figure combining Darwin's speciation tree in one panel, because that directly relates to the evolutionary and speciation process you need to bring up in the paragraph above, and the first estimated tree, which is from Fitch from this science paper:
-Fitch WM, Margoliash E. The construction of phylogenetic trees - a generally applicable method utilizing estimates of the mutation distance obtained from cytochrome c sequences. Science 1967;155:279-284.
-And then follow up on this with a brief account of phylogenetic inference -- bring on the classics, acknowledge some milestones: distance-based trees, parsimony inference, Joe and Likelihood inference (no formal stuff/math just yet), ...
-This is also where you can describe the computational burden and that table.
+% [PL: briefly introduce the field of molecular evolution, touching upon the essence of some basic evolutionary concepts (mutation<->substitution, selection, fitness), and how phylogenetics can be useful int this context. 
 
+The main axiom of molecular evolution is the idea that the processes that shape the fitness  
 
+Phylogenetic trees are graphs depicting the ancestral relationship.
+External nodes of the tree (also called tips or leaves) represent the observed character data, while internal nodes represent the missing data.  
+A common ancestor of all the observed character sequences (the most-recent common ancestor, MRCA) is called the root of the tree.
+Similarly if we look at a group of nodes on a tree, which consists of all the descendants sharing a particular ancestor, we would be calling it a clade.
+
+%---FIRST TREES---%
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{first_trees} 
+\caption{
+{ \footnotesize 
+{\bf Phylogenetic trees.} A. Page from Darwin's notebooks around July 1837 showing his first sketch of an evolutionary tree.
+B. First phylogeny estimated from genetic data and published by \cite{Fitch1967}.
+}% END: footnotesize
+}
+\label{fig:first_trees}
+\end{figure}
+
+Underlying assumption of the phylogenetic tree is that the data used to infer them indeed encompasses some sort of evolutionary relatedness.
+This idea traces back to the first know figure of a phylogenetic tree, sketched by Charles Darwin in 1937 on the margin side of his notebook (see Figure \ref{fig:first_trees}), with the famous words \emph{`I think'} written above it.
+In those days there was no notion of genetic data, therefore Darwin constructed his trees using morphological comparisons, assuming that similar forms and shapes characterizing organisms would mean that they descdended from one another\footnote{Furry with furry.}.
+Modern phylogenetics use molecular data and a combination of statistical and computational methods to reconstruct phylogenetic trees.
+%distance-based trees
+Among the first tractable methods to reconstruct trees from molecular data were the hierarchical clustering methods based on genetic distance \citep{Fitch1967}, defined as the number of nucleotides that would need to be altered to make two sequences identical (see Figure \ref{fig:first_trees} B).
+These methods were criticized for not making explicit use of the relationship between individual characters of the genetic data, but rather reducing it to distance based measures.
+Moreover by using pairwise comparisons some of the information is inevitably lost.
+
+% parsimony
+In contrast the parsimony is a family of methods that reconstructs evolution by finding the tree that requires minimum number of changes to explain the data, maing use of the whole data at once.
+This idea stems back to the works of William of Ockham (1320), stating that among competing hypotheses one should select the one with the fewest assumptions and disregard the remaining ones (the Ockham's razor).
+\cite{Fitch1971} published an dynamic programming algorithm that efficiently searches all possible tree topologies, assigning scores to them and finding the one with minimal parsimony score.
+Figure \ref{fig:parsimony} presents an example of parsimony, where among two trees explaining the evolution of sequences {\color{green}AAG}, {\color{green}AAA}, {\color{green}GGA}, {\color{green}AGA} only the most parsimonious one is selected.
+
+%---PARSIMONY TREE---%
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.3]{parsimony} 
+\caption{
+{ \footnotesize 
+{\bf Parsimony example.} Tree on the left is preffered as it requires least changes.
+}% END: footnotesize
+}
+\label{fig:parsimony}
+\end{figure}
+
+%likelihood
+Maximum likelihood is a probabilistic method of inference, that evaluates a hypothesis in terms of how probable it is in the light of the observed data.
+In phylogenetic setting a likelihood function would return the probability of that the proposed model and the proposed tree, understood as a topology and branch lengths, has generated the observed data.
+The evolutionary history and associated set of evolutionary parameters with a higher probability is naturaly preffered over a history with a lower probability.
+By using optimization techniques one can maximize the probability and find the most probable set of parameters.
+\cite{Felsenstein1981} in their very influential work proposed an efficient algorithm for calculating a likelihood of sequence evolution on a tree under an evolutionary model of substitution, the so called `tree pruning' algorithm.
+Unfortunately finding the maximum likelihood tree requires a search through the space of all possible tree topologies, in section \ref{sub:mlburden} we discuss in detail the computational burden associated with these calculations.
+The time required to exhaustively search through a space of all possible rooted trees grows exponentialy with the number of taxa, as depicted in Table \ref{tab:maxLikeBurden}.
+
+% This is also where you can describe the computational burden and that table.
+\begin{table}[H]
+\centering
+% \footnotesize{
+\begin{tabular}{cc}
+% {@{}l*{2}{D{.}{.}{7}}@{}}
+\hline 
+Tips & Rooted trees $\frac{(2N-3)!}{2^{N-2}\cdot(N-2)!}$ \tabularnewline
+\hline 
+\rowcolor{gray1}
+$3$ & $3$\tabularnewline
+$6$ & $945$\tabularnewline
+\rowcolor{gray1}
+$9$ & $2'027'025$\tabularnewline
+$15$ & $2\times10^{14}$\tabularnewline
+\rowcolor{gray1}
+$20$ & $8\times10^{21}$\tabularnewline
+$55$ & $3.19\times10^{86}$\tabularnewline
+\end{tabular}
+% }
+\caption{
+{ \footnotesize 
+{\bf{Number of rooted trees per number of taxa.}} $4 \times 10^{80} $ is the no of atoms in the observable universe.
+}% END: footnotesize
+}
+\label{tab:maxLikeBurden}
+\end{table}
+
+%bayesian
+The advent of powerfull and increasingly more attainable compute power has been instrumental to the adoption of statistical methods based on likleihood estimation and very closely realted Bayesian methods.
+Bayesian statistics are not a new idea, stemming back to the 18th century and the works of reverend Thomas Bayes, a statistician, philosopher and theologian. 
+
+%---BAYES---%
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{Thomas_Bayes} 
+\caption{
+{ \footnotesize 
+{\bf Only known portrait of reverend Thomas Bayes.} This portrait was published in the 1936 book on the history of actuarial science `History of Life Insurance'. It is only hypothesised to be an actual portrait of the scholar.
+}% END: footnotesize
+}
+\label{fig:bayes}
+\end{figure}
+
+Interestingly Bayes has never published his famous work.
+Bayesian statistics have always been appealing as a very flexible approach to inference, as they allow for inclusion of prior belief about any unknown parameters, which then combined with the likelihood of the data and forms an `updated' view of the model, the posterior distribution.
+This prior specification can reflect the debree of uncertainty we put into our belief and can be further enhanced by the use of the so called hyperpriors, prior distributions put on the parameters of first order priors.
+Moreover bayesian inference allows for a natural interpretation of the results in terms of probability distributions. % and not somewhat artificial concepts of p-values or critical 
+Unfortunately bayesian inference in order to come up with the posterior distribution requires the computation of integrals over the space of all possible parameter values, which are often multi-dimensional.
+This has for many use limited it's use for but the simplest problems.
+\cite{Metropolis1953} presented a Metropolis-Hastings method, Markov chain Monte Carlo (MCMC) algorithm for obtaining a sequence of random samples from a probability distribution for which direct sampling is difficult.
+
+% \begin{minipage}[c]{\textwidth}
+\begin{remark}{Monte Carlo}
+Monte Carlo methods are computational algorithms that rely on computer generated pseudo-random numbers to obtain numerical results. 
+They were invented in the late 1940's by Stanis\l{}aw Ulam, while he was working on nuclear weapons `project Manhattan'
+% \footnote{not the most peacefull origins} 
+at the Los Alamos laboratory.  
+It was named after the Monte Carlo Casino in Monaco, where Ulam's uncle often gambled.
+Monte Carlo was dubbed the most important algorithm of 21st century by the Society for Industrial and Applied Mathematics (SIAM).
+\end{remark}
+% \end{minipage}
+
+Bayesian inference problem can be formulated as a sampling problem, as we discuss in Section \ref{sec:bayesian_inference}, reducing to a very simple and effective method, which contributed to the popularity of Bayesian statistics that we see today. 
+The availibility of programs for Bayesian phylogenetics like MrBayes \citep{Huelsenbeck2001} and BEAST \citep{Drummond2012} further contrubuted towards the widespread adoption and popularity of these methods.
 
 \subsection{Time-Calibrated Trees and Measurably Evolving Populations}
 
@@ -135,13 +211,10 @@ Due to the rapid nature of the viral evolution, the process of character substit
 %How about the fact that a very dangerous virus (which made the news and hence readers will be able to relate to) is only a few mutations away from current bird flu viruses?
 %Check this article (the links to the actual Nature and Science papers are at the bottom of the page): http://www.medicalnewstoday.com/articles/246964.php
 
-%PL: this figure is a bit weak. If you only illustrate it with three taxa (I would use more), than reduce the vertical space and use the horizontal space better. thickened the branches and tips for visibility; increase the size of the axis and its labels for readability -- try to develop some sensitivity for such visual aspects.
-%PL; alternatively, valorize the efforts of others and use figures from papers like our AIDS Reviews one: https://www.dropbox.com/s/8p5d4fqo3wup2lp/figure1.pdf
-
 %---ULTRAMETRIC TREE---%
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.35]{ultrametric} 
+\includegraphics[scale=0.3]{ultrametric} 
 \caption{
 { \footnotesize 
 {\bf Different sampling schemes.} Tree on the right has all of it's sampling dates set at $t=0$. Conversly the tree on the left is sampled at different points in time and provides temporal information.
@@ -771,7 +844,7 @@ l(X)=\underset{j=1}{\overset{l}{\sum}}log\left(L(\mathbf{x}_{jh})\right)
 
 %PL: perhaps note that you moved to Log L in the last step to avoid underflow when multiplying small numbers or something?
 
-\subsection{The computational burden of likelihood computations}
+\subsection{The computational burden of likelihood computations\label{sub:mlburden}}
 
 We have already mentioned that for large data sets the run-time of statistical phylogenetic analysis is a major caveat that hampers the development and application of novel, more biologically relevant models and inference in the field.
 These limits are being actively stretched, for example by porting the computationally expensive calculations to high-performance parallel devices such as Graphics-Processing Units (GPUs, \cite{Nickolls2008}).
@@ -930,7 +1003,7 @@ Fortunately, these operations are very regular and lend themselves to the comput
 
 % TODO: maybe sub-section on GPUs here
 
-\section{Bayesian inference}
+\section{Bayesian inference\label{sec:bayesian_inference}}
 
 \subsection{Bayesian evolutionary analysis}
 
