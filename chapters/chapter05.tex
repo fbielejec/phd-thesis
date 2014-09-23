@@ -127,23 +127,26 @@ This method proceeds by partitioning the rate distribution into a countable numb
 Then a beta model is used to decide what intervals the underlying rate distribution is partitioned into and calculate corresponding rate class values.
 This is perhaps the most flexible approach for evaluating site-specific rate variation to date, that provides a good fit to data with only a few extra parameters.
 
-The molecular clock hypothesis \citep{Zuckerkandl1962} posits that the rate of evolution of any specified protein remains constant over time and over different lineages.
-This hypothesis is compelling, mostly because of its simplicity and because it allows to date bifurcation events on the tree of life.
-There is however no biological motivation to assume a constant pattern of the parameters shaping the substitution process across branches, it is rather a computational convenience.
-In fact the evidence for heterogenous rates of evolution have been found and demonstrated in several studies \citep{EyreWalker1997,Andreasen2001} and the strict molecular clock hypothesis is often rejected for real-world data sets.
-In comparison to across-data variation relatively less work has been aimed at modelling across-lineage rate heterogeneity.
 
-Unfortunately allowing for an unconstrained changes in branch substitution rates does not facilitate the main advantage of the molecular clock hypothesis - the ability to date the speciation events on the tree.
-% the rate and time along each branch can only be estimated as their product
-This is due to the fact that the branch time is a product of the expected number of substitutions per site (rate, $r$) and the branch length in time units ($t$), causing the two to be confounded in phylogenetic analysis (see also Subsection \ref{sub:rates}).
-These problems have lead to the proposal of so-called "relaxed molecular clock" models, which allow for a changes in rate over time, but in a constrained manner, allowing for divergence time estimation.
-\citet{Drummond2006} propose several uncorrelated relaxed clock models in which the substitution rate can vary among the branches of the tree by being drawn independently and identically from some underlying distribution.
-This work has been further extended by \citet{Drummond2010} who developed a Random Local Clock (RLC) model, which does not rely on the number and location of rate changes being fixed.
-%GB: this next sentence is unclear, please rewrite it
-Instead, the RLC model allows for constructing proposal which move both in the tree space and in the clock structure space at the same time, allowing for a joint reconstruction of the topology as well as the divergence time estimation. 
-Their approach utilizes the fact that for most datasets there exists only a small number of rate changes and that subclades on a tree will share the same rate.
-This allows them to efficiently sample from the clock rate space using Bayesian Stochastic Search Variable Selection (BSSVS, \citet{Lemey2009}) 
-%GB: maybe best to roughly explain BSSVS?
+%TODO: these bits moved to General Intro
+% 
+% The molecular clock hypothesis \citep{Zuckerkandl1962} posits that the rate of evolution of any specified protein remains constant over time and over different lineages.
+% This hypothesis is compelling, mostly because of its simplicity and because it allows to date bifurcation events on the tree of life.
+% There is however no biological motivation to assume a constant pattern of the parameters shaping the substitution process across branches, it is rather a computational convenience.
+% In fact the evidence for heterogenous rates of evolution have been found and demonstrated in several studies \citep{EyreWalker1997,Andreasen2001} and the strict molecular clock hypothesis is often rejected for real-world data sets.
+% In comparison to across-data variation relatively less work has been aimed at modelling across-lineage rate heterogeneity.
+% 
+% Unfortunately allowing for an unconstrained changes in branch substitution rates does not facilitate the main advantage of the molecular clock hypothesis - the ability to date the speciation events on the tree.
+% % the rate and time along each branch can only be estimated as their product
+% This is due to the fact that the branch time is a product of the expected number of substitutions per site (rate, $r$) and the branch length in time units ($t$), causing the two to be confounded in phylogenetic analysis (see also Subsection \ref{sub:rates}).
+% These problems have lead to the proposal of so-called "relaxed molecular clock" models, which allow for a changes in rate over time, but in a constrained manner, allowing for divergence time estimation.
+% \citet{Drummond2006} propose several uncorrelated relaxed clock models in which the substitution rate can vary among the branches of the tree by being drawn independently and identically from some underlying distribution.
+% This work has been further extended by \citet{Drummond2010} who developed a Random Local Clock (RLC) model, which does not rely on the number and location of rate changes being fixed.
+% %GB: this next sentence is unclear, please rewrite it
+% Instead, the RLC model allows for constructing proposal which move both in the tree space and in the clock structure space at the same time, allowing for a joint reconstruction of the topology as well as the divergence time estimation. 
+% Their approach utilizes the fact that for most datasets there exists only a small number of rate changes and that subclades on a tree will share the same rate.
+% This allows them to efficiently sample from the clock rate space using Bayesian Stochastic Search Variable Selection (BSSVS, \citet{Lemey2009}) 
+% %GB: maybe best to roughly explain BSSVS?
 
 Here we propose an approach similar in spirit to the Random Local Clock model.
 %GB: for modelling what concerning the branch rates?

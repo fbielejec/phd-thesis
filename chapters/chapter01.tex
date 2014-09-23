@@ -72,11 +72,14 @@ The remainder of the chapter provides a more mathematically-oriented description
 
 \subsection{Molecular evolution and Phylogenetics}
 
-% [PL: briefly introduce the field of molecular evolution, touching upon the essence of some basic evolutionary concepts (mutation<->substitution, selection, fitness), and how phylogenetics can be useful int this context. 
+The main axiom of molecular evolution is the idea that the processes that shape the fitness of organisms leave a measurable imprint on their genomes.
+The evolution, being a stochastic process at any given moment introduces random base changes in the alphabet.
+For some time those mutations coexist with the vanilla-type organisms until selection decides whether the mutations increases the fitness, in which case the entire population eventually carries the said mutation and it becomes a fixed substitution.  
+Molecular phylogenetics is a study of those changes.
+Based on the observed sequence data it infers the ancestral relationships and evolutionary parameters of interest.
 
-The main axiom of molecular evolution is the idea that the processes that shape the fitness  
-
-Phylogenetic trees are graphs depicting the ancestral relationship.
+The result of a molecular phylogenetic analysis is expressed in a phylogenetic tree. 
+Phylogenetic trees are bifurcating graphs depicting the ancestral relationship.
 External nodes of the tree (also called tips or leaves) represent the observed character data, while internal nodes represent the missing data.  
 A common ancestor of all the observed character sequences (the most-recent common ancestor, MRCA) is called the root of the tree.
 Similarly if we look at a group of nodes on a tree, which consists of all the descendants sharing a particular ancestor, we would be calling it a clade.
@@ -198,20 +201,38 @@ The availibility of programs for Bayesian phylogenetics like MrBayes \citep{Huel
 
 \subsection{Time-Calibrated Trees and Measurably Evolving Populations}
 
-%PL: a central concept that really needs to be introduced here is molecular clocks (something that goes back to Zuckerkandl and Pauling). So first decribe this and then talk about how this needs to be adapted for MEPs
+%Molecular clock
+The molecular clock hypothesis (MCH, \cite{Zuckerkandl1962}) posits that the rate of evolution of any specified protein remains constant over time and over different lineages.
+In particular the rate of substitution is roughly proportional to the actual time, as the authors observed by studying the rato of amino acid replacements and comparing them to fossil record.
+
+% \begin{figure}[H]
+% \centering
+% \includegraphics[scale=0.3]{molecular_clock} 
+% \caption{
+% { \footnotesize 
+% {\bf Inferred pairwise nucleotide substitutions among 17 mammal species plotted against dates of divergence estimated from fossil records \citep{Wilson1976}.} Linear relationship suggests that pairwise molecular differences are proportional to the time of their separation, and not the morphological traits.
+% }% END: footnotesize
+% }
+% \label{fig:molecular_clock}
+% \end{figure}
+
+This hypothesis is compelling, mostly because of its simplicity and because it allows to date bifurcation events on the tree of life.
+The molecular clock alone can only estimate the proportion of time between two events. 
+To assign concrete dates it needs to be calibrated against some event in the past for which the dating is known, like fossil records.
+
+% MEPs
+For viral phylogenetics, due to the rapid nature of the viral evolution, it is possible to sample sequences over an evolutionary timescale, as opposed to the ultrametricly sampled data, such as depicted in Figure~\ref{fig:ultrametric}.
+In these cases the dates of the samples themselves can be used to calibrate the molecular clock.
 
 %GB: I think you should discuss some properties of EIDs at the nucleotide/amino acid/codon level (since that's what we've ended up extending) and link this to what you've done.
 %Perhaps you can get some inspiration from the following paper: http://jvi.asm.org/content/84/19/9864.long
 %Jeff Thorne is incorporating ''disease properties'' (for example, if they know that a certain non-synonymous mutation can be lethal) into his new codon models, explicitly taking into account likely lethal mutations.
 
-The central assumption of viral phylogenetics posits that the epidemiological processes shaping the fitness of viral populations leave a measurable footprint on their genomes.
-%GB: Perhaps you can give an example of what type of footprints can be observed in the genome? What would one see in particular in a genome due to a virus?
-Due to the rapid nature of the viral evolution, the process of character substitution can be observed in almost real time, and gives the opportunity to sample genetic data at different points in time, as opposed to ultrametricly sampled data such as depicted in Figure~\ref{fig:ultrametric}.
 %GB: Can you give a (or some) know example(s) of such substitution or the importance of some particular substitutions?
 %How about the fact that a very dangerous virus (which made the news and hence readers will be able to relate to) is only a few mutations away from current bird flu viruses?
 %Check this article (the links to the actual Nature and Science papers are at the bottom of the page): http://www.medicalnewstoday.com/articles/246964.php
 
-%---ULTRAMETRIC TREE---%
+%---SAMPLING SCHEMES---%
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.3]{ultrametric} 
@@ -223,16 +244,28 @@ Due to the rapid nature of the viral evolution, the process of character substit
 \label{fig:ultrametric}
 \end{figure}
 
-%GB: remove the 'significant' in the sentence below?
-Such time stamped data-sets are usually reffered to as time-heterogeneous and frequently arise from studies involving viruses which accumulate statistically significant amounts of genetic change in a relatively short amount of time.
-Populations for which such data can be obtained are called measurably evolving populations (MEPs, \cite{Drummond2003}) and have been instrumental in providing estimates of the evolutionary rate and in making advances to the theory of molecular clock models \citep{Drummond2006}.
+Such time stamped data-sets are usually reffered to as time-heterogeneous and frequently arise from studies involving viruses which accumulate large amounts of genetic change in a relatively short amount of time.
+Populations for which such data can be obtained are called measurably evolving populations (MEPs, \cite{Drummond2003}) and have been instrumental in providing estimates of the evolutionary rate and in making advances to the theory of relaxed molecular clock models \citep{Drummond2006}.
 
-In studies known as phylodynamics the processes which shape the viral genome are integrated with epidemiological dynamics, by assuming that both the evolution and 
-geographical dispersal are independent, stochastic processes which unfold on phylogenetic trees.
-In that sense the tree does not only provide a record of evolutionary ancestry, but also of the dispersal in actual geographical coordinates, and both these processes happen simultaneously.
+% relaxed phylogenetics
+The fact that the MCH is a simplifying assumption, widely adopted for it's computational convenience rather than biological motivation has been known for a while.
+The evidence for heterogenous rates of evolution has been found and demonstrated in several studies \citep{EyreWalker1997,Andreasen2001} and the strict molecular clock hypothesis is often rejected for real-world data sets.
 
-Our group has been involved in research which aims at developing a full quantitative understanding of the processes that shape the epidemiology and the evolution of MEP-like viruses.
-In the following section, I present the problems on which my involvement in this fascinating area of research has been focused.
+A naive approach to counter these problems is to allow for unconstrained changes in branch substitution rates on the whole tree.
+Unfortunately this does not facilitate the main advantage of the molecular clock hypothesis - the ability to date the speciation events.
+This is due to the fact that the branch time is a product of the expected number of substitutions per site (rate, $r$) and the branch length in time units ($t$), causing the two to be confounded in phylogenetic analysis (see also Subsection \ref{sub:rates}).
+
+These problems have lead to the proposal of so-called "relaxed molecular clock" models, which allow for a changes in rate over time, but in a constrained manner, allowing for divergence time estimation.
+\citet{Drummond2006} propose several uncorrelated relaxed clock models in which the substitution rate can vary among the branches of the tree by being drawn independently and identically from some underlying distribution.
+Further extensions of this work by \citet{Drummond2010} have led to the development of a Random Local Clock (RLC) model, which set in a Bayesian framework allows for a joint reconstruction of the topology as well as the divergence time estimation. 
+The RLC model constructs proposal distributions which efficiently propose moves in both the tree space and in the clock rate space at the same time. %(see Subsection~\ref{sub:MCMC})
+Furthermore this approach favours parsimonious models with least parameters, utilizing the fact that for most datasets there exists only a small number of rate changes and that subclades on a tree will share the same rate.
+Bayesian Stochastic Search Variable Selection (BSSVS, \citet{Lemey2009}) procedure determines from the data which clock rates are to be included and which have a neglible probability of occuring.
+
+
+
+
+
 
 
 \subsection{Processes Giving Rise to Genealogies: Demography and Migration}
@@ -241,6 +274,12 @@ In the following section, I present the problems on which my involvement in this
 [PL: Discuss variable size coalescent (demographic) models (which are the tree priors in BEAST)
 Introduce phylogeography -- discrete ancestral state reconstruction is only one way of doing this (see Bloomquist, Lemey, Suchard)]
 
+% In studies known as phylodynamics the processes which shape the viral genome are integrated with epidemiological dynamics, by assuming that both the evolution and 
+% geographical dispersal are independent, stochastic processes which unfold on phylogenetic trees.
+% In that sense the tree does not only provide a record of evolutionary ancestry, but also of the dispersal in actual geographical coordinates, and both these processes happen simultaneously.
+
+% Our group has been involved in research which aims at developing a full quantitative understanding of the processes that shape the epidemiology and the evolution of MEP-like viruses.
+% In the following section, I present the problems on which my involvement in this fascinating area of research has been focused.
 
 \subsection{Bayesian evolutionary inference in BEAST}
 
@@ -249,7 +288,10 @@ Introduce phylogeography -- discrete ancestral state reconstruction is only one 
 If there is too little here to build a subsection, you can attach it to the previous subsection and call that 'Bayesian genealogical inference using BEAST'
 ]
 
+BEAST software \citep{Drummond2012}, which is co-developed in our research group is build around these advances.
+By assuming either strict or relaxed clock BEAST allows for sampling rooted and time-measured phylogenies,  
 
+%TODO
 
 \subsection{Objectives: model extension, simulation and visualisation}
 
@@ -1086,8 +1128,6 @@ Assuming that the sites are independent we can use a binomial model and put a be
 Figure~\ref{fig:bayes1} shows the resulting posterior distribution along with prior and scaled likelihood.
 This illustrates that the data `pulls' the posterior away from the prior, and the strength by which is does so depends on its variance, resulting in a posterior centered around 0.6 in this case.
 In this example, the posterior distribution can be obtained analytically because the beta distribution is a so called \emph{conjugate prior} for the binomial model, resulting in the posterior that is also beta-distributed.
-%TODO: proof in appendix?
-%PL: nah, unless you are the first to prove this :-)
 
 \subsection{Markov Chain Monte Carlo\label{sub:MCMC}}
 
