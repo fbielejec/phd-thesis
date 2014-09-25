@@ -262,17 +262,123 @@ The RLC model constructs proposal distributions which efficiently propose moves 
 Furthermore this approach favours parsimonious models with least parameters, utilizing the fact that for most datasets there exists only a small number of rate changes and that subclades on a tree will share the same rate.
 Bayesian Stochastic Search Variable Selection (BSSVS, \citet{Lemey2009}) procedure determines from the data which clock rates are to be included and which have a neglible probability of occuring.
 
-
-
-
-
-
-
 \subsection{Processes Giving Rise to Genealogies: Demography and Migration}
 
+Genealogies are are trees which are records of ancestral and descendant relationships of individuals in a population.
+The process describing how, looking from the past towards the present, lineages on a genealogies come together is called the \textit{coalescent} \citep{Kingman1982}.
+The simplest formulation of the coalescent process described by John Kingman is known as the \textit{Wright-Fisher} \citep{Fisher1930,Wright1931} population model (see Figure~\ref{fig:wright-fisher}).
 
-[PL: Discuss variable size coalescent (demographic) models (which are the tree priors in BEAST)
-Introduce phylogeography -- discrete ancestral state reconstruction is only one way of doing this (see Bloomquist, Lemey, Suchard)]
+%---COALESCENT---%
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{wright-fisher} 
+\caption{
+{ \footnotesize 
+{\bf The Wright-Fisher population model and Kingman's $n$-coalescent} A. The Wright-Fisher population of $N=10$ individuals. All sampled lineages coalesce to a common ancestor.
+B. With the Kingman's $n$-coalescent time is continuous and measured from tips towards the root.
+}% END: footnotesize
+}
+\label{fig:wright-fisher}
+\end{figure}
+
+Under the Wright-Fisher model the population size $N$ is assumed to be constant through time.
+Time (generations) is discrete, i.e. every individual is replaced every generation, with all individuals having equal chances of reproducing.
+Let us start with numbering time (generations), starting from present one as $t_{0},t_{1},t_{2},\ldots,t_{k}$.
+Probability that two individuals sampled at the present generation $t_{0}$ share a common ancestor at a preceding generation $t_{1}$ is $\frac{1}{N}$.
+Probability that two individuals sampled at $t_{0}$ share an ancestor at $t_{2}$ is the probability that they do not share an ancestor at $t_{1}$, which is $1-\frac{1}{N}$, times the probability of sharing an ancestor at $t_{2}$, which is $\frac{1}{N}$, as the population size remains constant every generation.
+
+\begin{remark}{Sir John Frank Charles Kingman}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{kingman} 
+\caption{
+{ \footnotesize 
+% {\bf Sir John Frank Charles Kingman.} 
+This suave looking gentleman is a British mathematician, with his most notable work on the mathematics of the coalescent, a process fundamental to modern population genetics. 
+Interestingly Kingman never completed his PhD.
+}% END: footnotesize
+}
+\label{fig:kingman}
+\end{figure}
+\end{remark}
+
+Generalizing this, we can write down the probability that a pair of randomly sampled individuals will have their most-recent common ancestor (MRCA) at time $t_{k}$:
+
+\begin{equation}
+P\left(t_{k}\right)=\left(\frac{1}{N}\right)\left(1-\frac{1}{N}\right)^{k-1}.
+\label{eq:wright-fisher-two-individuals}
+\end{equation}
+
+\noindent
+Now instead of sampling just two individuals we sample $n,\;2<n\leq N$ individuals, where $n\ll N$.
+There are now $\frac{n\left(n-1\right)}{2}$ pairs in $t_{0}$ which can coalesce in $t_{1}$ and each pair has  $\frac{1}{N}$ probability of sharing the same ancestor, therefore:
+
+\begin{equation}
+P\left(t_{1}\right)=\frac{n\left(n-1\right)}{2N}.
+\label{eq:wright-fisher-n-individuals}
+\end{equation}
+
+\noindent
+Similarly as in the case of a pair of individuals we can generalize Equation~\ref{eq:wright-fisher-n-individuals} and write down the probability that the sampled pairs of individuals coalesce at $t_{k}$:
+
+\begin{equation}
+P\left(t_{k}\right)=\left(\frac{n\left(n-1\right)}{2N}\right)\left(1-\frac{n\left(n-1\right)}{2N}\right)^{k-1}
+\label{eq:wright-fisher-n-individuals-general}
+\end{equation}
+
+\noindent
+Equation~\ref{eq:wright-fisher-n-individuals-general} characterizes a probability mass function (PMF) of a geometric distribution with parameter $p=\frac{n\left(n-1\right)}{2N}$ (see Equation~\ref{eq:geometric_dist}).
+
+\begin{remark}{Geometric distribution}
+Geometric distribution returns the probability that the $k$-th trial out of $k$ independent Bernoulli trials, each with success probability $p$, is a succesfull one:
+
+\begin{equation}
+P\left(X=k\right)=p\left(1-p\right)^{k-1},\;0<p\leq1,\; k\in\left\{ 1,2,3,\ldots\right\}.
+\label{eq:geometric_dist}
+\end{equation}
+
+\noindent
+Cumulative distribution function of the geometric distribution:
+\begin{equation}
+P(X\leq k)=1-\left(1-p\right)^{k-1}.
+\label{eq:geometric_cdf}
+\end{equation}
+\end{remark}
+
+For small values of $p$ the discrete geometric distribution can be approximated by it's continuous equivalent, the exponential distribution. 
+An informal argument finds itself in Figure~\ref{fig:exp_approx}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.3]{exponential_approx} 
+\caption{
+{ \footnotesize 
+{\bf Approximating geometric distribution by exponential distribution.} 
+Black rectangles denote the discrete geometric distribution, red line is the continuous geometric distribution.
+}% END: footnotesize
+}
+\label{fig:exp_approx}
+\end{figure}
+
+This approximation let's us now move into continuous time, and we can write Equation~\ref{eq:wright-fisher-n-individuals-general} as:
+
+\begin{equation}
+P\left(t_{k}\right)=\frac{n\left(n-1\right)}{2N}exp\left(-\frac{n\left(n-1\right)}{2N}k\right)
+\label{eq:exponential_time}
+\end{equation}
+
+In the light of Equation~\ref{eq:exponential_time} we can view the Kingman's coalescent as a continuous time version of the Wright-Fisher model with $n$ sampled individuals.
+
+
+
+
+% Introduce phylogeography -- discrete ancestral state reconstruction is only one way of doing this (see Bloomquist, Lemey, Suchard)]
+
+
+
+
+
+
 
 % In studies known as phylodynamics the processes which shape the viral genome are integrated with epidemiological dynamics, by assuming that both the evolution and 
 % geographical dispersal are independent, stochastic processes which unfold on phylogenetic trees.
