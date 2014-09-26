@@ -7,7 +7,7 @@ TODO
 
 \section{General Introduction}
 
-\subsection{Viral Epidemiology and the Emergence of Phylodynamics}
+\subsection{Viral Epidemiology and the Emergence of Phylodynamics\label{sub:epidemiology}}
 
 Many pathogens represent a clear and eminent threat to public health. 
 This has been exemplified by 
@@ -53,24 +53,7 @@ Homogenous analysis will not detect such changes, which is why substantial work 
 In order to position these recent developments, we first provide a brief general account of the field of molecular evolution and phylogenetics and then introduce recent developments and models specific for rapidly-evolving RNA viruses, and how this culminated in to a state-of-the-art statistical framework for phylodynamics. As a final part of the general introduction, we outline how the current doctoral thesis work extends and complements this framework in the objectives.
 The remainder of the chapter provides a more mathematically-oriented description of how to model evolution evolution as a stochastic process on trees, the computational aspects involved, and how to treat the problem from a Bayesian statistical perspective.
 
-%Rapidly evolving pathogens pose an ever continuing public health threat.
-%This threats are exemplified by recent infections with H5N1 avian influenza A, pandemic spread of swine-origin H1N1 influenza \citep{Rambaut2008}, Severe Acute Respiratory Syndrome (SARS) \citep{Ksiazek2003} and the outbreak of the haemorrhagic fever in humans in Africa (Ebola virus, \citet{Dudas2014}).
-%Unlike zoonotic diseases human RNA viruses have no natural barriers that could hamper their escalation, mainly due to the extensive nature of human mobility \citep{Brockmann2006}.
-%
-%Despite the ever increasing impact of emerging infectious diseases (EIDs) the first studies combining molecular evolution with geographical dispersal are less than 50 years old \citep{Henning1966}. 
-%Most of these pioneering studies were limited to mapping phylogenetic tip taxa to their geographical coordinates \citep{Kidd2006} and comprehensive quantitative frameworks for analysing viral spread have only recently begun being developed.
-%Models that combine the process of spatial diffusion with genetic substitution are only as recent as this decade \citep{Lemey2009,Lemey2010}.
-%% The hampered advances in the field of computational phylogenetics is mainly attributed to the computational burden that these compute-intensive calculations impose.
-%Advances in the field of computational phylogenetics are mainly hampered by the the computational burden that these compute-intensive calculations impose.
-%As an example, finding the maximum likelihood tree requires a search through the space of all possible tree topologies, which quickly becomes computationally intractable, as depicted in Table~\ref{tab:maxLikeBurden}.
-%
-%Adopting Bayesian statistical approach, implemented in a flexible framework of molecular evolution \citep{Drummond2012} helps circumvent some of these hindrances by focusing sampling efforts on the topologies 
-%% parts of the tree space
-%that best fit the data.
-%Nonetheless Bayesian phylogenetic analyses remain highly computationally intensive and a vast area of research is now aiming at bringing new advances to actively stretch these limits \citep{Suchard2009}.
-%This problem is further aggravated as the advent of high-throughput sequencing produces millions of sequences at low cost resulting in the availability of increasingly large data sets.
-
-\subsection{Molecular evolution and Phylogenetics}
+\subsection{Molecular evolution and Phylogenetics\label{sub:molevol}}
 
 The main axiom of molecular evolution is the idea that the processes that shape the fitness of organisms leave a measurable imprint on their genomes.
 The evolution, being a stochastic process at any given moment introduces random base changes in the alphabet.
@@ -262,7 +245,7 @@ The RLC model constructs proposal distributions which efficiently propose moves 
 Furthermore this approach favours parsimonious models with least parameters, utilizing the fact that for most datasets there exists only a small number of rate changes and that subclades on a tree will share the same rate.
 Bayesian Stochastic Search Variable Selection (BSSVS, \citet{Lemey2009}) procedure determines from the data which clock rates are to be included and which have a neglible probability of occuring.
 
-\subsection{Processes Giving Rise to Genealogies: Demography and Migration}
+\subsection{Processes Giving Rise to Genealogies: Demography and Migration\label{sub:molecular_clock}}
 
 Genealogies are are trees which are records of ancestral and descendant relationships of individuals in a population.
 The process describing how, looking from the past towards the present, lineages on a genealogies come together is called the \textit{coalescent} \citep{Kingman1982}.
@@ -368,36 +351,64 @@ P\left(t_{k}\right)=\frac{n\left(n-1\right)}{2N}exp\left(-\frac{n\left(n-1\right
 \end{equation}
 
 In the light of Equation~\ref{eq:exponential_time} we can view the Kingman's coalescent as a continuous time version of the Wright-Fisher model with $n$ sampled individuals.
-
-
-
+Under molecular clock (see Subsection~\ref{sub:molecular_clock}) mutation rate $r$ and time are confounded.
+%TODO: mutation rate? P(t_k|\theta) ?
+However for MEP populations, were sequences are sampled serially in time (see Figure~\ref{fig:ultrametric}) the two can be disentangled.
+\cite{Rodrigo1999} developed an extension of the Kingman's coalescent, the so called \textit{serial coalescent} (s-coalescent), that allows to scale the genealogies in real time units.
+Such a formulation can be used as a prior distribution for the tree and sampled from using Markov-Chain Monte Carlo (see Subsection~\ref{sub:MCMC}).
 
 % Introduce phylogeography -- discrete ancestral state reconstruction is only one way of doing this (see Bloomquist, Lemey, Suchard)]
+Another process which shapes the phylodynamics of viral sequences is the process of their migration, which we understand as a dispersal in actual geographical coordinates.  
+Inference methods which make use of both molecular and geographical data have been dubbed as phylogeography as the processes which shape the genome are integrated with the processes of geographical spread.
+In that sense the inferred tree does not only provide a record of evolutionary ancestry, but also of the dispersal in actual geographical coordinates.
 
+% snow
+Perhaps a first know study which used epidemiological methods which we today call phylodynamics, is the famous John Snow's work in 1854, tracing the source of a cholera epidemic in the Soho district of London.
+There was no notion of molecular data or even bacteria nor viruses, yet by using a dot map Snow was able to show that almost all the cases in were clustered in a close proximity of a water pump on the Broad Street (see Figure~\ref{fig:snow}).
+Snow was able to persuade local authorities to remove the handle, which contrbuted to the end of the outbreak.
+It was later found that a nearby cesspool was in fact leaking it's content into the public well, therefore transmitting water contaminated with the cholera bacteria.
 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{snow_map} 
+\caption{
+{ \footnotesize 
+{\bf Map of the cholera cases in the London epidemic of 1854.} 
+Map shows the clustering of cases around water pump on the Broad Street (currently called Broadwick Street).
+}% END: footnotesize
+}
+\label{fig:snow}
+\end{figure}
 
+% stochastic model based
+\cite{Bloomquist2010} in their opinion on current methods in phylogeography highlight the fully probabilistic approaches that use Continuous-time Markov chain (CTMC) models to infer transitions between discrete locations in a function of continuous time.
+Maximum likelihood and closely related Bayesian inference methods assume that both the evolution and geographical dispersal are independent, stochastic processes which unfold on phylogenetic trees.
+\cite{Lemey2009} and \cite{Lemey2010} developed a Bayesian framework that allows for a joint reconstruction of spatial diffusion and genetic ancestry, accommodating important sources of uncertainty in estimating spatial and temporal dynamics.
 
-
-
-
-% In studies known as phylodynamics the processes which shape the viral genome are integrated with epidemiological dynamics, by assuming that both the evolution and 
-% geographical dispersal are independent, stochastic processes which unfold on phylogenetic trees.
-% In that sense the tree does not only provide a record of evolutionary ancestry, but also of the dispersal in actual geographical coordinates, and both these processes happen simultaneously.
-
-% Our group has been involved in research which aims at developing a full quantitative understanding of the processes that shape the epidemiology and the evolution of MEP-like viruses.
-% In the following section, I present the problems on which my involvement in this fascinating area of research has been focused.
+% population genetic / migration models
+The coalescent which we described at the beginning of this Subsection, and more generally population genetic approaches are another statistical inference method that can be naturally extended for phylogeography.
+These methods assume that trees are shaped by processes such as migration, selection or fluctuations in the population sizes in time.
+Trees proposed by the coalescent are then random draws from a larger, population-level processes, and one can use molecular and other data to get a better resolution of these underlying processes.
 
 \subsection{Bayesian evolutionary inference in BEAST}
+% [PL: How this all integrates in a flexible framework and publicly available software, one that adequately accounts for phylogenetic uncertainty by averaging over all plausible evolutionary histories for your data
+% If there is too little here to build a subsection, you can attach it to the previous subsection and call that 'Bayesian genealogical inference using BEAST'
+% ]
+
+Bayesian evolutionary analysis by sampling trees (BEAST) software \citep{Drummond2012}, which is co-developed in our research group is build around the advances described in Subsections~\ref{sub:epidemiology}-\ref{sub:molecular_clock}.
 
 
-[PL: How this all integrates in a flexible framework and publicly available software, one that adequately accounts for phylogenetic uncertainty by averaging over all plausible evolutionary histories for your data
-If there is too little here to build a subsection, you can attach it to the previous subsection and call that 'Bayesian genealogical inference using BEAST'
-]
 
-BEAST software \citep{Drummond2012}, which is co-developed in our research group is build around these advances.
-By assuming either strict or relaxed clock BEAST allows for sampling rooted and time-measured phylogenies,  
 
-%TODO
+
+
+
+
+
+% By assuming either strict or relaxed clock BEAST allows for sampling rooted and time-measured phylogenies,  
+%Adopting Bayesian statistical approach, implemented in a flexible framework of molecular evolution \citep{Drummond2012} helps circumvent some of these hindrances by focusing sampling efforts on the topologies 
+%% parts of the tree space
+%that best fit the data.
 
 \subsection{Objectives: model extension, simulation and visualisation}
 
