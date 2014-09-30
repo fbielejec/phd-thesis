@@ -433,16 +433,15 @@ It allows for manipulation of models, priors, operators, and MCMC chain settings
 It allows for a quick inspection of mixing, convergence, and distribution of the parameters of interest.
 \textbf{TreeAnnotator} summarizes the tree log files as MCC (maximum clade credibility) trees and allows for annotating tree branches with external information, such as posterior probabilities, a posteriori most probable ancestral traits and other.
 These information can then be visualised using \textbf{FigTree} or if nodes of the trees are annotated with spatial information they can be displayes in geographical coordinates using \textbf{SPREAD}.
-Finally \textbf{PIBUSS} is a software for sequence simulation, capable of generating XML files understood by BEAST for combined simulation-inference analysis as well as sequences in formats taht can be imported into any other phylogenetic software.
+Finally \textbf{$\pi$BUSS} is a software for sequence simulation, capable of generating XML files understood by BEAST for combined simulation-inference analysis as well as sequences in formats taht can be imported into any other phylogenetic software.
 
 BEAST is a flexible package for statistical pylogenetics and hypothesis testing.
 In addition to a large array of availiable models, it is actively developed with new models and enhancements included with every new stable release.
 
 \subsection{Objectives: model extension, simulation and visualisation}
 
-%GB: perhaps this subsection can be structured more clearly by using the \paragraph command for each of the 3 subtopics?
-
 % models
+\paragraph{}
 Phylogenetic analyses employing stochastic processes make strong restrictive assumptions regarding the underlying substitution process.
 These assumptions are mainly considered to reduce the number of free parameters of the models and ease the already mentioned computational and mathematical tractability.
 Unfortunately many of these assumptions hamper the application of the methods to the complex, real-world data-sets.
@@ -451,11 +450,13 @@ Another goal is to make the general applicability suitable for epidemiological p
 % geographical dispersal
 
 % simulation
+\paragraph{}
 With the development of novel phylogenetic inference methods comes the need to synthesize evolutionary data, in order to compare estimator performance and characterize strengths and weaknesses of different approaches (e.g. \cite{Arenas2012}, \cite{Hoban2011}).
 Whereas the true underlying evolutionary relationships between biological sequences are generally unknown, Monte Carlo simulations allow generating test scenarios while controlling for the evolutionary history as well as the tempo and mode of evolution. 
 Part of the research presented in this thesis is devoted towards development of a flexible software for sequence simulation, that integrates both the tree-generative processes, as well as models responsible for shaping the molecular histories and geographical dispersal \citep{Bielejec2014a}.
 
 % visualisation
+\paragraph{}
 Phylogenetic inference inevitably results in complex, multi-dimensional output data.
 This dimensionality is further incremented by adding the geography to the usual evolutionary time component.
 Finally, Bayesian analyses result in posterior distributions of trees, with each tree branch annotated with estimated node locations and other traits of interest.
@@ -465,21 +466,23 @@ Yet clear and intuitive visualizations are an important aspect of every analysis
 Spatial phylogenetic projections have already been utilized in the field \citep{Kidd2006,Parks2009}, yet most of these applications remain limited to mapping phylogenetic tip taxa to their geographical coordinates, without providing robust statistical estimates of the geographic locations at the ancestral nodes nor the measures of uncertainty in the inference.
 Fortunately the advent of powerful and flexible Geographic Information Systems (GIS) has fostered an interesting possibility to incorporate both spatial and temporal information into viral phylogenetic analysis.
 
-\begin{figure}[H]
-\centering
-\includegraphics[scale=0.3]{figures/spread}
-\caption{
-{ \footnotesize 
-{\bf Phylogeographic visualization of viral spread in time and space.} 
-A. Conceptual representation of time-slicing a phylogeny and projecting the part of the tree up to time $t_{1}$ and $t_{2}$ respectively. B. An example projection of influenza H5N1 over time in Google Earth for two different segment phylogenies. % (hemagglutinin and neuraminidase in green and magenta respectively).
-} % END: footnotesize
-}
-\label{fig:spread}
-\end{figure}
+%TODO: move to discussion
+
+% \begin{figure}[H]
+% \centering
+% \includegraphics[scale=0.3]{figures/spread}
+% \caption{
+% { \footnotesize 
+% {\bf Phylogeographic visualization of viral spread in time and space.} 
+% A. Conceptual representation of time-slicing a phylogeny and projecting the part of the tree up to time $t_{1}$ and $t_{2}$ respectively. B. An example projection of influenza H5N1 over time in Google Earth for two different segment phylogenies. % (hemagglutinin and neuraminidase in green and magenta respectively).
+% } % END: footnotesize
+% }
+% \label{fig:spread}
+% \end{figure}
 
 Presenting readily interpretable visual summaries of the inferences, that can in turn be communicated to the researchers across different fields is one of the more important aspects of this thesis.
 This goal has been materialized in the development of a user-friendly application, that produces compelling and informative statistical visualizations of viral spread in time and space \citep{Bielejec2011}.
-An example of such a visualisation can be found in Figure~\ref{fig:spread}.
+% An example of such a visualisation can be found in Figure~\ref{fig:spread}.
 %PL: never say 'there is a figure for you' without bothering to discuss it. At this point the reader has no idea what to make of time slicing, etc... This is an explanation of a SPREAD approach and does not belong here in the intro. Perhaps if you pick it up in the discussion, you could say that the paper format did not allow you to go into the visualization strategy all that much and you expand it on it a bit before discussing how you see the future for such things
 
 
@@ -508,22 +511,28 @@ In the simplest case, for which the unit of evolution is a single nucleotide, we
 %GB: perhaps point out that they're in fact not independent?
 The particular sites of the sequence alignment are then considered to be stochastically independent realizations of the process $X$, leading to the observed data (see Figure~\ref{fig:alignment}). 
 
-%PL: I refer to our conversation about this fig.
-% TODO change that plot, show multiple subst per branch (and how it alters time estimates)
 \begin{figure}[H]
 \centering
 \begingroup
 \everymath{\displaystyle}
 {\Large
 \begin{displaymath} % 
-    \xymatrix@R+1pc{ 
-\color{gray2}A \ar[r] & \color{gray2}T \ar[r] & A \\
-\color{gray2}A \ar[r] & \color{gray2}T \ar[r] & G \\
-\color{gray2}A  \ar[rr]_{ \color{gray2}\begin{array}{c}
+\xymatrix{
+& \color{gray2}A \ar[dl] \ar[drdr]^{ \color{gray2}\begin{array}{c}
 A\rightarrow G\\
 G\rightarrow C
-\end{array}} &&  C
-    } % 
+\end{array}} & & \\
+T & & & \\
+& & & C \\
+}
+%     \xymatrix@R+1pc{ 
+% \color{gray2}A \ar[r] & \color{gray2}T \ar[r] & A \\
+% \color{gray2}A \ar[r] & \color{gray2}T \ar[r] & G \\
+% \color{gray2}A  \ar[rr]_{ \color{gray2}\begin{array}{c}
+% A\rightarrow G\\
+% G\rightarrow C
+% \end{array}} &&  C
+%     } % 
 \end{displaymath}
 }% END: Large
 \endgroup
