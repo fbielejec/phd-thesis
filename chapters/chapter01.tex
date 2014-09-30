@@ -392,23 +392,51 @@ Trees proposed by the coalescent are then random draws from a larger, population
 
 \subsection{Bayesian evolutionary inference in BEAST}
 % [PL: How this all integrates in a flexible framework and publicly available software, one that adequately accounts for phylogenetic uncertainty by averaging over all plausible evolutionary histories for your data
-% If there is too little here to build a subsection, you can attach it to the previous subsection and call that 'Bayesian genealogical inference using BEAST'
 % ]
 
-Bayesian evolutionary analysis by sampling trees (BEAST) software \citep{Drummond2012}, which is co-developed in our research group is build around the advances described in Subsections~\ref{sub:epidemiology}-\ref{sub:molecular_clock}.
+Bayesian evolutionary analysis by sampling trees (BEAST) software \citep{Drummond2012}, co-developed in our research group, is build around the advances described in Subsections~\ref{sub:epidemiology}-\ref{sub:molecular_clock}.
+BEAST is set in a Bayesian statistical framework, meaning that it combines the data likelihood (see Subsection~\ref{sub:likelihood}) with prior knowledge (see Subsection~\ref{sec:bayesian_inference}), and generates posterior samples using MCMC (see Subsection~\ref{sub:MCMC}).
 
+% other packages
+BEAST is not the only software package for Bayesian phylogenetic analysis and can be compared to a number of other packages.
+MrBayes \citep{Huelsenbeck2001} is a command-line driven software focused on phylogenetic inference.
+Migrate-n \citep{migrate} and LAMARC \citep{Kuhner2006} focus on coalescent-driven population genetics.
 
+Like these programs, at the core of the BEAST lies a Metropolis-Hasting algorithm (\cite{Metropolis1953, Hasting1970}, see also Subsection~\ref{sub:mcmc}) for constructing Markov chains that have desired posterior distributions as their equilibrium distribution.
+It is precisely why BEAST is not meant for building a single tree or a single estimate of a parameter of interest, and rather generates whole samples that can be used to summarize distributions of mutation rates, divergence times, demographic parameters, trait evolution or others.
 
+%beast is cool
+When compared to other similar programs, BEAST definitely stands out in the number of models availiable for performing inference.
+Perhaps the most characteristic point is that BEAST is solely focused on sampling rooted, time measured phylogenies.
+This allows for a very natural interpretation of reconstructed trees, and is achieved thanks to the adoption of the molecular clock models, from simple strickt clock models, with a uniform rate across the whole time-span of the evolution, to relaxed molecular clock models that model a rate variation \citep{Thorne1998,Yoder2000,Drummond2006,Drummond2010}.
+BEAST sports a large number of complementary evolutionary models, which can be combined in a flexible way.
+Various substitution models for performing analysis on nucleotide, codon or amino-acid level are complemented with demographic tree priors such as the coalescent, skyline \citep{Drummond2005} or skyride \citep{Minin2008b} models, relaxed clock models and others.
 
+% using beast
+The program takes as input structured XML files which describe the data to be analyzed, the models to be used, the number o fposterior samples to collect and the output options.
+The output consists of a simple tab-separated files, with each row corresponding to one value sampled from the posterior distribution, for both the parameter values and actual trees.
 
+%gpus
+Growing availiability of large complex data-sets has led to the term `Big Data' being coined.
+Large sample sizes, such as full genome sequences or the ones generated with th enext-gen sequencing techniques are bound to pose a problem for phylogenetic inference as well.
+Fortunately there exist solutions that aim at reducing the time that it takes to fit complex phylogenetic models to the vast amounts of data.
+These solutions are mainly focused on harnessing the powers of modern graphics processing units (GPUs), such as the NVIDIAs Tesla line of GPUs that target the high performance computing market.
+BEAGLE (Broad-platform evolutionary analysis generalized likelihood evaluator, \cite{Ayres2012}) is a library and an API (Application Programming Interface) that massively parallel graphics processors and other multicore devices to substantially decrease the runtime of phylogenetic analysis \citep{Suchard2009}.
+BEAST readily integrates with BEAGLE and provides a GUI interface to configure the library.
 
+% external software
+BEAST comes with a number of additional external software packages that can either assist in generating the input for BEAST, analyzing the results or for some other more specific tasks.
+\textbf{BEAUti} (Bayesian Evolutionary Analysis Utility) is a  GUI (graphical user-interface) application for generating XML input files for BEAST. 
+% It alleviates some of the most cumbersome tasks that would otherwise have to be done manually, thus saving time and simplifying 
+It allows for manipulation of models, priors, operators, and MCMC chain settings, without resorting to a manual editing of the XML syntax.
+\textbf{LogCombiner} combines log files and tree log files from multiple runs, that can be than importer into \textbf{Tracer}, a graphical tool for the analysis and visualisation of the output of BEAST as well as other common MCMC packages.
+It allows for a quick inspection of mixing, convergence, and distribution of the parameters of interest.
+\textbf{TreeAnnotator} summarizes the tree log files as MCC (maximum clade credibility) trees and allows for annotating tree branches with external information, such as posterior probabilities, a posteriori most probable ancestral traits and other.
+These information can then be visualised using \textbf{FigTree} or if nodes of the trees are annotated with spatial information they can be displayes in geographical coordinates using \textbf{SPREAD}.
+Finally \textbf{PIBUSS} is a software for sequence simulation, capable of generating XML files understood by BEAST for combined simulation-inference analysis as well as sequences in formats taht can be imported into any other phylogenetic software.
 
-
-
-% By assuming either strict or relaxed clock BEAST allows for sampling rooted and time-measured phylogenies,  
-%Adopting Bayesian statistical approach, implemented in a flexible framework of molecular evolution \citep{Drummond2012} helps circumvent some of these hindrances by focusing sampling efforts on the topologies 
-%% parts of the tree space
-%that best fit the data.
+BEAST is a flexible package for statistical pylogenetics and hypothesis testing.
+In addition to a large array of availiable models, it is actively developed with new models and enhancements included with every new stable release.
 
 \subsection{Objectives: model extension, simulation and visualisation}
 
