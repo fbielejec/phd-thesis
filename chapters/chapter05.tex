@@ -1,295 +1,50 @@
-\chapter{Branch-specific codon models\label{chap:dpp}}
+\chapter{Generalised Linear Models with epoch structure\label{chap:five}}%PL: I would recommend to refer to mixed-effects modeling instead of GLM, see below
 
 \begin{remark}{Outline}
-In this chapter
-TODO
+In this chapter we discuss how this work can be connected to a Bayesian implementation of Generalised Linear Models presented by \citet{Lemey2014}, in order to couple the changes of substitution rate parameters over time to the changes in external co-variates.
 \end{remark}
 
 \section{Introduction}
 
-The first computationally tractable models of codon substitution were independently proposed by \cite{Muse1994} and \cite{Goldman1994} and published in the same issue of Molecular Biology and Evolution (MBE).
-For codon models the non-stop codon triplet $n_{1}n_{2}n_{3}$ is considered the smallest unit of evolution.
-There are $4^3$ possible triplets minus three stop codons, resulting in a state space size of $61$ codons.
-The standard assumption of independence is used, i.e. the substitutions at these three codon positions occur independently, and only a single change per triplet can occur at a given time. 
-%GB: explain in more detail, i.e. more than 1 change is possible in subsequent infinitesimal time intervals
-%GB: are there no codon models that allow for multiple substitution per time unit (I thought I recently read something like that ... will look it up and send e-mail)
-Proteins are coded by a set of 20 amino acids, with each amino acid being coded by a codon triplet. 
-Because there are 61 non-stop codons, inevitably some amino acids will be redundantly coded by more than 1 codon.
-% Such a change 
-A substitution which does not change the encoding amino-acid is called a synonymous substitution, as it most likely leaves the protein function unchanged.
-Conversely non-synonymous substitutions are more likely to affect the fitness of a particular organism.
-
-Selective pressure is the main force behind molecular evolution.
-Understanding and inferring the selective pressure is one of the central goals of molecular virology, see for example \citet{Bielejec2014a}.
-That is why most of the codon substitution models are parameterized in terms of the rate of non-synonymous (denoted by convention $\beta$) and synonymous ($\alpha$ by convention) substitutions.
-Their ratio $\omega=\beta / \alpha$ is a standard measure of the selective pressure \citep{ThePhylogeneticHandbook}, which is sometimes also denoted $\omega = dN/dS$.
-Prevalence of synonymous substitutions over non-synonymous ones leads to a \emph{purifying (negative)} selection, and corresponds to the ratio $\omega <1$.
-If non-synonymous substitutions accumulate at a faster rate than the synonymous substitutions this is coined \emph{positive selection}, improving the fitness of the particular organism.
-$\omega\approx 1$ signifies neutral evolution.
-
-There are several advantages in using codon models over nucleotide-based substitution models.
-Not all DNA positions evolve at the same rate, with non-synonymous substitutions occurring more frequently then synonymous substitutions.
-Although this problem can be mitigated to some extent by using codon-positioned nucleotide substitution models, the fast evolving positions and the state space limited to 4 character alphabet still can lead to biased estimates over long evolutionary distances, as portrayed in the previous Chapter~\ref{chap:pibuss}.
-
-% GY style models
-The model proposed by \cite{Goldman1994} is characterized by a substitution rate matrix with following entries:
-
-\begin{equation}
-\footnotesize{
-q_{ij}^{GY94}=\begin{cases}
-\pi_{j} & \text{if \ensuremath{i\rightarrow j} is a synonymous transversion}\\
-\kappa\cdot\pi_{j} & \text{if \ensuremath{i\rightarrow j} is a synonymous transition}\\
-\omega\cdot\pi_{j} & \text{if \ensuremath{i\rightarrow j} is a non-synonymous transversion}\\
-\omega\cdot\kappa\cdot\pi_{j} & \text{if \ensuremath{i\rightarrow j} is a non-synonymous transversion}\\
-0 & \text{otherwise}
-\end{cases},
-} % END: size
-\label{eq:gy94}
-\end{equation}
-
-\noindent
-where the parameter $\kappa$ denotes the transition/transversion ratio, parameter $\omega$ denotes the non-synonymous/synonymous
-rate ratio and $\pi_j$ denotes the equilibrium frequency of codon triplet $j$.
-The parameters $\kappa$ and $\pi_j$ can be thought of as controlling the CTMC process at the DNA level, while the $\omega$ parameter characterizes the selection on non-synonymous substitutions.
-For the GY94 model the synonymous evolutionary rate is fixed to be 1, i.e. $\omega=\beta$.
-
-Different flavours of the GY94 model differ in the composition of the equilibrium codon frequency parameter $\pi_{j}$.
-One approach is to model the codon frequencies as each having the same long-time frequency of appearing. 
-Such model is referred to as the GY94-Fequal.
-
-In the GY94-F$1\times4$ model codon frequencies are calculated from the four nucleotide frequencies, with frequencies being pulled from all three codon positions, i.e. $\pi_{n_{1}}=\pi_{n_{2}}=\pi_{n_{3}}$ for all four nucleotides,.
-This model leads to 3 free parameters that need to be estimated from the data. 
-%GB: they're often not estimated during the MCMC run, but empirical values are used.
-%GB: how are these 'nucleotide frequencies' then used to calculate the 'codon frequencies' ?
-If the frequencies are parameterized according to three sets of nucleotide frequencies for the three codon positions, resulting in nine free parameters, the model is called the GY94-F$3\times4$.
-Finally in the GY94-F61 model every codon triplet has it's own frequency parameter, with all parameters summing to one, resulting in 60 free parameters that need to be estimated.
-
-% pluses positive and negative of these models :)
-The GY94-F61 model has been suggested as important in letting the model explain the data without constricting assumptions.
-%GB: 'confounds other effects' is too vague, be more specific or give an example
-\citet{Rodrigue2008} however argue that the model has no interpretation on the nucleotide level as well as confounds other effects. 
-The authors criticize the GY94-F$3\times4$ setup as superficial, pointing that the periodic pattern along the nucleotide sequence positions represents the coding structure of the sequence but not the processes that shape the evolution.
-
-% MG style models
-The Markov generator matrix for MG94 style models \citep{Muse1994} is given by:
-
-%GB: fix this, it's too wide for the page
-\begin{equation}
-\footnotesize{
-q_{ij}^{MG94}=\begin{cases}
-\alpha\cdot\kappa\cdot\pi_{n}^{p} & i\rightarrow j\text{ is a synonymous transition from nucleotide \textit{m} to \ensuremath{n} at codon position \ensuremath{p}.}\\
-\alpha\cdot\pi_{n}^{p} & i\rightarrow j\text{ is a synonymous transversion from nucleotide \ensuremath{m} to \ensuremath{n} at codon position \ensuremath{p}.}\\
-\beta\cdot\kappa\cdot\pi_{n}^{p} & i\rightarrow j\text{ is a non-synonymous transition from nucleotide \ensuremath{m} to \ensuremath{n} at codon position \ensuremath{p}.}\\
-\beta\cdot\pi_{n}^{p} & i\rightarrow j\text{ is a non-synonymous transversion from nucleotide \ensuremath{m} to \ensuremath{n} at codon position \ensuremath{p}.}\\
-0 & \text{otherwise.}
-\end{cases},
-} % END: size
-\label{eq:mg94}
-\end{equation}
-
-There are two main differences to be noted with respect to the GY94 style codon models.
-First, the model is parameterized in terms of both the non-synonymous ($\beta$) and synonymous ($\alpha$) rates, meaning that a change in the ratio may be due to alteration of the rate of non-synonymous or synonymous substitutions, or both.
-Second, the model estimates the frequencies of the target nucleotide $\pi_{n}^{p}$ rather than of the target codon triplet $\pi_{j}$, as in the GY94 model.
-As before the MG94 model can be used with frequencies specified as a single (MG94-F$1\times4$) or three (MG94-F$3\times4$) vectors with 4 dimensions.
-For the remainder of this chapter we will focus our estimation on the MG94 parameterization, mostly because the parameterization in terms of both the synonymous and non-synonymous substitution rates offers interesting opportunities for disentangling
-the patterns of correlation between
-the two.
-
-
-% first talk about across site variation
-%GB: when you say constant, do you mean homogeneous?
-Molecular phylogenetic analyses using codon models are typically restricted to fitting a single model, with constant parameterization across data, i.e. sites of the alignment.
-However there is no biological reason to assume that all the sites are under the same selection regime.
-\cite{NY98} point towards the fact that for most real world data sets, of which we know that they evolved under positive selection pressure only a handful of sites actually contributed towards the non-synonymous to synonymous rates ratio >1.
-%GB: replace constant with homogeneous?
-Therefore, applying constant model to the data, without accounting for across-data heterogeneity, biases the estimates of $dN/dS$ ratio towards lower values.
-In some cases this might lead to a failure in detecting positive selection even if it's actually present in the data.  
-In that respect \cite{NY98} propose two models in the GY94 context, with a fixed number of categories to which a particular site can belong.
-Their \emph{neutral model} assumes a category for sites where the non-synonymous mutations are neutral ($\omega_1=1$) and a category for sites which are conserved ($\omega_2=0$).
-Their \emph{positive selection model} adds an extra category of positively selected sites ($\omega_3>1$).
-\cite{Goode2008} employ this setup and further extend it by allowing for a change in $\omega$ parameter value at some specified time between the most-recent common ancestor and the most recent sampling time.
-These models, although undeniably a step in the right direction, still make strong assumptions, among which partitioning sites into a fixed number of rate classes and estimating the rate for each class separately is probably the most restrictive one.
-Ideally, the model should let the data decide how many rate classes there are, and what the site-specific values are.
-A first modelling approach that comes to mind is to fit a different rate to each site in the alignment \citep{Nielsen1997}.
-Although this approach might seem naive at first, it bears a valuable property in that no explicit assumption in the distribution of rates across sites is being made.
-However other negative factors still persist, precluding such a class of methods from being generally applicable.
-The main problem is that, particularly for long sequences, many parameters need to be estimated, increasing the computational costs.
-In case of shorter sequences such a method may overfit the data, leading to a significant loss of statistical power and biased estimates.
-Another approach treats site-specific rates as independent draws from some common distribution, e.g. a gamma distribution \citep{Yang1993} or inverse Gaussian probability distribution \citep{Waddell1997}, sometimes with a proportion of sites allowed to remain invariable \citep{Gu1995}.
-This approach allows to model the rate variation with relatively few parameters, as well as provides pooled estimates of the distribution parameters, which can in turn be compared across different data-sets.  
-In many scenarios though a single parametric distribution proves too naive of an approach to capture complex patterns of rate evolution \citep{Pond2005a}.
-\cite{Yang2000} proposed to model among-site substitution rate variation in codon models by employing a mixture of different distributions.
-Although mathematically possible, this proved computationally too expensive to fit mixtures of continuous distributions for the parameters of interest and the authors resort to fitting discrete approximations.
-Although these constraints are being actively stretched \citep{Suchard2009,Ayres2012}, averaging over a large array of distributions remains computationally intensive. 
-\citet{Pond2005a} propose a simple, yet flexible model of rate variation with an integrative method to reliably estimate the fluctuating parameters.
-This method proceeds by partitioning the rate distribution into a countable number of intervals, with each interval represented by some statistic.
-%GB: explain this beta model thingy
-Then a beta model is used to decide what intervals the underlying rate distribution is partitioned into and calculate corresponding rate class values.
-This is perhaps the most flexible approach for evaluating site-specific rate variation to date, that provides a good fit to data with only a few extra parameters.
-
-
-%TODO: these bits moved to General Intro
-% 
-% The molecular clock hypothesis \citep{Zuckerkandl1962} posits that the rate of evolution of any specified protein remains constant over time and over different lineages.
-% This hypothesis is compelling, mostly because of its simplicity and because it allows to date bifurcation events on the tree of life.
-% There is however no biological motivation to assume a constant pattern of the parameters shaping the substitution process across branches, it is rather a computational convenience.
-% In fact the evidence for heterogenous rates of evolution have been found and demonstrated in several studies \citep{EyreWalker1997,Andreasen2001} and the strict molecular clock hypothesis is often rejected for real-world data sets.
-% In comparison to across-data variation relatively less work has been aimed at modelling across-lineage rate heterogeneity.
-% 
-% Unfortunately allowing for an unconstrained changes in branch substitution rates does not facilitate the main advantage of the molecular clock hypothesis - the ability to date the speciation events on the tree.
-% % the rate and time along each branch can only be estimated as their product
-% This is due to the fact that the branch time is a product of the expected number of substitutions per site (rate, $r$) and the branch length in time units ($t$), causing the two to be confounded in phylogenetic analysis (see also Subsection \ref{sub:rates}).
-% These problems have lead to the proposal of so-called "relaxed molecular clock" models, which allow for a changes in rate over time, but in a constrained manner, allowing for divergence time estimation.
-% \citet{Drummond2006} propose several uncorrelated relaxed clock models in which the substitution rate can vary among the branches of the tree by being drawn independently and identically from some underlying distribution.
-% This work has been further extended by \citet{Drummond2010} who developed a Random Local Clock (RLC) model, which does not rely on the number and location of rate changes being fixed.
-% %GB: this next sentence is unclear, please rewrite it
-% Instead, the RLC model allows for constructing proposal which move both in the tree space and in the clock structure space at the same time, allowing for a joint reconstruction of the topology as well as the divergence time estimation. 
-% Their approach utilizes the fact that for most datasets there exists only a small number of rate changes and that subclades on a tree will share the same rate.
-% This allows them to efficiently sample from the clock rate space using Bayesian Stochastic Search Variable Selection (BSSVS, \citet{Lemey2009}) 
-% %GB: maybe best to roughly explain BSSVS?
-
-Here we propose an approach similar in spirit to the Random Local Clock model.
-%GB: for modelling what concerning the branch rates?
-Although our method allows for modelling the branch rates, our main interest lies in modelling across-lineage heterogeneity of the parameters of codon substitution models, such as the synonymous and non-synonymous substitution rates.
-Both the number and the clustering of the lineage-specific parameters are treated as random, and are controlled by a Dirichlet Process Prior (DPP, \citet{Ferguson1973}).
-A DPP is a "distribution over distributions" and induces clusterings with a varying number of components that can grow or shrink depending on the data and a concentration parameter.
-It is thus often used as a prior over possible clusterings where the exact number and population of distinct clusters is not known beforehand.
-We require no structure to be enforced on the clustering of the branches, and allow the data to drive the model in a descriptive fashion. 
-Our only requirement is the prior specification of the concentration parameter of DPP, controlling whether a model prefers less clusters with many occupants or more less densely populated ones. 
-By implementing our model as part of BEAST's Bayesian inference framework we allow for a hyperprior to be put on this parameter to average over all of its possible values. 
-This approach avoids overparameterisation and computational overhead by achieving data-driven balance between simplicity and complexity of the model.
-We use Markov chain Monte Carlo (MCMC) techniques, in which a chain with a memoryless property is constructed to draw samples from the posterior.
-Although we focus our efforts on estimating the patterns of variation in codon substitution models our implementation is generally applicable to any parameters that exhibit across-data or across-time heterogeneity .
-Below we describe the main aspects of the model.
-
-%GB: do you want to talk about the increased computational demands of codon models? and how this can be alleviated by using BEAGLE on GPUs?
-%GB: do you w	ant to show a figure that explains the redundancy of the genetic code?
+% In those cases an interesting solution might be to couple the unknown transition-times between epochs to external covariates for which the change-points are known, such as  the fluctuations in population size recovered by the Bayesian skyline plot model \citep{Drummond2005}.
+% %GB: why the Bayesian skyline and not the skyride or skygrid? What's so specific about the skyline that it lends itself to this more than the other demographic priors?
+% This approach is being investigated at the time of writing this thesis. %, yet no publishable results are currently availiable 
+% % DPPs
 
 \section{Methods}
 
-We use a Dirichlet process prior (DPP) to model branch-specific codon parameters.
-In real-world applications not every branch in the tree would display the same type of evolutonary behaviour, therefore it would be natural to expect some degree of clustering between them.
-Suppose one is interested in a branch-specific parameter $\theta_{i}, i=1,\ldots,N$, where $N=2n-1$ is the number of branches in a tree with $n$ taxa. 
-This parameter might be multi-dimensional, yet for simplicity our notation will be limited to the univariate case.
-We expect \emph{a priori} that $K\ll N$, where $K$ denotes the number of unique clusters of branches.
-All of the branch-specific parameters have the same distribution $B$:
+
+% An interesting direction for further research is to couple epoch-specific parameters to other external covariates to inform the inference.
+In the Bayesian framework this could be achieved by formulating a hierarchical phylogenetic model \citep{Edo-Matas2011}, where one put "hyperpriors" on the parameters of prior distributions to avoid over-parametrisation of the model.
+%PL: thanks for referring to our GLM work for this, but the Edo-Matas2011 work already lays out all the elements we need for this: it uses hierarchical phylogenetic modeling (and you can extend the discussion on this a bit as this has some history outside of phylogenetics, and Marc basically introduced them into phylogenetics). Hierarchical modeling provides the 'random' effects, but the Edo-Matas2011 work also introduces 'fixed' effects, for which we indeed use a model averaging approach using BSVSS and quantify their support (based on the indicators) and contribution (based on the coefficients or effect sizes). So, this is essentially mixed modeling. I don't think it was referred to this as such in the Edo-Matas2011 work, so it would be nice to discuss this as such here. Note, that mixed effects modeling is also what we have used for Bram's rate variability modeling in his HIV transmission chain, and this also a direction we would like to take with your codon model developments (modeling some random branch-specific variability while testing particular selection hypotheses through fixed effects). All good points to make here, or when this part turns into a chapter, or later in the discussion!
+but it also introduces fixed effects
+\citet{Lemey2014} propose a model which extends the Generalized Linear Models (GLM) of \citet{Nelder1972} to the Bayesian phylogenetic framework.
+Every instantaneous rate $q_{ij}$, an entry of $K \times K$ generator matrix $\mathbf{Q}$, is parametrized as a log-linear function of the set of predictors $\mathbf{X}=\left( \mathbf{x_{1}},\ldots,\mathbf{x_{P}}\right)$, where each predictor $\mathbf{x_{p}}$ is characterized by its own rate matrix such that:
 
 \begin{equation}
-\forall i=1,\ldots,N: \theta_{i}\sim B(\mu_{z_{i}}),
-\label{eq:dpp1}
+log(q_{ij})=\beta_{1}\delta_{1}x_{i,j,1}+\ldots+\beta_{P}\delta_{P}x_{i,j,P}.
+\label{eq:glm}
 \end{equation}
 
-\noindent
-where we will use $\mathbf{z}$ to denote the vector of branch category assignments.
-Each branch receives a category $z_{i},\; i\in\left\{ 1,\ldots K\right\}$, where $K\in\left\{ 1,\ldots,N\right\}$ denotes the a number of branch categories.
-As an example let us consider a topology $\mathbf{F}$ with $N=3$ branches and a fixed number of categories $K=2$.
-One possible realization of the vector of assignments would then be:
+Coefficients $\beta=\left(\beta_{1},\ldots,\beta_{P}\right)$ quantify the contribution of a single predictor to the overall rate, and $\left(\delta_{1},\ldots,\delta_{P}\right)$ are binary indicators that decide whether a predictor is included or excluded from the model via a Bayesian stochastic search variable selection (BSSVS) procedure \citep{Kuo1998,Lemey2009}.
 
-$$\mathbf{z}=\left(z(1)=1,\; z(2)=1,\; z(3)=2\right),$$ 
-
-\noindent
-meaning that branches one and two belong to the same category 1, and that the third branch belongs to the category 2.
-Let us denote the uniquely realized branch-specific parameter values by $\hat{\theta_{j}}, j=1,\ldots,K$.
-%GB: what do you mean when you say 'mechanistic' ? Do you mean 'deterministic' ?
-A mechanistic function $f$ keeps track of the mapping between the branches and unique realizations $\hat{\theta_{j}}$:
-
-\begin{equation}
-\mu_{z_{1}},\ldots,\mu_{z_{N}}=f\left(\hat{\theta}_{1},\ldots,\hat{\theta}_{K},z_{1},\ldots z_{N}\right).
-\label{eq:dpp2}
-\end{equation}
-
-\noindent
-The idea behind using DP priors is to set up a kernel distribution with probability distribution function $P_{0}$ from which unique branch-specific candidate values $\hat{\theta_{j}}$ are drawn:
-
-\begin{equation}
-\forall i=1,\ldots,N\;\hat{\theta_{j}}\sim P_{0}\left(\mu\right).
-\label{eq:dpp3}
-\end{equation}
-
-\noindent
-Clustering indicators for each branch are sampled according to a Dirichlet process with intensity $\gamma$:
-
-\begin{equation}
-z_{1},\ldots,z_{N}\sim DP(\gamma).
-\label{eq:dpp4}
-\end{equation}
-
-\noindent
-By defining hyper-priors for the parameters of the kernel distribution and a concentration parameter of the DP, or alternatively fixing them to specific values, we complete the specification of the DPP:
-
-\begin{equation}
-\begin{array}{c}
-\mu\sim P_{1}(\ldots)\\
-\gamma\sim P_{2}(\ldots)
-\end{array}.
-\label{eq:dpp5}
-\end{equation}
-
-% One of them is to consider the branch-specific values as coming from a mixture of distributions
-There are several possible implementations of the Dirichlet process for drawing the cluster indicators as defined in Equation \ref{eq:dpp4}. 
-One of them is the so-called "stick-breaking" construction \citep{Sethuraman94}.
-The draws from a DP are composed of a weighted sum of point masses $P$, summing up to 1 and giving rise to a discrete distribution.
-The algorithm to generate a single draw from DP is given in Listing \ref{alg:stickBreaking}.
-
-\begin{algorithm}[H]
-\begin{center}
-\begin{algorithmic}[1]
-% \footnotesize{
-%
-\State $remainingLength \gets 1.0$;
-%
-\For{$\left( \text{int } j=0; \; j<K; \; j++\right)$}
-%
-\State $r\sim Beta\left(1,\gamma\right)$;
-%
-\State $P\left[j\right]=r \cdot remainingLength$;
-%
-\State $remainingLength=\left(1-r\right) \cdot remainingLength$;
-%
-\EndFor \\
-%
- \textbf{return} $P$;
-% }
-\end{algorithmic}
-\end{center}
-\caption{ 
-{ \footnotesize 
-{\bf Constructing the Dirichlet process by stick breaking.} 
-}% END: footnotesize
-}
-\label{alg:stickBreaking}
-\end{algorithm}
-
-Colloquially we can describe it as follows: we start with a stick of length 1 and break it randomly at point $r_{1}$ chosen by drawing one value from $\text{Beta}(1, \gamma)$ and assign $p_{1}$ to the length of the part of the stick that we just broke off.
-We then recursively break other portions of the stick to obtain $p_{2}, p_{3}, \ldots$ and so forth, each time setting:
-
-\begin{equation}
-p_{i}=r_{i}\cdot\underset{j}{\overset{i-1}{\prod}}\left(1-r_{j}\right).
-\label{eq:sticks}
-\end{equation}
-
-\noindent
-Parameter $\gamma$ controls the clustering behaviour of the process.
-Smaller values will lead to fewer, yet more populated categories; larger values will result in more categories being occupied by less branches.
-
-Under our DPP model both the number of categories $K$ and category assignments $z_{i}$ are random variables, controlled by a DPP with a concentration parameter $\gamma$ and a base distribution given by $P_{0}$.
-The complete likelihood of the model can be written down as:
-
-\begin{equation}
-L(\mathbf{z},K|\gamma,N,\hat{\theta_{1}},\ldots,\hat{\theta_{K}})=\gamma^{K}\cdot\frac{\underset{j=1}{\overset{K}{\prod}}\left(\eta_{j}-1\right)!}{\underset{i=1}{\overset{N}{\prod}}\left(\gamma+i-1\right)}\cdot\underset{j=1}{\overset{K}{\prod}}P_{0}\left(\hat{\theta_{j}}\right)^{\eta_{j}},
-\label{eq:dppLike} 
-\end{equation} 
-
-\noindent 
-where $\eta_{k}$ denotes the number of sites assigned to category $k$.
+For the within-host HIV evolution example analyzed in Chapter~\ref{chap:epoch}, \citet{Shankarappa1999} report both viral load and CDT4 cell count data at different time points coinciding with most sequence samplings, which could then be used as a set of potential predictors of epoch-parameter variability, and with the epoch structure %formulized 
+formulated 
+for that model we could infer how the linear effect of each of the covariates changes over time.
+If $\mathbf{x_{p}}$ is a single predictor we can use the epoch structure to divide its time-domain into contiguous intervals.
+By fitting GLM models in those intervals a piecewise effect of predictors $\mathbf{x_{p}}$ can be obtained in each epoch. 
+One could begin with standard piecewise-linear changes or approximate e.g. polynomial or other complex functions of rate-change using the approach presented in Subsection~\ref{sub:nonlinear}.
+%PL: of course, you will deal with this when it this turns into a chapter, but it is important to note that we would like to apply this with codon models (GY94 and MG94) to investigate the changing dynamics of selection throughout HIV infection.
 
 
-% \section{Results}
-% TODO: galaxy data
-% bugs code
+%PL: I would propose the following additional discussion section, something that Nidia started to work on 
+%\subsection{Combining epoch modeling with graph hierarchies for Influenza phylogeography}
+%Here you can discuss that we only briefly explored the epoch application to capture seasonal influenza migration patterns in our chapter. We can make the epoch structure as complex as we want, but it of course introduces a lot of parameters to estimate, and we have already difficulties informing standard phylogeographic models with a single location state observation at the tips of the tree. One way to alleviate the over-parameterization is by sharing information across epoch parameters using hierarchical modeling (discussed above). The other one is by doing BSSVS to shrink the number of parameters, which uses 0,1-indicators to augment the CTMC state space. Cybis et al have recently suggested a hierarchical modeling approach for graphs defined by these rate indicators. So, it would be useful to examine iowa combination of epochs and hierarchical graphs these perform for this problem and what patterns they can extract, and in general, what the best way would be to model the seasonal dynamics. For example we know through the 2014 GLM work that the rates follow air traffic, so perhaps we can fix those to passenger flux between locations and only estimate when we have to turn on or off those rates using the rate indicators with their hierarchical structure. Talk to me or Nidia if you need more info
 
 
+\section{Results}
 
-% \section{Discussion}
+
+\section{Discussion}
 
 

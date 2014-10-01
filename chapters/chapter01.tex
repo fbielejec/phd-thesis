@@ -182,7 +182,7 @@ Monte Carlo was dubbed the most important algorithm of 21st century by the Socie
 Bayesian inference problem can be formulated as a sampling problem, as we discuss in Section \ref{sec:bayesian_inference}, reducing to a very simple and effective method, which contributed to the popularity of Bayesian statistics that we see today. 
 The availibility of programs for Bayesian phylogenetics like MrBayes \citep{Huelsenbeck2001} and BEAST \citep{Drummond2012} further contrubuted towards the widespread adoption and popularity of these methods.
 
-\subsection{Time-Calibrated Trees and Measurably Evolving Populations}
+\subsection{Time-Calibrated Trees and Measurably Evolving Populations\label{sub:clocks}}
 
 %Molecular clock
 The molecular clock hypothesis (MCH, \cite{Zuckerkandl1962}) posits that the rate of evolution of any specified protein remains constant over time and over different lineages.
@@ -432,7 +432,7 @@ It allows for manipulation of models, priors, operators, and MCMC chain settings
 \textbf{LogCombiner} combines log files and tree log files from multiple runs, that can be than importer into \textbf{Tracer}, a graphical tool for the analysis and visualisation of the output of BEAST as well as other common MCMC packages.
 It allows for a quick inspection of mixing, convergence, and distribution of the parameters of interest.
 \textbf{TreeAnnotator} summarizes the tree log files as MCC (maximum clade credibility) trees and allows for annotating tree branches with external information, such as posterior probabilities, a posteriori most probable ancestral traits and other.
-These information can then be visualised using \textbf{FigTree} or if nodes of the trees are annotated with spatial information they can be displayes in geographical coordinates using \textbf{SPREAD}.
+These information can then be visualised using \textbf{FigTree} (\url{http://tree.bio.ed.ac.uk/software/figtree/}) or if nodes of the trees are annotated with spatial information they can be displayes in geographical coordinates using \textbf{SPREAD}.
 Finally \textbf{$\pi$BUSS} is a software for sequence simulation, capable of generating XML files understood by BEAST for combined simulation-inference analysis as well as sequences in formats taht can be imported into any other phylogenetic software.
 
 BEAST is a flexible package for statistical pylogenetics and hypothesis testing.
@@ -466,31 +466,8 @@ Yet clear and intuitive visualizations are an important aspect of every analysis
 Spatial phylogenetic projections have already been utilized in the field \citep{Kidd2006,Parks2009}, yet most of these applications remain limited to mapping phylogenetic tip taxa to their geographical coordinates, without providing robust statistical estimates of the geographic locations at the ancestral nodes nor the measures of uncertainty in the inference.
 Fortunately the advent of powerful and flexible Geographic Information Systems (GIS) has fostered an interesting possibility to incorporate both spatial and temporal information into viral phylogenetic analysis.
 
-%TODO: move to discussion
-
-% \begin{figure}[H]
-% \centering
-% \includegraphics[scale=0.3]{figures/spread}
-% \caption{
-% { \footnotesize 
-% {\bf Phylogeographic visualization of viral spread in time and space.} 
-% A. Conceptual representation of time-slicing a phylogeny and projecting the part of the tree up to time $t_{1}$ and $t_{2}$ respectively. B. An example projection of influenza H5N1 over time in Google Earth for two different segment phylogenies. % (hemagglutinin and neuraminidase in green and magenta respectively).
-% } % END: footnotesize
-% }
-% \label{fig:spread}
-% \end{figure}
-
 Presenting readily interpretable visual summaries of the inferences, that can in turn be communicated to the researchers across different fields is one of the more important aspects of this thesis.
 This goal has been materialized in the development of a user-friendly application, that produces compelling and informative statistical visualizations of viral spread in time and space \citep{Bielejec2011}.
-% An example of such a visualisation can be found in Figure~\ref{fig:spread}.
-%PL: never say 'there is a figure for you' without bothering to discuss it. At this point the reader has no idea what to make of time slicing, etc... This is an explanation of a SPREAD approach and does not belong here in the intro. Perhaps if you pick it up in the discussion, you could say that the paper format did not allow you to go into the visualization strategy all that much and you expand it on it a bit before discussing how you see the future for such things
-
-
-%GB: so after section 1.1, the formulas start creeping in (they should at some point), but I feel section 1.1 should be expanded.
-%I personally really like Sandra Baldauf's 'phylogeny for the faint of heart' tutorial: http://www.ncbi.nlm.nih.gov/pubmed/12801728
-%I think that one is nicely structured and eases the reader into a complex topic such as phylogenetic reconstruction.
-%It also discusses homology, basic terminology and many other aspects. From looking at it, a figure of an alignment (well, part of it) can help explain substitutions/mutations.
-
 
 \section{Evolution as a stochastic process}
 
@@ -538,16 +515,16 @@ T & & & \\
 \endgroup
 \caption{
 { \footnotesize 
-{\bf Evolution at a single site.} Over time characters at the site change, leading to the observed data (black). Some of the mutations may be silent. Each site evolves independently.
+{\bf Evolution at a single site.} Over time characters at the site change, leading to the observed data (black). 
+Some of the mutations may be unobserved. 
+Each site evolves independently.
 }% END: footnotesize
 }
 \label{fig:alignment}
 \end{figure}
 
-As Figure~\ref{fig:alignment} depicts not all of the differences can be observed, as due to multiple substitutions (multiple hits) some of the changes are silent.
-%PL: better not use silent as this also used for 'non synonymous substitutions'
-To accurately describe these processes one needs a model of evolution that can account for those multiple hits.
-%PL: you need to state the obvious here: because of multiple hits, observed differences in the sampled genetic data will underestimate the underlying genetic distance, and this is what we can to account for using models.
+As Figure~\ref{fig:alignment} depicts that due to multiple substitutions (multiple hits) some of the changes remain unobserved.
+This means that the numbered of observed differences in the sampled genetic data is an underestimate the underlying genetic distance and in order to accurately describe these processes one needs a model of evolution that can account for those multiple hits.
 
 \subsection{The Poisson process\label{sub:poisson}}
 
@@ -571,6 +548,7 @@ Figure~\ref{fig:poisson} shows a sample of different trajectories of such a proc
 \label{def:poisson}
 \end{definition}
 
+% TODO
 
 %PL: I don't understand the figure composition: upper part OK, but if you use color as you do now, different realizations can be plotted on the same panel. However, I would keep the printing issues for color figures  to a minimum (only use colors when you really need it -- it requires separate paper printing and merging with the rest, and is bloody expensive), so separate gray-scale panels can work. bottom part: is what I do not understand: should the paths assemble into a tree somehow? The discussion of the process makes no relationship to a tree just yet -- you do that later on. And if you do intend to relate them to a tree, I do not understand how the mutational process for a site only relates to part of the tree?
 
