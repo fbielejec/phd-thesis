@@ -241,7 +241,7 @@ This is due to the fact that the branch time is a product of the expected number
 These problems have lead to the proposal of so-called "relaxed molecular clock" models, which allow for a changes in rate over time, but in a constrained manner, allowing for divergence time estimation.
 \citet{Drummond2006} propose several uncorrelated relaxed clock models in which the substitution rate can vary among the branches of the tree by being drawn independently and identically from some underlying distribution.
 Further extensions of this work by \citet{Drummond2010} have led to the development of a Random Local Clock (RLC) model, which set in a Bayesian framework allows for a joint reconstruction of the topology as well as the divergence time estimation. 
-The RLC model constructs proposal distributions which efficiently propose moves in both the tree space and in the clock rate space at the same time. %(see Subsection~\ref{sub:MCMC})
+The RLC model constructs proposal distributions which efficiently propose moves in both the tree space and in the clock rate space at the same time. %(see Subsection~\ref{sub:mcmc})
 Furthermore this approach favours parsimonious models with least parameters, utilizing the fact that for most datasets there exists only a small number of rate changes and that subclades on a tree will share the same rate.
 Bayesian Stochastic Search Variable Selection (BSSVS, \citet{Lemey2009}) procedure determines from the data which clock rates are to be included and which have a neglible probability of occuring.
 
@@ -355,7 +355,7 @@ Under molecular clock (see Subsection~\ref{sub:molecular_clock}) mutation rate $
 %TODO: mutation rate? P(t_k|\theta) ?
 However for MEP populations, were sequences are sampled serially in time (see Figure~\ref{fig:ultrametric}) the two can be disentangled.
 \cite{Rodrigo1999} developed an extension of the Kingman's coalescent, the so called \textit{serial coalescent} (s-coalescent), that allows to scale the genealogies in real time units.
-Such a formulation can be used as a prior distribution for the tree and sampled from using Markov-Chain Monte Carlo (see Subsection~\ref{sub:MCMC}).
+Such a formulation can be used as a prior distribution for the tree and sampled from using Markov-Chain Monte Carlo (see Subsection~\ref{sub:mcmc}).
 
 % Introduce phylogeography -- discrete ancestral state reconstruction is only one way of doing this (see Bloomquist, Lemey, Suchard)]
 Another process which shapes the phylodynamics of viral sequences is the process of their migration, which we understand as a dispersal in actual geographical coordinates.  
@@ -395,7 +395,7 @@ Trees proposed by the coalescent are then random draws from a larger, population
 % ]
 
 Bayesian evolutionary analysis by sampling trees (BEAST) software \citep{Drummond2012}, co-developed in our research group, is build around the advances described in Subsections~\ref{sub:epidemiology}-\ref{sub:molecular_clock}.
-BEAST is set in a Bayesian statistical framework, meaning that it combines the data likelihood (see Subsection~\ref{sub:likelihood}) with prior knowledge (see Subsection~\ref{sec:bayesian_inference}), and generates posterior samples using MCMC (see Subsection~\ref{sub:MCMC}).
+BEAST is set in a Bayesian statistical framework, meaning that it combines the data likelihood (see Subsection~\ref{sub:likelihood}) with prior knowledge (see Subsection~\ref{sec:bayesian_inference}), and generates posterior samples using MCMC (see Subsection~\ref{sub:mcmc}).
 
 % other packages
 BEAST is not the only software package for Bayesian phylogenetic analysis and can be compared to a number of other packages.
@@ -1261,7 +1261,7 @@ Figure~\ref{fig:bayes1} shows the resulting posterior distribution along with pr
 This illustrates that the data `pulls' the posterior away from the prior, and the strength by which is does so depends on its variance, resulting in a posterior centered around 0.6 in this case.
 In this example, the posterior distribution can be obtained analytically because the beta distribution is a so called \emph{conjugate prior} for the binomial model, resulting in the posterior that is also beta-distributed.
 
-\subsection{Markov Chain Monte Carlo\label{sub:MCMC}}
+\subsection{Markov Chain Monte Carlo\label{sub:mcmc} }
 
 Except for the most trivial problems, involving conjugate priors as in our previous example, the calculation of the integral in Equation~(\ref{eq:bayesian1}) poses a considerable challenge in Bayesian inference.
 This integral leads to the marginal probability of the data $P\left(\mathbf{X}\right)$. 
@@ -1414,7 +1414,7 @@ The acceptance rate is high, suggesting that almost as many steps are accepted a
 %PL: you could potentially mention the importance of tuning kernels, like the window size, and show the same trace plot for a  too high and too low window, and their acceptance ratio. This can lead to a mention of diagnozing mcmc runs, convergence, ESSs, and shit... which is a practical issue for complex problems/large data sets, etc.
 %GB: I wouldn't discuss tuning, but acceptance ratios I think are more important.
 
-\subsection{Bayesian phylogeography}
+\subsection{Bayesian phylogeography\label{sub:phylogeo}}
 
 Phylogeography is a research direction aimed at connecting evolutionary processes, which happen over time, with the processes of spatial distribution, in actual geographical coordinates, into a joint spatio-temporal dynamic that can be used to track pathogen spread.
 Historically the phylogeographical inference in molecular epidemiology ignored the reciprocal character of these two processes. 
@@ -1445,7 +1445,7 @@ Unlike before the rate matrix does not necessarily have to be symmetrical, i.e. 
 Additionaly, a priori one would expect many of the infinitesimal rates to be zero. 
 Unlike the molecular data, which is typically dense, the location data is sparse, with only one observation per taxon and many connections not observed at all.
 
-The Bayesian framework described in Subsections~\ref{sub:bayesTheorem} and \ref{sub:MCMC} offers the unique ability to integrate different sources of information about the viruses with their genetic data, without conditioning on either one of them.
+The Bayesian framework described in Subsections~\ref{sub:bayesTheorem} and \ref{sub:mcmc} offers the unique ability to integrate different sources of information about the viruses with their genetic data, without conditioning on either one of them.
 We use this ability to infer the tree topology, the ancestral spatial locations and the character substitution process giving rise to the aligned molecular sequence data. 
 We assume independent stochastic processes are responsible for generating these data.
 This allows us to write down the joint posterior distribution: 
@@ -1473,4 +1473,4 @@ P\left(\mathbf{F}, \mathbf{Q}, \mathbf{\Phi}|\mathbf{X},\mathbf{Y}\right)\propto
 \end{eqnarray}
 
 The likelihood component for both molecular data $\mathbf{X}$ and location data $\mathbf{Y}$ is calculated using recursive tree pruning, as described in Subsection~\ref{sub:likelihood}.
-We approximate the joint posterior as written down in Equation~(\ref{eq:posteriorPhylogeography}) using MCMC methods we talked about in Subsection~\ref{sub:MCMC}.
+We approximate the joint posterior as written down in Equation~(\ref{eq:posteriorPhylogeography}) using MCMC methods we talked about in Subsection~\ref{sub:mcmc}.

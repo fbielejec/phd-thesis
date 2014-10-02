@@ -54,8 +54,8 @@ Although this problem can be mitigated to some extent by using codon-positioned 
 % GY style models
 The model proposed by \cite{Goldman1994} is characterized by a substitution rate matrix with following entries:
 
-\begin{equation}
 \footnotesize{
+\begin{equation}
 q_{ij}^{GY94}=\begin{cases}
 \pi_{j} & \text{if \ensuremath{i\rightarrow j} is a synonymous transversion}\\
 \kappa\cdot\pi_{j} & \text{if \ensuremath{i\rightarrow j} is a synonymous transition}\\
@@ -63,9 +63,9 @@ q_{ij}^{GY94}=\begin{cases}
 \omega\cdot\kappa\cdot\pi_{j} & \text{if \ensuremath{i\rightarrow j} is a non-synonymous transversion}\\
 0 & \text{otherwise}
 \end{cases},
-} % END: size
 \label{eq:gy94}
 \end{equation}
+} % END: size
 
 \noindent
 where the parameter $\kappa$ denotes the transition/transversion ratio, parameter $\omega$ denotes the non-synonymous/synonymous
@@ -93,8 +93,8 @@ The authors criticize the GY94-F$3\times4$ setup as superficial, pointing that t
 The Markov generator matrix for MG94 style models \citep{Muse1994} is given by:
 
 %GB: fix this, it's too wide for the page
-\begin{equation}
 \footnotesize{
+\begin{equation}
 q_{ij}^{MG94}=\begin{cases}
 \alpha\cdot\kappa\cdot\pi_{n}^{p} & i\rightarrow j\text{ is a synonymous transition from nucleotide \textit{m} to \ensuremath{n} at codon position \ensuremath{p}.}\\
 \alpha\cdot\pi_{n}^{p} & i\rightarrow j\text{ is a synonymous transversion from nucleotide \ensuremath{m} to \ensuremath{n} at codon position \ensuremath{p}.}\\
@@ -102,9 +102,9 @@ q_{ij}^{MG94}=\begin{cases}
 \beta\cdot\pi_{n}^{p} & i\rightarrow j\text{ is a non-synonymous transversion from nucleotide \ensuremath{m} to \ensuremath{n} at codon position \ensuremath{p}.}\\
 0 & \text{otherwise.}
 \end{cases},
-} % END: size
 \label{eq:mg94}
 \end{equation}
+} % END: size
 
 There are two main differences to be noted with respect to the GY94 style codon models.
 First, the model is parameterized in terms of both the non-synonymous ($\beta$) and synonymous ($\alpha$) rates, meaning that a change in the ratio may be due to alteration of the rate of non-synonymous or synonymous substitutions, or both.
@@ -145,7 +145,7 @@ This method proceeds by partitioning the rate distribution into a countable numb
 Then a beta model is used to decide what intervals the underlying rate distribution is partitioned into and calculate corresponding rate class values.
 This is perhaps the most flexible approach for evaluating site-specific rate variation to date, that provides a good fit to data with only a few extra parameters.
 
-\cite{Heath2012} introduces a model which relaxes the assumption of a strict molecular clock in a way that is alternative to the Random Local Clock models (\cite{Drummond2010}, see Subsection~\ref{sub:sub:clocks}), which proceed by clustering branches on a tree which share the same rate.
+\cite{Heath2012} introduces a model which relaxes the assumption of a strict molecular clock in a way that is alternative to the Random Local Clock models (\cite{Drummond2010}, see Subsection~\ref{sub:clocks}), which proceed by clustering branches on a tree which share the same rate.
 In the approach proposed by \cite{Heath2012} both the number of the rate classes, as well as their placement are modeled using a Dirichlet process prior (DPP, \cite{Ferguson1973}). % which treats them as random variables.
 Here we propose an approach which is similar in spirit to \cite{Heath2012}, although our interest lies not in modelling overall branch rates, but in modelling across-lineage heterogeneity of the parameters of codon substitution models, such as the synonymous and non-synonymous substitution rates.
 
@@ -339,7 +339,35 @@ At the time of writing this chapter we are testing these possibilities, yet exac
 %%%%%%%%%%%%%%
 \section{Future prospects for visualizing viral diffusion}
 
-%PL: in addition to future perspectives, you can discuss how it is currently positioned relative to other tools (which we could not talk about in the short Bionformatics). Related to this we can use the discussion, and address the need to expand the discussion, by explaining in more detail how we attempt to visualize our Bayesian estimates (using a figure that you previously had in the intro), and the difficulties that remain (e.g. for the discrete diffusion, we cannot accommodate phylogenetic uncertainty for example). I have material (text and figures) that I once wrote for a book chapter for this, so ask me about it. Note that there is also a more recent competitor by Bedford and Landis, which relates to some of our own future perspectives
+% Genetic and phenotypic data become useful only when we apply methods deriving insights from it, and these methods encompass statistical inference as well as visualization of its results. Visualizing estimates provides an efficient way to communicate results to the scientific community and beyond. Bayesian evolutionary inference, however, generates \textbf{high-dimensional} estimates, e.g. ancestral reconstructions of (multiple) traits on a posterior distribution of trees. When multidimensionality complicates the visualization task, dynamic, interactive visualizations may offer an attractive solution. In our case, the time scale of the evolutionary histories represents a natural dimension to explore for dynamic interactions. Interactivity can also encourage engagement and may lead to a better understanding and even appreciation of the statistical inference procedure itself. 
+
+\paragraph{}
+In Section~\ref{sub:clocks} we discussed how past evolutionary events can be estimated in real time units by using molecular clock models and either calibrating events or, in case of MEPs, samples obtained at various points in time.
+A natural representation of this temporal dimension is to animate the geophylogeny as it unfolds through time and space.
+The visualisation of spatiotemporal history, with the possibility to dynamically examine how the diffusion process unfolds, has been the main motivation for the development of SPREAD \citep{Bielejec2011}, presented in Chapter~\ref{chap:spread}.
+SPREAD allows for visualising animated geophylogenies in an automated manner, by producing it's output in time-annotated Keyhole Markup Language (KML), an ISO standard geographic markup language managed by the Open Geospatial Consortium that is read and written by most spatial software. 
+KML encoding allows for manipulating virtually all aspects of mapping, colour and line thicknesses, time animation, height and placement, projection used, labelling and many more.
+SPREADs GUI gives user a control over fine-tuning these parameters and the output can be used in virtual globe software like Google Earth (\url{http://www.google.com/earth/}) or high-end GIS software like ArcGIS, Cartographica.
+Here we take the opportunity to discuss the design and future directions of SPREAD in more details.
+
+\subsection{Past and current efforts in visualising phylogeography}
+
+Geophylogenies, or more generally geo-trees are spatially referenced phylogenies, for which taxa exist in a real space and can be displayed as cartographic elements within a map \citep{Kidd2010}.   
+Possibly the first diagram like that, depicting evolutionary tree over geographical map is the famous \textit{Hypothetical Sketch of the Monophyletic Origin and the Extension of the 12 Races of Man from Lemuria over the Earth} shown in \cite{Haeckel1876} (see Figure~\ref{fig:lemuria})
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.25]{lemuria}
+\caption{
+{ \footnotesize 
+{\bf Hypothetical Sketch of the Monophyletic Origin and the Extension of the 12 Races of Man from Lemuria over the Earth.} 
+} % END: footnotesize
+}
+\label{fig:lemuria}
+\end{figure}
+
+Ernst Haeckel, a XIX century darwinist entertained the idea that the abscence of missing fossil links in human evolution could be explained by existence of \textit{Lemuria}, a sunken land.  
+The phylogentic visualisation has surpassed the, entirely discredited, work itself.
 
 % other tools
 The joint study of diffusion processes happening in geographical coordinates along with the patterns of genomic ancestry is known as phylogeography.
@@ -347,7 +375,6 @@ Summarising the findings in a clear and concise way, that can then be presented 
 This is especially true for complex patterns of biogeographic processes, where visualisation is the key for understanding them. 
 Recently great research effort has been made to visulize the phylogenetic relationships between organisms and samples in relation to their geographic distribution. 
 
-% TODO: figure
 \paragraph{}
 In the first approach geographic pattern is displayed as an annotation on the tree, with branches labelled according to the names of places in which their tips are observed.
 This can be carried out by hand for example in FigTree (\url{http://tree.bio.ed.ac.uk/software/figtree/}).
@@ -372,93 +399,75 @@ Figure is plotted using GenGis (\url{http://kiwi.cs.dal.ca/GenGIS/Main_Page}).
 
 Although in tangle-maps the tree and the map may are visually linked through the use of graphic lines, the tree is merely overlayed on the map, rather than projected onto the geographical coordinates.
 
+% how we do it
 \paragraph{}
-Geophylogenies, or more generally geo-trees are spatially referenced phylogenies, for which taxa exist in a real space and can be displayed as cartographic elements within a map \citep{Kidd2010}.   
-Possibly the first diagram like that, depicting evolutionary tree over geographical map is the famous \textit{Hypothetical Sketch of the Monophyletic Origin and the Extension of the 12 Races of Man from Lemuria over the Earth} shown in \cite{Haeckel1876} (see Figure~\ref{fig:lemuria})
+Model-based approaches to phylogenetic reconstruction, such as ancestral state reconstruction (see Subsection~\ref{sub:phylogeo}) provide estimates for phylogeographic relationships, but also the uncertainty in those estimates, which is crucial for hypothesis testing.
+Appropriately accommodating statistical uncertainty into visualisations is a major challenge.
+In BEAST and other software capable of phylogeographical reconstruction the location data can be modeled either as finite and countable (discrete) states or bivariate (longitude and latitude) realizations in continuous space.
+This choice is mainly dependent on the sampling scheme of the data.
+Different representations of uncertainty result from each approach.
+In the continuous case when bicariate coordinates are inferred for the internal nodes using a Brownian motion model, the geographic uncertainty is expressed as confidence envelopes or credible contours for each internal node.
+This can be seen in Figure~\ref{fig:cont}, where a 3D-geophylogeny with credible contours for each internal node projected on the surface in the Google Earth.
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.99]{lemuria}
+\includegraphics[scale=0.6]{continuous}
 \caption{
 { \footnotesize 
-{\bf Hypothetical Sketch of the Monophyletic Origin and the Extension of the 12 Races of Man from Lemuria over the Earth.} 
+{\bf Visualising geography uncertainty and phylogenetic tree uncertainty.} 
+Bottom facets explain the concept of time-slicing, upper facet presents a resulting animation.
 } % END: footnotesize
 }
-\label{fig:lemuria}
+\label{fig:cont}
 \end{figure}
 
-Ernst Haeckel, a XIX century darwinist entertained the idea that the abscence of missing fossil links in human evolution could be explained by existence of \textit{Lemuria}, a sunken land.  
-The phylogentic visualisation has surpassed the, entirely discredited, work itself.
+Two time slices are shown as an example for the continuous diffusion through time. 
+An example tree is mapped in continuous space, based on average bivariate coordinates for the internal nodes. 
+The uncertainty at any time-slice is depicted using credible contours, obtained from slicing the complete posterior distribution of location-annotated trees, sampled by BEAST.
+SPREAD supports also 2D alternatives of such projections.
 
-%TODO how we do it
+\paragraph{}
+In the discrete mapping , where each state represents a point location, similar easily interpreatble projections are harder to obtain.
+Only branches that accommodate a state transition can be distinguished and are projected as arcs, as depicted in Figure~\ref{fig:discrete}.
+This lead to a restrictive assumption of SPREADs approach, i.e. all nodes are assumed to have lived in the locations from which samples were obtained.
+The circle diameter reflects the number of branches that maintain a single state according to the parent and descendent node state.
 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{discrete}
+\caption{
+{ \footnotesize 
+{\bf Phylogeographic visualization of viral spread in discrete space.} 
+A. Conceptual representation of time-slicing a phylogeny and projecting the part of the tree up to time $t_{1}$ and $t_{2}$ respectively. 
+B. An example projection of influenza H5N1 over time in Google Earth for two different segment phylogenies. % (hemagglutinin and neuraminidase in green and magenta respectively).
+} % END: footnotesize
+}
+\label{fig:discrete}
+\end{figure}
 
-% \begin{figure}[H]
-% \centering
-% \includegraphics[scale=0.3]{figures/spread}
-% \caption{
-% { \footnotesize 
-% {\bf Phylogeographic visualization of viral spread in time and space.} 
-% A. Conceptual representation of time-slicing a phylogeny and projecting the part of the tree up to time $t_{1}$ and $t_{2}$ respectively. B. An example projection of influenza H5N1 over time in Google Earth for two different segment phylogenies. % (hemagglutinin and neuraminidase in green and magenta respectively).
-% } % END: footnotesize
-% }
-% \label{fig:spread}
-% \end{figure}
+% now highlight some of the future perspectives
+\subsection{Future perspectives}
 
-
-
-%TODO we now highlight some of the future perspectives
-
-
-%many citations, stressing th eneed for such a software
-% With over 90 citations by the time of writing this thesis, the original manuscript presenting the SPREAD software (\citet{Bielejec2011}, see Chapter \ref{chap:spread}) indicates a clear need for a package that can visualize phylogeographic diffusion processes.
-% Summarising the findings of molecular epidemiology in a clear and concise way, that can then be presented to a wider audience, is as important of a step as the statistical analysis itself.
-
-% With that in mind we will continue to support SPREAD by adding new functionalities and making more analyses possible.
-% The next major release of the software will be aimed at a thorough re-write of SPREADs internal engine, that would hopefully result in a more stable and responsive package.
-%GB: can you explain the sentence below in more detail, it's not very clear what you mean ...
-% One of the feature requests for example is the ability to alter line and polygon coloring without the need to re-compute the analysis.
-
-% An example of such a visualisation can be found in Figure~\ref{fig:spread}.
-%PL: never say 'there is a figure for you' without bothering to discuss it. At this point the reader has no idea what to make of time slicing, etc... This is an explanation of a SPREAD approach and does not belong here in the intro. Perhaps if you pick it up in the discussion, you could say that the paper format did not allow you to go into the visualization strategy all that much and you expand it on it a bit before discussing how you see the future for such things
-
+With over 90 citations by the time of writing this thesis, the original manuscript presenting the SPREAD software (\citet{Bielejec2011}, see Chapter \ref{chap:spread}) indicates a clear need for a package that can visualize phylogeographic diffusion processes inferred using Bayesian methods.
+With that responsibility in mind we will continue to support SPREAD by adding new functionalities and making more analyses possible.
+The next major release of the software will be aimed at a thorough re-write of SPREADs internal engine, that would hopefully result in a more stable and responsive package.
+% Specifically we will target many of the feature requests, for example the ability to instantenously alter line and polygon coloring without the need to re-compute the analysis.
 
 % outputting KML and web interfaces
-\subsection{Web interfaces}
-
+\paragraph{}
 The ability to output time-stamped KML documents which can then be played as animations is one of the most important functionalities of SPREAD and a source of its popularity.
 Future releases will continue to support that function, yet we will also add the ability to produce animated documents which can be embedded in webpages, viewed on mobile devices or locally on web browsers.
-%PL: to add meat to this, let's talk about D3 a bit and what it can do in this context (see what it does for Andrew: http://justsz.github.io/pandemix/h9n2_AR.html), the importance of interactivity...
-%PL: related to this I am pasting some text that I had put in a grant proposal that you are welcome to use (or parts of it) in anyway you like. the first part may be fit in to the more general discussion prior to the web-interfaces section:
-% Genetic and phenotypic data become useful only when we apply methods deriving insights from it, and these methods encompass statistical inference as well as visualization of its results. Visualizing estimates provides an efficient way to communicate results to the scientific community and beyond. Bayesian evolutionary inference, however, generates \textbf{high-dimensional} estimates, e.g. ancestral reconstructions of (multiple) traits on a posterior distribution of trees. When multidimensionality complicates the visualization task, dynamic, interactive visualizations may offer an attractive solution. In our case, the time scale of the evolutionary histories represents a natural dimension to explore for dynamic interactions. Interactivity can also encourage engagement and may lead to a better understanding and even appreciation of the statistical inference procedure itself. In our digital age, web visualization ensures accessibility and avoids the need to design proprietary software and plug-ins. We propose to \textbf{merge data visualization concepts, interactive design and web development} using D3 (d3js.org), a powerful JavaScript library for custom, web-based visualization. We will aim for a general visualization tool that maps the evolutionary patterns of traits with their uncertainty over time in their appropriate space. Geographic applications are perhaps the most intuitive to consider, and Fig.~\ref{Figure_H5N1} represents such an example that also attempts to visualize the host dimension. This grid based visualization summarizes host-specific densities based a posterior distribution of trees with a host and spatial diffusion history. We will support dynamic and interactive visualization of such patterns, and more phylogenetically explicit ones, over time and in different spaces (e.g. see Bedford et al.~\citep{bedford14} for antigenic space and \url{http://justsz.github.io/pandemix/h9n2_AR.html} for preliminary phylogeographic visualizations using D3).
+In our digital age, web visualization ensures accessibility and avoids the need to design proprietary software and plug-ins. We propose to merge data visualization concepts, interactive design and web development using D3 (\url{d3js.org}), a powerful JavaScript library for custom, web-based visualization. 
+We will aim for a general visualization tool that maps the evolutionary patterns of traits with their uncertainty over time in their appropriate space. 
+% For preliminary examples of interactive visualization see \url{http://justsz.github.io/pandemix/h9n2_AR.html}
 
-% new analysis, spatial statistics
-\subsection{Spatial statistics}
 
-New analyses will also be made attainable, with a possibility to produce spatial statistics such as wavefront \citep{Pybus2012}, for visualising emerging epidemics.
 %PL: provide a bit more background on these spatial stats: wavefront, dispersal rate, diffusion coefficient, how they are drawn from continuous diffusion reconstructions and what they can do in terms of comparative analyses and hypothesis testing..
-The new release of SPREAD will also have a Command Line Interface that will make it easier to pipeline large repeatable analysis, produce scripts or call SPREAD from interpretable languages like R \citep{RCran} or Python.
-
 %PL: you could also mention compatibility with BEAST2 and take this as an opportunity to describe the current situation of divergence in the two beast versions and parallel development for both.. the reader might be interested in this.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\paragraph{}
+\cite{Pybus2012} introduced a conceptual link between phylogeography and spatial ecology, deminstrating that the large-scale dynamics of epidemic, traditionally estimated using time-consuming field methods, can be quantified from increasingly inexpensive molecular data.
+We plan to make these new analyses attainable as part of SPREAD, with the possibility to produce spatial which can be extracted  from the posterior distribution of trees by slicing each phylogeny at multiple times and summarizing the resulting distributions.
+The new release of SPREAD will also have a Command Line Interface that will make it easier to pipeline large repeatable analysis, produce scripts or call SPREAD from interpretable languages like R \citep{RCran} or Python.
 
 
 %%%%%%%%%%%%%%
@@ -480,14 +489,18 @@ Our phylogenetic simulation software $\pi$BUSS presented in Chapter \ref{chap:pi
 In addition it offers an ability to apply different models across arbitrary partitioning schemes. %PL: also epochs?
 In future releases of $\pi$BUSS the collection of available models and data types will be extended even further.
 The development effort will be aimed at matching the model richness available for inference in BEAST, and supplying every method with its simulation counterpart in $\pi$BUSS.
-%PL: mention more explicitly what to add meat to this: e.g., flexible coalescent priors (skyline/ride/grid), the codon models extension you are aiming at developing, and importantly continuous trait data. We are currently moving into the field of comparative biology with the continuous framework, so there is a need to be able to simulate multivariate trait data, and this under several models such as Brownian, relaxed random walks, Ornstein-Uhlenbeck or drift models... this could be separate item almost like index-evolution
+Specifically we will implement simulation counterparts for the flexible coalescent priors, like skyline \citep{Drummond2005} or skyride \citep{Minin2008b}.
+Various extensions of biologically realistic codon models with across-site and across-branch variation will appear in future releases of the software.
 
+Currently simulation of trait data in $\pi$BUSS is limited to discrete univariate traits.
+With a growing attention received by multivariate trait data, spurred by the growing interested in continuously sampled comparative biological data, there will arise a need simulate under processes generating such data.
+We plan to implement several models to do so, such as Brownian diffusion models, relaxed random walk models and models driven by the Ornstein-Uhlenbeck process.
 
 \subsection{Graphical user interface and BEAUti integration}
 
 % gui for more complex models
 The models' specification will continue to be available via the user-friendly Graphical User Interface (GUI), which allows to setup a simulation by choosing models from drop-down menus, partitioning data in tables and parsing parameters from text fields in an intuitive fashion.
-Time-heterogenous models, for which evolutionary parameters change both across different lineages (see Chapter \ref{chap:dpp}) as well as models of pan-lineage change (see Chapter \ref{chap:epoch}) will have dedicated panels, where users can formulate them without the need to manually edit XML files.
+Time-heterogenous models, for which evolutionary parameters change both across different lineages (see Subsection~\ref{sub:dpp}) as well as models of pan-lineage change (see Chapter \ref{chap:epoch}) will have dedicated panels, where users can formulate them without the need to manually edit XML files.
 % beauti integration
 In addition to it's Command Line Interface for scripting purposes and XML parsers available via BEAST's core implementation, $\pi$BUSS is in a sense similar to the BEAUti software package, which helps BEAST users in setting up their analysis through a user-friendly GUI.
 We will proceed along that path, by providing even closer integration between the two programs and facilitating generation of joint simulation-analysis XML documents in which fabricated data is instantly passed to BEASTs XML parsers for inference.
@@ -495,13 +508,41 @@ We will proceed along that path, by providing even closer integration between th
 % indel models
 \subsection{Simulation of insertion deletion events}
 
-%GB: this first sentence is unclear, please rewrite it.
 In the field of molecular biology, insertions and deletions (indels) exist on the other end of spectrum of mutations then substitution events, which we discussed in details in Subsection \ref{sub:subst_models}.
 Whereas substitutions are point mutations which replace one nucleotide with another, indels proceed by either inserting or deleting nucleotides in a sequence, thus altering its length. 
-Indel mutations are well known to have a significant impact on processes of molecular evolution \citep{Fletcher2009}. %PL: perhaps mention that they require different models and assumptions such as reversibility are not realistic for such processes
+Indel mutations are well known to have a significant impact on processes of molecular evolution \citep{Fletcher2009}. 
 Therefore without models of insertion/deletion sequence simulation is somewhat limited.
-Future releases of $\pi$BUSS will implement that option, starting with the stochastic Dollo model \citep{LeQuesne1974}.
+
 %PL: you could mention why indel processes are useful -- I would think this is more for evaluating alignment procedures - and take this as an opportunity to talk about statistical alignment and joint inference of alignment and phylogeny (a la Marc's Baliphy), and that it would be great to get this in BEAST, but mention the computational hindrances. I think one of Marc's disciples also showed how to integrate such approaches in codon model approaches to identify positive selection: http://people.duke.edu/~br51/branch-site-article.pdf
+
+% TODO
+
+
+
+
+Realistic indel simulation requires however separate stochastic models.
+Standard modelling assumptions, such as those used for standard substitution models (see Subsection~\ref{sub:subst_models}), are not realistic for insertions and deletions.
+
+
+Future releases of $\pi$BUSS will implement that option, starting with the stochastic Dollo model \citep{LeQuesne1974}.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 \section{Other challenges}
@@ -525,7 +566,7 @@ If we want to capitalize on vast amounts of data that are available, future deve
 \subsection{Biologically plausible models}
 
 Interestingly, realistic models of evolution also bring about new computational challenges.
-Models with large state spaces, such as codon models discussed in Chapter \ref{chap:dpp} are an example of such a challenge.
+Models with large state spaces, such as codon models discussed in Subsection~\ref{sub:dpp} are an example of such a challenge.
 Fortunately recent advances in computing on GPUs \citep{Ayres2012} provide opportunities to accelerate phylogenetic inference.
 However we believe that more research will be needed to mitigate the imminent computational burdens that come with novel modeling approaches and high-throughput sequencing. 
 %PL: this paragraph doesn't say much. Perhaps when you put the lineage codon models with DP process priors in the discussion, you can extend on this? 
