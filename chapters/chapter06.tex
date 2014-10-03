@@ -510,63 +510,75 @@ In addition to it's Command Line Interface for scripting purposes and XML parser
 We will proceed along that path, by providing even closer integration between the two programs and facilitating generation of joint simulation-analysis XML documents in which fabricated data is instantly passed to BEASTs XML parsers for inference.
 
 % indel models
+%PL: you could mention why indel processes are useful -- I would think this is more for evaluating alignment procedures - and take this as an opportunity to talk about statistical alignment and joint inference of alignment and phylogeny (a la Marc's Baliphy), and that it would be great to get this in BEAST, but mention the computational hindrances. I think one of Marc's disciples also showed how to integrate such approaches in codon model approaches to identify positive selection: http://people.duke.edu/~br51/branch-site-article.pdf
 \subsection{Simulation of insertion deletion events}
 
 In the field of molecular biology, insertions and deletions (indels) exist on the other end of spectrum of mutations then substitution events, which we discussed in details in Subsection \ref{sub:subst_models}.
 Whereas substitutions are point mutations which replace one nucleotide with another, indels proceed by either inserting or deleting nucleotides in a sequence, thus altering its length. 
-Indel mutations are well known to have a significant impact on processes of molecular evolution \citep{Fletcher2009}. 
-Therefore without models of insertion/deletion sequence simulation is somewhat limited.
-
-%PL: you could mention why indel processes are useful -- I would think this is more for evaluating alignment procedures - and take this as an opportunity to talk about statistical alignment and joint inference of alignment and phylogeny (a la Marc's Baliphy), and that it would be great to get this in BEAST, but mention the computational hindrances. I think one of Marc's disciples also showed how to integrate such approaches in codon model approaches to identify positive selection: http://people.duke.edu/~br51/branch-site-article.pdf
-
-%bible p7
-
-% TODO
-
-
-
-
+Indel mutations are well known to have a significant impact on processes of molecular evolution \citep{Fletcher2009}, especially on viral genomes, which are usually small.
+The extent of this impact will depends on the position of the event in the coding regions of the genome.
+% FB: check if I'm not talking out of my ass here:
+When an integer multiple of a codon triplet is inserted or deleted it means that one or more amino acids are inserted or deleted leaving the protein function unchanged.
+In the case of one or two indel events the resulting gene usually codes for a different protein with different amino-acids.
+This makes insertion/deletion sequence simulation important for evaluating new models and alignment procedures.
 Realistic indel simulation requires however separate stochastic models.
-Standard modelling assumptions, such as those used for standard substitution models (see Subsection~\ref{sub:subst_models}), are not realistic for insertions and deletions.
-
-
+Standard modelling assumptions, such as those used for standard substitution models (see Subsection~\ref{sub:subst_models}), are not realistic for indel events.
 Future releases of $\pi$BUSS will implement that option, starting with the stochastic Dollo model \citep{LeQuesne1974}.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 \section{Other challenges}
 
-% high perf computin
+%PL: the next sentence imemediately jumps into specifics, maybe introduce HPC and a bit of its history/strategies before coming to the limitations.
+%PL: here's an opportunity to talk a bit more about these things (I for one don't really know what FPGA are). GPUs are really good for particular tasks, but surely they are not the holy grail of HPC either, so talk about their advantages, drawbacks and some future perspectives... Maybe also talk about BEAGLE, its current CUDA dependency, and what the prospects are here. This is stuff that David Posada might be really interested in.
 \subsection{High performance computing}
 
 The ever growing availability of molecular sequences produced by high-throughput sequencing yields data which is difficult to store, let alone to analyze.
-This problem is dubbed the biggest challenge for the field of molecular virology. % citation %PL: probably not just virology but molecular evolution in general?
+This problem is dubbed the biggest challenge for the field of virology and molecular epidemiology. 
 
-%PL: the next sentence imemediately jumps into specifics, maybe introduce HPC and a bit of its history/strategies before coming to the limitations.
-Furthermore due to hardware limitations and problems with heat dissipation we are approaching the limit of how many transistors can be put into integrated circuits.
-%GB: need citation for Moore's law?
+\paragraph{}
 An observation which came to be known as Moore's law predicted the trend in which chip performance should double roughly every 18 months.
-However because of these problems serial computations on next generations of CPUs no longer yield the same increases in speed and performance.
-% citation
-If we want to capitalize on vast amounts of data that are available, future development of phylogenetic software should target high performance parallel devices such as GPUs \citep{Nickolls2008} or Field-programmable gate arrays (FPGA, \citet{Kuon2008}).
-%PL: here's an opportunity to talk a bit more about these things (I for one don't really know what FPGA are). GPUs are really good for particular tasks, but surely they are not the holy grail of HPC either, so talk about their advantages, drawbacks and some future perspectives... Maybe also talk about BEAGLE, its current CUDA dependency, and what the prospects are here. This is stuff that David Posada might be really interested in.
+However to hardware limitations and problems with heat dissipation we are approaching the limit of how many transistors can be put into integrated circuits, which translates into CPU performance.
+Figure~\ref{fig:moore} shows how during the time of $15$ years the hardware performance and improvements in compiler technology provided a speedup by a factor of 80.
+For practical purposes this meant that just by updating the hardware architecture and compilators we could tackle bigger problems without ever changing the code-base of the numerical programs.
+Yet during last two depicted years this gain is no longer visible\footnote{The free ride is over!}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.2]{moore}
+\caption{
+{ \footnotesize 
+{\bf Performance gains of a numerical code over the course of 15 years.}
+} % END: footnotesize
+}
+\label{fig:moore}
+\end{figure}
+
+Because of these problems serial computations on next generations of CPUs no longer yield the same increases in speed and performance.
+Fortunately increasing availibility of parallel processing hardware offers a solution for all data intensive computations.
+Parallel computers are becoming more widespread, and can take a form of supercomputer clusters, but also inexpensive desktop multiprocessors or workstations equipped with parallel accelerators, geared specifically towards scientific computing.
+Yet emerging areas of research, such as computational biology have all implications for algorithms and software development.
+If we want to capitalize on vast amounts of data that are available, future development of phylogenetic software should target high performance parallel devices.
+Yet to properly leverage these possibilities means that the burden is, at least partially, shifted from harware vendors to software developers.
+Writing and optimizing massively parallel code requires deep understanding of the underlying architecture, leveraging libraries and APIs and correct use of the performance assesment tools.
+
+\paragraph{}
+GPUs \citep{Nickolls2008} have recently 
+
+
+% Field-programmable gate arrays (FPGA, \citet{Kuon2008}).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 % codon models
 \subsection{Biologically plausible models}
