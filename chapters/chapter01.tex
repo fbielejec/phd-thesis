@@ -1,8 +1,17 @@
 \chapter{Introduction}
 
 \begin{remark}{Outline}
-In this chapter, we introduce fundamental 
-TODO
+% TODO
+In this chapter, we introduce fundamental concepts of the molecular evolution and how it integrates into the field of phylodynamics, a study of evolutionary and epidemiological processes exhibited by emerging epidemics.
+Beginning with a current state of the field, we exemplify some of those epidemics, an illustration of the vulnerability of the human population to pandemic threats.
+We stress the importance of developing fast and statistically sound surveilance methods, serving as a a shield against those threats.
+
+We then introduce some of the most important breakthroughs in the field, i.e. the introduction of molecular clock, which allows to date speciation events from genetic data and calibration points alone, and the shift of the field towards probabilistic methods and the advent of Monte Carlo algorithms as well as powerful and increasingly more attainable computer hardware, which boosted the adoption of Bayesian methodology.
+We then talk about how these advances integrate into publicly available software, that adequately accounts for phylogenetic uncertainty by averaging over all plausible evolutionary histories.
+
+Finally Subsection~\ref{sub:objectives} positions the work presented in this thesis and how it advances our understanding of the processes shaping viral evolution and spread.
+Next parts of this introductory chapter are devoted towards describing the most basic inference methodology in more details, and serve as an aid in understanding the work presented in Chapters~\ref{chap:epoch}--\ref{chap:pibuss}.
+
 \end{remark}
 
 \section{General Introduction}
@@ -25,7 +34,7 @@ Viral sequence data has been recognized as a major asset in the characterization
 Molecular epidemiology complements traditional epidemiological studies because it primarily focuses on the etiological agent rather than the host \citep{Leitner2002}.
 In particular, the historical information contained in viral gene sequences contributes to a better insight in emergence and early transmission dynamics, even before systematic epidemiological surveillance has been initiated. 
 For many years, phylogenetic analysis has been the primary tool in molecular epidemiology. 
-By reconstructing a ime-calibrated phylogenetic tree, we are able to study the evolutionary history of viral strains, assess epidemiological linkage amongst them, and shed light on transmission patterns. 
+By reconstructing a time-calibrated phylogenetic tree, we are able to study the evolutionary history of viral strains, assess epidemiological linkage amongst them, and shed light on transmission patterns. 
 With the advent of high-throughput DNA sequencing, genomic data from RNA viruses is becoming available in unprecedented quantities and with remarkable rapidity. 
 
 The last decade has witnessed a particular focus of analyses of viral evolutionary dynamics on integrating concepts of phylogenetic and epidemiological dynamics, a research direction originally coined `phylodynamics' \citep{Grenfell2004}.
@@ -391,8 +400,6 @@ These methods assume that trees are shaped by processes such as migration, selec
 Trees proposed by the coalescent are then random draws from a larger, population-level processes, and one can use molecular and other data to get a better resolution of these underlying processes.
 
 \subsection{Bayesian evolutionary inference in BEAST}
-% [PL: How this all integrates in a flexible framework and publicly available software, one that adequately accounts for phylogenetic uncertainty by averaging over all plausible evolutionary histories for your data
-% ]
 
 Bayesian evolutionary analysis by sampling trees (BEAST) software \citep{Drummond2012}, co-developed in our research group, is build around the advances described in Subsections~\ref{sub:epidemiology}-\ref{sub:molecular_clock}.
 BEAST is set in a Bayesian statistical framework, meaning that it combines the data likelihood (see Subsection~\ref{sub:likelihood}) with prior knowledge (see Subsection~\ref{sec:bayesian_inference}), and generates posterior samples using MCMC (see Subsection~\ref{sub:mcmc}).
@@ -438,7 +445,7 @@ Finally \textbf{$\pi$BUSS} is a software for sequence simulation, capable of gen
 BEAST is a flexible package for statistical pylogenetics and hypothesis testing.
 In addition to a large array of availiable models, it is actively developed with new models and enhancements included with every new stable release.
 
-\subsection{Objectives: model extension, simulation and visualisation}
+\subsection{Objectives: model extension, simulation and visualisation\label{sub:objectives}}
 
 % models
 \paragraph{}
@@ -555,7 +562,7 @@ Figure~\ref{fig:poisson} shows a sample of different trajectories of such a proc
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.5]{poisson}
+\includegraphics[scale=0.4]{poisson}
 \caption{
 { \footnotesize 
 {\bf Independent realizations of the Poisson process with intensity $r=1$.}

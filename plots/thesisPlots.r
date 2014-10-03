@@ -243,9 +243,9 @@ b2 <- sum(c(b1, rexp(1)))
 b3 <- sum(c(b1, rexp(1)))
 b4 <- rexp(1)
 
-label1 <- "realisation 1"
-label2 <- "realisation 2"
-label3 <- "realisation 3"
+label1 <- "Realisation 1"
+label2 <- "Realisation 2"
+label3 <- "Realisation 3"
 
 pRealisations <- data.frame(x = c( 0, b1, b2, 0, b1, b3, 0, b4 ), 
                            y = c( 0,1,2,0,1,2,0,1 ), 
@@ -282,19 +282,21 @@ vplayout <- function(x, y){
 }
 
 p <- ggplot(pRealisations)
-p <- p + geom_step(aes(x = x, y = y, color = col, linetype = col))
+p <- p + geom_step(aes(x = x, y = y, color = col, linetype = col), size = 1.5)
 p <- p + facet_wrap( ~ col, ncol = 3, scales = "fixed")
 p <- p + theme1
 p <- p + xlab("t")
+p <- p + scale_color_grey()
 print(p, vp = vplayout(1, 1))
 
 p <- ggplot(tree)
-p <- p + geom_segment(aes(x = x, y = y, xend = xend, yend = yend, color = col, linetype = col), alpha = 1, size = 1.1)
+p <- p + geom_segment(aes(x = x, y = y, xend = xend, yend = yend, color = col, linetype = col), alpha = 1, size = 1.5)
 # p <- p + scale_x_continuous(
 #   breaks = round(c(b1,b2,b3,b4),2)
 # )
 p <- p + theme1
 p <- p + xlab("t")
+p <- p + scale_color_grey()
 print(p, vp = vplayout(2, 1))
 
 
@@ -409,9 +411,9 @@ PriorLikePost <- function(N, x, a, b, length.out = 1000) {
   
   data <- data.frame(
     theta      = theta, 
-    prior      = prior, 
-    likelihood = likelihood, 
-    posterior  = posterior
+    Prior      = prior, 
+    Likelihood = likelihood, 
+    Posterior  = posterior
   )
   
   return(data)
@@ -437,7 +439,8 @@ theme <- theme_update(
 )
 
 p <- p + theme_set(theme)
-p <- p + scale_fill_discrete("")
+# p <- p + scale_fill_discrete("")
+p <- p + scale_fill_grey("")
 p <- p + ylab("") + xlab(expression(""*theta*""))
 print(p)
 

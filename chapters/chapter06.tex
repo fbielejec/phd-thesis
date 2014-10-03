@@ -85,26 +85,30 @@ If the frequencies are parameterized according to three sets of nucleotide frequ
 Finally in the GY94-F61 model every codon triplet has it's own frequency parameter, with all parameters summing to one, resulting in 60 free parameters that need to be estimated.
 
 The GY94-F61 model has been suggested as important in letting the model explain the data without constricting assumptions.
-%GB: 'confounds other effects' is too vague, be more specific or give an example
-\citet{Rodrigue2008} however argue that the model has no interpretation on the nucleotide level as well as confounds other effects. 
+\citet{Rodrigue2008} however argue that the model has no interpretation on the nucleotide level as well as confounds other effects inducing uneven codon stationary probabilities.
 The authors criticize the GY94-F$3\times4$ setup as superficial, pointing that the periodic pattern along the nucleotide sequence positions represents the coding structure of the sequence but not the processes that shape the evolution.
 
 % MG style models
 The Markov generator matrix for MG94 style models \citep{Muse1994} is given by:
 
-%GB: fix this, it's too wide for the page
-\footnotesize{
+{\tiny{
 \begin{equation}
 q_{ij}^{MG94}=\begin{cases}
-\alpha\cdot\kappa\cdot\pi_{n}^{p} & i\rightarrow j\text{ is a synonymous transition from nucleotide \textit{m} to \ensuremath{n} at codon position \ensuremath{p}.}\\
-\alpha\cdot\pi_{n}^{p} & i\rightarrow j\text{ is a synonymous transversion from nucleotide \ensuremath{m} to \ensuremath{n} at codon position \ensuremath{p}.}\\
-\beta\cdot\kappa\cdot\pi_{n}^{p} & i\rightarrow j\text{ is a non-synonymous transition from nucleotide \ensuremath{m} to \ensuremath{n} at codon position \ensuremath{p}.}\\
-\beta\cdot\pi_{n}^{p} & i\rightarrow j\text{ is a non-synonymous transversion from nucleotide \ensuremath{m} to \ensuremath{n} at codon position \ensuremath{p}.}\\
-0 & \text{otherwise.}
+\alpha\cdot\kappa\cdot\pi_{n}^{p} & i\rightarrow j\text{ is a synonymous transition from nucleotide \textit{m} to \ensuremath{n} at codon position \ensuremath{p}}\\
+\alpha\cdot\pi_{n}^{p} & \text{synonymous transversion from \ensuremath{m} to \ensuremath{n} at position \ensuremath{p}}\\
+\beta\cdot\kappa\cdot\pi_{n}^{p} & \text{non-synonymous transition from \ensuremath{m} to \ensuremath{n} at position \ensuremath{p}}\\
+\beta\cdot\pi_{n}^{p} & \text{non-synonymous transversion from \ensuremath{m} to \ensuremath{n} at position \ensuremath{p}}\\
+0 & \text{otherwise}
+% \alpha\cdot\kappa\cdot\pi_{n}^{p} & i\rightarrow j\text{ is a synonymous transition from nucleotide \textit{m} to \ensuremath{n} at codon position \ensuremath{p}.}\\
+% \alpha\cdot\pi_{n}^{p} & i\rightarrow j\text{ is a synonymous transversion from nucleotide \ensuremath{m} to \ensuremath{n} at codon position \ensuremath{p}.}\\
+% \beta\cdot\kappa\cdot\pi_{n}^{p} & i\rightarrow j\text{ is a non-synonymous transition from nucleotide \ensuremath{m} to \ensuremath{n} at codon position \ensuremath{p}.}\\
+% \beta\cdot\pi_{n}^{p} & i\rightarrow j\text{ is a non-synonymous transversion from nucleotide \ensuremath{m} to \ensuremath{n} at codon position \ensuremath{p}.}\\
+% 0 & \text{otherwise.}
 \end{cases},
 \label{eq:mg94}
 \end{equation}
 } % END: size
+}
 
 There are two main differences to be noted with respect to the GY94 style codon models.
 First, the model is parameterized in terms of both the non-synonymous ($\beta$) and synonymous ($\alpha$) rates, meaning that a change in the ratio may be due to alteration of the rate of non-synonymous or synonymous substitutions, or both.
@@ -514,6 +518,8 @@ Indel mutations are well known to have a significant impact on processes of mole
 Therefore without models of insertion/deletion sequence simulation is somewhat limited.
 
 %PL: you could mention why indel processes are useful -- I would think this is more for evaluating alignment procedures - and take this as an opportunity to talk about statistical alignment and joint inference of alignment and phylogeny (a la Marc's Baliphy), and that it would be great to get this in BEAST, but mention the computational hindrances. I think one of Marc's disciples also showed how to integrate such approaches in codon model approaches to identify positive selection: http://people.duke.edu/~br51/branch-site-article.pdf
+
+%bible p7
 
 % TODO
 
