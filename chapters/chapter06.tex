@@ -534,11 +534,44 @@ Future releases of $\pi$BUSS will implement that option, starting with the stoch
 The ever growing availability of molecular sequences produced by high-throughput sequencing yields data which is difficult to store, let alone to analyze.
 This problem is dubbed the biggest challenge for the field of virology and molecular epidemiology. 
 
+% JVN
 \paragraph{}
+John von Neumann in his famous `First Draft of a Report on the EDVAC' \cite{vonNeumann1945} describes a sequential program, which execution can be followed by sequentially stepping through it's code.
+
+\begin{remark}{The First Draft of a Report on the EDVAC}
+The First Draft of a Report on the EDVAC, or simply First Draft for short, is an incomplete, 101-page document which was written by John von Neumann during his daily commutes by train.
+% \begin{center}
+% First Draft of a Report on the EDVAC
+% by John von Neumann, 
+% Contract No. W-670-ORD-4926, 
+% Between the United States Army Ordinance Department 
+% and the University of Pennsylvania Moore School of Electrical Engineering 
+% University of Pennsylvania 
+% June 30, 1945
+% \par\end{center}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.3]{first_draft}
+\caption{
+{ \footnotesize 
+{\bf The title page of the report.}
+} % END: footnotesize
+}
+\label{fig:vonNeumann}
+\end{figure}
+
+At that time von Neumann was working as a consultant for the U.S. Army's Ballistics Research Laboratory (BRL), which played an important role in the early history of computers, developing and building several generations of first computers.
+The report itself was a first description of a computer in the modern sense, capable of running prorgams stored in it's memory, hence the name \textit{Electronic Discrete Variable Automatic Computer}.
+Later it was a cause of many controversies, as the lead developers of ENIAC (predecessor of EDVAC) and EDVAC, John Mauchly and John Presper Eckert were not listed as authors, leading to all the credit being attributed to von Neumann.
+\end{remark}
+
+Traditionally a vast majority of programs were written as sequential, which work well for the scientific community for many years.
 An observation which came to be known as Moore's law predicted the trend in which chip performance should double roughly every 18 months.
-However to hardware limitations and problems with heat dissipation we are approaching the limit of how many transistors can be put into integrated circuits, which translates into CPU performance.
+
 Figure~\ref{fig:moore} shows how during the time of $15$ years the hardware performance and improvements in compiler technology provided a speedup by a factor of 80.
-For practical purposes this meant that just by updating the hardware architecture and compilators we could tackle bigger problems without ever changing the code-base of the numerical programs.
+For practical purposes this meant that just by updating the hardware architecture and compilators we could tackle bigger problems without ever changing the code-base of the numerical programs, creating a positive cycle for the
+computer industry.
+The same software would run faster with new generations of processors and new versions of compilers were introduced.
 Yet during last two depicted years this gain is no longer visible\footnote{The free ride is over!}.
 
 \begin{figure}[H]
@@ -552,55 +585,89 @@ Yet during last two depicted years this gain is no longer visible\footnote{The f
 \label{fig:moore}
 \end{figure}
 
+Due to hardware limitations, and problems with heat dissipation, we are now at the limit of how many transistors can be put into integrated circuits, which translates into CPU performance.
 Because of these problems serial computations on next generations of CPUs no longer yield the same increases in speed and performance.
 Fortunately increasing availibility of parallel processing hardware offers a solution for all data intensive computations.
+This means that the applications software will continue to enjoy performance improvements as long as they target the new generation of parallel microprocessors in which multiple threads cooperate to jointly complete the work faster.
 Parallel computers are becoming more widespread, and can take a form of supercomputer clusters, but also inexpensive desktop multiprocessors or workstations equipped with parallel accelerators, geared specifically towards scientific computing.
-Yet emerging areas of research, such as computational biology have all implications for algorithms and software development.
-If we want to capitalize on vast amounts of data that are available, future development of phylogenetic software should target high performance parallel devices.
-Yet to properly leverage these possibilities means that the burden is, at least partially, shifted from harware vendors to software developers.
-Writing and optimizing massively parallel code requires deep understanding of the underlying architecture, leveraging libraries and APIs and correct use of the performance assesment tools.
+This leads to the escalating need for the development of parallel programs, reffered to as the \textit{concurrency revolution} \citep{Sutter2005}.
 
 \paragraph{}
-GPUs \citep{Nickolls2008} have recently 
+Emerging areas of research, such as computational biology have all implications for algorithms and software development.
+If we want to capitalize on vast amounts of data that are available, future development of phylogenetic software should target high performance parallel devices.
+To properly leverage these possibilities means that the burden of improving the performance is, at least partially, shifted from harware vendors to software developers.
+Writing and optimizing massively parallel code requires deep understanding of the underlying architecture, leveraging libraries and APIs and correct use of the performance assesment tools.
 
+% two roads: many core an multi core
+Currently it seems that the semiconductor industry has established two, \textit{nomen omen}, parallel paths for designing multiprocessors.
+The \textit{multicore} path began with the idea of putting two CPU cores on the same chip.
+This path means that the current clock speed of a single core remains the same, but at the same time the vendors are approximately doubling the number of effective cores with every new generation.
 
-% Field-programmable gate arrays (FPGA, \citet{Kuon2008}).
+\paragraph{}
+In contrast the \textit{many-core} path focuses on increasing the throughput of parallel applications by using large numbers of much smaller and simpler cores, and again approximately doubling the number of cores that is put on every new generations of devices. 
+NVIDIAa GPUs are an exemplar of such many-core devices.
+GPUs \citep{Nickolls2008} have made a big impact on the scientific computing, with the term GPGPU coined for the technology making use of GPUs for scentific, but not only, purposes.
+Because modern GPU devices are designed to maximize throughput of a given computation they are capable of achieving impressive peak performances (see Subsection~\ref{sub:fine_grain}).
+Most important factors that contributed to the wide adoption of GPUs for scientific computing is the fact that these substantial improvements are easily affordable. 
+Furthermore the parallel computing architecture comes with an ecosystem of libraries, tools and extended C language for GPUs that exposes the GPGPU capabilities, ficilitated by NVIDIAs CUDA framework and various implementation of the OpenCL (Open Computing Language) standard.
 
+% beagle
+\cite{Suchard2009} have pioneerd the use of General-Purpose computing on Graphics Processor Units for statistical phylogenetics.
+This work has resulted in the development of the Beagle high-performance library for  evaluating phylogenetic likelihoods of biomolecular sequence evolution \citep{Ayres2012}.
+Beagle can make use of other highly-parallel processors beside GPUs, is also capable of calling SSE (Streaming SIMD Extensions) as well as AVX (Advanced Vector Extensions) vector instructions, thus achieving improved performance on current generation of Intel microprocessor architectures.
+It's API is currently used by a range of phylogenetic software, such as MrBayes (\url{http://mrbayes.sourceforge.net}), Garli (\url{https://garli.googlecode.com}), PhyML (\url{https://phyml.googlecode.com}) and BEAST.
 
+\paragraph{}
+The use of Graphics Processing Units for scientific computing does not come without some caveats.
+Recent NVIDIAs GPU chips intended for the high-margin PC gaming market, the GeForce 600 and 700 series, have had their double-precision capabilities crippled.
+This means that the scientific community interested in high-precision computations instead of cost-sensitive consumer-class devices would have to turn towards, more expensive, Quadro and Tesla cards, or the GTX TITAN card.
 
+\paragraph{}
+Perhaps more important is the fact that the host-device work scheme, in which the GPUs operate, is a source of the main bottleneck that hampers the most effective utilizations of devices.
+In a typical workflow of a GPGPU program both the host and device memory need to be allocated, host memory needs to be copied to the device, and after executing a GPU kernel the results need to be copied back to the CPU memory.
+The copying happens over a PCI Express bus, a point-to-point serial interface organised in the form of bi-directional lanes (each lane transmits the data in one direction).
+Typical has bandwith of a current architecture card resolves around $300$ GB/c, while a PCI express bus v3.0 has a theoretical peak speed of 15.75 GB/s in each direction.
+This bottleneck can severely dilute any speed increments achieved by using GPUs, in fact the impressive peak-performances reported by the vendors are almost never achieved in the real-world application.
 
+% karma/ maxwell 
+\paragraph{}
+Perhaps the emerging Heterogeneous System Architecture (HSA) will offer and interesting solution to this problem.
+While current CPUs and GPUs are designed as separate devices, requiring an application to explicitly copy data from CPU to GPU and then back again, HSA is geared towards having a single, unified memory address space for all the data structures.
+This means that multiple compute tasks can work on the same memory regions avoiding the discussed bottlenecks.
+As an example NVIDIAs Tesla accelerator cards based on the Maxwell architecture will have an integrated ARM CPU of its own\footnote{Barcelona Supercomputing Center in Spain has been working on a prototype ARM-GPU supercomputer for a few years now.}.
+ARM is a family of processors based on RISC (Reduced Instruction Set Computing) architecture, best known from portable, battery-powered devices such as smartphones or tablets. 
+Other vendors are also working on similar hybrid solutions.
 
+\paragraph{}
+Another interesting avenue, and perhaps a competitor for scientific computations are the field-programmable gate arrays (FPGA, \citet{Kuon2008}).
+FPGAs are chips which can be configured at low cost by the end-customer after being manufactured, hence the name.
+FPGAs are build from logic blocks, memory elements and a set of interconnects, which can be programmed and reconfigured to perform arbitrarily complex logical operations.
+% This means that they can be reconfigured at low  cost to best suit the problem that is at hand.
+Typical modern FPGA employs bi-directional data lanes, with very fast I/O (Input/output), additionaly many FPGAs can be reprogrammed during the run-time. 
 
+\begin{remark}{Road To Riches}
+% https://www.reddit.com/r/Bitcoin/comments/18q2jx/eli5_bitcoin_mining_xpost_in_eli5/
+FPGAs are a very fast and power efficient way to implement the SHA256 hashing algorithm, or mining Bitcoins in simple words.
+Various companies are offering configured FPGA chips specific to the task, there also exists an Open-Source implementation of software for various FPGA systems.
+\end{remark}
 
+Therefore their main advantage comes from the fact that they can be reconfigured at low  cost to best suit a specific problem to compute.
+First attempts at extending the BEAGLE library to FPGA architecture have already been made by \cite{Jin2013}.
 
-
-
-
-
-
-
-
-% codon models
-\subsection{Biologically plausible models}
-
-Interestingly, realistic models of evolution also bring about new computational challenges.
-Models with large state spaces, such as codon models discussed in Subsection~\ref{sub:dpp} are an example of such a challenge.
-Fortunately recent advances in computing on GPUs \citep{Ayres2012} provide opportunities to accelerate phylogenetic inference.
-However we believe that more research will be needed to mitigate the imminent computational burdens that come with novel modeling approaches and high-throughput sequencing. 
-%PL: this paragraph doesn't say much. Perhaps when you put the lineage codon models with DP process priors in the discussion, you can extend on this? 
-
-% visualisations
-\subsection{Big data}
-%PL this is OK as concluding paragraph in another section, but it doesn't warrant a separate subsection as 'Big data.
+\paragraph{}
+In the light of these advances it is fair to say that we are entering the golden era of parallel computing.
+The barrier for writing parallel code is set lower with every generation of parallel devices shipped to consumers and the scientific community.
+Researchers all over the world are enaging in developing new models and algorithms that can benefit from this revolution.
+The hardware vendors are coming up with new devices which improve the power efficiency, badndwith and clock speed with every new generation.
+All these improvements come at the right moment.
 The advent of next generation sequencing data has lead to the generation of complete genome sequences in short time and at relatively low costs.
-This, combined with high-performance computing, will allow us to analyse the data in almost real time, and by coupling molecular sequence data with geographical information, to trace the diffusion of emerging epidemics and instantly identify potential hosts and sinks as well as other factors contributing to viral spread.   
+It is not uncommon to work with datasets including whole genomes of organisms.
 
-
-%GB: I would have expected a lot more on codon models, both from a modelling perspective as well as a computational perspective?
-
-
-
-
+Complex, biologically realistic models that target this information also bring about new computational challenges.
+Models with large state spaces, such as codon models discussed in Subsection~\ref{sub:dpp} are an example of such a challenge.
+More research will be needed to mitigate the imminent computational burdens that come with novel modeling approaches and high-throughput sequencing. 
+This could allow us to analyse the data in almost real time, and by coupling molecular sequence data with geographical information, to trace the diffusion of emerging epidemics and instantly identify potential hosts and sinks as well as  other factors contributing to viral spread.  
+Although it is hard to make any specific predictions, it is also very interesting to see what the future of high-performance computing brings on the cross-section of data-plenty and high-performance computing
 
 
 

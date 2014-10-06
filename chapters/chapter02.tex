@@ -247,7 +247,7 @@ m^{\prime\prime} - 1
 Each matrix convolution in Equation (\ref{eq:convolution}) is ${\cal O}(K^3)$, potentially commanding a high computational burden compared to the likelihood recursion when $K$ is large and many branches in $\mathbf{F}$ transect multiple boundaries.  
 Fortunately, these operations are very regular and both fine- and coarse-grain parallelization offers a solution to the computational burden.
 
-\subsection{Fine-grain parallel implementation}
+\subsection{Fine-grain parallel implementation\label{sub:fine_grain}}
 
 In this subsection, we describe the fine-grain parallel implementation of the epoch model in the BEAGLE library \citep{Ayres2012}.
 Pursuing the single instruction, multiple data (SIMD) programming paradigm, GPUs use a thread management system that executes many, possibly millions of lightweight threads at a relatively modest speed, rather than a limited number of threads very rapidly on multiple-core CPUs.
