@@ -18,7 +18,7 @@ In that light we talk about the continued effort to support and extend the $\pi$
 Highly dimensional estimates that result from Bayesian inference of viral spread in both time and space require dedicated software that is capable of producing visualisations that are both visually pleasing and insightful.
 We discuss the future directions that the next releases of the SPREAD software \citep{Bielejec2011} will take, ensuring that it keeps providing its users with intuitive and user-friendly interfaces as well as access to a vast bulk of possible visualisations.
 
-Finally we talk about the challenges and opportunities that the future might bring, in the era of the so-called ``genomics plenty'', where vast amount of molecular sequences can be sequenced fast and cheaply.
+Finally we talk about the challenges and opportunities that the future might bring, in the era of the so-called ``genomics plenty'', where vast amounts of molecular data can be sequenced increasingly faster and at lower costs, and the high-performance computing strategies that compete in this race.
 \end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -525,21 +525,22 @@ Realistic indel simulation requires however separate stochastic models.
 Standard modelling assumptions, such as those used for standard substitution models (see Subsection~\ref{sub:subst_models}), are not realistic for indel events.
 Future releases of $\pi$BUSS will implement that option, starting with the stochastic Dollo model \citep{LeQuesne1974}.
 
-\section{Other challenges}
-
-%PL: the next sentence imemediately jumps into specifics, maybe introduce HPC and a bit of its history/strategies before coming to the limitations.
-%PL: here's an opportunity to talk a bit more about these things (I for one don't really know what FPGA are). GPUs are really good for particular tasks, but surely they are not the holy grail of HPC either, so talk about their advantages, drawbacks and some future perspectives... Maybe also talk about BEAGLE, its current CUDA dependency, and what the prospects are here. This is stuff that David Posada might be really interested in.
-\subsection{High performance computing}
+%%%%%%%%%%%
+%---HPC---%
+%%%%%%%%%%%
+\section{High performance computing}
 
 The ever growing availability of molecular sequences produced by high-throughput sequencing yields data which is difficult to store, let alone to analyze.
 This problem is dubbed the biggest challenge for the field of virology and molecular epidemiology. 
+High performance computing (HPC) tasks are characterized as needing large amounts of computing power, and teh field is interested in reducing the time to complete an individual job.
+Here we will discuss several architectures that are used for high performance statistical phylogenetics. 
 
-% JVN
-\paragraph{}
-John von Neumann in his famous `First Draft of a Report on the EDVAC' \cite{vonNeumann1945} describes a sequential program, which execution can be followed by sequentially stepping through it's code.
+\subsection{Parallel computations}
+
+John von Neumann in his famous ``First Draft of a Report on the EDVAC'' \citep{vonNeumann1945} describes a sequential program, which execution can be followed by sequentially stepping through it's code.
 
 \begin{remark}{The First Draft of a Report on the EDVAC}
-The First Draft of a Report on the EDVAC, or simply First Draft for short, is an incomplete, 101-page document which was written by John von Neumann during his daily commutes by train.
+The First Draft of a Report on the EDVAC, or simply First Draft for short, is an incomplete, $101$-page document which was written by John von Neumann during his daily commutes by train.
 % \begin{center}
 % First Draft of a Report on the EDVAC
 % by John von Neumann, 
@@ -551,7 +552,7 @@ The First Draft of a Report on the EDVAC, or simply First Draft for short, is an
 % \par\end{center}
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.3]{first_draft}
+\includegraphics[scale=0.5]{first_draft}
 \caption{
 { \footnotesize 
 {\bf The title page of the report.}
@@ -565,13 +566,13 @@ The report itself was a first description of a computer in the modern sense, cap
 Later it was a cause of many controversies, as the lead developers of ENIAC (predecessor of EDVAC) and EDVAC, John Mauchly and John Presper Eckert were not listed as authors, leading to all the credit being attributed to von Neumann.
 \end{remark}
 
-Traditionally a vast majority of programs were written as sequential, which work well for the scientific community for many years.
-An observation which came to be known as Moore's law predicted the trend in which chip performance should double roughly every 18 months.
+Traditionally a vast majority of programs were written as sequential, following von Neumanns design, which prooved to be working well for the scientific community for many years.
+This is connected to an observation, which later came to be known as Moore's law, and which predicted the trend in chip performance doubling roughly every $18$ months.
 
-Figure~\ref{fig:moore} shows how during the time of $15$ years the hardware performance and improvements in compiler technology provided a speedup by a factor of 80.
-For practical purposes this meant that just by updating the hardware architecture and compilators we could tackle bigger problems without ever changing the code-base of the numerical programs, creating a positive cycle for the
-computer industry.
+Figure~\ref{fig:moore} shows how during the time of $15$ years the hardware performance and improvements in compiler technology provided a speedup by a factor of $80$.
+For practical purposes this meant that just by updating the hardware architecture and compilators ever bigger problems could be tackled, without ever changing the code-base of the numerical programs. 
 The same software would run faster with new generations of processors and new versions of compilers were introduced.
+This has created a positive cycle for the computer industry.
 Yet during last two depicted years this gain is no longer visible\footnote{The free ride is over!}.
 
 \begin{figure}[H]
@@ -587,18 +588,22 @@ Yet during last two depicted years this gain is no longer visible\footnote{The f
 
 Due to hardware limitations, and problems with heat dissipation, we are now at the limit of how many transistors can be put into integrated circuits, which translates into CPU performance.
 Because of these problems serial computations on next generations of CPUs no longer yield the same increases in speed and performance.
+
+\paragraph{}
 Fortunately increasing availibility of parallel processing hardware offers a solution for all data intensive computations.
 This means that the applications software will continue to enjoy performance improvements as long as they target the new generation of parallel microprocessors in which multiple threads cooperate to jointly complete the work faster.
 Parallel computers are becoming more widespread, and can take a form of supercomputer clusters, but also inexpensive desktop multiprocessors or workstations equipped with parallel accelerators, geared specifically towards scientific computing.
 This leads to the escalating need for the development of parallel programs, reffered to as the \textit{concurrency revolution} \citep{Sutter2005}.
 
-\paragraph{}
+% two roads: many core and multi core
+\subsection{Many-core versus multi-core}
+
 Emerging areas of research, such as computational biology have all implications for algorithms and software development.
 If we want to capitalize on vast amounts of data that are available, future development of phylogenetic software should target high performance parallel devices.
 To properly leverage these possibilities means that the burden of improving the performance is, at least partially, shifted from harware vendors to software developers.
 Writing and optimizing massively parallel code requires deep understanding of the underlying architecture, leveraging libraries and APIs and correct use of the performance assesment tools.
 
-% two roads: many core an multi core
+\paragraph{}
 Currently it seems that the semiconductor industry has established two, \textit{nomen omen}, parallel paths for designing multiprocessors.
 The \textit{multicore} path began with the idea of putting two CPU cores on the same chip.
 This path means that the current clock speed of a single core remains the same, but at the same time the vendors are approximately doubling the number of effective cores with every new generation.
@@ -623,27 +628,29 @@ Recent NVIDIAs GPU chips intended for the high-margin PC gaming market, the GeFo
 This means that the scientific community interested in high-precision computations instead of cost-sensitive consumer-class devices would have to turn towards, more expensive, Quadro and Tesla cards, or the GTX TITAN card.
 
 \paragraph{}
-Perhaps more important is the fact that the host-device work scheme, in which the GPUs operate, is a source of the main bottleneck that hampers the most effective utilizations of devices.
+Perhaps more important is the fact that the host-device scheme, in which the GPUs operate, is a source of the main bottleneck that hampers the  effective utilizations of GPU devices.
 In a typical workflow of a GPGPU program both the host and device memory need to be allocated, host memory needs to be copied to the device, and after executing a GPU kernel the results need to be copied back to the CPU memory.
 The copying happens over a PCI Express bus, a point-to-point serial interface organised in the form of bi-directional lanes (each lane transmits the data in one direction).
-Typical has bandwith of a current architecture card resolves around $300$ GB/c, while a PCI express bus v3.0 has a theoretical peak speed of 15.75 GB/s in each direction.
+Typical bandwith of a current architecture card resolves around $300$ GB/c, while a PCI express bus v3.0 has a theoretical peak speed of 15.75 GB/s in each direction.
 This bottleneck can severely dilute any speed increments achieved by using GPUs, in fact the impressive peak-performances reported by the vendors are almost never achieved in the real-world application.
 
 % karma/ maxwell 
-\paragraph{}
-Perhaps the emerging Heterogeneous System Architecture (HSA) will offer and interesting solution to this problem.
-While current CPUs and GPUs are designed as separate devices, requiring an application to explicitly copy data from CPU to GPU and then back again, HSA is geared towards having a single, unified memory address space for all the data structures.
+\subsection{Emerging architectures}
+
+% Perhaps the emerging Heterogeneous System Architecture (HSA) will offer and interesting solution to this problem.
+While current CPUs and GPUs are designed as separate devices, requiring an application to explicitly copy data from CPU to GPU and then back again, Heterogeneous System Architecture (HSA) is geared towards having a single, unified memory address space for all the data structures.
 This means that multiple compute tasks can work on the same memory regions avoiding the discussed bottlenecks.
 As an example NVIDIAs Tesla accelerator cards based on the Maxwell architecture will have an integrated ARM CPU of its own\footnote{Barcelona Supercomputing Center in Spain has been working on a prototype ARM-GPU supercomputer for a few years now.}.
 ARM is a family of processors based on RISC (Reduced Instruction Set Computing) architecture, best known from portable, battery-powered devices such as smartphones or tablets. 
 Other vendors are also working on similar hybrid solutions.
 
 \paragraph{}
-Another interesting avenue, and perhaps a competitor for scientific computations are the field-programmable gate arrays (FPGA, \citet{Kuon2008}).
+Another interesting avenue, and perhaps a competitor to the already presented architectures geared for scientific computing, are the field-programmable gate arrays (FPGA, \citet{Kuon2008}).
+Although not a new design, recent developments and renewed interest in these chips justify discussing them here.
 FPGAs are chips which can be configured at low cost by the end-customer after being manufactured, hence the name.
 FPGAs are build from logic blocks, memory elements and a set of interconnects, which can be programmed and reconfigured to perform arbitrarily complex logical operations.
 % This means that they can be reconfigured at low  cost to best suit the problem that is at hand.
-Typical modern FPGA employs bi-directional data lanes, with very fast I/O (Input/output), additionaly many FPGAs can be reprogrammed during the run-time. 
+Typical modern FPGA employs bi-directional data lanes, with very fast I/O (Input/output), additionaly many FPGAs can be re-programmed during the run-time. 
 
 \begin{remark}{Road To Riches}
 % https://www.reddit.com/r/Bitcoin/comments/18q2jx/eli5_bitcoin_mining_xpost_in_eli5/
@@ -651,7 +658,7 @@ FPGAs are a very fast and power efficient way to implement the SHA256 hashing al
 Various companies are offering configured FPGA chips specific to the task, there also exists an Open-Source implementation of software for various FPGA systems.
 \end{remark}
 
-Therefore their main advantage comes from the fact that they can be reconfigured at low  cost to best suit a specific problem to compute.
+Therefore their main advantage comes from the fact that they can be reconfigured at low  cost to best suit a specific problem at hand.
 First attempts at extending the BEAGLE library to FPGA architecture have already been made by \cite{Jin2013}.
 
 \paragraph{}
@@ -667,7 +674,7 @@ Complex, biologically realistic models that target this information also bring a
 Models with large state spaces, such as codon models discussed in Subsection~\ref{sub:dpp} are an example of such a challenge.
 More research will be needed to mitigate the imminent computational burdens that come with novel modeling approaches and high-throughput sequencing. 
 This could allow us to analyse the data in almost real time, and by coupling molecular sequence data with geographical information, to trace the diffusion of emerging epidemics and instantly identify potential hosts and sinks as well as  other factors contributing to viral spread.  
-Although it is hard to make any specific predictions, it is also very interesting to see what the future of high-performance computing brings on the cross-section of data-plenty and high-performance computing
+Although it is hard to make any specific predictions, it is also very interesting to see what the future of high-performance computing brings on the cross-section of data-plenty and high-performance computing.
 
 
 

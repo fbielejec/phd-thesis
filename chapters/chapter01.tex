@@ -1,7 +1,6 @@
 \chapter{Introduction}
 
 \begin{remark}{Outline}
-% TODO
 In this chapter, we introduce fundamental concepts of the molecular evolution and how it integrates into the field of phylodynamics, a study of evolutionary and epidemiological processes exhibited by emerging epidemics.
 Beginning with a current state of the field, we exemplify some of those epidemics, an illustration of the vulnerability of the human population to pandemic threats.
 We stress the importance of developing fast and statistically sound surveilance methods, serving as a a shield against those threats.
@@ -11,7 +10,6 @@ We then talk about how these advances integrate into publicly available software
 
 Finally Subsection~\ref{sub:objectives} positions the work presented in this thesis and how it advances our understanding of the processes shaping viral evolution and spread.
 Next parts of this introductory chapter are devoted towards describing the most basic inference methodology in more details, and serve as an aid in understanding the work presented in Chapters~\ref{chap:epoch}--\ref{chap:pibuss}.
-
 \end{remark}
 
 \section{General Introduction}
@@ -125,7 +123,6 @@ By using optimization techniques one can maximize the probability and find the m
 Unfortunately finding the maximum likelihood tree requires a search through the space of all possible tree topologies, in section \ref{sub:mlburden} we discuss in detail the computational burden associated with these calculations.
 The time required to exhaustively search through a space of all possible rooted trees grows exponentialy with the number of taxa, as depicted in Table \ref{tab:maxLikeBurden}.
 
-% This is also where you can describe the computational burden and that table.
 \begin{table}[H]
 \centering
 % \footnotesize{
@@ -175,18 +172,15 @@ This prior specification can reflect the debree of uncertainty we put into our b
 Moreover bayesian inference allows for a natural interpretation of the results in terms of probability distributions. % and not somewhat artificial concepts of p-values or critical 
 Unfortunately bayesian inference in order to come up with the posterior distribution requires the computation of integrals over the space of all possible parameter values, which are often multi-dimensional.
 This has for many use limited it's use for but the simplest problems.
-\cite{Metropolis1953} presented a Metropolis-Hastings method, Markov chain Monte Carlo (MCMC) algorithm for obtaining a sequence of random samples from a probability distribution for which direct sampling is difficult.
+\cite{Metropolis1953} presented a Metropolis-Hastings method, Markov chain Monte Carlo (MCMC) algorithm for obtaining a sequence of random samples from a probability distribution for which direct sampling is difficult\footnote{This algorithm does not have the most peacefull origins, see the remark.} .
 
-% \begin{minipage}[c]{\textwidth}
 \begin{remark}{Monte Carlo}
 Monte Carlo methods are computational algorithms that rely on computer generated pseudo-random numbers to obtain numerical results. 
 They were invented in the late 1940's by Stanis\l{}aw Ulam, while he was working on nuclear weapons `project Manhattan'
-% \footnote{not the most peacefull origins} 
 at the Los Alamos laboratory.  
 It was named after the Monte Carlo Casino in Monaco, where Ulam's uncle often gambled.
 Monte Carlo was dubbed the most important algorithm of 21st century by the Society for Industrial and Applied Mathematics (SIAM).
 \end{remark}
-% \end{minipage}
 
 Bayesian inference problem can be formulated as a sampling problem, as we discuss in Section \ref{sec:bayesian_inference}, reducing to a very simple and effective method, which contributed to the popularity of Bayesian statistics that we see today. 
 The availibility of programs for Bayesian phylogenetics like MrBayes \citep{Huelsenbeck2001} and BEAST \citep{Drummond2012} further contrubuted towards the widespread adoption and popularity of these methods.
