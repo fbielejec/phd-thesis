@@ -1,15 +1,15 @@
 \chapter{Introduction}
 
 \begin{remark}{Outline}
-In this chapter, we introduce fundamental concepts of the molecular evolution and how it integrates into the field of phylodynamics, a study of evolutionary and epidemiological processes exhibited by emerging epidemics.
-Beginning with a current state of the field, we exemplify some of those epidemics, an illustration of the vulnerability of the human population to pandemic threats.
-We stress the importance of developing fast and statistically sound surveilance methods, serving as a a shield against those threats.
+In this chapter, we introduce fundamental concepts of the molecular evolution and describe how they are integrated into the field of phylodynamics, a discipline that describes the interaction of evolutionary and ecological dynamics underlying pathogen spread.
+Different viral pathogens that emerged in recent history illustrate the vulnerability of the human population to pandemic threats.
+We stress the importance of developing efficient and statistically sound surveillance methods that can assist in characterizing those threats.
 
-We then introduce some of the most important breakthroughs in the field, i.e. the introduction of molecular clock, which allows to date speciation events from genetic data and calibration points alone, and the shift of the field towards probabilistic methods and the advent of Monte Carlo algorithms as well as powerful and increasingly more attainable computer hardware, which boosted the adoption of Bayesian methodology.
-We then talk about how these advances integrate into publicly available software, that adequately accounts for phylogenetic uncertainty by averaging over all plausible evolutionary histories.
+We subsequently describe some of the most important breakthroughs in the history of molecular evolution, i.e. the introduction of a molecular clock, which allows dating divergence events from genetic data and historical calibration points or sampling times, the shift of the field towards probabilistic methods, the advent of Monte Carlo algorithms as well as powerful and increasingly more attainable computer hardware, which boosted the adoption of Bayesian approaches.
+We further explain how these advances - implemented into publicly available software - adequately account for phylogenetic uncertainty by averaging over all plausible evolutionary histories.
 
-Finally Subsection~\ref{sub:objectives} positions the work presented in this thesis and how it advances our understanding of the processes shaping viral evolution and spread.
-Next parts of this introductory chapter are devoted towards describing the most basic inference methodology in more details, and serve as an aid in understanding the work presented in Chapters~\ref{chap:epoch}--\ref{chap:pibuss}.
+Finally Subsection~\ref{sub:objectives} positions the work presented in this thesis and outlines how it advances our understanding of the processes shaping viral evolution and spread.
+The additional sections of this introductory chapter are devoted towards describing the most basic inference methodology in more details, and serve as an aid in understanding the work presented in Chapters~\ref{chap:epoch}--\ref{chap:pibuss}.
 \end{remark}
 
 \section{General Introduction}
@@ -32,32 +32,35 @@ Viral sequence data has been recognized as a major asset in the characterization
 Molecular epidemiology complements traditional epidemiological studies because it primarily focuses on the etiological agent rather than the host \citep{Leitner2002}.
 In particular, the historical information contained in viral gene sequences contributes to a better insight in emergence and early transmission dynamics, even before systematic epidemiological surveillance has been initiated. 
 For many years, phylogenetic analysis has been the primary tool in molecular epidemiology. 
-By reconstructing a time-calibrated phylogenetic tree, we are able to study the evolutionary history of viral strains, assess epidemiological linkage amongst them, and shed light on transmission patterns. 
+By reconstructing a phylogenetic tree, we are able to study the evolutionary history of viral strains, assess epidemiological linkage amongst them, and shed light on transmission patterns. 
 With the advent of high-throughput DNA sequencing, genomic data from RNA viruses is becoming available in unprecedented quantities and with remarkable rapidity. 
 
 The last decade has witnessed a particular focus of analyses of viral evolutionary dynamics on integrating concepts of phylogenetic and epidemiological dynamics, a research direction originally coined `phylodynamics' \citep{Grenfell2004}.
 By aiming at the development of a full quantitative understanding of the processes that shape the epidemiology and evolution of RNA viruses,
 phylodynamics has now become a burgeoning area of research.
-In order to perform comprehensive and quantitative analyses of the interaction between the ecological and evolutionary dynamics of RNA viruses, new computational developments are needed.
+In order to perform comprehensive and quantitative analyses of the interaction between the ecological and evolutionary dynamics of RNA viruses, new computational developments are needed and some of these are bridging the gap with the field of mathematical epidemiology.
 
-Recent advances in epidemiological modelling make it possible to describe the transmission of contagions through individuals.
-Perhaps a simplest and well-studied model is the ${\mathcal{S} \rightarrow \mathcal{I} \rightarrow \mathcal{R}}$  compartmental model % TODO:c itation
+Recent advances in epidemiological modeling make it possible to describe the transmission of contagions through individuals.
+Perhaps the simplest and best-studied model is the ${\mathcal{S} \rightarrow \mathcal{I} \rightarrow \mathcal{R}}$  compartmental model % TODO:c itation
 , which describes how the (S)usceptible individuals become (I)nfected and the (R)ecover, as a function of time.  
 These models can be extended to include birth and death events % TODO: citation
 and are instrumental in finding the number of secondary infections caused by a single infected individual in an entirely susceptible population, a basic reproductive quantity denoted by $R_{0}$.
 This quantity determines whether and epidemic occurs or whether the diseases will die out.
-Traditionally these models were inferred using surveilance data, yet more complicated epidemiological studies involving e.g. seasonality, multiple populations with varying $R_0$ or other possible epidemiological predictors are often analytically intracktable.
-In that light recent developments allow to infer parameters of compartmental models by studying molecular sequence data \citep{Volz2009}.
-Prevaling patterns of geographic diffusion of infectious diseases can be inferred by combining sequence data with information on the geographic movement \citep{Lemey2009}.
-Combining these phylogeographical models with compartmental models which explicitely track the transmission between the infected individuals can provide new avenues for inferring patterns of viral spread.
+Traditionally parameters in these models were inferred using surveillance data, yet more complicated epidemiological studies involving e.g. seasonality, multiple populations with varying $R_0$ or other possible epidemiological predictors are often analytically intractable.
+In that light, developments to infer parameters of compartmental models by studying molecular sequence data have become increasingly important \citep{Volz2009}.
+Also patterns of geographic diffusion of infectious diseases can be inferred from sequence data \citep{Lemey2009}, sometimes in combination with information on the host movement \citep{Lemey2014}. %PL: add our 2014 GLM-diffusion reference
+Integrating population structure into compartmental models which explicitly track the transmission between the infected individuals can provide new avenues for inferring patterns of viral spread. %PL: I think there is a very recent paper by Rasmussen, Volz and Koelle on this
 
-Much like for EIDs, where research efforts are typically focused on providing estimates of the basic reproduction number, for ongoing epidemics one is typically interested in quantifying the effects of control and preventive measures on between-host scales and of treatment on within-host scale.
-For that reason most efforts are focused on reliable detection of adaptive selection pressure, the main driving force of viral evolution.
+Whereas for emerging pathogens modeling efforts are typically focused on providing estimates of the basic reproduction number, for ongoing epidemics one is typically interested in quantifying the effects of control and preventive measures on between-host scales and of treatment on within-host scale.
+In that respect it is important to characterize adaptive evolution, 
+%For that reason most efforts are focused on reliable detection of adaptive selection pressure,
+a major driving force of viral evolution.
 \cite{Volz2013} report nine Influenza A H1N1 vaccine updates being recommended by the World Health Organization (WHO) between 1978 and 2009, as compared to 20 updates recommended for Influenza H3N2, suggesting that the latter undergoes much more adaptive evolution that the former.
-Unfortunately positive selection is notoriously difficult to detect, as on sequence level it may apply to only a handfull of sites, on a topology level it may apply to only some of the branches, or even only to particular time, i.e. a portion of branches length.
-Homogenous analysis will not detect such changes, which is why substantial work has been aimed at developing models which can detect selection acting heterogenously between sites, between branchs or between a combination of those \citep{NY98, Pond2005a, Goode2008}.
+Unfortunately positive selection is notoriously difficult to detect, as on the sequence level it may apply to only a handful of sites, on the tree topology level it may apply to only some of the branches, or even only to a particular time on that branch.
+A substantial amount of work has been aimed at developing models which can detect selection acting differently between sites, between branches or between a combination of those \citep{NY98, Pond2005a, Goode2008}.
 
-In order to position these recent developments, we first provide a brief general account of the field of molecular evolution and phylogenetics and then introduce recent developments and models specific for rapidly-evolving RNA viruses, and how this culminated in to a state-of-the-art statistical framework for phylodynamics. As a final part of the general introduction, we outline how the current doctoral thesis work extends and complements this framework in the objectives.
+In order to position these recent developments, we first provide a brief general account of the field of molecular evolution and phylogenetics and then introduce recent developments and models specific for rapidly-evolving RNA viruses, and how this culminated in to a state-of-the-art statistical framework for phylodynamics.
+As a final part of the general introduction, we outline how the current doctoral thesis work extends and complements this framework in the objectives.
 The remainder of the chapter provides a more mathematically-oriented description of how to model evolution evolution as a stochastic process on trees, the computational aspects involved, and how to treat the problem from a Bayesian statistical perspective.
 
 \subsection{Molecular evolution and Phylogenetics\label{sub:molevol}}
@@ -826,7 +829,7 @@ If we were to simulate two sequences, using the algorithm listed in (\ref{alg:si
 This is true for most of the substitution models and implies that typical phylogenetic estimation focuses on inferring the product parameter $\theta=rt$, or genetic distance.
 %PL: perhaps mention that the section on molecular clocks (cfr supra) discusses the conditions for which we can start separating time and rate
 
-\subsection{Phylogenetic tree}
+\subsection{Phylogenetic trees}
 
 %PL: According to the extension I recommend for the general intro, a tree should already be introduced properly there, and this should from the biological perspective but can also include this more formal description..
 
