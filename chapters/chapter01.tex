@@ -99,18 +99,23 @@ B. First phylogeny estimated from genetic data and published by \cite{Fitch1967}
 \label{fig:first_trees}
 \end{figure}
 
-Underlying assumption of the phylogenetic tree is that the data used to infer them indeed encompasses some sort of evolutionary relatedness.
-This idea traces back to the first know figure of a phylogenetic tree, sketched by Charles Darwin in 1937 on the margin side of his notebook (see Figure \ref{fig:first_trees}), with the famous words \emph{`I think'} written above it.
-In those days there was no notion of genetic data, therefore Darwin constructed his trees using morphological comparisons, assuming that similar forms and shapes characterizing organisms would mean that they descdended from one another\footnote{Furry with furry.}.
+%Underlying assumption of the phylogenetic tree is that the data used to infer them indeed encompasses some sort of evolutionary relatedness.
+Phylogenetic thinking traces back to the first know figure of a phylogenetic tree, sketched by Charles Darwin in %1937 
+1837
+on the margin side of his notebook (see Figure \ref{fig:first_trees}), with the famous words \emph{`I think'} written above it.
+In those days there was no notion of genetic data, therefore Darwin conceived his trees by comparing morphology, assuming that organisms with similar forms and shapes descended from more recent common ancestors. %\footnote{Furry with furry.}.
 Modern phylogenetics use molecular data and a combination of statistical and computational methods to reconstruct phylogenetic trees.
 %distance-based trees
 Among the first tractable methods to reconstruct trees from molecular data were the hierarchical clustering methods based on genetic distance \citep{Fitch1967}, defined as the number of nucleotides that would need to be altered to make two sequences identical (see Figure \ref{fig:first_trees} B).
 These methods were criticized for not making explicit use of the relationship between individual characters of the genetic data, but rather reducing it to distance based measures.
-Moreover by using pairwise comparisons some of the information is inevitably lost.
+%Moreover by using pairwise comparisons some of the information is inevitably lost.
+Moreover, hierarchical clustering leads to a single point estimate of the evolutionary history and therefore does not consider alternative hypotheses for the data.
 
 % parsimony
-In contrast the parsimony is a family of methods that reconstructs evolution by finding the tree that requires minimum number of changes to explain the data, maing use of the whole data at once.
-This idea stems back to the works of William of Ockham (1320), stating that among competing hypotheses one should select the one with the fewest assumptions and disregard the remaining ones (the Ockham's razor).
+In order to evaluate different tree topologies the idea or parsimony was adopted in phylogenetics. 
+Maximum parsimony approaches attempt to find the tree that requires minimum number of evolutionary changes to explain the data. %, maing use of the whole data at once.
+This concept stems from the work of William of Ockham (1320), who stated that among competing hypotheses one should select the simplest one and disregard the remaining more complex ones (the Ockham's razor).
+%PL: It was really Cavalli-Sforza and Edwards, both students from Fisher, who introduced the idea into phylogenetics. Indeed, Fitch then introduced a tractable algorithm to compute parsimony scores. They also introduced likelihood and in the same way, Felsenstein, then introduced the tractable pruning algorithm to compute likelyhoods. It would be good to find the reference of their paper and add it here as well below in the first sentence on likelihood as both ideas were mentioned in the same paper.
 \cite{Fitch1971} published an dynamic programming algorithm that efficiently searches all possible tree topologies, assigning scores to them and finding the one with minimal parsimony score.
 Figure \ref{fig:parsimony} presents an example of parsimony, where among two trees explaining the evolution of sequences {\color{green}AAG}, {\color{green}AAA}, {\color{green}GGA}, {\color{green}AGA} only the most parsimonious one is selected.
 
@@ -120,20 +125,21 @@ Figure \ref{fig:parsimony} presents an example of parsimony, where among two tre
 \includegraphics[scale=0.3]{parsimony} 
 \caption{
 { \footnotesize 
-{\bf Parsimony example.} Tree on the left is preffered as it requires least changes.
+{\bf Parsimony example.} The tree on the left is preferred as it requires the least amount changes (3 substitutions as opposed to 4 for the tree on the right).
 }% END: footnotesize
 }
 \label{fig:parsimony}
 \end{figure}
 
 %likelihood
+As a statistical alternative to an optimality criterion, likelihood had also been proposed for phylogenetic inference relatively early.
 Maximum likelihood is a probabilistic method of inference, that evaluates a hypothesis in terms of how probable it is in the light of the observed data.
-In phylogenetic setting a likelihood function would return the probability of that the proposed model and the proposed tree, understood as a topology and branch lengths, has generated the observed data.
-The evolutionary history and associated set of evolutionary parameters with a higher probability is naturaly preffered over a history with a lower probability.
-By using optimization techniques one can maximize the probability and find the most probable set of parameters.
-\cite{Felsenstein1981} in their very influential work proposed an efficient algorithm for calculating a likelihood of sequence evolution on a tree under an evolutionary model of substitution, the so called `tree pruning' algorithm.
-Unfortunately finding the maximum likelihood tree requires a search through the space of all possible tree topologies, in section \ref{sub:mlburden} we discuss in detail the computational burden associated with these calculations.
-The time required to exhaustively search through a space of all possible rooted trees grows exponentialy with the number of taxa, as depicted in Table \ref{tab:maxLikeBurden}.
+In phylogenetic setting, a likelihood function returns the probability that the proposed model and the proposed tree, understood as a topology and branch lengths, have generated the observed data.
+The evolutionary history and associated set of evolutionary parameters with a higher probability is naturally preferred over a history with a lower probability.
+By using optimization techniques one can find the parameter values that maximize the probability of observing the data.
+In his influential work, \cite{Felsenstein1981} proposed an efficient algorithm for calculating a likelihood of sequence evolution on a tree under an evolutionary model of substitution, the so called `tree pruning' algorithm.
+Unfortunately finding the maximum likelihood tree requires a search through the space of all possible tree topologies; in section \ref{sub:mlburden} we discuss in detail the computational burden associated with these calculations.
+The time required to exhaustively search through a space of all possible rooted trees grows explosively with the number of taxa, as depicted in Table \ref{tab:maxLikeBurden}.
 
 \begin{table}[H]
 \centering
@@ -156,15 +162,15 @@ $55$ & $3.19\times10^{86}$\tabularnewline
 % }
 \caption{
 { \footnotesize 
-{\bf{Number of rooted trees per number of taxa.}} $4 \times 10^{80} $ is the no of atoms in the observable universe.
+{\bf{Number of rooted trees per number of taxa.}} For comparison, $4 \times 10^{80} $ is the number of atoms in the observable universe.
 }% END: footnotesize
 }
 \label{tab:maxLikeBurden}
 \end{table}
 
 %bayesian
-The advent of powerfull and increasingly more attainable compute power has been instrumental to the adoption of statistical methods based on likelihood estimation and very closely realted Bayesian methods.
-Bayesian statistics are not a new idea, stemming back to the 18th century and the works of reverend Thomas Bayes, a statistician, philosopher and theologian. 
+The advent of powerful and increasingly more attainable compute power has been instrumental to the adoption of statistical methods based on likelihood estimation and the closely related Bayesian methods.
+Bayesian statistical thinking is  not a new idea and stems back to the 18th century work of reverend Thomas Bayes, a statistician, philosopher and theologian. 
 
 %---BAYES---%
 \begin{remark}{Thomas Bayes}
@@ -181,12 +187,13 @@ Bayesian statistics are not a new idea, stemming back to the 18th century and th
 \end{remark}
 
 Interestingly Bayes has never published his famous work.
-Bayesian statistics have always been appealing as a very flexible approach to inference, as they allow for inclusion of prior belief about any unknown parameters, which then combined with the likelihood of the data and forms an `updated' view of the model, the posterior distribution.
-This prior specification can reflect the debree of uncertainty we put into our belief and can be further enhanced by the use of the so called hyperpriors, prior distributions put on the parameters of first order priors.
-Moreover bayesian inference allows for a natural interpretation of the results in terms of probability distributions. % and not somewhat artificial concepts of p-values or critical 
-Unfortunately bayesian inference in order to come up with the posterior distribution requires the computation of integrals over the space of all possible parameter values, which are often multi-dimensional.
-This has for many use limited it's use for but the simplest problems.
-\cite{Metropolis1953} presented a Metropolis-Hastings method, Markov chain Monte Carlo (MCMC) algorithm for obtaining a sequence of random samples from a probability distribution for which direct sampling is difficult\footnote{This algorithm does not have the most peacefull origins, see the remark.} .
+Bayesian statistics have always been appealing as a very flexible approach to inference, as they allow for inclusion of prior belief about any unknown parameters, which, combined with the likelihood of the data, forms an `updated' view of the model, the so-called posterior distribution.
+This prior specification can reflect the degree of uncertainty we put into our belief and can be further enhanced by the use of the so called hyperpriors, prior distributions put on the parameters of first order priors.
+Moreover Bayesian inference allows for a natural interpretation of the results in terms of probability distributions. % and not somewhat artificial concepts of p-values or critical 
+Unfortunately calculating a posterior distribution requires the computation of integrals over the space of all possible parameter values, which are often multi-dimensional.
+For a long time, this has limited its use for most but the simplest problems until
+\cite{Metropolis1953} presented a Metropolis-Hastings method, %PL: Hasting only came in later, around the 70s, if I remember correctly. He essentially generalized the algorithm. So, referring to the 1953 paper for Metropolis-Hastings  seism wrong to me
+Markov chain Monte Carlo (MCMC) algorithm for obtaining a sequence of random samples from a probability distribution for which direct sampling is difficult.%\footnote{This algorithm does not have the most peaceful origins, see the remark.} .
 
 \begin{remark}{Monte Carlo}
 Monte Carlo methods are computational algorithms that rely on computer generated pseudo-random numbers to obtain numerical results. 
@@ -196,8 +203,8 @@ It was named after the Monte Carlo Casino in Monaco, where Ulam's uncle often ga
 Monte Carlo was dubbed the most important algorithm of 21st century by the Society for Industrial and Applied Mathematics (SIAM).
 \end{remark}
 
-Bayesian inference problem can be formulated as a sampling problem, as we discuss in Section \ref{sec:bayesian_inference}, reducing to a very simple and effective method, which contributed to the popularity of Bayesian statistics that we see today. 
-The availibility of programs for Bayesian phylogenetics like MrBayes \citep{Huelsenbeck2001} and BEAST \citep{Drummond2012} further contrubuted towards the widespread adoption and popularity of these methods.
+The Bayesian inference problem can be formulated as a sampling problem, as we discuss in Section \ref{sec:bayesian_inference}, reducing to a very simple and effective method, which contributed to the popularity of Bayesian statistics that we see today. 
+The availability of programs for Bayesian phylogenetics like MrBayes \citep{Huelsenbeck2001} and BEAST \citep{Drummond2012} further contributed towards the widespread adoption and popularity of these methods in evolutionary biology.
 
 \subsection{Time-Calibrated Trees and Measurably Evolving Populations\label{sub:clocks}}
 
