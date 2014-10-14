@@ -5,11 +5,11 @@ In this chapter, we introduce fundamental concepts of the molecular evolution an
 Different viral pathogens that emerged in recent history illustrate the vulnerability of the human population to pandemic threats.
 We stress the importance of developing efficient and statistically sound surveillance methods that can assist in characterizing those threats.
 
-We subsequently describe some of the most important breakthroughs in the history of molecular evolution, i.e. the introduction of a molecular clock, which allows dating divergence events from genetic data and historical calibration points or sampling times, the shift of the field towards probabilistic methods, the advent of Monte Carlo algorithms as well as powerful and increasingly more attainable computer hardware, which boosted the adoption of Bayesian approaches.
+We subsequently describe some of the most important breakthroughs in the history of molecular evolution, i.e. the introduction of a molecular clock, which allows dating divergence events from genetic data and historical calibration points or sampling times, the shift of the field towards probabilistic methods, the advent of Monte Carlo algorithms as well as powerful and increasingly more attainable computer hardware, which facilitated the adoption of Bayesian approaches.
 We further explain how these advances - implemented into publicly available software - adequately account for phylogenetic uncertainty by averaging over all plausible evolutionary histories.
 
 Finally Subsection~\ref{sub:objectives} positions the work presented in this thesis and outlines how it advances our understanding of the processes shaping viral evolution and spread.
-The additional sections of this introductory chapter are devoted towards describing the most basic inference methodology in more details, and serve as an aid in understanding the work presented in Chapters~\ref{chap:epoch}--\ref{chap:pibuss}.
+The additional sections of this introductory chapter are devoted towards describing the most basic inference methodology in more details, and constitute the background knowledge for the work presented in Chapters~\ref{chap:epoch}--\ref{chap:pibuss}.
 \end{remark}
 
 \section{General Introduction}
@@ -23,7 +23,7 @@ the H1N1 swine-origin influenza A virus outbreak in 2009 \citep{Fraser2009},
 which attained pandemic status in only a few months time, but also more recently by a large outbreak of the Ebola haemorrhagic fever in humans in West Africa \citep{Dudas2014}. 
 
 Many studies on emerging infectious diseases (EIDs) have highlighted viral pathogens as a major threat to the public health, owing to their high rates of nucleotide substitution, and therefore high capacity to adapt to new hosts. 
-Due to the intensive nature of human mobility there are no natural barriers for the spread of human RNA viruses \citep{Brockmann2006}.
+Due to highly intensified human mobility there are virtually no natural barriers for the spread of human RNA viruses \citep{Brockmann2006}.
 In the recent decades EIDs are becoming increasingly widespread, with their impact and spread only rising over time \citep{Jones2008}.
 This may not be surprising since it is well-acknowledged that disease emergence is largely a product of anthropogenic and demographic changes, making it a hidden cost of human economic development.
  
@@ -36,22 +36,24 @@ By reconstructing a phylogenetic tree, we are able to study the evolutionary his
 With the advent of high-throughput DNA sequencing, genomic data from RNA viruses is becoming available in unprecedented quantities and with remarkable rapidity. 
 
 The last decade has witnessed a particular focus of analyses of viral evolutionary dynamics on integrating concepts of phylogenetic and epidemiological dynamics, a research direction originally coined `phylodynamics' \citep{Grenfell2004}.
-By aiming at the development of a full quantitative understanding of the processes that shape the epidemiology and evolution of RNA viruses,
-phylodynamics has now become a burgeoning area of research.
-In order to perform comprehensive and quantitative analyses of the interaction between the ecological and evolutionary dynamics of RNA viruses, new computational developments are needed and some of these are bridging the gap with the field of mathematical epidemiology.
+By aiming at the development of a full quantitative understanding of the processes that shape the epidemiology and evolution of RNA viruses, %PL: please add the Grenfell and Holmes 2009 Plos Com Biol reference for this statement
+phylodynamics has become a burgeoning area of research.
+In order to perform comprehensive and quantitative analyses of the interaction between the ecological and evolutionary dynamics of RNA viruses, new computational developments are needed and some of these are actively bridging the gap with the field of mathematical epidemiology.
 
-Recent advances in epidemiological modeling make it possible to describe the transmission of contagions through individuals.
+Advances in epidemiological modeling have made it possible to describe the transmission of contagions through individuals.
 Perhaps the simplest and best-studied model is the ${\mathcal{S} \rightarrow \mathcal{I} \rightarrow \mathcal{R}}$  compartmental model % TODO:c itation
 , which describes how the (S)usceptible individuals become (I)nfected and the (R)ecover, as a function of time.  
 These models can be extended to include birth and death events % TODO: citation
 and are instrumental in finding the number of secondary infections caused by a single infected individual in an entirely susceptible population, a basic reproductive quantity denoted by $R_{0}$.
 This quantity determines whether and epidemic occurs or whether the diseases will die out.
-Traditionally parameters in these models were inferred using surveillance data, yet more complicated epidemiological studies involving e.g. seasonality, multiple populations with varying $R_0$ or other possible epidemiological predictors are often analytically intractable.
-In that light, developments to infer parameters of compartmental models by studying molecular sequence data have become increasingly important \citep{Volz2009}.
+Traditionally, parameters in these models were inferred using surveillance data, %yet more complicated epidemiological studies involving e.g. seasonality, multiple populations with varying $R_0$ or other possible epidemiological predictors are often analytically intractable.
+%In that light, developments to infer parameters of compartmental models by studying 
+but increasingly pathogen genetic data is being used to inform SIR model parameters \citep{Volz2009}.
+%molecular sequence data have become increasingly important \citep{Volz2009}.
 Also patterns of geographic diffusion of infectious diseases can be inferred from sequence data \citep{Lemey2009}, sometimes in combination with information on the host movement \citep{Lemey2014}. %PL: add our 2014 GLM-diffusion reference
 Integrating population structure into compartmental models which explicitly track the transmission between the infected individuals can provide new avenues for inferring patterns of viral spread. %PL: I think there is a very recent paper by Rasmussen, Volz and Koelle on this
 
-Whereas for emerging pathogens modeling efforts are typically focused on providing estimates of the basic reproduction number, for ongoing epidemics one is typically interested in quantifying the effects of control and preventive measures on between-host scales and of treatment on within-host scale.
+Whereas for emerging pathogens modeling efforts are typically focused on providing estimates of the basic reproduction number, for ongoing epidemics one is typically interested in quantifying the effects of control and preventive measures on between-host scales and the effect of treatment on within-host scale.
 In that respect it is important to characterize adaptive evolution, 
 %For that reason most efforts are focused on reliable detection of adaptive selection pressure,
 a major driving force of viral evolution.
@@ -59,23 +61,30 @@ a major driving force of viral evolution.
 Unfortunately positive selection is notoriously difficult to detect, as on the sequence level it may apply to only a handful of sites, on the tree topology level it may apply to only some of the branches, or even only to a particular time on that branch.
 A substantial amount of work has been aimed at developing models which can detect selection acting differently between sites, between branches or between a combination of those \citep{NY98, Pond2005a, Goode2008}.
 
-In order to position these recent developments, we first provide a brief general account of the field of molecular evolution and phylogenetics and then introduce recent developments and models specific for rapidly-evolving RNA viruses, and how this culminated in to a state-of-the-art statistical framework for phylodynamics.
+In order to position the work presented here, we first provide a brief general account of the field of molecular evolution and phylogenetics and then introduce recent developments and models specific for rapidly-evolving RNA viruses, and how this culminated in to a state-of-the-art statistical framework for phylodynamics.
 As a final part of the general introduction, we outline how the current doctoral thesis work extends and complements this framework in the objectives.
 The remainder of the chapter provides a more mathematically-oriented description of how to model evolution evolution as a stochastic process on trees, the computational aspects involved, and how to treat the problem from a Bayesian statistical perspective.
 
 \subsection{Molecular evolution and Phylogenetics\label{sub:molevol}}
 
-The main axiom of molecular evolution is the idea that the processes that shape the fitness of organisms leave a measurable imprint on their genomes.
-The evolution, being a stochastic process at any given moment introduces random base changes in the alphabet.
-For some time those mutations coexist with the vanilla-type organisms until selection decides whether the mutations increases the fitness, in which case the entire population eventually carries the said mutation and it becomes a fixed substitution.  
-Molecular phylogenetics is a study of those changes.
-Based on the observed sequence data it infers the ancestral relationships and evolutionary parameters of interest.
+%PL: got confused an rewrote this.
+%The main axiom of molecular evolution is the idea that the processes that shape the fitness of organisms leave a measurable imprint on their genomes.
+%Evolution is a stochastic process that can introduce at any given moment random base changes in the genetic alphabet.
+%For some time those mutations coexist with the vanilla-type %PL: what do you mean with vanilla-type?
+%organisms until selection decides whether the mutations increases the fitness, in which case the entire population eventually carries the said mutation and it becomes a fixed substitution.  
 
-The result of a molecular phylogenetic analysis is expressed in a phylogenetic tree. 
-Phylogenetic trees are bifurcating graphs depicting the ancestral relationship.
-External nodes of the tree (also called tips or leaves) represent the observed character data, while internal nodes represent the missing data.  
-A common ancestor of all the observed character sequences (the most-recent common ancestor, MRCA) is called the root of the tree.
-Similarly if we look at a group of nodes on a tree, which consists of all the descendants sharing a particular ancestor, we would be calling it a clade.
+Evolution is the product of mutational processes that stochastically introduce changes into the genetic make of organisms and population processes that lead to the elimination, fixation or partial maintenance of these mutations in the population.
+The latter occurs through genetic drift or the more deterministic process of natural selection. 
+Adaptation by natural selection is the most important process in biology as it determines the fate of mutations that impact the fitness of the organisms within their variable environment.
+ 
+Molecular phylogenetics studies the evolutionary pathways underlying these processes that lead in the polymorphism data observed at present.
+Based on the sequence data obtained for a number of organisms or taxa, molecular phylogenetics aims at inferring the ancestral relationships and evolutionary parameters of interest.
+The result of a molecular phylogenetic analysis is represented in a phylogenetic tree. 
+Phylogenetic trees are bifurcating graphs depicting the pattern of common ancestry among the taxa.
+External nodes, tips or leafs in the tree represent the observed character data, while internal nodes represent the missing data for hypothetical ancestors.  
+The common ancestor of all the observed character sequences (the most-recent common ancestor, MRCA) is referred to the as the root of the tree.
+In unrooted trees, the position of the root is unknown, and unlike rooted trees, they are therefore lacking an evolutionary direction.
+A group of taxa in a phylogeny, consisting of all the descendants sharing a particular ancestor, is called a clade or phylogenetic cluster.
 
 %---FIRST TREES---%
 \begin{figure}[H]
@@ -83,7 +92,7 @@ Similarly if we look at a group of nodes on a tree, which consists of all the de
 \includegraphics[scale=0.6]{first_trees} 
 \caption{
 { \footnotesize 
-{\bf Phylogenetic trees.} A. Page from Darwin's notebooks around July 1837 showing his first sketch of an evolutionary tree.
+{\bf Phylogenetic trees.} A. A page from Darwin's notebooks around July 1837 showing his first sketch of an evolutionary tree.
 B. First phylogeny estimated from genetic data and published by \cite{Fitch1967}.
 }% END: footnotesize
 }
