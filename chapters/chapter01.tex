@@ -77,7 +77,7 @@ Evolution is the product of mutational processes that stochastically introduce c
 The latter occurs through genetic drift or the more deterministic process of natural selection. 
 Adaptation by natural selection is the most important process in biology as it determines the fate of mutations that impact the fitness of the organisms within their variable environment.
  
-Molecular phylogenetics studies the evolutionary pathways underlying these processes that lead in the polymorphism data observed at present.
+Molecular phylogenetics studies the evolutionary pathways underlying these processes that lead in the polymorphism data observed in contemporary times.
 Based on the sequence data obtained for a number of organisms or taxa, molecular phylogenetics aims at inferring the ancestral relationships and evolutionary parameters of interest.
 The result of a molecular phylogenetic analysis is represented in a phylogenetic tree. 
 Phylogenetic trees are bifurcating graphs depicting the pattern of common ancestry among the taxa.
@@ -209,8 +209,8 @@ The availability of programs for Bayesian phylogenetics like MrBayes \citep{Huel
 \subsection{Time-Calibrated Trees and Measurably Evolving Populations\label{sub:clocks}}
 
 %Molecular clock
-The molecular clock hypothesis (MCH, \cite{Zuckerkandl1962}) posits that the rate of evolution of any specified protein remains constant over time and over different lineages.
-In particular the rate of substitution is roughly proportional to the actual time, as the authors observed by studying the rato of amino acid replacements and comparing them to fossil record.
+The molecular clock hypothesis (\cite{Zuckerkandl1962}) posits that the rate of evolution of any specified protein remains roughly constant over time and over different lineages.
+In particular, Zuckerkandl and Pauling observed that amino acids were replaced at a roughly constant rate in hemoglobins as judged from the fossil record.
 
 % \begin{figure}[H]
 % \centering
@@ -223,13 +223,12 @@ In particular the rate of substitution is roughly proportional to the actual tim
 % \label{fig:molecular_clock}
 % \end{figure}
 
-This hypothesis is compelling, mostly because of its simplicity and because it allows to date bifurcation events on the tree of life.
-The molecular clock alone can only estimate the proportion of time between two events. 
-To assign concrete dates it needs to be calibrated against some event in the past for which the dating is known, like fossil records.
-
+This hypothesis is compelling because of its simplicity and because it provides a means to date bifurcation events on the tree of life.
+A molecular clock assumption can only result in estimates of the proportion of time between two events. 
+To estimate concrete dates for phylogenetic nodes, it needs to be calibrated using historical information such as  fossil records.
 % MEPs
-For viral phylogenetics, due to the rapid nature of the viral evolution, it is possible to sample sequences over an evolutionary timescale, as opposed to the ultrametricly sampled data, such as depicted in Figure~\ref{fig:ultrametric}.
-In these cases the dates of the samples themselves can be used to calibrate the molecular clock.
+For rapidly evolving viruses however, it is possible to sample sequences that diverge over an observable timescale. 
+As opposed to the ultrametric topology assumed for slowly evolving organism (Figure~\ref{fig:ultrametric}), the dates of the samples themselves can be used to calibrate the molecular clock. %PL: please cite Andrew's TipDate paper here
 
 %GB: I think you should discuss some properties of EIDs at the nucleotide/amino acid/codon level (since that's what we've ended up extending) and link this to what you've done.
 %Perhaps you can get some inspiration from the following paper: http://jvi.asm.org/content/84/19/9864.long
@@ -245,35 +244,39 @@ In these cases the dates of the samples themselves can be used to calibrate the 
 \includegraphics[scale=0.3]{ultrametric} 
 \caption{
 { \footnotesize 
-{\bf Different sampling schemes.} Tree on the right has all of it's sampling dates set at $t=0$. Conversly the tree on the left is sampled at different points in time and provides temporal information.
+%PL: the units of the time scales are hardly visible; please alo change 'Heterogenous' to Dated tips.
+{\bf Different tree structures imposed by molecular clock assumptions for organisms evolving at different rates.} The tree on the right represents an evolutionary history of slowly evolving organisms, and has tips that are all aligned at $t=0$. Conversely the tree on the left represents an evolutionary history of rapidly evolving organisms with samples at different points in time, which provide temporal information to calibrate the molecular clock.
 }% END: footnotesize
 }
 \label{fig:ultrametric}
 \end{figure}
 
-Such time stamped data-sets are usually reffered to as time-heterogeneous and frequently arise from studies involving viruses which accumulate large amounts of genetic change in a relatively short amount of time.
-Populations for which such data can be obtained are called measurably evolving populations (MEPs, \cite{Drummond2003}) and have been instrumental in providing estimates of the evolutionary rate and in making advances to the theory of relaxed molecular clock models \citep{Drummond2006}.
+Time stamped data-sets have also been referred to as heterochronous data and %frequently arise from studies involving viruses which accumulate large amounts of genetic change in a relatively short amount of time.
+populations for which such data can be obtained are called measurably evolving populations (MEPs, \cite{Drummond2003}).
+This concept has been instrumental for providing estimates of evolutionary rates and for further developments in molecular clock modelling \citep{Drummond2006}.
 
 % relaxed phylogenetics
-The fact that the MCH is a simplifying assumption, widely adopted for it's computational convenience rather than biological motivation has been known for a while.
-The evidence for heterogenous rates of evolution has been found and demonstrated in several studies \citep{EyreWalker1997,Andreasen2001} and the strict molecular clock hypothesis is often rejected for real-world data sets.
+It was realized relatively early that the molecular clock hypothesis is a simplifying assumption that may be violated by many biological systems.
+Several studies demonstrated that the strict molecular clock hypothesis is often rejected for real-world data sets \citep{EyreWalker1997,Andreasen2001}, leading to widespread evidence for heterogenous rates of evolution.
+Unfortunately, the alternative `unconstrained' model, which estimates genetic distances for each phylogenetic branch, does not incorporate any relationship between sequence divergence and time and can therefore not be used for divergence time estimation.
+%A naive approach to counter these problems is to allow for unconstrained changes in branch substitution rates on the whole tree.
+%Unfortunately this does not facilitate the main advantage of the molecular clock hypothesis - the ability to date the speciation events.
+This is due to the fact that genetic distances for branches in the unconstrained model are product of the substitution rate and the branch length in time units.
+Without any assumption about the rates across branches, both quantities remain confounded (see also Subsection \ref{sub:rates}).
 
-A naive approach to counter these problems is to allow for unconstrained changes in branch substitution rates on the whole tree.
-Unfortunately this does not facilitate the main advantage of the molecular clock hypothesis - the ability to date the speciation events.
-This is due to the fact that the branch time is a product of the expected number of substitutions per site (rate, $r$) and the branch length in time units ($t$), causing the two to be confounded in phylogenetic analysis (see also Subsection \ref{sub:rates}).
-
-These problems have lead to the proposal of so-called "relaxed molecular clock" models, which allow for a changes in rate over time, but in a constrained manner, allowing for divergence time estimation.
-\citet{Drummond2006} propose several uncorrelated relaxed clock models in which the substitution rate can vary among the branches of the tree by being drawn independently and identically from some underlying distribution.
-Further extensions of this work by \citet{Drummond2010} have led to the development of a Random Local Clock (RLC) model, which set in a Bayesian framework allows for a joint reconstruction of the topology as well as the divergence time estimation. 
-The RLC model constructs proposal distributions which efficiently propose moves in both the tree space and in the clock rate space at the same time. %(see Subsection~\ref{sub:mcmc})
-Furthermore this approach favours parsimonious models with least parameters, utilizing the fact that for most datasets there exists only a small number of rate changes and that subclades on a tree will share the same rate.
-Bayesian Stochastic Search Variable Selection (BSSVS, \citet{Lemey2009}) procedure determines from the data which clock rates are to be included and which have a neglible probability of occuring.
+Because both the strict molecular clock model and the unconstrained model are unsatisfactory extremes, many developments aimed at `relaxed molecular clock' models, which allow for a changes in rate over time, but in a constrained manner and therefore still allowing to estimated divergence times.
+\citet{Drummond2006}, for example, propose several uncorrelated relaxed clock models in which the substitution rate can vary among the branches of the tree by being drawn independently and identically from some underlying distribution.
+Set in a Bayesian framework, this approach allows for a joint reconstruction of the topology and divergence times under less restrictive models.
+Among others, a random local clock model approach has also been proposed \citet{Drummond2010} as a more discrete alternative, which allows identifying and quantifying a restricted number of rate changes throughout evolutionary history.
+%The RLC model constructs proposal distributions which efficiently propose moves in both the tree space and in the clock rate space at the same time. %(see Subsection~\ref{sub:mcmc})
+%Furthermore this approach favours parsimonious models with least parameters, utilizing the fact that for most datasets there exists only a small number of rate changes and that subclades on a tree will share the same rate.
+This is achieved through a Bayesian Stochastic Search Variable Selection (BSSVS, \citet{Lemey2009}) procedure that lets the data decide which clock rate changes are needed to explain most rate variation.
 
 \subsection{Processes Giving Rise to Genealogies: Demography and Migration\label{sub:molecular_clock}}
 
-Genealogies are are trees which are records of ancestral and descendant relationships of individuals in a population.
-The process describing how, looking from the past towards the present, lineages on a genealogies come together is called the \textit{coalescent} \citep{Kingman1982}.
-The simplest formulation of the coalescent process described by John Kingman is known as the \textit{Wright-Fisher} \citep{Fisher1930,Wright1931} population model (see Figure~\ref{fig:wright-fisher}).
+Genealogies are trees that trace the ancestral and descendant relationships among individuals in a population.
+The process describing how lineages on a genealogy merge to common ancestor as we go back in time from the present is called the \textit{coalescent} \citep{Kingman1982}.
+The simplest formulation of the coalescent process described by John Kingman was derived as an approximation of \textit{Wright-Fisher} \citep{Fisher1930,Wright1931} population model (see Figure~\ref{fig:wright-fisher}).
 
 %---COALESCENT---%
 \begin{figure}[H]
@@ -281,8 +284,8 @@ The simplest formulation of the coalescent process described by John Kingman is 
 \includegraphics[scale=0.4]{wright-fisher} 
 \caption{
 { \footnotesize 
-{\bf The Wright-Fisher population model and Kingman's $n$-coalescent} A. The Wright-Fisher population of $N=10$ individuals. All sampled lineages coalesce to a common ancestor.
-B. With the Kingman's $n$-coalescent time is continuous and measured from tips towards the root.
+{\bf The Wright-Fisher population model and Kingman's $n$-coalescent} A. A Wright-Fisher population of $N=10$ individuals. The lineages for all individuals sampled from the population coalesce to a common ancestor.
+B.  In Kingman's $n$-coalescent, time is continuous and measured from tips towards the root.
 }% END: footnotesize
 }
 \label{fig:wright-fisher}
