@@ -292,25 +292,25 @@ B.  In Kingman's $n$-coalescent, time is continuous and measured from tips towar
 \end{figure}
 
 Under the Wright-Fisher model the population size $N$ is assumed to be constant through time.
-Time (generations) is discrete, i.e. every individual is replaced every generation, with all individuals having equal chances of reproducing.
-Let us start with numbering time (generations), starting from present one as $t_{0},t_{1},t_{2},\ldots,t_{k}$.
-Probability that two individuals sampled at the present generation $t_{0}$ share a common ancestor at a preceding generation $t_{1}$ is $\frac{1}{N}$.
-Probability that two individuals sampled at $t_{0}$ share an ancestor at $t_{2}$ is the probability that they do not share an ancestor at $t_{1}$, which is $1-\frac{1}{N}$, times the probability of sharing an ancestor at $t_{2}$, which is $\frac{1}{N}$, as the population size remains constant every generation.
+Time (generations) is discrete, i.e. every individual is replaced in every generation, with all individuals having equal chances of reproducing.
+To understand how we can describe the coalescent process for a small sample of individuals from such populations as a function of their size, let us start with numbering time (generations), starting from present one as $t_{0},t_{1},t_{2},\ldots,t_{k}$.
+The probability that two individuals sampled at the present generation $t_{0}$ share a common ancestor at a preceding generation $t_{1}$ is $\frac{1}{N}$.
+The probability that two individuals sampled at $t_{0}$ share an ancestor at $t_{2}$ is the probability that they do not share an ancestor at $t_{1}$, which is $1-\frac{1}{N}$, times the probability of sharing an ancestor at $t_{2}$, which is $\frac{1}{N}$, as the population size remains constant every generation.
 
-\begin{remark}{Sir John Frank Charles Kingman}
-\begin{figure}[H]
-\centering
-\includegraphics[scale=0.4]{kingman} 
-\caption{
-{ \footnotesize 
-% {\bf Sir John Frank Charles Kingman.} 
-This suave looking gentleman is a British mathematician, with his most notable work on the mathematics of the coalescent, a process fundamental to modern population genetics. 
-Interestingly Kingman never completed his PhD.
-}% END: footnotesize
-}
-\label{fig:kingman}
-\end{figure}
-\end{remark}
+%\begin{remark}{Sir John Frank Charles Kingman}
+%\begin{figure}[H]
+%\centering
+%\includegraphics[scale=0.4]{kingman} 
+%\caption{
+%{ \footnotesize 
+%% {\bf Sir John Frank Charles Kingman.} 
+%This suave looking gentleman is a British mathematician, with his most notable work on the mathematics of the coalescent, a process fundamental to modern population genetics. 
+%Interestingly Kingman never completed his PhD.
+%}% END: footnotesize
+%}
+%\label{fig:kingman}
+%\end{figure}
+%\end{remark}
 
 Generalizing this, we can write down the probability that a pair of randomly sampled individuals will have their most-recent common ancestor (MRCA) at time $t_{k}$:
 
@@ -340,7 +340,7 @@ P\left(t_{k}\right)=\left(\frac{n\left(n-1\right)}{2N}\right)\left(1-\frac{n\lef
 Equation~\ref{eq:wright-fisher-n-individuals-general} characterizes a probability mass function (PMF) of a geometric distribution with parameter $p=\frac{n\left(n-1\right)}{2N}$ (see Equation~\ref{eq:geometric_dist}).
 
 \begin{remark}{Geometric distribution}
-Geometric distribution returns the probability that the $k$-th trial out of $k$ independent Bernoulli trials, each with success probability $p$, is a succesfull one:
+The geometric distribution returns the probability that the $k$-th trial out of $k$ independent Bernoulli trials, each with success probability $p$, is a successful one:
 
 \begin{equation}
 P\left(X=k\right)=p\left(1-p\right)^{k-1},\;0<p\leq1,\; k\in\left\{ 1,2,3,\ldots\right\}.
@@ -355,144 +355,151 @@ P(X\leq k)=1-\left(1-p\right)^{k-1}.
 \end{equation}
 \end{remark}
 
-For small values of $p$ the discrete geometric distribution can be approximated by it's continuous equivalent, the exponential distribution. 
-An informal argument finds itself in Figure~\ref{fig:exp_approx}.
-
-\begin{figure}[H]
-\centering
-\includegraphics[scale=0.3]{exponential_approx} 
-\caption{
-{ \footnotesize 
-{\bf Approximating geometric distribution by exponential distribution.} 
-Black rectangles denote the discrete geometric distribution, red line is the continuous geometric distribution.
-}% END: footnotesize
-}
-\label{fig:exp_approx}
-\end{figure}
-
-This approximation let's us now move into continuous time, and we can write Equation~\ref{eq:wright-fisher-n-individuals-general} as:
+For small values of $p$ the discrete geometric distribution can be approximated by its continuous equivalent, the exponential distribution. 
+%An informal argument finds itself in Figure~\ref{fig:exp_approx}.
+%
+%\begin{figure}[H]
+%\centering
+%\includegraphics[scale=0.3]{exponential_approx} 
+%\caption{
+%{ \footnotesize 
+%{\bf Approximating geometric distribution by exponential distribution.} 
+%Black rectangles denote the discrete geometric distribution, red line is the continuous geometric distribution.
+%}% END: footnotesize
+%}
+%\label{fig:exp_approx}
+%\end{figure}
+%
+This approximation allows us to move into continuous time, and we can write Equation~\ref{eq:wright-fisher-n-individuals-general} as:
 
 \begin{equation}
 P\left(t_{k}\right)=\frac{n\left(n-1\right)}{2N}exp\left(-\frac{n\left(n-1\right)}{2N}k\right)
 \label{eq:exponential_time}
 \end{equation}
 
-In the light of Equation~\ref{eq:exponential_time} we can view the Kingman's coalescent as a continuous time version of the Wright-Fisher model with $n$ sampled individuals.
-Under molecular clock (see Subsection~\ref{sub:molecular_clock}) mutation rate $r$ and time are confounded.
-%TODO: mutation rate? P(t_k|\theta) ?
-However for MEP populations, were sequences are sampled serially in time (see Figure~\ref{fig:ultrametric}) the two can be disentangled.
+In the light of Equation~\ref{eq:exponential_time} we consider the Kingman's coalescent as a continuous time version of the Wright-Fisher model with $n$ sampled individuals.
+%Under a molecular clock (see Subsection~\ref{sub:molecular_clock}) mutation rate $r$ and time are confounded.
+%%TODO: mutation rate? P(t_k|\theta) ?
+%However for MEP populations, were sequences are sampled serially in time (see Figure~\ref{fig:ultrametric}) the two can be disentangled.
 \cite{Rodrigo1999} developed an extension of the Kingman's coalescent, the so called \textit{serial coalescent} (s-coalescent), that allows to scale the genealogies in real time units.
-Such a formulation can be used as a prior distribution for the tree and sampled from using Markov-Chain Monte Carlo (see Subsection~\ref{sub:mcmc}).
+Genealogies for a small sample of individuals can be estimated from their genetic data using phylogenetic reconstruction, and the resulting waiting time distributions in the trees can be used to estimate population sizes.
+It is important to note, however, that these models make assumptions that are clearly violated in most populations and therefore lead to population size estimates that generally strongly deviate from census population sizes. 
+In order to still be able to use those models, a rescaling of the population model has been proposed so that it behaves, with regard to certain properties, as a simple Wright-Fisher model with constant population size.
+This rescaling requires moving from census population size to the more abstract concept of `effective population size' or $N_{e}$.
+As in changes $N_{e}$ still reflect changes in the census population, the constant population size coalescent model has been extended to account for variable size populations, either in parametric or non-parametric formulations. %PL: add references, e.g. some of the earlier pybus papers fro parametric forms and skyride/skygrid for nonparameterics.
+In a Bayesian framework focusing on time-measured trees, such process models find their use as priors on trees.
+Coalescent models have also been extended to account for structured populations allowing to estimate migration rates, which naturally brings us to spatial dynamics.  %PL: add references, e.g. Migrate and Lamarc or some of the Hey work for those
 
 % Introduce phylogeography -- discrete ancestral state reconstruction is only one way of doing this (see Bloomquist, Lemey, Suchard)]
-Another process which shapes the phylodynamics of viral sequences is the process of their migration, which we understand as a dispersal in actual geographical coordinates.  
-Inference methods which make use of both molecular and geographical data have been dubbed as phylogeography as the processes which shape the genome are integrated with the processes of geographical spread.
-In that sense the inferred tree does not only provide a record of evolutionary ancestry, but also of the dispersal in actual geographical coordinates.
-
-% snow
-Perhaps a first know study which used epidemiological methods which we today call phylodynamics, is the famous John Snow's work in 1854, tracing the source of a cholera epidemic in the Soho district of London.
-There was no notion of molecular data or even bacteria nor viruses, yet by using a dot map Snow was able to show that almost all the cases in were clustered in a close proximity of a water pump on the Broad Street (see Figure~\ref{fig:snow}).
-Snow was able to persuade local authorities to remove the handle, which contrbuted to the end of the outbreak.
-It was later found that a nearby cesspool was in fact leaking it's content into the public well, therefore transmitting water contaminated with the cholera bacteria.
-
-\begin{figure}[H]
-\centering
-\includegraphics[scale=0.4]{snow_map} 
-\caption{
-{ \footnotesize 
-{\bf Map of the cholera cases in the London epidemic of 1854.} 
-Map shows the clustering of cases around water pump on the Broad Street (currently called Broadwick Street).
-}% END: footnotesize
-}
-\label{fig:snow}
-\end{figure}
-
+How geography impacts genealogies is one the main research questions of phylogeography, a discipline that frequently resorts to ancestral reconstruction to shed light on migration or dispersal dynamics. 
+%Another process which shapes the phylodynamics of viral sequences is the process of their migration, which we understand as a dispersal in actual geographical coordinates.  
+%Inference methods which make use of both molecular and geographical data have been dubbed as phylogeography as the processes which shape the genome are integrated with the processes of geographical spread.
+In that sense the inferred tree does not only provide a record of evolutionary ancestry, but also of the dispersal process that gave rise to the current geographic distribution of taxa.
+%
+%% snow
+%Perhaps a first know study which used epidemiological methods which we today call phylodynamics, is the famous John Snow's work in 1854, tracing the source of a cholera epidemic in the Soho district of London.
+%There was no notion of molecular data or even bacteria nor viruses, yet by using a dot map Snow was able to show that almost all the cases in were clustered in a close proximity of a water pump on the Broad Street (see Figure~\ref{fig:snow}).
+%Snow was able to persuade local authorities to remove the handle, which contributed to the end of the outbreak.
+%It was later found that a nearby cesspool was in fact leaking its content into the public well, therefore transmitting water contaminated with the cholera bacteria.
+%
+%\begin{figure}[H]
+%\centering
+%\includegraphics[scale=0.4]{snow_map} 
+%\caption{
+%{ \footnotesize 
+%{\bf Map of the cholera cases in the London epidemic of 1854.} 
+%Map shows the clustering of cases around water pump on the Broad Street (currently called Broadwick Street).
+%}% END: footnotesize
+%}
+%\label{fig:snow}
+%\end{figure}
+%
 % stochastic model based
-\cite{Bloomquist2010} in their opinion on current methods in phylogeography highlight the fully probabilistic approaches that use Continuous-time Markov chain (CTMC) models to infer transitions between discrete locations in a function of continuous time.
-Maximum likelihood and closely related Bayesian inference methods assume that both the evolution and geographical dispersal are independent, stochastic processes which unfold on phylogenetic trees.
+In their opinion piece on current methods in phylogeography, \cite{Bloomquist2010} highlight  fully probabilistic approaches that use Continuous-time Markov chain (CTMC) models to infer transitions between discrete locations as a function of continuous time as one of the phylogeographic inference methods.
+Maximum likelihood and closely related Bayesian inference methods assume that both  evolution and geographical dispersal are independent, stochastic processes which unfold on phylogenetic trees.
 \cite{Lemey2009} and \cite{Lemey2010} developed a Bayesian framework that allows for a joint reconstruction of spatial diffusion and genetic ancestry, accommodating important sources of uncertainty in estimating spatial and temporal dynamics.
 
 % population genetic / migration models
-The coalescent which we described at the beginning of this Subsection, and more generally population genetic approaches are another statistical inference method that can be naturally extended for phylogeography.
-These methods assume that trees are shaped by processes such as migration, selection or fluctuations in the population sizes in time.
-Trees proposed by the coalescent are then random draws from a larger, population-level processes, and one can use molecular and other data to get a better resolution of these underlying processes.
+%The coalescent which we described at the beginning of this Subsection, and more generally population genetic approaches are another statistical inference method that can be naturally extended for phylogeography.
+%These methods assume that trees are shaped by processes such as migration, selection or fluctuations in the population sizes in time.
+%Trees proposed by the coalescent are then random draws from a larger, population-level processes, and one can use molecular and other data to get a better resolution of these underlying processes.
 
 \subsection{Bayesian evolutionary inference in BEAST}
 
-Bayesian evolutionary analysis by sampling trees (BEAST) software \citep{Drummond2012}, co-developed in our research group, is build around the advances described in Subsections~\ref{sub:epidemiology}-\ref{sub:molecular_clock}.
+The Bayesian evolutionary analysis by sampling trees (BEAST) software \citep{Drummond2012}, to which our research group contributes, integrates many of the advances described in Subsections~\ref{sub:epidemiology}-\ref{sub:molecular_clock}.
 BEAST is set in a Bayesian statistical framework, meaning that it combines the data likelihood (see Subsection~\ref{sub:likelihood}) with prior knowledge (see Subsection~\ref{sec:bayesian_inference}), and generates posterior samples using MCMC (see Subsection~\ref{sub:mcmc}).
 
 % other packages
 BEAST is not the only software package for Bayesian phylogenetic analysis and can be compared to a number of other packages.
-MrBayes \citep{Huelsenbeck2001} is a command-line driven software focused on phylogenetic inference.
-Migrate-n \citep{migrate} and LAMARC \citep{Kuhner2006} focus on coalescent-driven population genetics.
-
-Like these programs, at the core of the BEAST lies a Metropolis-Hasting algorithm (\cite{Metropolis1953, Hasting1970}, see also Subsection~\ref{sub:mcmc}) for constructing Markov chains that have desired posterior distributions as their equilibrium distribution.
-It is precisely why BEAST is not meant for building a single tree or a single estimate of a parameter of interest, and rather generates whole samples that can be used to summarize distributions of mutation rates, divergence times, demographic parameters, trait evolution or others.
+MrBayes \citep{Huelsenbeck2001} is a command-line driven software mainly focusing on phylogenetic inference.
+Migrate-n \citep{migrate} and LAMARC \citep{Kuhner2006} on the other hand concentrate on coalescent-driven population genetics.
+Like these programs, at the core of BEAST lies a Metropolis-Hasting algorithm (\cite{Metropolis1953, Hasting1970}, see also Subsection~\ref{sub:mcmc}) for constructing Markov chains that converge on the posterior distribution as the equilibrium distribution.
+It is precisely why BEAST is not meant for reconstructing a single tree or a point estimate for a parameter of interest, but rather generates samples that can be used to summarize distributions of mutation rates, divergence times, demographic parameters, trait evolution or others.
 
 %beast is cool
-When compared to other similar programs, BEAST definitely stands out in the number of models availiable for performing inference.
-Perhaps the most characteristic point is that BEAST is solely focused on sampling rooted, time measured phylogenies.
-This allows for a very natural interpretation of reconstructed trees, and is achieved thanks to the adoption of the molecular clock models, from simple strickt clock models, with a uniform rate across the whole time-span of the evolution, to relaxed molecular clock models that model a rate variation \citep{Thorne1998,Yoder2000,Drummond2006,Drummond2010}.
+When compared to other similar programs, BEAST stands out in the number of models available for performing inference and the flexibility by which they can be combined.
+Perhaps the most characteristic point is that BEAST uniquely focuses on sampling rooted, time-measured phylogenies.
+This allows for a very natural interpretation of reconstructed trees, and is achieved thanks to the adoption of the molecular clock models, from simple strict clock models, with a uniform rate across the whole time-span of the evolution, to relaxed molecular clock models that model rate variation in various ways \citep{Thorne1998,Yoder2000,Drummond2006,Drummond2010}.
 BEAST sports a large number of complementary evolutionary models, which can be combined in a flexible way.
-Various substitution models for performing analysis on nucleotide, codon or amino-acid level are complemented with demographic tree priors such as the coalescent, skyline \citep{Drummond2005} or skyride \citep{Minin2008b} models, relaxed clock models and others.
+Various substitution models for performing analysis on nucleotide, codon or amino-acid data, accounting for among-site and among-lineage rate variation and partitioned in arbitrary ways, are complemented with demographic tree priors such as coalescent \citep{Drummond2005;Minin2008b} or birth-death priors and trait evolutionary models. %PL: add reference for birth-death
 
 % using beast
-The program takes as input structured XML files which describe the data to be analyzed, the models to be used, the number o fposterior samples to collect and the output options.
-The output consists of a simple tab-separated files, with each row corresponding to one value sampled from the posterior distribution, for both the parameter values and actual trees.
+%The program takes as input structured XML files which describe the data to be analyzed, the models to be used, the number of samples to collect from the posterior and the output options.
+%The output consists of a simple tab-separated files, with each row corresponding to one value sampled from the posterior distribution, for both the parameter values and actual trees.
 
 %gpus
-Growing availiability of large complex data-sets has led to the term `Big Data' being coined.
-Large sample sizes, such as full genome sequences or the ones generated with th enext-gen sequencing techniques are bound to pose a problem for phylogenetic inference as well.
-Fortunately there exist solutions that aim at reducing the time that it takes to fit complex phylogenetic models to the vast amounts of data.
-These solutions are mainly focused on harnessing the powers of modern graphics processing units (GPUs), such as the NVIDIAs Tesla line of GPUs that target the high performance computing market.
-BEAGLE (Broad-platform evolutionary analysis generalized likelihood evaluator, \cite{Ayres2012}) is a library and an API (Application Programming Interface) that massively parallel graphics processors and other multicore devices to substantially decrease the runtime of phylogenetic analysis \citep{Suchard2009}.
-BEAST readily integrates with BEAGLE and provides a GUI interface to configure the library.
+Growing availability of large complex data-sets has led to the term `Big Data'. %being coined.
+Large sample sizes, such as full genome sequences or the ones generated with next-gen sequencing techniques are increasingly challenging phylogenetic inference.
+Fortunately strategies have been proposed to reduce the time that it takes to fit complex phylogenetic models to the vast amounts of data.
+These solutions are mainly focused on parrallellization and on harnessing the powers of modern graphics processing units (GPUs), such as the NVIDIAs Tesla line of GPUs that target the high performance computing market.
+BEAGLE (Broad-platform evolutionary analysis generalized likelihood evaluator, \cite{Ayres2012}), is a library that can be used in conjunction with BEAST and provides an API (Application Programming Interface) that massively parallel graphics processors and other multicore devices can exploit to substantially decrease the runtime of phylogenetic analysis \citep{Suchard2009}.
+%BEAST readily integrates with BEAGLE and provides a GUI interface to configure the library.
 
 % external software
-BEAST comes with a number of additional external software packages that can either assist in generating the input for BEAST, analyzing the results or for some other more specific tasks.
+BEAST is packaged with a number of additional utilities that can either assist in generating the input for BEAST, in analyzing the results or in some other more specific tasks.
 \textbf{BEAUti} (Bayesian Evolutionary Analysis Utility) is a  GUI (graphical user-interface) application for generating XML input files for BEAST. 
 % It alleviates some of the most cumbersome tasks that would otherwise have to be done manually, thus saving time and simplifying 
-It allows for manipulation of models, priors, operators, and MCMC chain settings, without resorting to a manual editing of the XML syntax.
-\textbf{LogCombiner} combines log files and tree log files from multiple runs, that can be than importer into \textbf{Tracer}, a graphical tool for the analysis and visualisation of the output of BEAST as well as other common MCMC packages.
-It allows for a quick inspection of mixing, convergence, and distribution of the parameters of interest.
-\textbf{TreeAnnotator} summarizes the tree log files as MCC (maximum clade credibility) trees and allows for annotating tree branches with external information, such as posterior probabilities, a posteriori most probable ancestral traits and other.
-These information can then be visualised using \textbf{FigTree} (\url{http://tree.bio.ed.ac.uk/software/figtree/}) or if nodes of the trees are annotated with spatial information they can be displayes in geographical coordinates using \textbf{SPREAD}.
-Finally \textbf{$\pi$BUSS} is a software for sequence simulation, capable of generating XML files understood by BEAST for combined simulation-inference analysis as well as sequences in formats taht can be imported into any other phylogenetic software.
-
-BEAST is a flexible package for statistical pylogenetics and hypothesis testing.
-In addition to a large array of availiable models, it is actively developed with new models and enhancements included with every new stable release.
+It supports the specification of (standard) models, priors, operators, and MCMC chain settings, without having to resort to a manual editing of the XML syntax.
+\textbf{LogCombiner} combines log files from multiple runs, that can be than imported into \textbf{Tracer}, a graphical tool for the analysis and visualization of the output of BEAST as well as other common MCMC packages.
+It allows for a quick inspection of mixing, convergence, and summary statistics of the parameters of interest.
+\textbf{TreeAnnotator} summarizes the tree log files and generally represents the evolutionary history using a maximum clade credibility (MCC) tree; each node or branch in this tree can be annotated with external information, such as posterior probabilities and maximum a posteriori ancestral traits.
+The tree and its annotated information can subsequently be visualized using \textbf{FigTree} (\url{http://tree.bio.ed.ac.uk/software/figtree/}). % or if nodes of the trees are annotated with spatial information they can be displayes in geographical coordinates using \textbf{SPREAD}. %PL we need to introduce spread first, which is a chapter in this thesis :-), same for piBUSS
+%Finally \textbf{$\pi$BUSS} is a software for sequence simulation, capable of generating XML files understood by BEAST for combined simulation-inference analysis as well as sequences in formats taht can be imported into any other phylogenetic software.
+%
+In conclusion, BEAST is a flexible package for statistical pylogenetics and hypothesis testing.
+The software is continuously being improved and new models are being developed, but the development has recently been split into a continuing BEAST1 branch and a new BEAST2 branch. %PL: add BEAST2 reference.
+Since the work presented in this thesis is implemented in BEAST1, all references to BEAST will implicitly refer to this development branch.
+%In addition to a large array of available models, it is actively developed with new models and enhancements included with every new stable release.
 
 \subsection{Objectives: model extension, simulation and visualisation\label{sub:objectives}}
 
 % models
 \paragraph{}
 Phylogenetic analyses employing stochastic processes make strong restrictive assumptions regarding the underlying substitution process.
-These assumptions are mainly considered to reduce the number of free parameters of the models and ease the already mentioned computational and mathematical tractability.
-Unfortunately many of these assumptions hamper the application of the methods to the complex, real-world data-sets.
-Relaxing some of these assumptions and development of more biologically plausible models, able to grasp the complex nature of phylodynamic dispersal processes is one the aims of the presented thesis \citep{Bielejec2014a}.
-Another goal is to make the general applicability suitable for epidemiological problems as well as beyond them, with potential to turn the findings into useful predictions of the emergence of infectious diseases, e.g. by identifying the sources and sinks of the viral spread.
+These assumptions are mainly considered to reduce the number of free parameters of the models and ease the computational and mathematical tractability.
+Unfortunately many of these assumptions hamper the application of the methods to complex, real-world data-sets.
+Relaxing some of these assumptions and development of more biologically plausible models, able to grasp the complex nature of phylodynamic dispersal processes is an important aim of this thesis \citep{Bielejec2014a}.
+%Another goal is to make the general applicability suitable for epidemiological problems as well as beyond them, with potential to turn the findings into useful predictions of the emergence of infectious diseases, e.g. by identifying the sources and sinks of the viral spread.
 % geographical dispersal
 
 % simulation
 \paragraph{}
-With the development of novel phylogenetic inference methods comes the need to synthesize evolutionary data, in order to compare estimator performance and characterize strengths and weaknesses of different approaches (e.g. \cite{Arenas2012}, \cite{Hoban2011}).
+The development of novel phylogenetic inference methods brings about the need to compare estimator performance and to characterize strengths and weaknesses of different approaches (e.g. \cite{Arenas2012}, \cite{Hoban2011}).
 Whereas the true underlying evolutionary relationships between biological sequences are generally unknown, Monte Carlo simulations allow generating test scenarios while controlling for the evolutionary history as well as the tempo and mode of evolution. 
 Part of the research presented in this thesis is devoted towards development of a flexible software for sequence simulation, that integrates both the tree-generative processes, as well as models responsible for shaping the molecular histories and geographical dispersal \citep{Bielejec2014a}.
 
 % visualisation
 \paragraph{}
-Phylogenetic inference inevitably results in complex, multi-dimensional output data.
-This dimensionality is further incremented by adding the geography to the usual evolutionary time component.
-Finally, Bayesian analyses result in posterior distributions of trees, with each tree branch annotated with estimated node locations and other traits of interest.
-These aspects represent a major challenge for visualizing the phylogenetic inference.
-Yet clear and intuitive visualizations are an important aspect of every analysis \citep{Hadley2010}.
+Bayesian phylogenetic inference inevitably results in complex, multi-dimensional output.
+Adding the geography to the phylogenetic process further adds to this complexity.
+In particular, Bayesian phylogeography  result in posterior distributions of trees, with each tree branch annotated with estimated node locations and other traits of interest.
+%This represents a major challenge for visualization  the phylogenetic inference.
+Clear and intuitive visualizations are an important aspect of every analysis \citep{Hadley2010}, but this is far from trivial for the estimates we obtain.
 
 Spatial phylogenetic projections have already been utilized in the field \citep{Kidd2006,Parks2009}, yet most of these applications remain limited to mapping phylogenetic tip taxa to their geographical coordinates, without providing robust statistical estimates of the geographic locations at the ancestral nodes nor the measures of uncertainty in the inference.
 Fortunately the advent of powerful and flexible Geographic Information Systems (GIS) has fostered an interesting possibility to incorporate both spatial and temporal information into viral phylogenetic analysis.
-
 Presenting readily interpretable visual summaries of the inferences, that can in turn be communicated to the researchers across different fields is one of the more important aspects of this thesis.
-This goal has been materialized in the development of a user-friendly application, that produces compelling and informative statistical visualizations of viral spread in time and space \citep{Bielejec2011}.
+%This goal has been materialized in the development of a user-friendly application, that produces compelling and informative statistical visualizations of viral spread in time and space \citep{Bielejec2011}.
 
 \section{Evolution as a stochastic process}
 
