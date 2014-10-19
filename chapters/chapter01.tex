@@ -1194,7 +1194,7 @@ We should note that the Big-O notation always describes the performance in worst
 \end{algorithmic}
 \caption{
 { \footnotesize 
-{\bf Search for a first duplicated value.} 
+{\bf Search for the first duplicated value.} 
 }% END: footnotesize
 }
 \label{alg:on2}
@@ -1228,12 +1228,12 @@ Fortunately, these operations are very regular and lend themselves to the comput
 
 \subsection{Bayesian evolutionary analysis}
 
-The Bayesian approach to statistical inference combines the prior information with the data to generate the posterior distributions of the parameters of interest.
+The Bayesian approach to statistical inference combines prior information with the data to generate the posterior distributions of the parameters of interest.
 All other post-hoc inference is based on those generated posterior distributions.
 Bayesian methodology has recently gained immense popularity, due to the advances in numerical algorithms and the progressively cheaper access to powerful computational hardware.
 The development of statistical programs for simulation from Bayesian hierarchical models like OpenBUGS \citep{Lunn2009} and JAGS \citep{Plummer2003} has also helped to bolster the popularity and accessibility of the Bayesian framework.
 
-In the field of phylogenetics, Bayesian inference has been applied to some of the most complex problems and is now widely adopted, with the term \emph{Bayesian evolutionary analysis} used to describe the molecular evolutionary analysis set in the Bayesian framework.
+In the field of phylogenetics, Bayesian inference has been applied to some of the most complex problems and is now widely adopted, with the term \emph{Bayesian evolutionary analysis} used to describe molecular evolutionary analyses set in the Bayesian framework.
 At the fore-front of these advancements lies the active development and wide adoption of popular Bayesian evolutionary analysis software packages like MrBayes \citep{Ronquist2012} and BEAST \citep{Drummond2012}.
 
 \subsection{Bayes theorem\label{sub:bayesTheorem}}
@@ -1246,7 +1246,7 @@ The prior reflects the prior beliefs about the possible values of the parameter.
 
 The prior choice is perhaps one of the most controversial points of the Bayesian inference.
 The prior distributions may come from the preceding analysis of the other sets of data, or they may form some set of biologically plausible values.
-However in some cases there may be no suitable objective distribution at hand, which case one often resorts to the so called \emph{vague} priors, with large variance.
+However in some cases there may be no suitable objective distribution at hand, in which case one often resorts to the so called \emph{vague} priors having large variances.
 All of these proper prior choices lead to a proper posterior distribution, yet some controversies about their choice may still arise.
 
 % TODO: discuss hyperpriors?
@@ -1264,7 +1264,7 @@ where the marginal probability of the data $P\left(\mathbf{X}\right)$ is a norma
 The last approximation in Equation~(\ref{eq:bayesian1}) means that the posterior is proportional to the prior times the likelihood.
 
 % nuisance parameters? GB: I second that
-Bayesian inference provides a natural way of dealing with nuisance parameter.
+Bayesian inference provides a natural way of dealing with nuisance parameters.
 Suppose that $\mathbf{\Theta}=\left(\theta,\mathbf{F}\right)$ is now a two dimensional vector of parameters, with $\theta$ being the parameter of interest, while 
 $\mathbf{F}$ (e.g. a tree topology) is the nuisance parameter.
 The joint posterior distribution of $\mathbf{\Theta}$ is now:
@@ -1298,7 +1298,7 @@ Assuming that the sites are independent we can use a binomial model and put a be
 \includegraphics[scale=0.5]{bayes} 
 \caption{
 { \footnotesize 
-{\bf Beta prior and posterior densities plotted with a scaled likelihood resulting from a binomial model.} 
+{\bf Beta(2,100) prior and posterior densities plotted with a scaled likelihood resulting from a binomial model.} 
 }% END: footnotesize
 }
 \label{fig:bayes1}
@@ -1314,7 +1314,7 @@ Except for the most trivial problems, involving conjugate priors as in our previ
 This integral leads to the marginal probability of the data $P\left(\mathbf{X}\right)$. 
 For even the simplest phylogenetic problems, one has to integrate over all possible tree topologies, all of the branch lengths in those trees and all of the substitution parameters in the applied model.
 Such highly-dimensional integrals are impossible to calculate analytically.
-This is where the Markov Chain Monte Carlo (MCMC) algorithm shows its strength and provides a powerful method of sampling from the posterior distributions without evaluating the marginal probability. %PL: it is a supa-dupa algorithm: http://oldweb.cecm.sfu.ca/~jborwein/algorithms.html
+This is where the Markov Chain Monte Carlo (MCMC) algorithm shows its strength and provides a powerful method of sampling from the posterior distributions without having to evaluate the marginal probability. %PL: it is a supa-dupa algorithm: http://oldweb.cecm.sfu.ca/~jborwein/algorithms.html
 
 The Metropolis-Hasting algorithm, as proposed by \citet{Metropolis1953}, is an MCMC algorithm for sampling from multi-dimensional distributions.
 It proceeds by constructing a Markov chain with its states being the values of the parameter of interest $\theta$ and whose equilibrium distribution is the posterior $P\left(\theta|\mathbf{X}\right)$ as defined in Equation~\ref{eq:bayesian1}.
@@ -1387,7 +1387,7 @@ Thus to estimate the posterior $P\left(\theta|\mathbf{X}\right)$ one only needs 
 %PL: maybe mention that this can be formally proven using the ergodic theorem... and no, you don't have to prove it in the appendix ;-)
 
 % TODO: better title, show how to derive the probabilities (in JC69 chapter)
-\subsection{Example: Estimating genetic distance}
+\subsection{Example: Estimating genetic distances}
 
 %GB: I don't really like these kinds of examples or tutorials. They're great when teaching a workshop, but this is an introduction for a PhD dissertation ...
 
@@ -1434,7 +1434,7 @@ For the proposal we choose a uniformly distributed jumping kernel with a window 
 \includegraphics[scale=0.5]{metropolis} 
 \caption{
 { \footnotesize 
-{\bf MCMC output for estimating genetic distance under the JC69 model of nucleotide substitution.
+{\bf MCMC output (trace plot and histogram/density) for estimating the genetic distance under the JC69 model.
 %PL: a bit thin as a caption; at least describe what we see in the two panels (in a slightly different way as the text) -- Figures should be able to be read in isolation
 %PL: use a grey line instead of the two red lines to avoid color.
 } 
@@ -1463,34 +1463,38 @@ The acceptance rate is high, suggesting that almost as many steps are accepted a
 
 \subsection{Bayesian phylogeography\label{sub:phylogeo}}
 
-Phylogeography is a research direction aimed at connecting evolutionary processes, which happen over time, with the processes of spatial distribution, in actual geographical coordinates, into a joint spatio-temporal dynamic that can be used to track pathogen spread.
-Historically the phylogeographical inference in molecular epidemiology ignored the reciprocal character of these two processes. 
+Phylogeography is a research direction aimed at connecting evolutionary processes, which happen over time, with the processes of spatial dispersal into a joint spatio-temporal dynamic that can be used to track pathogen spread.
+Historically, phylogeographic inference in molecular epidemiology ignored the reciprocal character of these two processes. 
 The evolutionary relationship represented by the tree was inferred omitting the geographical information, and then the ancestral locations generated by the process of the spatial diffusion were reconstructed, conditioning on the inferred tree topology.
-\citet{Lemey2009} first considered the Bayesian reconstruction that allows for joint inference of both the tree and the parameters of the spatial and temporal process that shapes the spread and evolution of 
+\citet{Lemey2009} first considered the Bayesian reconstruction that allows for joint inference of both a time-measured evolutionary history and the parameters of the spatial and temporal process that shapes the spread and evolution of 
 % e.g. 
 rapidly evolving viruses.
-Their approach does not need to fix the tree topology, the branch lengths nor the Markov model parameters, and allows for integration over all possible values, requiring only for a specification of a prior distributions for the parameters that we aim to infer.
+This approach does not need to fix the tree topology, the branch lengths nor the Markov model parameters, and allows for integration over all possible values, requiring only for a specification of a prior distributions for the parameters that we aim to infer.
 
-%TODO: plot, tree with locations
-%---BAYESIAN PHYLOGENETICS TREE---%
-\begin{figure}[H]
-\centering
-\includegraphics[scale=0.25]{phylogeotree} 
-\caption{
-{ \footnotesize 
-{\bf Spatial location and molecular sequence data observed at the tips of a phylogenetic tree.} 
-}% END: footnotesize
-}
-\label{fig:phylogeotree}
-\end{figure}
+%PL: this figure is eh... well... not so attractive.. I commented it out in case a better one cannot be found/made
+%It is not really needed and not referenced if I am not mistaken
+
+%%TODO: plot, tree with locations
+%%---BAYESIAN PHYLOGENETICS TREE---%
+%\begin{figure}[H]
+%\centering
+%\includegraphics[scale=0.25]{phylogeotree} 
+%\caption{
+%{ \footnotesize 
+%{\bf Spatial location and molecular sequence data observed at the tips of a phylogenetic tree.} 
+%}% END: footnotesize
+%}
+%\label{fig:phylogeotree}
+%\end{figure}
 
 Central to the Bayesian phylogeographic framework is the hypothesis that sequence evolution is occurring simultaneously with the process of geographical dispersal. 
 The observed data, residing at the $N$ tips of phylogeny $\mathbf{F}$, is recorded as both character sequence data $\mathbf{X}=(X_{1},...,X_{N})$ and discretized geographic locations (countries, districts, cities) $\mathbf{Y}=(Y_{1},...,Y_{N})$.
 We assume independent stochastic processes are responsible for generating these data, with ancestral states of $\mathbf{X}$ generated as before by a CTMC characterized by rate matrix $\mathbf{Q}$ and the unobserved ancestral locations $(Y_{N+1},...,Y_{2N-2})$ generated by a separate CTMC characterized by rate matrix $\mathbf{\Phi}$.
 The entries of this matrix are the transition rates $\phi_{ij}$ between locations $i$ and $j$.
 Unlike before the rate matrix does not necessarily have to be symmetrical, i.e. there exist some $i,j$ such that $\phi_{ij}\neq\phi_{ji}$.
-Additionaly, a priori one would expect many of the infinitesimal rates to be zero. 
+Additionally, a priori one would expect many of the infinitesimal rates to be zero. 
 Unlike the molecular data, which is typically dense, the location data is sparse, with only one observation per taxon and many connections not observed at all.
+%PL: refer to BSSVS which was already mentioned earlier as a way to tackle this.
 
 The Bayesian framework described in Subsections~\ref{sub:bayesTheorem} and \ref{sub:mcmc} offers the unique ability to integrate different sources of information about the viruses with their genetic data, without conditioning on either one of them.
 We use this ability to infer the tree topology, the ancestral spatial locations and the character substitution process giving rise to the aligned molecular sequence data. 
@@ -1521,3 +1525,5 @@ P\left(\mathbf{F}, \mathbf{Q}, \mathbf{\Phi}|\mathbf{X},\mathbf{Y}\right)\propto
 
 The likelihood component for both molecular data $\mathbf{X}$ and location data $\mathbf{Y}$ is calculated using recursive tree pruning, as described in Subsection~\ref{sub:likelihood}.
 We approximate the joint posterior as written down in Equation~(\ref{eq:posteriorPhylogeography}) using MCMC methods we talked about in Subsection~\ref{sub:mcmc}.
+In order to study phylogeographic processes based on longitude and latitude coordinates of sampled strains, Brownian motion has been proposed as the random walk model in continuous space with conceptually very similar inference procedures \citep{Lemey2010}.
+
