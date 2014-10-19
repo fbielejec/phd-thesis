@@ -245,7 +245,7 @@ As opposed to the ultrametric topology assumed for slowly evolving organism (Fig
 \caption{
 { \footnotesize 
 %PL: the units of the time scales are hardly visible; please also change 'Heterogenous' to Dated tips and make those labels bigger
-{\bf Different tree structures imposed by molecular clock assumptions for organisms evolving at different rates.} The tree on the right represents an evolutionary history of slowly evolving organisms, and has tips that are all aligned at $t=0$. Conversely the tree on the left represents an evolutionary history of rapidly evolving organisms with samples at different points in time, which provide temporal information to calibrate the molecular clock.
+{\bf Different tree structures imposed by molecular clock assumptions for organisms evolving at different rates.} The tree on the right represents an evolutionary history of slowly evolving organisms, and has tips sampled in the last decades that are all aligned at $t=0$. Conversely the tree on the left represents an evolutionary history of rapidly evolving organisms with samples at different points in time in the last decades. By enforcing tip heights to be proportional to their sampling dates, temporal information is provided to calibrate the molecular clock for rapidly evolving organisms.
 }% END: footnotesize
 }
 \label{fig:ultrametric}
@@ -521,6 +521,8 @@ In the simplest case, for which the unit of evolution is a single nucleotide, we
 %GB: perhaps point out that they're in fact not independent?
 The particular sites of the sequence alignment are then considered to be stochastically independent realizations of the process $X$, leading to the observed data (see Figure~\ref{fig:alignment}). 
 
+
+%PL: Since you list the mutations for the right branch, you may as well list the one on the left branch as well
 \begin{figure}[H]
 \centering
 \begingroup
@@ -549,7 +551,7 @@ T & & & \\
 \caption{
 { \footnotesize 
 {\bf Evolution at a single site.} Over time characters at the site change, leading to the observed data (black). 
-%Some of the mutations may be unobserved. %PL: All of the mutations are unobserved
+%Some of the mutations may be unobserved. %PL: All mutations are unobserved!!!!
 Each site evolves independently.
 The longer the evolutionary time, the higher the probability that multiple substitutions occur on the same site.
 }% END: footnotesize
@@ -634,7 +636,7 @@ F_{T_{1}}(t)=1-P\left(T_{1}>t\right)=1-e^{-r t},
 \end{equation}
 
 \noindent
-therefore $T_1$ follows the exponential distribution with parameter $r$.
+$T_1$ therefore follows the exponential distribution with parameter $r$.
 For the second waiting time $T_2$ and some arbitrary $u>0$ and $t>0$, the independent increments property implies that:
 
 \begin{eqnarray}
@@ -644,8 +646,8 @@ F_{T_{2}}(t) &=& 1-P\left(T_{2}>t|T_{1}=u\right) \\ \nonumber
 \end{eqnarray}
 
 \noindent
-Therefore $T_2$ is independent of $T_1$ and $\text{Exponential}(r)$. 
-Similarly we can show that $T_3$ is independent of $T_1$ and $T_2$ and by repeating the same argument $T_1,T_2,\ldots$ are independent and identically distributed (i.i.d.) $\text{exponential}(r)$ random variables.
+Therefore, $T_2$ is independent of $T_1$ and $\text{Exponential}(r)$. 
+Similarly we can show that $T_3$ is independent of $T_1$ and $T_2$ and by repeating the same argument: $T_1,T_2,\ldots$ are independent and identically distributed (i.i.d.) $\text{exponential}(r)$ random variables.
 
 % TODO: memoryless property does not depend at all, vide poiss)
 % TODO: markovian (depends only a little)
@@ -680,7 +682,7 @@ A single entry $q_{ij} \ge 0$ for $i \neq j$ in matrix $\mathbf{Q}$ quantifies t
 
 \subsection{Computing the matrix exponent \label{sub:exponentiation}}
 
-In order to arrive at the finite-time transition probabilities matrix $\mathbf{P}(t)$ for some time $t\geq0$, one needs to compute the matrix exponential in Equation~\ref{eq:matrixExp2}.
+In order to arrive at the finite-time transition probability matrix $\mathbf{P}(t)$ for some time $t\geq0$, one needs to compute the matrix exponential in Equation~\ref{eq:matrixExp2}.
 \cite{Moler1978} provide an excellent review of numerical methods to compute the matrix exponent. 
 Here, we will highlight the method utilized by most phylogenetic software, including BEAGLE \citep{Ayres2012} and BEAST \citep{Drummond2012}, that uses the singular value decomposition (SVD) of the rate matrix $\mathbf{Q}$.   
 
@@ -744,7 +746,7 @@ This describes a Continuous-time Markov chain (CTMC), which  we will use to mode
 Every CTMC is completely characterized by its rate matrix $\mathbf{Q}$ and the stochastic matrix $\mathbf{P}(t),\ t\geq0$ is obtained via matrix exponentiation as described in the previous subsection (Subsection~\ref{sub:exponentiation}).
 
 
-%PL: Not sure if you want to do a color page print for this figure; it could be black/white
+%PL: Not sure if you want to do a color page print for this figure; it could simply be black/white
 
 %---SUBSTITUTION MODEL---%
 \begin{figure}[H]
@@ -820,7 +822,7 @@ Time reversibility also simplifies the computation of the likelihood on a tree, 
 In this subsection we will discuss the simplest model of nucleotide substitution, i.e. the JC69 model \citep{Jukes1969}.
 The JC69 model assumes that the instantaneous rates of change between every two nucleotides are the same.
 We also require that the rate matrix $Q$ characterizing the model is a stochastic matrix (each row sums to 0).
-The infinitestimal rate matrix of the JC69 model is thus given by:
+The infinitesimal rate matrix of the JC69 model is thus given by:
 
 \begin{equation}
 \mathbf{Q}=\left[\begin{array}{cccc}
@@ -871,7 +873,10 @@ This is true for most of the substitution models and implies that typical phylog
 A phylogenetic tree, or phylogeny for short, depicts the genealogical relationship between character sequences.
 Mathematically, a phylogeny $\mathbf{F}$ represents a directed, acyclic graph with sets of \emph{nodes} connected by \emph{branches} (e.g., Figure~\ref{fig:treeconcept}).
 Data is observed only at the external nodes (\emph{tips}), while internal nodes represent extinct ancestors for which data is usually missing.
-The ancestor of all observed samples is called the \emph{root} of the tree and it's height is referred to as the time to the most recent common ancestor (TMRCA).
+The ancestor of all observed samples is called the \emph{root} of the tree and its height is referred to as the time to the most recent common ancestor (TMRCA).
+
+
+%PL: why not use a simpler tree for fewer taxa, not necessarily with dated tips, where you indicate the terms you describe. For example the sample tree for figure 1.9, but without node and branch numbering, and taxon 1, taxon 2,.. as tip labels
 
 %---TREE CONCEPT---%
 \begin{figure}[H]
@@ -927,7 +932,7 @@ The state $j$ for the node $x_j$ is sampled conditional on the value $i$ already
 %
 \EndFor
 %
-\Else \Comment{this is tip node}
+\Else \Comment{this is a tip node}
 %
 \State $node \gets getParent\left(node\right);$
 %
@@ -939,7 +944,7 @@ The state $j$ for the node $x_j$ is sampled conditional on the value $i$ already
 \caption{
 { \footnotesize 
 %PL: Perhaps add: Pseudo code for simulating...
-{\bf Simulation an evolutionary process along a phylogeny.} 
+{\bf Simulating an evolutionary process along a phylogeny.} 
 When a child node is visited, the state is sampled with conditional probabilities of changing to state $j$ given state $i$ at the parental node.
 }% END: footnotesize
 }
@@ -949,7 +954,7 @@ When a child node is visited, the state is sampled with conditional probabilitie
 This illustrates the Markov property of a CTMC, as defined in Equation~(\ref{eq:markov}).
 The sampling is then repeated on the node $x_j$, before recursively proceeding to the other trio of nodes.
 The states sampled at the tips of the tree constitute the character sequence for one site of the alignment.
-In this light the CTMC process can be viewed as a continuous-time random-walk, unfolding on the topology $\mathbf{F}$, with its behaviour described by a rate-matrix $\mathbf{Q}$.
+In this light the CTMC process can be viewed as a continuous-time random walk, unfolding on the topology $\mathbf{F}$, with its behaviour described by a rate-matrix $\mathbf{Q}$.
 The complete algorithm is listed in Algorithm~\ref{alg:simulation}.
 
 \section{Likelihood of sequence evolution}
@@ -974,7 +979,7 @@ L\left(\mathbf{\Theta}|\mathbf{X}\right)=P\left(\mathbf{\Theta}|\mathbf{X}\right
 \noindent
 where $\mathbf{\Theta}$ represents the tree topology, the branch lengths, the parameters of the substitution model and other parameters of interest that we aim at estimating.
 This quantity expresses how likely it is to observe the data given a specific value of the parameter of interest $\mathbf{\Theta}$.
-By finding the value of $\mathbf{\Theta}$ that maximizes (\ref{eq:likelihood}) we capture a model with the best possible fit to the data.
+By finding the value of $\mathbf{\Theta}$ that maximizes (\ref{eq:likelihood}) we obtain an estimate of the most plausible hypothesis for the data.
 
 In this thesis we will not discuss the maximum likelihood estimation itself, %PL: good, who wants to consider the data to be fixed anyway..
 rather focus on closely related 
@@ -986,7 +991,7 @@ We will now discuss how to calculate the likelihood of observing a particular re
 %---LIKELIHOOD---%
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.5]{likelihood} 
+\includegraphics[scale=0.6]{likelihood} 
 \caption{
 { \footnotesize 
 {\bf  A hypothetical tree for five taxa.} Character data for single site is observed at the tips of the tree.
@@ -998,6 +1003,7 @@ We will now discuss how to calculate the likelihood of observing a particular re
 %PL: I could recommend to align the char's, increase their size, relate them to the tips with horizontal dashed lines, but just increasing their size may do
 % also, why not label the external nodes with x1-to x5 as you mention in the text, consistent with the internal models?
 % the i indices do not correspond between the nodes and branches for x7 and x8
+% make the labels of the axis bigger, or deleted all together as it is not needed.
 
 To calculate the likelihood means in a sense to reverse-engineer the evolution as it happened.
 Figure~\ref{fig:LIKELIHOOD} presents single site with data $TCACC$ observed at the tips of the tree.
@@ -1049,6 +1055,7 @@ L(\mathbf{x}_{h})=\underset{x_{0}\in\mathcal{E}}{\sum}\pi_{x_{0}}\cdot L_{0}(x_{
 \end{equation}
 
 \noindent
+%PL: maybe explicitly state why we move to log likelihoods:
 Thanks to the assumption of site-independence, the log-likelihood of the whole alignment $X$ can be computed by summing the logarithms of the likelihoods at the particular sites:
 
 \begin{equation}
