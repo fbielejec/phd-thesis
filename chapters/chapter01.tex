@@ -244,7 +244,7 @@ As opposed to the ultrametric topology assumed for slowly evolving organism (Fig
 \includegraphics[scale=0.3]{ultrametric} 
 \caption{
 { \footnotesize 
-%PL: the units of the time scales are hardly visible; please alo change 'Heterogenous' to Dated tips.
+%PL: the units of the time scales are hardly visible; please also change 'Heterogenous' to Dated tips and make those labels bigger
 {\bf Different tree structures imposed by molecular clock assumptions for organisms evolving at different rates.} The tree on the right represents an evolutionary history of slowly evolving organisms, and has tips that are all aligned at $t=0$. Conversely the tree on the left represents an evolutionary history of rapidly evolving organisms with samples at different points in time, which provide temporal information to calibrate the molecular clock.
 }% END: footnotesize
 }
@@ -418,6 +418,7 @@ In that sense the inferred tree does not only provide a record of evolutionary a
 In their opinion piece on current methods in phylogeography, \cite{Bloomquist2010} highlight  fully probabilistic approaches that use Continuous-time Markov chain (CTMC) models to infer transitions between discrete locations as a function of continuous time as one of the phylogeographic inference methods.
 Maximum likelihood and closely related Bayesian inference methods assume that both  evolution and geographical dispersal are independent, stochastic processes which unfold on phylogenetic trees.
 \cite{Lemey2009} and \cite{Lemey2010} developed a Bayesian framework that allows for a joint reconstruction of spatial diffusion and genetic ancestry, accommodating important sources of uncertainty in estimating spatial and temporal dynamics.
+Because they are both modeled using CTMCs, the work presented here on CTMC model extensions finds applications to sequence evolutionary processes as well as these phylogeographic processes.
 
 % population genetic / migration models
 %The coalescent which we described at the beginning of this Subsection, and more generally population genetic approaches are another statistical inference method that can be naturally extended for phylogeography.
@@ -476,7 +477,7 @@ Since the work presented in this thesis is implemented in BEAST1, all references
 % models
 \paragraph{}
 Phylogenetic analyses employing stochastic processes make strong restrictive assumptions regarding the underlying substitution process.
-These assumptions are mainly considered to reduce the number of free parameters of the models and ease the computational and mathematical tractability.
+These assumptions are mainly enforced to reduce the number of free parameters of the models and to ease computational and mathematical tractability.
 Unfortunately many of these assumptions hamper the application of the methods to complex, real-world data-sets.
 Relaxing some of these assumptions and development of more biologically plausible models, able to grasp the complex nature of phylodynamic dispersal processes is an important aim of this thesis \citep{Bielejec2014a}.
 %Another goal is to make the general applicability suitable for epidemiological problems as well as beyond them, with potential to turn the findings into useful predictions of the emergence of infectious diseases, e.g. by identifying the sources and sinks of the viral spread.
@@ -486,7 +487,7 @@ Relaxing some of these assumptions and development of more biologically plausibl
 \paragraph{}
 The development of novel phylogenetic inference methods brings about the need to compare estimator performance and to characterize strengths and weaknesses of different approaches (e.g. \cite{Arenas2012}, \cite{Hoban2011}).
 Whereas the true underlying evolutionary relationships between biological sequences are generally unknown, Monte Carlo simulations allow generating test scenarios while controlling for the evolutionary history as well as the tempo and mode of evolution. 
-Part of the research presented in this thesis is devoted towards development of a flexible software for sequence simulation, that integrates both the tree-generative processes, as well as models responsible for shaping the molecular histories and geographical dispersal \citep{Bielejec2014a}.
+Part of the research presented in this thesis is devoted to the development of a flexible software for sequence simulation, that integrates both the tree-generative processes, as well as models responsible for shaping the molecular histories and geographical dispersal \citep{Bielejec2014a}.
 
 % visualisation
 \paragraph{}
@@ -494,11 +495,11 @@ Bayesian phylogenetic inference inevitably results in complex, multi-dimensional
 Adding the geography to the phylogenetic process further adds to this complexity.
 In particular, Bayesian phylogeography  result in posterior distributions of trees, with each tree branch annotated with estimated node locations and other traits of interest.
 %This represents a major challenge for visualization  the phylogenetic inference.
-Clear and intuitive visualizations are an important aspect of every analysis \citep{Hadley2010}, but this is far from trivial for the estimates we obtain.
+Clear and intuitive visualizations are an important aspect of every analysis \citep{Hadley2010}, but this is far from trivial for the estimates resulting from Bayesian analysis of sequences and traits.
 
 Spatial phylogenetic projections have already been utilized in the field \citep{Kidd2006,Parks2009}, yet most of these applications remain limited to mapping phylogenetic tip taxa to their geographical coordinates, without providing robust statistical estimates of the geographic locations at the ancestral nodes nor the measures of uncertainty in the inference.
-Fortunately the advent of powerful and flexible Geographic Information Systems (GIS) has fostered an interesting possibility to incorporate both spatial and temporal information into viral phylogenetic analysis.
-Presenting readily interpretable visual summaries of the inferences, that can in turn be communicated to the researchers across different fields is one of the more important aspects of this thesis.
+Fortunately the advent of powerful and flexible Geographic Information Systems (GIS) has fostered an interesting possibility to visualize both the spatial and temporal information resulting from viral phylogenetic analysis.
+Presenting readily interpretable visual summaries of the inferences in e communicated to the researchers across different fields is one of the more important aspects of this thesis.
 %This goal has been materialized in the development of a user-friendly application, that produces compelling and informative statistical visualizations of viral spread in time and space \citep{Bielejec2011}.
 
 \section{Evolution as a stochastic process}
@@ -548,20 +549,22 @@ T & & & \\
 \caption{
 { \footnotesize 
 {\bf Evolution at a single site.} Over time characters at the site change, leading to the observed data (black). 
-Some of the mutations may be unobserved. 
+%Some of the mutations may be unobserved. %PL: All of the mutations are unobserved
 Each site evolves independently.
+The longer the evolutionary time, the higher the probability that multiple substitutions occur on the same site.
 }% END: footnotesize
 }
 \label{fig:alignment}
 \end{figure}
 
-As Figure~\ref{fig:alignment} depicts that due to multiple substitutions (multiple hits) some of the changes remain unobserved.
-This means that the numbered of observed differences in the sampled genetic data is an underestimate the underlying genetic distance and in order to accurately describe these processes one needs a model of evolution that can account for those multiple hits.
+As illustrated in Figure~\ref{fig:alignment}, multiple substitutions (multiple hits) may occur, which complicates the estimation of the underlying evolutionary distances from the observed data.
+Specifically, the number of observed differences in the sampled genetic data will be an underestimate the underlying genetic distance (in Figure~\ref{fig:alignment}, three substitutions underlie a single difference in the observed states).
+In order to accurately describe these processes one needs a model of evolution that can account for those multiple hits.
 
 \subsection{The Poisson process\label{sub:poisson}}
 
 The Poisson process is an example of a continuous-time stochastic process that is frequently used to describe counts of independent, rare events, occurring with some intensity (or rate) $r$, that remains constant over time. 
-Examples of such a process are the requests for a single document on a web-server, or the goals scored in a football game \footnote{Unless it's Real - Barca, than the events are not so rare.}.%PL or Brazil - Germany...
+Examples of such a process are the requests for a single document on a web-server, or the goals scored in a football game \footnote{Unless it's Real - Barca, than the events are not so rare.}. %PL or Brazil - Germany...
 %The state space in this case is obviously $\mathcal{E} = \left\{ 0,1,2, \dots \right\}$.
 The Poisson process is equally suitable to model the number and waiting times of DNA mutation of sequence substitution events. 
 We can formally define a Poisson process as following:
@@ -575,26 +578,29 @@ A Poisson process with rate $r>0$ is a continuous-time counting process $\left\{
 \item The number of events in any interval of length $t$ is $\text{Poisson}(r t)$.
 \end{itemize}
 
-Figure~\ref{fig:poisson} shows a sample of different trajectories of such a process.
-
 \label{def:poisson}
 \end{definition}
 
-% TODO
+%PL: I commented the figure out for now because you are representing coalescent waiting times and not mutational waiting times; just show a number of Poisson mutation trajectories with more mutations overlaid or the idea that we discussed with A,C,G,T states on the Y-axis
 
-%PL: I don't understand the figure composition: upper part OK, but if you use color as you do now, different realizations can be plotted on the same panel. However, I would keep the printing issues for color figures  to a minimum (only use colors when you really need it -- it requires separate paper printing and merging with the rest, and is bloody expensive), so separate gray-scale panels can work. bottom part: is what I do not understand: should the paths assemble into a tree somehow? The discussion of the process makes no relationship to a tree just yet -- you do that later on. And if you do intend to relate them to a tree, I do not understand how the mutational process for a site only relates to part of the tree?
-%FB: I wanted to show that different paths (diff branch lengths) are independent relaisations, and waiting time is exponential (similar to Marcs 'travelling particle' description from one of your papers). This is in greyscale now, but if you feel lik eit doesn't conect then we can just comment this figure out.
-\begin{figure}[H]
-\centering
-\includegraphics[scale=0.4]{poisson}
-\caption{
-{ \footnotesize 
-{\bf Independent realizations of the Poisson process with intensity $r=1$.}
-Times between mutations (the branch lengths) are \emph{iid} exponentially distributed random variables with mean $1/r$.
-} % END: footnotesize
-}
-\label{fig:poisson}
-\end{figure}
+%Figure~\ref{fig:poisson} shows a sample of different trajectories of such a process.
+
+%
+%% TODO
+%
+%%PL: I don't understand the figure composition: upper part OK, but if you use color as you do now, different realizations can be plotted on the same panel. However, I would keep the printing issues for color figures  to a minimum (only use colors when you really need it -- it requires separate paper printing and merging with the rest, and is bloody expensive), so separate gray-scale panels can work. bottom part: is what I do not understand: should the paths assemble into a tree somehow? The discussion of the process makes no relationship to a tree just yet -- you do that later on. And if you do intend to relate them to a tree, I do not understand how the mutational process for a site only relates to part of the tree?
+%%FB: I wanted to show that different paths (diff branch lengths) are independent relaisations, and waiting time is exponential (similar to Marcs 'travelling particle' description from one of your papers). This is in greyscale now, but if you feel lik eit doesn't conect then we can just comment this figure out.
+%\begin{figure}[H]
+%\centering
+%\includegraphics[scale=0.4]{poisson}
+%\caption{
+%{ \footnotesize 
+%{\bf Independent realizations of the Poisson process with intensity $r=1$.}
+%Times between mutations (the branch lengths) are \emph{iid} exponentially distributed random variables with mean $1/r$.
+%} % END: footnotesize
+%}
+%\label{fig:poisson}
+%\end{figure}
 
 Let's assume that evolution at a single site is governed by a Poisson process $N$ with some intensity $r$.
 Definition~\ref{def:poisson} implies that under this model the number of mutations $N(t+u)-N(u)$ in some time interval $(u,t+u]$ of length $t$ follows a Poisson distribution with expected number of events $r t$.
@@ -639,7 +645,7 @@ F_{T_{2}}(t) &=& 1-P\left(T_{2}>t|T_{1}=u\right) \\ \nonumber
 
 \noindent
 Therefore $T_2$ is independent of $T_1$ and $\text{Exponential}(r)$. 
-Similarly we can show that $T_3$ is independent of $T_1$ and $T_2$ and by repeating the same argument $T_1,T_2,\ldots$ are independent and identically distributed (i.i.d.) $\text{Exponential}(r)$ random variables.
+Similarly we can show that $T_3$ is independent of $T_1$ and $T_2$ and by repeating the same argument $T_1,T_2,\ldots$ are independent and identically distributed (i.i.d.) $\text{exponential}(r)$ random variables.
 
 % TODO: memoryless property does not depend at all, vide poiss)
 % TODO: markovian (depends only a little)
@@ -670,13 +676,13 @@ Using the power series definition of the transition probability matrix $\exp(\ma
 \end{equation}
 
 \noindent
-Single entry $q_{ij} \ge 0$ for $i \neq j$ in matrix $\mathbf{Q}$ quantifies the probability of changing from state $i$ to $j$ in an infinitely small amount of time, therefore we will refer to $\mathbf{Q}$ as the \emph{instantaneous rate matrix}.
+A single entry $q_{ij} \ge 0$ for $i \neq j$ in matrix $\mathbf{Q}$ quantifies the probability of changing from state $i$ to $j$ in an infinitely small amount of time, therefore we will refer to $\mathbf{Q}$ as the \emph{instantaneous rate matrix}.
 
 \subsection{Computing the matrix exponent \label{sub:exponentiation}}
 
-In order to arrive at the finite-time transition probabilities matrix $\mathbf{P}(t)$ for some time $t\geq0$ one needs to compute the matrix exponential in Equation~\ref{eq:matrixExp2}.
+In order to arrive at the finite-time transition probabilities matrix $\mathbf{P}(t)$ for some time $t\geq0$, one needs to compute the matrix exponential in Equation~\ref{eq:matrixExp2}.
 \cite{Moler1978} provide an excellent review of numerical methods to compute the matrix exponent. 
-Here we will highlight the method utilized by most phylogenetic software, including BEAGLE \citep{Ayres2012} and BEAST \citep{Drummond2012}, that uses the singular value decomposition (SVD) of the rate matrix $\mathbf{Q}$.   
+Here, we will highlight the method utilized by most phylogenetic software, including BEAGLE \citep{Ayres2012} and BEAST \citep{Drummond2012}, that uses the singular value decomposition (SVD) of the rate matrix $\mathbf{Q}$.   
 
 Let us assume $\mathbf{Q}$ has $K$ linearly independent eigenvectors $\mathbf{v}_{i} \; (i=1,\ldots,K)$ with corresponding eigenvalues $\lambda_{i}\;(i=1,\ldots,K)$:
 
@@ -686,7 +692,7 @@ Let us assume $\mathbf{Q}$ has $K$ linearly independent eigenvectors $\mathbf{v}
 \end{equation}
 
 \noindent
-This condition is sufficient for $\mathbf{Q}$ to be diagonizable, thus it's Jordan form is:
+This condition is sufficient for $\mathbf{Q}$ to be diagonizable, thus its Jordan form is:
 
 \begin{equation}
 \mathbf{V}\times\mathbf{Q}\times\mathbf{V}^{-1}=\left[\begin{array}{cccc}
@@ -725,7 +731,7 @@ One needs only to scale and exponentiate the eigenvalues to calculate the diagon
 \subsection{Markov chain models of sequence substitution\label{sub:subst_models}}
 
 % TODO markov property is inherited from Poisson process
-Drawing realizations with probabilities defined by $\mathbf{P}$  gives rise to a continuous-time stochastic process $\left\{ X(t):\; t\geq0\right\}$ satisfying the Markov property, such that for every $n\geq 0$, given the time points $0\leq t_{0}\leq t_{1}<\ldots<t_{n}\leq t_{n+1}$ and discrete states $i_{0},i_{1}, \ldots, i_{n},i_{n+1}$ it holds that: 
+Drawing realizations with probabilities defined by $\mathbf{P}$  gives rise to a continuous-time stochastic process $\left\{ X(t):\; t\geq0\right\}$ satisfying the Markov property, such that for every $n\geq 0$, given the time points $0\leq t_{0}\leq t_{1}<\ldots<t_{n}\leq t_{n+1}$ and discrete states $i_{0},i_{1}, \ldots, i_{n},i_{n+1}$, it holds that: 
 
 \begin{eqnarray}
 P\left\{ X(t_{n+1})=i_{n+1}\mid X(t_{n})=i_{n},\ldots, X(t_{0})=i_{0}\right\} & = & \\ \nonumber
@@ -737,13 +743,16 @@ The elements of $\mathbf{P}$ quantify the finite-time transition probabilities b
 This describes a Continuous-time Markov chain (CTMC), which  we will use to model the substitution process at a single site of an alignment.
 Every CTMC is completely characterized by its rate matrix $\mathbf{Q}$ and the stochastic matrix $\mathbf{P}(t),\ t\geq0$ is obtained via matrix exponentiation as described in the previous subsection (Subsection~\ref{sub:exponentiation}).
 
+
+%PL: Not sure if you want to do a color page print for this figure; it could be black/white
+
 %---SUBSTITUTION MODEL---%
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{substitution} 
 \caption{
 { \footnotesize 
-{\bf  Graphical representation of  a nucleotide substitution model.} A Markov substitution model with a symmetrical matrix.
+{\bf  Graphical representation of  a nucleotide substitution model.} A Markov substitution model with 6 parameters describing the symmetric transition rates.
 } % END: footnotesize
 }
 \label{fig:substitution}
