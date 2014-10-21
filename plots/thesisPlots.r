@@ -385,12 +385,15 @@ theme <- theme_update(
   plot.background = element_rect(colour = NA),
   panel.border = element_blank(),
   panel.grid.major = element_blank(),
-  panel.grid.minor = element_blank()
+  panel.grid.minor = element_blank(),
+  legend.title=element_blank()
 )
 
 p <- p + theme_set(theme)
 # p <- p + scale_fill_discrete("")
-p <- p + scale_fill_grey("")
+# p <- p + scale_fill_grey("")
+p <- p + scale_fill_manual(values = c("white", "black", "grey"), breaks = c("Prior", "Likelihood", "Posterior"))
+
 p <- p + ylab("") + xlab(expression(""*theta*""))
 print(p)
 

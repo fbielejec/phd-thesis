@@ -1269,15 +1269,12 @@ P\left(\theta|\mathbf{X}\right) =\int P\left(\mathbf{\Theta},\mathbf{F}|\mathbf{
 
 As a simple illustration of the concept of Bayesian analysis, let us consider a toy example where two sequences are compared and $x=10$ differences are found out of $N=100$ sites compared.
 Suppose that the parameter $\theta$ we want to infer is the proportion of sites which differ between the two sequences.
-Assuming that the sites are independent we can use a binomial model and put a beta prior with parameters $\alpha=2$, $\beta=100$ on the unknown proportion $\theta$. %PL: maybe add explicitly: ".., which prefers small values of the $\theta$ a priori
+Assuming that the sites are independent we can use a binomial model and put a beta prior with parameters $\alpha=2$, $\beta=100$ on the unknown proportion $\theta$, suggesting that \textit{a priori} we prefer small values of the $\theta$ parameter.
 
-
-%PL: to avoid color, use a white filled distribution for the prior, a black one for the likelihood, and a grey for the posterior (which conceptually fits with the fact that the posterior combines black and white)
-
-%---LIKELIHOOD---%
+%---POSTERIOR PRIOR LIKELIHOOD---%
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.5]{bayes} 
+\includegraphics[scale=0.45]{bayes} 
 \caption{
 { \footnotesize 
 {\bf Beta(2,100) prior and posterior densities plotted with a scaled likelihood resulting from a binomial model.} 
@@ -1302,7 +1299,7 @@ The Metropolis-Hasting algorithm, as proposed by \citet{Metropolis1953}, is an M
 It proceeds by constructing a Markov chain with its states being the values of the parameter of interest $\theta$ and whose equilibrium distribution is the posterior $P\left(\theta|\mathbf{X}\right)$ as defined in Equation~\ref{eq:bayesian1}.
 After choosing an arbitrary starting state for the chain, new candidate states $\theta^{*}$ are generated from the proposal density $q(\theta^{*} | \theta[t])$ also called the kernel.
 
-A common kernel choice to propose new state for continuous parameter is to sample from a uniform distribution centered around the current state of the chain, the so called jumping kernel: %PL: are you sure this sliding window kernel is commonly referred to as the 'jumping kernel", or do you mean as a general term?
+A common kernel choice to propose new state for continuous parameter is to sample from a uniform distribution centered around the current state of the chain, the so called sliding window kernel: 
 
 $$\theta^{*}\sim U\left[\theta[t]-\omega,\theta[t]+\omega\right],$$
 
@@ -1370,8 +1367,6 @@ Thus to estimate the posterior $P\left(\theta|\mathbf{X}\right)$ one only needs 
 
 % TODO: better title, show how to derive the probabilities (in JC69 chapter)
 \subsection{Example: Estimating genetic distances}
-
-%GB: I don't really like these kinds of examples or tutorials. They're great when teaching a workshop, but this is an introduction for a PhD dissertation ...
 
 Let us revisit the toy example in which we compare two sequences and find $x=10$ differences among $n=100$ sites.
 This time however we will use MCMC to estimate the genetic distance between the two sequences using the Jukes and Cantor model of nucleotide substitution (see Subsection~\ref{sub:jc69}).
