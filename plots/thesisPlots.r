@@ -580,5 +580,62 @@ p <- p + theme_bw()
 p <- p + xlab("k") + ylab("P(X>k)")
 p
 
+####################
+#---TREE CONCEPT---#
+####################
+# 6 x 10
+tree <- read.tree(text="(((T1:1.0,T2:1.0):1.0,T3:2.0):1.0,(T4:1.0,T5:1.0):2.0);")
 
+phylo = fortify.phylo(tree)
+phyloLabels = label.phylo(tree)
+yrng  = range(phylo$y)
+xrng  = range(phylo$x)
+xlim = 3.5
+phylo$x = max(phylo$x) - phylo$x
+phylo$xend = max(phylo$x) - phylo$xend
+phyloLabels$x = max(phyloLabels$x) - phyloLabels$x
+
+source("indices.r")
+indices <- indices[which(indices$type == "node"), ]
+
+nodeSize = 4
+lineSize = 1.5
+textSize = 5
+dotSize = 6
+
+p <- ggplot()
+p <- p + geom_segment2(aes(x = x, y = y, xend = xend, yend = yend), colour = "black", size = lineSize, data = phylo)
+p <- p + geom_point(aes(x = x, y = y), size = nodeSize, pch = 21,  colour = "black", fill = "black", data = phyloLabels)
+p <- p + geom_text(data = phyloLabels, aes(x = x, y = y, label = c("Taxa1", "Taxa2", "Taxa3", "Taxa4", "Taxa5")), hjust = -0.5, 
+                   #                    family = "Arial Black", 
+                   vjust = 0.5, size = textSize)
+
+p <- p + geom_point(aes(x = x, y = y, colour = type, fill = type), size = dotSize, pch = 21, data = indices)
+# p <- p + geom_text(aes(x = x, y = y, label = get_expr(label), colour = type), size = textSize, data = indices, parse = TRUE, family="Arial Black")
+
+theme <- theme_update(
+  axis.line = element_line(colour = "black"),
+  axis.title.y = element_blank(),
+  axis.text.x = element_text(colour = "black"),
+  axis.ticks.x = element_line(colour = "black"),
+  legend.position = "none",
+  panel.background = element_rect(size = 1, fill = "white", colour = NA),
+  panel.border = element_blank(),
+  panel.grid.major = element_blank(),
+  panel.grid.minor = element_blank(),
+  
+  axis.text.y = element_blank(),
+  axis.ticks.y = element_blank(),
+  axis.line.y = element_blank()
+)
+
+p <- p + theme_set(theme)
+p <- p + scale_x_reverse(limits = c(xlim, -0.5))
+p <- p + xlab(NULL)
+
+p <- p + scale_fill_grey()
+gs.pal <- colorRampPalette(c("white","black"))
+p <- p + scale_colour_manual(values = gs.pal(2))
+
+print(p)
 

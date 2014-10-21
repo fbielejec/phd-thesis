@@ -736,16 +736,14 @@ The elements of $\mathbf{P}$ quantify the finite-time transition probabilities b
 This describes a Continuous-time Markov chain (CTMC), which  we will use to model the substitution process at a single site of an alignment.
 Every CTMC is completely characterized by its rate matrix $\mathbf{Q}$ and the stochastic matrix $\mathbf{P}(t),\ t\geq0$ is obtained via matrix exponentiation as described in the previous subsection (Subsection~\ref{sub:exponentiation}).
 
-
-%PL: Not sure if you want to do a color page print for this figure; it could simply be black/white
-
 %---SUBSTITUTION MODEL---%
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{substitution} 
 \caption{
 { \footnotesize 
-{\bf  Graphical representation of  a nucleotide substitution model.} A Markov substitution model with 6 parameters describing the symmetric transition rates.
+{\bf  Graphical representation of a nucleotide substitution model.} 
+Markov substitution model with 6 parameters describing the symmetric transition rates.
 } % END: footnotesize
 }
 \label{fig:substitution}
@@ -807,7 +805,6 @@ This condition is assumed for strictly computational reasons, i.e. time-reversib
 Subsection~\ref{sub:exponentiation} - is a strategy frequently employed in phylogenetic software to compute the exponentials of rate matrices.
 Time reversibility also simplifies the computation of the likelihood on a tree, since it makes the computation independent of the position of the root, which we will discuss in Subsection~\ref{sub:likelihood}.
 
-%TODO: JK69 as example
 \subsection{A simple example: the Jukes and Cantor substitution model\label{sub:jc69}}
 
 In this subsection we will discuss the simplest model of nucleotide substitution, i.e. the JC69 model \citep{Jukes1969}.
@@ -855,7 +852,7 @@ If we let $t\rightarrow \infty$ we can see that $\forall i,j\; p_{ij}(t)=1/4$, w
 Second, the rate and time in Equation~(\ref{eq:jc69Finite}) occur as a product, which means that rate and time are confounded.
 If we were to simulate two sequences, using the algorithm listed in (\ref{alg:simulation}) and starting the random number generators form the same seed, they will look the same for every $r$ and $t$ as long as their product $rt$ is the same.
 This is true for most of the substitution models and implies that typical phylogenetic estimation focuses on inferring the product parameter $\theta=rt$, or genetic distance.
-%PL: perhaps mention that the section on molecular clocks (cfr supra) discusses the conditions for which we can start separating time and rate
+In Subsection~\ref{sub:clocks} we discuss how, under certain conditions, the time and substitution rate can be separated.
 
 \subsection{Phylogenetic trees}
 
@@ -867,7 +864,7 @@ Data is observed only at the external nodes (\emph{tips}), while internal nodes 
 The ancestor of all observed samples is called the \emph{root} of the tree and its height is referred to as the time to the most recent common ancestor (TMRCA).
 
 
-%PL: why not use a simpler tree for fewer taxa, not necessarily with dated tips, where you indicate the terms you describe. For example the sample tree for figure 1.9, but without node and branch numbering, and taxon 1, taxon 2,.. as tip labels
+%PL: why not use a simpler tree for fewer taxa, not necessarily with dated tips, where you indicate the terms you describe. For example the sample tree for figure 1.10, but without node and branch numbering, and taxon 1, taxon 2,.. as tip labels
 
 %---TREE CONCEPT---%
 \begin{figure}[H]
@@ -875,8 +872,8 @@ The ancestor of all observed samples is called the \emph{root} of the tree and i
 \includegraphics[scale=0.35]{treeconcept} 
 \caption{
 { \footnotesize 
-{\bf A phylogenetic tree showing evolutionary relationship.} Character sequences are observed at the tips of the tree (black dots); sequence characters at the internal nodes are treated as missing data. 
-Branch lengths are estimated in units of genetic distance, or in this case, real time.
+{\bf A phylogenetic tree showing evolutionary relationship.} Character sequences are observed at the tips of the tree (black dots); sequence characters at the internal nodes are treated as missing data (outlined dots). 
+Branch lengths can be estimated in units of genetic distance, or as in this case, real time.
 } % END: footnotesize
 }
 \label{fig:treeconcept}
