@@ -495,14 +495,14 @@ vplayout <- function(x, y){
 
 p <- ggplot(plotData)
 p <- p + geom_line(aes(x = iteration, y = value))    
-p <- p + geom_hline(aes(yintercept = thetaHat), color = "red")
+p <- p + geom_hline(aes(yintercept = thetaHat), color = "grey")
 p <- p + xlab("") + ylab("Chain state")
 p <- p + theme2
 print(p, vp = vplayout(1, 1))
 
 p <- ggplot(plotData)
 p <- p + geom_histogram(aes(x = value, y = ..density..), binwidth = 0.01 )    
-p <- p + geom_density(aes(x = value), color = "red", alpha = 0.2)
+p <- p + geom_density(aes(x = value), color = "grey", alpha = 0.2)
 p <- p + xlab("") + ylab("Density")
 p <- p + ggtitle(labels)
 p <- p + theme2
