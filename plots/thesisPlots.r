@@ -509,19 +509,21 @@ print(p, vp = vplayout(2, 1))
 ############################
 #---LIKELIHOOD ON A TREE---#
 ############################
-tree <- read.tree(text="(((T1:0.5,T2:2.0):2.5,T3:4.5):2.0,(T4:2.0,T5:4.0):3.0);")
+# 6 x 10
+tree <- read.tree(text="(((T1:1.5,T2:2.0):2.5,T3:4.5):2.0,(T4:2.0,T5:4.0):3.0);")
 
 phylo = fortify.phylo(tree)
 phyloLabels = label.phylo(tree)
 yrng  = range(phylo$y)
 xrng  = range(phylo$x)
-xlim = 8
+xlim = 7
 phylo$x = max(phylo$x) - phylo$x
 phylo$xend = max(phylo$x) - phylo$xend
 phyloLabels$x = max(phyloLabels$x) - phyloLabels$x
 
+phyloLabels$label = c("X[1]", "X[2]", "X[3]", "X[4]", "X[5]" )
+
 source("indices.r")
-# epochs = data.frame(start = c(min(phylo$x)), end   = c(xlim), epoch = c("Q1") )
 
 nodeSize = 4
 lineSize = 1.5
@@ -530,14 +532,29 @@ dotSize = 12
 
 p <- ggplot()
 
-p <- p + geom_segment2(aes(x = x, y = y, xend = xend, yend = yend), colour = "black", size = lineSize, data = phylo)
-p <- p + geom_point(aes(x = x, y = y), size = nodeSize, pch = 21,  colour = "black", fill = "black", data = phyloLabels)
-p <- p + geom_text(data = phyloLabels, aes(x = x, y = y, label = c("T", "C", "A", "C", "C")), hjust = -1.0, 
-#                    family = "Arial Black", 
-                   vjust = 0.5, size = textSize)
+# tree
+p <- p + geom_segment2( aes(x = x, y = y, xend = xend, yend = yend), color = "black", size = lineSize, data = phylo )
 
-p <- p + geom_point(aes(x = x, y = y, colour = type, fill = type), size = dotSize, pch = 21, data = indices)
-p <- p + geom_text(aes(x = x, y = y, label = get_expr(label), colour = type), size = textSize, data = indices, parse = TRUE, family="Arial Black")
+# external nodes
+p <- p + geom_point( aes(x = x, y = y), pch = 21, color = "black", fill = "grey", size = dotSize, data = phyloLabels )
+p <- p + geom_text( aes(x = x, y = y, label = get_expr(label)), color = "black", size = textSize, parse = TRUE, 
+                    family = "Arial Black", data = phyloLabels)
+
+# data
+p <- p + geom_text(aes(x = 0, y = y, label = get_expr(c("T", "C", "A", "C", "C")) ), 
+                   hjust = -1.5, vjust = 0.5, size = textSize + 4, data = phyloLabels )
+
+# internal nodes
+data = indices[ which(indices$type == "node"), ]
+p <- p + geom_point(aes(x = x, y = y), pch = 21, color = "black", fill = "grey", size = dotSize, data = data)
+p <- p + geom_text(aes(x = x, y = y, label = get_expr(label)), color = "black", size = textSize, data = data, 
+                   parse = TRUE, family = "Arial Black")
+
+# time
+data = indices[ which(indices$type == "branch"), ]
+p <- p + geom_point(aes(x = x, y = y), pch = 21, color = "white", fill = "black", size = dotSize, data = data)
+p <- p + geom_text(aes(x = x, y = y, label = get_expr(label)), color = "white", size = textSize, data = data, 
+                   parse = TRUE, family = "Arial Black")
 
 theme <- theme_update(
   axis.line = element_line(colour = "black"),
@@ -549,14 +566,13 @@ theme <- theme_update(
   panel.border = element_blank(),
   panel.grid.major = element_blank(),
   panel.grid.minor = element_blank(),
-  
   axis.text.y = element_blank(),
   axis.ticks.y = element_blank(),
   axis.line.y = element_blank()
 )
 
 p <- p + theme_set(theme)
-p <- p + scale_x_reverse(limits = c(xlim, 0))
+p <- p + scale_x_reverse(limits = c(xlim, -0.5))
 p <- p + xlab(NULL)
 
 p <- p + scale_fill_grey()
@@ -564,6 +580,7 @@ gs.pal <- colorRampPalette(c("white","black"))
 p <- p + scale_colour_manual(values = gs.pal(2))
 
 print(p)
+
 
 ###################################
 #--- EXPONENTIAL APPROXIMATION ---#

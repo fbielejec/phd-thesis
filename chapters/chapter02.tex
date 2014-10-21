@@ -194,18 +194,22 @@ the branch traverses $m^{\prime\prime} - m^{\prime}$ epoch boundaries at which t
 \end{figure}
 
 Figure~\ref{fig:collapsing} illustrates this action for a branch that spans a single boundary at $T_1$ with $\mathbf{Q}_1$ governing the process before the boundary and $\mathbf{Q}_2$ after the boundary. Letting $X(T_1) = k$ represent the augmented state of the stochastic process at the boundary, we compute
+
 \begin{align}
 p_{ij}(t_u, t_v, r_v)
-&= \sum_{k} 
+= \sum_{k} 
 \left\{
 \exp[ r_v ( T_1 - t_u ) \mathbf{Q}_1]
-\right\}_{ik}
-\times
+\right\}_{ik} & \nonumber \\
+\times 
 \left\{
 \exp[ r_v ( t_v - T_1 ) \mathbf{Q}_2]
-\right\}_{kj} , 
+\right\}_{kj} & , 
 \end{align}
+
+\noindent
 for all $i,j$, or equivalently in compact matrix form
+
 \begin{align}
 \mathbf{P}(t_u, t_v, r_v)
 &= 

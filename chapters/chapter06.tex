@@ -54,18 +54,28 @@ Although this problem can be mitigated to some extent by using codon-positioned 
 % GY style models
 The model proposed by \cite{Goldman1994} is characterized by a substitution rate matrix with following entries:
 
-{\footnotesize
 \begin{equation}
-q_{ij}^{GY94}=\begin{cases}
-\pi_{j} & \text{if \ensuremath{i\rightarrow j} is a synonymous transversion}\\
-\kappa\cdot\pi_{j} & \text{if \ensuremath{i\rightarrow j} is a synonymous transition}\\
-\omega\cdot\pi_{j} & \text{if \ensuremath{i\rightarrow j} is a non-synonymous transversion}\\
-\omega\cdot\kappa\cdot\pi_{j} & \text{if \ensuremath{i\rightarrow j} is a non-synonymous transversion}\\
-0 & \text{otherwise}
+\left\{ \mathbf{Q}\right\} _{ij}=\begin{cases}
+\pi_{j} & \substack{ \text{ \ensuremath{i\rightarrow j} is a synonymous transversion from } \\ \text{codon \ensuremath{i} to \ensuremath{j} } } \\  
+\kappa\cdot\pi_{j} & \substack{ \text{ synonymous transition } } \\
+\omega\cdot\pi_{j} & \substack{ \text{ non-synonymous transversion } } \\
+\omega\cdot\kappa\cdot\pi_{j} & \substack{ \text{ non-synonymous transversion } } \\
+0 & \substack{ \text{ otherwise} }
 \end{cases},
 \label{eq:gy94}
 \end{equation}
-} % END: size
+% % {\footnotesize
+% \begin{equation}
+% q_{ij}^{GY94}=\begin{cases}
+% \pi_{j} & \text{if \ensuremath{i\rightarrow j} is a synonymous transversion}\\
+% \kappa\cdot\pi_{j} & \text{if \ensuremath{i\rightarrow j} is a synonymous transition}\\
+% \omega\cdot\pi_{j} & \text{if \ensuremath{i\rightarrow j} is a non-synonymous transversion}\\
+% \omega\cdot\kappa\cdot\pi_{j} & \text{if \ensuremath{i\rightarrow j} is a non-synonymous transversion}\\
+% 0 & \text{otherwise}
+% \end{cases},
+% \label{eq:gy94}
+% \end{equation}
+% % } % END: size
 
 \noindent
 where the parameter $\kappa$ denotes the transition/transversion ratio, parameter $\omega$ denotes the non-synonymous/synonymous
@@ -91,23 +101,16 @@ The authors criticize the GY94-F$3\times4$ setup as superficial, pointing that t
 % MG style models
 The Markov generator matrix for MG94 style models \citep{Muse1994} is given by:
 
-{\tiny
 \begin{equation}
-q_{ij}^{MG94}=\begin{cases}
-\alpha\cdot\kappa\cdot\pi_{n}^{p} & i\rightarrow j\text{ is a synonymous transition from nucleotide \textit{m} to \ensuremath{n} at codon position \ensuremath{p}}\\
-\alpha\cdot\pi_{n}^{p} & \text{synonymous transversion from \ensuremath{m} to \ensuremath{n} at position \ensuremath{p}}\\
-\beta\cdot\kappa\cdot\pi_{n}^{p} & \text{non-synonymous transition from \ensuremath{m} to \ensuremath{n} at position \ensuremath{p}}\\
-\beta\cdot\pi_{n}^{p} & \text{non-synonymous transversion from \ensuremath{m} to \ensuremath{n} at position \ensuremath{p}}\\
-0 & \text{otherwise}
-% \alpha\cdot\kappa\cdot\pi_{n}^{p} & i\rightarrow j\text{ is a synonymous transition from nucleotide \textit{m} to \ensuremath{n} at codon position \ensuremath{p}.}\\
-% \alpha\cdot\pi_{n}^{p} & i\rightarrow j\text{ is a synonymous transversion from nucleotide \ensuremath{m} to \ensuremath{n} at codon position \ensuremath{p}.}\\
-% \beta\cdot\kappa\cdot\pi_{n}^{p} & i\rightarrow j\text{ is a non-synonymous transition from nucleotide \ensuremath{m} to \ensuremath{n} at codon position \ensuremath{p}.}\\
-% \beta\cdot\pi_{n}^{p} & i\rightarrow j\text{ is a non-synonymous transversion from nucleotide \ensuremath{m} to \ensuremath{n} at codon position \ensuremath{p}.}\\
-% 0 & \text{otherwise.}
-\end{cases},
+\left\{ \mathbf{Q}\right\} _{ij}=\begin{cases}
+\alpha\cdot\kappa\cdot\pi_{n}^{p} & \substack{ \text{ \ensuremath{i\rightarrow j} is a synonymous transition from } \\ \text{nucleotide \ensuremath{m} to \ensuremath{n} at codon position \ensuremath{p} } } \\
+\alpha\cdot\pi_{n}^{p} & \substack{ \text{ synonymous transversion from } \\ \text{\ensuremath{m} to \ensuremath{n} at position \ensuremath{p} } } \\
+\beta\cdot\kappa\cdot\pi_{n}^{p} & \substack{ \text{ non-synonymous transition from } \\ \text{\ensuremath{m} to \ensuremath{n} at position \ensuremath{p} } } \\
+\beta\cdot\pi_{n}^{p} & \substack{ \text{ non-synonymous transversion from } \\ \text{\ensuremath{m} to \ensuremath{n} at position \ensuremath{p} } } \\
+0 & \substack{ \text{ otherwise}}
+\end{cases}.
 \label{eq:mg94}
 \end{equation}
-} % END: size
 
 There are two main differences to be noted with respect to the GY94 style codon models.
 First, the model is parameterized in terms of both the non-synonymous ($\beta$) and synonymous ($\alpha$) rates, meaning that a change in the ratio may be due to alteration of the rate of non-synonymous or synonymous substitutions, or both.

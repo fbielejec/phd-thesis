@@ -599,10 +599,13 @@ Let's assume that evolution at a single site is governed by a Poisson process $N
 Definition~\ref{def:poisson} implies that under this model the number of mutations $N(t+u)-N(u)$ in some time interval $(u,t+u]$ of length $t$ follows a Poisson distribution with expected number of events $r t$.
 Thus we can write:
 
-\begin{equation}
-P\left\{ N(t+u)-N(u)=k\right\} =P\left\{ N(t)=k\right\}=\frac{e^{-r t}(r t)^{k}}{k!},\; k=0,1,\ldots
+\newpage
+
+\begin{align}
+P\left\{ N(t+u)-N(u)=k\right\} & = P\left\{ N(t)=k\right\} \nonumber \\
+= \frac{e^{-r t}(r t)^{k}}{k!},\; k=0,1,\ldots
 \label{eq:poissonDist} 
-\end{equation}
+\end{align}
 
 In the Poisson process the time between any two mutations is exponentially distributed with parameter $r$, thus the average waiting time between the occurrence of events is $1/r$.
 To show this important property we can consider $T_1,T_2,\ldots$ to be the inter-arrival times, where $T_k$ is the waiting time between the $(k-1)\text{'st}$ and $k\text{'th}$ mutation. 
@@ -631,8 +634,8 @@ $T_1$ therefore follows the exponential distribution with parameter $r$.
 For the second waiting time $T_2$ and some arbitrary $u>0$ and $t>0$, the independent increments property implies that:
 
 \begin{eqnarray}
-F_{T_{2}}(t) &=& 1-P\left(T_{2}>t|T_{1}=u\right) \\ \nonumber
-& = & 1-P\left(\text{no mutations in }(u,t+u]|T_{1}=u\right) \\ \nonumber 
+F_{T_{2}}(t) &=& 1-P\left(T_{2}>t|T_{1}=u\right) \nonumber \\
+& = & 1-P\left(\text{no mutations in }(u,t+u]|T_{1}=u\right) \nonumber \\ 
 & = & 1-P\left(N(t)=0\right)=1-e^{-r t}.
 \end{eqnarray}
 
@@ -687,15 +690,16 @@ Let us assume $\mathbf{Q}$ has $K$ linearly independent eigenvectors $\mathbf{v}
 \noindent
 This condition is sufficient for $\mathbf{Q}$ to be diagonizable, thus its Jordan form is:
 
-\begin{equation}
+\begin{align}
 \mathbf{V}\times\mathbf{Q}\times\mathbf{V}^{-1}=\left[\begin{array}{cccc}
 \lambda_{1} & 0 & \cdots & 0\\
 0 & \lambda_{2} & \ddots & \vdots\\
 \vdots & \ddots & \ddots & 0\\
 0 & \cdots & 0 & \lambda_{K}
-\end{array}\right]=\text{diag}(\lambda_{1},\ldots,\lambda_{K})=\mathbf{D} ,
+\end{array}\right] %\nonumber \\
+= \text{diag}(\lambda_{1},\ldots,\lambda_{K})=\mathbf{D} ,
 \label{eq:diagonalization}
-\end{equation}
+\end{align}
 
 \noindent where $\mathbf{V}$ is a matrix composed of eigenvectors of $\mathbf{Q}$. 
 Multiplying both sides of Equation~(\ref{eq:diagonalization}) with the edge length $t$ and scaling by the appropriate rate scalar $r$, we can write $\mathbf{Q}$ in the following form:
@@ -706,15 +710,13 @@ rt\mathbf{Q}=\mathbf{V}\times\text{diag}(rt\lambda_{1},\ldots,rt\lambda_{K})\tim
 
 \noindent Finally, using the power series definition of the transition probability matrix, we obtain: 
 
-\begin{eqnarray}
-\mathbf{P}(t) &=& \exp\left(rt\mathbf{Q}\right)  =  \underset{k=0}{\overset{\infty}{\sum}}\left(rt\mathbf{Q}\right)^{k}/k! \\ \nonumber
- &=&  \underset{k=0}{\overset{\infty}{\sum}}\left(\mathbf{V}\times\mathbf{D}\times\mathbf{V}^{-1}\right)^{k}/k! \\ \nonumber
- &=& \mathbf{V}\times\left(\underset{k=0}{\overset{\infty}{\sum}}\mathbf{D}^{k}/k!\right)\times\mathbf{V}^{-1} = \mathbf{V}\times\text{diag}(e^{rt\lambda_{1}},\ldots,e^{rt\lambda_{K}})\times\mathbf{V}^{-1} ,
-% \mathbf{P}(t) & = & \exp\left(rt\mathbf{Q}\right)  =  \underset{k=0}{\overset{\infty}{\sum}}\left(rt\mathbf{Q}\right)^{k}/k! 
-%  =  \underset{k=0}{\overset{\infty}{\sum}}\left(\mathbf{V}\times\mathbf{D}\times\mathbf{V}^{-1}\right)^{k}/k! \\ \nonumber
-% & = & \mathbf{V}\times\left(\underset{k=0}{\overset{\infty}{\sum}}\mathbf{D}^{k}/k!\right)\times\mathbf{V}^{-1} = \mathbf{V}\times\text{diag}(e^{rt\lambda_{1}},\ldots,e^{rt\lambda_{K}})\times\mathbf{V}^{-1} ,
+\begin{align}
+\mathbf{P}(t) & =  \exp\left(rt\mathbf{Q}\right) \nonumber \\
+& =   \underset{k=0}{\overset{\infty}{\sum}}\left(rt\mathbf{Q}\right)^{k}/k! \underset{k=0}{\overset{\infty}{\sum}}\left(\mathbf{V}\times\mathbf{D}\times\mathbf{V}^{-1}\right)^{k}/k! \nonumber \\
+& =  \mathbf{V}\times\left(\underset{k=0}{\overset{\infty}{\sum}}\mathbf{D}^{k}/k!\right)\times\mathbf{V}^{-1} \nonumber \\
+& =  \mathbf{V}\times\text{diag}(e^{rt\lambda_{1}},\ldots,e^{rt\lambda_{K}})\times\mathbf{V}^{-1} ,
 \label{eq:eigen_decomposition}
-\end{eqnarray}
+\end{align}
 
 \noindent 
 where the last transition is due to the fact that the exponential of the diagonal matrix is obtained by exponentiating every entry on the main diagonal.
@@ -726,11 +728,11 @@ One needs only to scale and exponentiate the eigenvalues to calculate the diagon
 % TODO markov property is inherited from Poisson process
 Drawing realizations with probabilities defined by $\mathbf{P}$  gives rise to a continuous-time stochastic process $\left\{ X(t):\; t\geq0\right\}$ satisfying the Markov property, such that for every $n\geq 0$, given the time points $0\leq t_{0}\leq t_{1}<\ldots<t_{n}\leq t_{n+1}$ and discrete states $i_{0},i_{1}, \ldots, i_{n},i_{n+1}$, it holds that: 
 
-\begin{eqnarray}
-P\left\{ X(t_{n+1})=i_{n+1}\mid X(t_{n})=i_{n},\ldots, X(t_{0})=i_{0}\right\} & = & \\ \nonumber
-P\left\{ X(t_{n+1})=i_{n+1}\mid X(t_{n})=i_{n}\right\} .
+\begin{align}
+& P\left\{ X(t_{n+1}) = i_{n+1}\mid X(t_{n})=i_{n},\ldots, X(t_{0})=i_{0}\right\}   \nonumber \\
+&= P\left\{ X(t_{n+1}) = i_{n+1}\mid X(t_{n})=i_{n}\right\} .
 \label{eq:markov}
-\end{eqnarray}
+\end{align}
 
 The elements of $\mathbf{P}$ quantify the finite-time transition probabilities between the $K$ discrete state-space elements.
 This describes a Continuous-time Markov chain (CTMC), which  we will use to model the substitution process at a single site of an alignment.
@@ -825,19 +827,19 @@ r & r & r & -3r.
 \noindent
 The finite-time transition probability matrix $\mathbf{P}(t)$ for time $t>0$ is calculated using matrix exponentiation  (see Subsection~\ref{sub:exponentiation}):
 
-\begin{eqnarray}
-\mathbf{P}\left(t\right) &=& \left[\begin{array}{cccc}
-p_{0}(t) & p_{1}(t) & \cdots & p_{1}(t)\\
-p_{1}(t) & p_{0}(t) & \ddots & \vdots\\
-\vdots & \ddots & p_{0}(t) & p_{1}(t)\\
-p_{1}(t) & \cdots & p_{1}(t) & p_{0}(t)
-\end{array}\right], \\ \nonumber
-&\text{ where }& \ensuremath{\begin{cases}
+\begin{align}
+\mathbf{P}\left(t\right) &=& \left[\begin{array}{ccccc}
+p_{0}(t) & p_{1}(t) & \cdots & \cdots & p_{1}(t)\\
+p_{1}(t) & p_{0}(t) &  &  & \vdots\\
+\vdots &  & \ddots & p_{0}(t) & p_{1}(t)\\
+p_{1}(t) & \cdots & \cdots & p_{1}(t) & p_{0}(t)
+\end{array}\right],  \nonumber \\
+&\text{where}& \ensuremath{\begin{cases}
 p_{0}(t)=\frac{1}{4}+\frac{3}{4}e^{-4rt}\\
 p_{1}(t)=\frac{1}{4}-\frac{1}{4}e^{-4rt}
 \end{cases}}.
 \label{eq:jc69Finite}
-\end{eqnarray}
+\end{align}
 
 \noindent
 A few things are worth mentioning about Equation~(\ref{eq:jc69Finite}).
@@ -862,9 +864,6 @@ A phylogenetic tree, or phylogeny for short, depicts the genealogical relationsh
 Mathematically, a phylogeny $\mathbf{F}$ represents a directed, acyclic graph with sets of \emph{nodes} connected by \emph{branches} (e.g., Figure~\ref{fig:treeconcept}).
 Data is observed only at the external nodes (\emph{tips}), while internal nodes represent extinct ancestors for which data is usually missing.
 The ancestor of all observed samples is called the \emph{root} of the tree and its height is referred to as the time to the most recent common ancestor (TMRCA).
-
-
-%PL: why not use a simpler tree for fewer taxa, not necessarily with dated tips, where you indicate the terms you describe. For example the sample tree for figure 1.10, but without node and branch numbering, and taxon 1, taxon 2,.. as tip labels
 
 %---TREE CONCEPT---%
 \begin{figure}[H]
@@ -931,8 +930,7 @@ The state $j$ for the node $x_j$ is sampled conditional on the value $i$ already
 \end{algorithmic}
 \caption{
 { \footnotesize 
-%PL: Perhaps add: Pseudo code for simulating...
-{\bf Simulating an evolutionary process along a phylogeny.} 
+{\bf Pseudo code for simulating an evolutionary process along a phylogeny.} 
 When a child node is visited, the state is sampled with conditional probabilities of changing to state $j$ given state $i$ at the parental node.
 }% END: footnotesize
 }
@@ -972,6 +970,7 @@ By finding the value of $\mathbf{\Theta}$ that maximizes (\ref{eq:likelihood}) w
 In this thesis we will not discuss the maximum likelihood estimation itself, %PL: good, who wants to consider the data to be fixed anyway..
 rather focus on closely related 
 %PL: I would add: ".., but philosophically very different,"
+% FB: difference: ML is an optimization procedure, Bayesian inference is a conditioning. It's a less aggresivee approach 
 methods of Bayesian inference.
 The likelihood concept is also required in Bayesian inference and enters the framework as the data component.
 We will now discuss how to calculate the likelihood of observing a particular realization of character sequences at the tips of a tree, given a substitution model with fixed parameters.
@@ -979,7 +978,7 @@ We will now discuss how to calculate the likelihood of observing a particular re
 %---LIKELIHOOD---%
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.6]{likelihood} 
+\includegraphics[scale=0.4]{likelihood} 
 \caption{
 { \footnotesize 
 {\bf  A hypothetical tree for five taxa.} Character data for single site is observed at the tips of the tree.
@@ -988,11 +987,6 @@ We will now discuss how to calculate the likelihood of observing a particular re
 \label{fig:LIKELIHOOD}
 \end{figure}
 
-%PL: I could recommend to align the char's, increase their size, relate them to the tips with horizontal dashed lines, but just increasing their size may do
-% also, why not label the external nodes with x1-to x5 as you mention in the text, consistent with the internal models?
-% the i indices do not correspond between the nodes and branches for x7 and x8
-% make the labels of the axis bigger, or deleted all together as it is not needed.
-
 To calculate the likelihood means in a sense to reverse-engineer the evolution as it happened.
 Figure~\ref{fig:LIKELIHOOD} presents single site with data $TCACC$ observed at the tips of the tree.
 External nodes are numbered $x_{1}, \ldots x_{5}$, internal nodes $x_{6}, \ldots x_{8}$ and the root is placed at the node $x_{0}$.
@@ -1000,13 +994,13 @@ The length of each branch leading to node $i$ is denoted as $t_{i}$. %PL: the i 
 Using the methods presented in Subsection~\ref{sub:exponentiation} we calculate the finite-time transition probabilities $p_{ij}(t_{i})$ between all pairs of characters in the alignment.
 To calculate the probability at a single site, we need to sum over all possible combinations that could give rise to the observed character data at that site, in this case:
 
-\begin{eqnarray}
-\underset{x_{0}\in \mathcal{E}}{\sum}\;\underset{x_{6}\in \mathcal{E}}{\sum}\;\underset{x_{7}\in \mathcal{E}}{\sum}\;\underset{x_{8}\in \mathcal{E}}{\sum}[\pi_{x_{0}}\cdot p_{x_{0}x_{8}}(t_{7})\cdot p_{x_{0}x_{7}}(t_{8})\cdot p_{x_{8}x_{6}}(t_{6})\cdot p_{x_{8}A}(t_{3}) \cdot \\ \nonumber
-p_{x_{7}C}(t_{4})\cdot p_{x_{7}C}(t_{5})\cdot p_{x_{6}T}(t_{1})\cdot p_{x_{6}C}(t_{2})]
+\begin{align}
+\underset{x_{0}\in \mathcal{E}}{\sum}\;\underset{x_{6}\in \mathcal{E}}{\sum}\;\underset{x_{7}\in \mathcal{E}}{\sum}\;\underset{x_{8}\in \mathcal{E}}{\sum}[\pi_{x_{0}}\cdot p_{x_{0}x_{8}}(t_{7})\cdot p_{x_{0}x_{7}}(t_{8})\cdot p_{x_{8}x_{6}}(t_{6})\cdot p_{x_{8}A}(t_{3}) \nonumber \\
+\cdot p_{x_{7}C}(t_{4})\cdot p_{x_{7}C}(t_{5})\cdot p_{x_{6}T}(t_{1})\cdot p_{x_{6}C}(t_{2})].
 \label{eq:likelihoodNaive}
-\end{eqnarray}
+\end{align}
 
-We can break down the terms in Equation~(\ref{eq:likelihoodNaive}) %for some reason this says 1.22 in my pdf build and not 1.21 as it should be, or is this just due to my TeX environment?
+We can break down the terms in Equation~(\ref{eq:likelihoodNaive}) 
 to the probability of observing the data $TCACC$ for the tips and $x_{0},x_{6},x_{7},x_{8}$ for the ancestral nodes (inside the brackets) and the sum over all possible path combinations over the state space $\mathcal{E}$ (outside the brackets).
 Term $\pi_{0}$ is simply the probability that the root has character $x_{0}$ and is based on the assumption that the process generating the data has reached its equilibrium.
 
@@ -1241,11 +1235,11 @@ All of these proper prior choices lead to a proper posterior distribution, yet s
 The prior information is then combined with the likelihood of the data $P\left(\theta|\mathbf{X}\right)$ to form the posterior, via the Bayes theorem (Equation~(\ref{eq:bayesian1})).
 The posterior distribution of $\theta$ follows:
 
-\begin{eqnarray}
-P\left(\theta|\mathbf{X}\right) &=& \frac{P(\theta)\cdot P\left(\mathbf{X}|\theta\right)}{P\left(\mathbf{X}\right)}=\frac{P(\theta)\cdot P\left(\mathbf{X}|\theta\right)}{\int P(\theta)\cdot P\left(\mathbf{X}|\theta\right)d\theta} \\ \nonumber
-& \approx & P(\theta)\cdot P\left(\mathbf{X}|\theta\right),
+\begin{align}
+P\left(\theta|\mathbf{X}\right) &= \frac{P(\theta)\cdot P\left(\mathbf{X}|\theta\right)}{P\left(\mathbf{X}\right)}=\frac{P(\theta)\cdot P\left(\mathbf{X}|\theta\right)}{\int P(\theta)\cdot P\left(\mathbf{X}|\theta\right)d\theta}  \nonumber \\
+& \approx  P(\theta)\cdot P\left(\mathbf{X}|\theta\right),
 \label{eq:bayesian1}
-\end{eqnarray}
+\end{align}
 
 \noindent
 where the marginal probability of the data $P\left(\mathbf{X}\right)$ is a normalizing constant that makes the posterior $P\left(\theta|\mathbf{X}\right)$ integrate to one.
@@ -1258,7 +1252,7 @@ $\mathbf{F}$ (e.g. a tree topology) is the nuisance parameter.
 The joint posterior distribution of $\mathbf{\Theta}$ is now:
 
 \begin{eqnarray}
-P\left(\mathbf{\Theta}|\mathbf{X}\right) &=& P\left(\theta,\mathbf{F}|\mathbf{X}\right)=\frac{P\left(\theta,\mathbf{F}\right)\cdot P\left(\mathbf{X}|\theta,\mathbf{F}\right)}{P\left(\mathbf{X}\right)} \\ \nonumber
+P\left(\mathbf{\Theta}|\mathbf{X}\right) &=& P\left(\theta,\mathbf{F}|\mathbf{X}\right)=\frac{P\left(\theta,\mathbf{F}\right)\cdot P\left(\mathbf{X}|\theta,\mathbf{F}\right)}{P\left(\mathbf{X}\right)}  \nonumber \\
 &=& \frac{P\left(\theta,\mathbf{F}\right)\cdot P\left(\mathbf{X}|\theta,\mathbf{F}\right)}{\int\int P(\theta,\mathbf{F})\cdot P\left(\mathbf{X}|\theta,\mathbf{F}\right)d\theta d\mathbf{F}}
 \label{eq:bayesian2}
 \end{eqnarray}
@@ -1489,11 +1483,8 @@ We use this ability to infer the tree topology, the ancestral spatial locations 
 We assume independent stochastic processes are responsible for generating these data.
 This allows us to write down the joint posterior distribution: 
 
-% \substack{\text{aaa} \\ \text{bbb}}
-
-\begin{eqnarray}
-% \footnotesize{
-P\left(\mathbf{F}, \mathbf{Q}, \mathbf{\Phi}|\mathbf{X},\mathbf{Y}\right)\propto 
+\begin{align}
+P\left(\mathbf{F}, \mathbf{Q}, \mathbf{\Phi}|\mathbf{X},\mathbf{Y}\right) &\propto 
 \underbrace{P(\mathbf{X}|\mathbf{Q}, \mathbf{F})}_{\begin{array}{c}
 \substack{\text{Sequence} \\ \text{likelihood}}
 \end{array}}\cdot\underbrace{P(\mathbf{Y}|\mathbf{\Phi}, \mathbf{F})}_{\begin{array}{c}
@@ -1501,15 +1492,14 @@ P\left(\mathbf{F}, \mathbf{Q}, \mathbf{\Phi}|\mathbf{X},\mathbf{Y}\right)\propto
 \end{array}}\cdot
 \underbrace{P(\mathbf{F})}_{\begin{array}{c}
 \substack{\text{Topology} \\ \text{prior}}
-\end{array}} \\ \nonumber
-\cdot\underbrace{P(\mathbf{Q})}_{\begin{array}{c}
+\end{array}} \nonumber \\
+& \cdot \underbrace{P(\mathbf{Q})}_{\begin{array}{c}
 \substack{\text{Sequence substitution} \\ \text{prior}}
 \end{array}}\cdot\underbrace{P(\mathbf{\Phi})}_{\begin{array}{c}
 \substack{\text{Location exchange} \\ \text{prior}}
 \end{array}}
-% }
 \label{eq:posteriorPhylogeography}
-\end{eqnarray}
+\end{align}
 
 The likelihood component for both molecular data $\mathbf{X}$ and location data $\mathbf{Y}$ is calculated using recursive tree pruning, as described in Subsection~\ref{sub:likelihood}.
 We approximate the joint posterior as written down in Equation~(\ref{eq:posteriorPhylogeography}) using MCMC methods we talked about in Subsection~\ref{sub:mcmc}.
