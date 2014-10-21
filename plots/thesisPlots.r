@@ -1,8 +1,6 @@
 #################
 #---SCRAPBOOK---#
 #################
-
-
 JC69 <- function (lambda, t) {
   
   p0 = 1/4 + 3/4 * exp(-4*lambda*t)
@@ -19,8 +17,6 @@ JC69 <- function (lambda, t) {
   return(trans_prob)
 }
 
-
-
 N <- 100
 meanWaitTime <- 3
 times = rexp(N, rate = 1 / meanWaitTime)
@@ -34,7 +30,6 @@ for (i in 2 : N) {
   states[i] = sample(c("T", "C", "A", "G"), size = 1, prob = JC69(lambda, time)[state[i - 1], ])
 }
 
-
 fx <- function(x, delta) {
   return( delta * dnorm(x, 7, 0.5^2) + (1 - delta) * dnorm(x, 10, 0.5^2) )
 }
@@ -46,40 +41,6 @@ rf <- function(n, delta) {
   
   return(y)
 }
-
-N = 200
-delta = 0.7
-xs = rf(N, delta)
-hist(xs, freq = FALSE, ylim = c(0, 1) )
-xgrid <- seq(0, 11, 0.001) 
-lines(xgrid, fx(xgrid, delta = .7), col = "red")
-
-A = matrix(c(1,2,3,4), nrow = 2, ncol = 2)
-
-I = matrix(c(1,0,0,1), nrow = 2, ncol = 2)
-
-A %*% I
-
-
-x <- 
-  c(
-    0.450165759800979 ,
-    0.5226732705308421 ,
-    0.02263020875055116 ,
-    0.002694186745651535 ,
-    0.0013598061297214168 ,
-    3.2425993395277794E-4 ,
-    1.4765164171136013E-4 ,
-    7.321189371973964E-7 ,
-    1.6324887117420784E-6 ,
-    2.4138011602695543E-6 )
-
-median(x)
-quantile(x, probs = 0.5)
-
-7.321189371973964E-7 +
-  1.6324887117420784E-6+ 
-  2.4138011602695543E-6 
 
 ################
 #---PACKAGES---#
@@ -207,10 +168,61 @@ get_expr <- function(eq) {
 ###########################
 #---POISSON SAMPLE PATH---#
 ###########################
+# 4 x 12
+paths = 3
+N = 50
+
 set.seed(123456)
-n = 10
-x = c(0, cumsum(rexp(n)))
-y = seq(0, n)
+
+theList <- list()
+for(j in 1 : paths) {
+  
+  data = data.frame(
+    x = rep(NA, 2 * N + 1),
+    xend = rep(NA, 2 * N + 1 ),
+    y = rep(NA, 2 * N + 1),
+    yend = rep(NA, 2 * N + 1),
+    path = rep(NA, 2 * N + 1)
+  )
+  
+  data$x[1] = 0
+  data$xend[1] = rexp(1)
+  
+  data$y[1] = sample(c("A", "C", "G", "T"), size = 1)
+  data$yend = data$y
+  
+  ids = seq( from = 1, to = (2 * N - 1), by = 2 )
+  
+  for(i in ids) {
+    
+    char = sample(c("A", "C", "G", "T"), size = 1)
+    time = rexp(1)
+    
+    data$x[i + 1] = data$xend[i]
+    data$xend[i + 1] = data$x[i + 1]
+    
+    data$y[i + 1] = data$yend[i]
+    data$yend[i + 1] = char
+    
+    data$x[i + 2] = data$xend[i + 1]
+    data$xend[i + 2] = data$x[i + 2] + time
+    
+    data$y[i + 2] = data$yend[i + 1]
+    data$yend[i + 2] = data$y[i + 2]
+    
+    data$path[i] <- data$path[i + 1] <- data$path[i + 2] <- j
+    
+  } # END: i
+  
+  theList[[j]] = data
+} # END: j
+
+data_melt <- do.call("rbind", theList)
+data_melt$path <- as.factor(data_melt$path)
+  
+
+p <- ggplot(data_melt)
+p <- p + geom_segment2(aes(x = x, y = y, xend = xend, yend = yend, linetype = path, color = path), size = 1.5)
 
 theme1 <- theme(
   axis.line = element_line(colour = "black"),
@@ -223,81 +235,18 @@ theme1 <- theme(
   panel.grid.minor = element_blank()
 )
 
-p <- ggplot()
-p <- p + geom_step(aes(x = x, y = y), color = "blue")
+nth = 10
+ticks <- unique(round(data_melt$x, 1))
+ticks <- ticks[seq(1, length(ticks), nth)]
 p <- p + scale_x_continuous(
-  breaks = round(x[seq(1, length(x), 2)], 2)
+  breaks = ticks
   )
+
 p <- p + scale_y_discrete()
 p <- p + theme1
-p <- p + xlab("t") + ylab("k")
-p
-
-###############################
-#---POISSON PROCESS ON TREE---#
-###############################
-set.seed(123456)
-
-b1 <- rexp(1)
-b2 <- sum(c(b1, rexp(1)))
-b3 <- sum(c(b1, rexp(1)))
-b4 <- rexp(1)
-
-label1 <- "Realisation 1"
-label2 <- "Realisation 2"
-label3 <- "Realisation 3"
-
-pRealisations <- data.frame(x = c( 0, b1, b2, 0, b1, b3, 0, b4 ), 
-                           y = c( 0,1,2,0,1,2,0,1 ), 
-                           col = c( rep(label1, 3), rep(label2, 3), rep(label3, 2) )
-                           )
-
-tree <- data.frame(
-  x = c(0, 0, b1, b1, 0, 0, b1, b1, 0, 0),
-  y = c(0, 1, 1, 2, 0, 1, 1, 0, 0, -1),
-  xend = c(0, b1, b1, b2, 0, b1, b1, b3, 0, b4),
-  yend = c(1, 1, 2, 2, 1, 1, 0, 0, -1, -1),
-  col = c( rep(label1, 4), rep(label2, 4), rep(label3, 2) ) 
-)
-
-theme1 <- theme(
-  axis.line = element_line(colour = "black"),
-  axis.title.y = element_blank(),
-  axis.text.x = element_text(colour = "black"),
-  axis.ticks.x = element_line(colour = "black"),
-  legend.position = "none",
-  panel.background = element_rect(size = 1, fill = "white", colour = NA),
-  panel.border = element_blank(),
-  panel.grid.major = element_blank(),
-  panel.grid.minor = element_blank(),
-  axis.text.y = element_blank(),
-  axis.ticks.y = element_blank(),
-  axis.line.y = element_blank()
-)
-
-grid.newpage()
-pushViewport(viewport(layout = grid.layout(2, 1)))
-vplayout <- function(x, y){
-  viewport(layout.pos.row = x, layout.pos.col = y)
-}
-
-p <- ggplot(pRealisations)
-p <- p + geom_step(aes(x = x, y = y, color = col, linetype = col), size = 1.5)
-p <- p + facet_wrap( ~ col, ncol = 3, scales = "fixed")
-p <- p + theme1
-p <- p + xlab("t")
+p <- p + xlab("Time") + ylab("")
 p <- p + scale_color_grey()
-print(p, vp = vplayout(1, 1))
-
-p <- ggplot(tree)
-p <- p + geom_segment(aes(x = x, y = y, xend = xend, yend = yend, color = col, linetype = col), alpha = 1, size = 1.5)
-# p <- p + scale_x_continuous(
-#   breaks = round(c(b1,b2,b3,b4),2)
-# )
-p <- p + theme1
-p <- p + xlab("t")
-p <- p + scale_color_grey()
-print(p, vp = vplayout(2, 1))
+print(p)
 
 
 ################
@@ -350,9 +299,10 @@ print(p)
 ##############################################
 #---TIME HETEROGENOUS AND ULTRAMETRIC TREE---#
 ##############################################
+# 9 x 13 (landscape)
 tree1        <- read.tree("data/epoch_2rate_true_data_ordered.newick")
 phylo1       <- fortify.phylo(tree1)
-phylo1$label <- "Heterogenous"
+phylo1$label <- "Dated tips"
 tree2        <- read.tree("data/epoch_2rate_ultrametric.newick")
 phylo2       <- fortify.phylo(tree2)
 phylo2$label <- "Ultrametric"
@@ -360,7 +310,7 @@ phylo2$label <- "Ultrametric"
 phylo <- rbind(phylo1, phylo2)
 
 phylo1Labels       <- label.phylo(tree1)
-phylo1Labels$label <- "Heterogenous"
+phylo1Labels$label <- "Dated tips"
 phylo2Labels       <- label.phylo(tree2)
 phylo2Labels$label <- "Ultrametric"
 
@@ -376,8 +326,8 @@ p <- p + geom_point(aes(x = x, y = y), size = dotSize, data = phyloLabels)
 theme <- theme_update(
   axis.text.y = element_blank(),
   axis.ticks.y = element_blank(),
-  axis.title.x = element_text(colour = "black"),
-  axis.text.x = element_text(colour = "black"),
+  axis.title.x = element_text(colour = "black", size = 16),
+  axis.text.x = element_text(colour = "black", size = 16),
   axis.title.y = element_blank(),
   axis.line = element_line(colour = "black"),
   axis.line.y = element_blank(),
@@ -387,7 +337,7 @@ theme <- theme_update(
   panel.border = element_blank(),
   panel.grid.major = element_blank(),
   panel.grid.minor = element_blank(),
-  strip.text.x = element_text(size = 16, colour = "black")
+  strip.text.x = element_text(size = 20, colour = "black")
 )
 
 p <- p + theme_set(theme)
@@ -614,9 +564,6 @@ gs.pal <- colorRampPalette(c("white","black"))
 p <- p + scale_colour_manual(values = gs.pal(2))
 
 print(p)
-
-
-
 
 ###################################
 #--- EXPONENTIAL APPROXIMATION ---#

@@ -36,12 +36,11 @@ By reconstructing a phylogenetic tree, we are able to study the evolutionary his
 With the advent of high-throughput DNA sequencing, genomic data from RNA viruses is becoming available in unprecedented quantities and with remarkable rapidity. 
 
 The last decade has witnessed a particular focus of analyses of viral evolutionary dynamics on integrating concepts of phylogenetic and epidemiological dynamics, a research direction originally coined `phylodynamics' \citep{Grenfell2004}.
-By aiming at the development of a full quantitative understanding of the processes that shape the epidemiology and evolution of RNA viruses, %PL: please add the Grenfell and Holmes 2009 Plos Com Biol reference for this statement
-phylodynamics has become a burgeoning area of research.
+By aiming at the development of a full quantitative understanding of the processes that shape the epidemiology and evolution of RNA viruses, phylodynamics has become a burgeoning area of research \citep{Holmes2009}.
 In order to perform comprehensive and quantitative analyses of the interaction between the ecological and evolutionary dynamics of RNA viruses, new computational developments are needed and some of these are actively bridging the gap with the field of mathematical epidemiology.
 
 Advances in epidemiological modeling have made it possible to describe the transmission of contagions through individuals.
-Perhaps the simplest and best-studied model is the ${\mathcal{S} \rightarrow \mathcal{I} \rightarrow \mathcal{R}}$  compartmental model % TODO:c itation
+Perhaps the simplest and best-studied model is the ${\mathcal{S} \rightarrow \mathcal{I} \rightarrow \mathcal{R}}$  compartmental model % TODO: citation
 , which describes how the (S)usceptible individuals become (I)nfected and the (R)ecover, as a function of time.  
 These models can be extended to include birth and death events % TODO: citation
 and are instrumental in finding the number of secondary infections caused by a single infected individual in an entirely susceptible population, a basic reproductive quantity denoted by $R_{0}$.
@@ -50,8 +49,8 @@ Traditionally, parameters in these models were inferred using surveillance data,
 %In that light, developments to infer parameters of compartmental models by studying 
 but increasingly pathogen genetic data is being used to inform SIR model parameters \citep{Volz2009}.
 %molecular sequence data have become increasingly important \citep{Volz2009}.
-Also patterns of geographic diffusion of infectious diseases can be inferred from sequence data \citep{Lemey2009}, sometimes in combination with information on the host movement \citep{Lemey2014}. %PL: add our 2014 GLM-diffusion reference
-Integrating population structure into compartmental models which explicitly track the transmission between the infected individuals can provide new avenues for inferring patterns of viral spread. %PL: I think there is a very recent paper by Rasmussen, Volz and Koelle on this
+Also patterns of geographic diffusion of infectious diseases can be inferred from sequence data \citep{Lemey2009}, sometimes in combination with information on the host movement \citep{Lemey2014}. 
+Integrating population structure into compartmental models which explicitly track the transmission between the infected individuals can provide new avenues for inferring patterns of viral spread \citep{Rasmussen2014}.
 
 Whereas for emerging pathogens modeling efforts are typically focused on providing estimates of the basic reproduction number, for ongoing epidemics one is typically interested in quantifying the effects of control and preventive measures on between-host scales and the effect of treatment on within-host scale.
 In that respect it is important to characterize adaptive evolution, 
@@ -100,9 +99,7 @@ B. First phylogeny estimated from genetic data and published by \cite{Fitch1967}
 \end{figure}
 
 %Underlying assumption of the phylogenetic tree is that the data used to infer them indeed encompasses some sort of evolutionary relatedness.
-Phylogenetic thinking traces back to the first know figure of a phylogenetic tree, sketched by Charles Darwin in %1937 
-1837
-on the margin side of his notebook (see Figure \ref{fig:first_trees}), with the famous words \emph{`I think'} written above it.
+Phylogenetic thinking traces back to the first know figure of a phylogenetic tree, sketched by Charles Darwin in 1837 on the margin side of his notebook (see Figure \ref{fig:first_trees}), with the famous words \emph{`I think'} written above it.
 In those days there was no notion of genetic data, therefore Darwin conceived his trees by comparing morphology, assuming that organisms with similar forms and shapes descended from more recent common ancestors. %\footnote{Furry with furry.}.
 Modern phylogenetics use molecular data and a combination of statistical and computational methods to reconstruct phylogenetic trees.
 %distance-based trees
@@ -112,11 +109,11 @@ These methods were criticized for not making explicit use of the relationship be
 Moreover, hierarchical clustering leads to a single point estimate of the evolutionary history and therefore does not consider alternative hypotheses for the data.
 
 % parsimony
-In order to evaluate different tree topologies the idea or parsimony was adopted in phylogenetics. 
+In order to evaluate different tree topologies the idea of parsimony was adopted in phylogenetics. 
 Maximum parsimony approaches attempt to find the tree that requires minimum number of evolutionary changes to explain the data. %, maing use of the whole data at once.
 This concept stems from the work of William of Ockham (1320), who stated that among competing hypotheses one should select the simplest one and disregard the remaining more complex ones (the Ockham's razor).
-%PL: It was really Cavalli-Sforza and Edwards, both students from Fisher, who introduced the idea into phylogenetics. Indeed, Fitch then introduced a tractable algorithm to compute parsimony scores. They also introduced likelihood and in the same way, Felsenstein, then introduced the tractable pruning algorithm to compute likelyhoods. It would be good to find the reference of their paper and add it here as well below in the first sentence on likelihood as both ideas were mentioned in the same paper.
-\cite{Fitch1971} published an dynamic programming algorithm that efficiently searches all possible tree topologies, assigning scores to them and finding the one with minimal parsimony score.
+\cite{Edwards1963} formally introduced the idea into phylogenetics.
+Later \cite{Fitch1971} published an dynamic programming algorithm that efficiently searches all possible tree topologies, assigning scores to them and finding the one with minimal parsimony score.
 Figure \ref{fig:parsimony} presents an example of parsimony, where among two trees explaining the evolution of sequences {\color{green}AAG}, {\color{green}AAA}, {\color{green}GGA}, {\color{green}AGA} only the most parsimonious one is selected.
 
 %---PARSIMONY TREE---%
@@ -133,6 +130,7 @@ Figure \ref{fig:parsimony} presents an example of parsimony, where among two tre
 
 %likelihood
 As a statistical alternative to an optimality criterion, likelihood had also been proposed for phylogenetic inference relatively early.
+The idea of using maximum likelihood to estimate evolutionary trees was first proposed by \cite{Edwards1964}, although without a working implementation at the time of the publication.
 Maximum likelihood is a probabilistic method of inference, that evaluates a hypothesis in terms of how probable it is in the light of the observed data.
 In phylogenetic setting, a likelihood function returns the probability that the proposed model and the proposed tree, understood as a topology and branch lengths, have generated the observed data.
 The evolutionary history and associated set of evolutionary parameters with a higher probability is naturally preferred over a history with a lower probability.
@@ -192,8 +190,8 @@ This prior specification can reflect the degree of uncertainty we put into our b
 Moreover Bayesian inference allows for a natural interpretation of the results in terms of probability distributions. % and not somewhat artificial concepts of p-values or critical 
 Unfortunately calculating a posterior distribution requires the computation of integrals over the space of all possible parameter values, which are often multi-dimensional.
 For a long time, this has limited its use for most but the simplest problems until
-\cite{Metropolis1953} presented a Metropolis-Hastings method, %PL: Hasting only came in later, around the 70s, if I remember correctly. He essentially generalized the algorithm. So, referring to the 1953 paper for Metropolis-Hastings  seism wrong to me
-Markov chain Monte Carlo (MCMC) algorithm for obtaining a sequence of random samples from a probability distribution for which direct sampling is difficult.%\footnote{This algorithm does not have the most peaceful origins, see the remark.} .
+\cite{Metropolis1953} proposed an Markov chain Monte Carlo (MCMC) algorithm for obtaining a sequence of random samples from a probability distribution for which direct sampling is difficult. 
+Later \cite{Hasting1970} extended and generalized the algorithm which become to be known as the Metropolis-Hastings method.
 
 \begin{remark}{Monte Carlo}
 Monte Carlo methods are computational algorithms that rely on computer generated pseudo-random numbers to obtain numerical results. 
@@ -228,7 +226,7 @@ A molecular clock assumption can only result in estimates of the proportion of t
 To estimate concrete dates for phylogenetic nodes, it needs to be calibrated using historical information such as  fossil records.
 % MEPs
 For rapidly evolving viruses however, it is possible to sample sequences that diverge over an observable timescale. 
-As opposed to the ultrametric topology assumed for slowly evolving organism (Figure~\ref{fig:ultrametric}), the dates of the samples themselves can be used to calibrate the molecular clock. %PL: please cite Andrew's TipDate paper here
+As opposed to the ultrametric topology assumed for slowly evolving organism (Figure~\ref{fig:ultrametric}), the dates of the samples themselves can be used to calibrate the molecular clock \citep{Rambaut2000}.
 
 %GB: I think you should discuss some properties of EIDs at the nucleotide/amino acid/codon level (since that's what we've ended up extending) and link this to what you've done.
 %Perhaps you can get some inspiration from the following paper: http://jvi.asm.org/content/84/19/9864.long
@@ -244,8 +242,10 @@ As opposed to the ultrametric topology assumed for slowly evolving organism (Fig
 \includegraphics[scale=0.3]{ultrametric} 
 \caption{
 { \footnotesize 
-%PL: the units of the time scales are hardly visible; please also change 'Heterogenous' to Dated tips and make those labels bigger
-{\bf Different tree structures imposed by molecular clock assumptions for organisms evolving at different rates.} The tree on the right represents an evolutionary history of slowly evolving organisms, and has tips sampled in the last decades that are all aligned at $t=0$. Conversely the tree on the left represents an evolutionary history of rapidly evolving organisms with samples at different points in time in the last decades. By enforcing tip heights to be proportional to their sampling dates, temporal information is provided to calibrate the molecular clock for rapidly evolving organisms.
+{\bf Different tree structures imposed by molecular clock assumptions for organisms evolving at different rates.} 
+The tree on the right represents an evolutionary history of slowly evolving organisms, and has tips sampled in the last decades that are all aligned at $t=0$. 
+Conversely the tree on the left represents an evolutionary history of rapidly evolving organisms with samples at different points in time in the last decades. 
+By enforcing tip heights to be proportional to their sampling dates, temporal information is provided to calibrate the molecular clock for rapidly evolving organisms.
 }% END: footnotesize
 }
 \label{fig:ultrametric}
@@ -332,7 +332,7 @@ P\left(t_{1}\right)=\frac{n\left(n-1\right)}{2N}.
 Similarly as in the case of a pair of individuals we can generalize Equation~\ref{eq:wright-fisher-n-individuals} and write down the probability that the sampled pairs of individuals coalesce at $t_{k}$:
 
 \begin{equation}
-P\left(t_{k}\right)=\left(\frac{n\left(n-1\right)}{2N}\right)\left(1-\frac{n\left(n-1\right)}{2N}\right)^{k-1}
+P\left(t_{k}\right)=\left(\frac{n\left(n-1\right)}{2N}\right)\left(1-\frac{n\left(n-1\right)}{2N}\right)^{k-1}.
 \label{eq:wright-fisher-n-individuals-general}
 \end{equation}
 
@@ -378,19 +378,18 @@ P\left(t_{k}\right)=\frac{n\left(n-1\right)}{2N}exp\left(-\frac{n\left(n-1\right
 \end{equation}
 
 In the light of Equation~\ref{eq:exponential_time} we consider the Kingman's coalescent as a continuous time version of the Wright-Fisher model with $n$ sampled individuals.
-%Under a molecular clock (see Subsection~\ref{sub:molecular_clock}) mutation rate $r$ and time are confounded.
-%%TODO: mutation rate? P(t_k|\theta) ?
-%However for MEP populations, were sequences are sampled serially in time (see Figure~\ref{fig:ultrametric}) the two can be disentangled.
 \cite{Rodrigo1999} developed an extension of the Kingman's coalescent, the so called \textit{serial coalescent} (s-coalescent), that allows to scale the genealogies in real time units.
 Genealogies for a small sample of individuals can be estimated from their genetic data using phylogenetic reconstruction, and the resulting waiting time distributions in the trees can be used to estimate population sizes.
 It is important to note, however, that these models make assumptions that are clearly violated in most populations and therefore lead to population size estimates that generally strongly deviate from census population sizes. 
 In order to still be able to use those models, a rescaling of the population model has been proposed so that it behaves, with regard to certain properties, as a simple Wright-Fisher model with constant population size.
 This rescaling requires moving from census population size to the more abstract concept of `effective population size' or $N_{e}$.
-As in changes $N_{e}$ still reflect changes in the census population, the constant population size coalescent model has been extended to account for variable size populations, either in parametric or non-parametric formulations. %PL: add references, e.g. some of the earlier pybus papers fro parametric forms and skyride/skygrid for nonparameterics.
-In a Bayesian framework focusing on time-measured trees, such process models find their use as priors on trees.
-Coalescent models have also been extended to account for structured populations allowing to estimate migration rates, which naturally brings us to spatial dynamics.  %PL: add references, e.g. Migrate and Lamarc or some of the Hey work for those
 
-% Introduce phylogeography -- discrete ancestral state reconstruction is only one way of doing this (see Bloomquist, Lemey, Suchard)]
+As in changes $N_{e}$ still reflect changes in the census population, the constant population size coalescent model has been extended to account for variable size populations, either in parametric \citep{Pybus2002} or non-parametric formulations \citep{Minin2008, Gill2013}. 
+
+In a Bayesian framework focusing on time-measured trees, such process models find their use as priors on trees.
+Coalescent models have also been extended to account for structured populations allowing to estimate migration rates, which naturally brings us to spatial dynamics \citep{Kuhner2006,migrate}.
+
+% Introduce phylogeography
 How geography impacts genealogies is one the main research questions of phylogeography, a discipline that frequently resorts to ancestral reconstruction to shed light on migration or dispersal dynamics. 
 %Another process which shapes the phylodynamics of viral sequences is the process of their migration, which we understand as a dispersal in actual geographical coordinates.  
 %Inference methods which make use of both molecular and geographical data have been dubbed as phylogeography as the processes which shape the genome are integrated with the processes of geographical spread.
@@ -442,7 +441,7 @@ When compared to other similar programs, BEAST stands out in the number of model
 Perhaps the most characteristic point is that BEAST uniquely focuses on sampling rooted, time-measured phylogenies.
 This allows for a very natural interpretation of reconstructed trees, and is achieved thanks to the adoption of the molecular clock models, from simple strict clock models, with a uniform rate across the whole time-span of the evolution, to relaxed molecular clock models that model rate variation in various ways \citep{Thorne1998,Yoder2000,Drummond2006,Drummond2010}.
 BEAST sports a large number of complementary evolutionary models, which can be combined in a flexible way.
-Various substitution models for performing analysis on nucleotide, codon or amino-acid data, accounting for among-site and among-lineage rate variation and partitioned in arbitrary ways, are complemented with demographic tree priors such as coalescent \citep{Drummond2005;Minin2008b} or birth-death priors and trait evolutionary models. %PL: add reference for birth-death
+Various substitution models for performing analysis on nucleotide, codon or amino-acid data, accounting for among-site and among-lineage rate variation and partitioned in arbitrary ways, are complemented with demographic tree priors such as coalescent \citep{Drummond2005;Minin2008b} or birth-death priors \citep{Nowak2006} and trait evolutionary models.
 
 % using beast
 %The program takes as input structured XML files which describe the data to be analyzed, the models to be used, the number of samples to collect from the posterior and the output options.
@@ -500,7 +499,6 @@ Clear and intuitive visualizations are an important aspect of every analysis \ci
 Spatial phylogenetic projections have already been utilized in the field \citep{Kidd2006,Parks2009}, yet most of these applications remain limited to mapping phylogenetic tip taxa to their geographical coordinates, without providing robust statistical estimates of the geographic locations at the ancestral nodes nor the measures of uncertainty in the inference.
 Fortunately the advent of powerful and flexible Geographic Information Systems (GIS) has fostered an interesting possibility to visualize both the spatial and temporal information resulting from viral phylogenetic analysis.
 Presenting readily interpretable visual summaries of the inferences in e communicated to the researchers across different fields is one of the more important aspects of this thesis.
-%This goal has been materialized in the development of a user-friendly application, that produces compelling and informative statistical visualizations of viral spread in time and space \citep{Bielejec2011}.
 
 \section{Evolution as a stochastic process}
 
@@ -509,7 +507,6 @@ Molecular phylogenetic modeling typically starts with an assumption that the obs
 We can think of these stochastic processes as functions of time, which is regarded as a deterministic argument, whose values are random (non-deterministic) variables. 
 It is thus a statistical model of a random development, or evolution, in time.
 Phylogenetic inference often resorts to processes where time is considered to be continuous and the indexed set of outcomes, called the state space, is countable and finite (discrete).
-% The stochastic process $X$ is a collection $\left\{ X(t):\; t\in T\right\} $, where each drawn value $X(t)$ is a random variable drawn from state space $\mathcal{E}$, with $K$ possible values, indexed by orderer time $T$.
 With that in mind we can provide a formal definition:
 
 \begin{definition} 
@@ -523,6 +520,7 @@ The particular sites of the sequence alignment are then considered to be stochas
 
 
 %PL: Since you list the mutations for the right branch, you may as well list the one on the left branch as well
+% FB: not sure what you mean, should I add some annotation on that branch?
 \begin{figure}[H]
 \centering
 \begingroup
@@ -583,26 +581,19 @@ A Poisson process with rate $r>0$ is a continuous-time counting process $\left\{
 \label{def:poisson}
 \end{definition}
 
-%PL: I commented the figure out for now because you are representing coalescent waiting times and not mutational waiting times; just show a number of Poisson mutation trajectories with more mutations overlaid or the idea that we discussed with A,C,G,T states on the Y-axis
+Figure~\ref{fig:poisson} shows a sample of different trajectories for such a process.
 
-%Figure~\ref{fig:poisson} shows a sample of different trajectories of such a process.
-
-%
-%% TODO
-%
-%%PL: I don't understand the figure composition: upper part OK, but if you use color as you do now, different realizations can be plotted on the same panel. However, I would keep the printing issues for color figures  to a minimum (only use colors when you really need it -- it requires separate paper printing and merging with the rest, and is bloody expensive), so separate gray-scale panels can work. bottom part: is what I do not understand: should the paths assemble into a tree somehow? The discussion of the process makes no relationship to a tree just yet -- you do that later on. And if you do intend to relate them to a tree, I do not understand how the mutational process for a site only relates to part of the tree?
-%%FB: I wanted to show that different paths (diff branch lengths) are independent relaisations, and waiting time is exponential (similar to Marcs 'travelling particle' description from one of your papers). This is in greyscale now, but if you feel lik eit doesn't conect then we can just comment this figure out.
-%\begin{figure}[H]
-%\centering
-%\includegraphics[scale=0.4]{poisson}
-%\caption{
-%{ \footnotesize 
-%{\bf Independent realizations of the Poisson process with intensity $r=1$.}
-%Times between mutations (the branch lengths) are \emph{iid} exponentially distributed random variables with mean $1/r$.
-%} % END: footnotesize
-%}
-%\label{fig:poisson}
-%\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{poisson}
+\caption{
+{ \footnotesize 
+{\bf Independent realizations of the Poisson process with intensity $r=1$.}
+Waiting times between mutations are \emph{iid} exponentially distributed random variables with mean $1/r$.
+} % END: footnotesize
+}
+\label{fig:poisson}
+\end{figure}
 
 Let's assume that evolution at a single site is governed by a Poisson process $N$ with some intensity $r$.
 Definition~\ref{def:poisson} implies that under this model the number of mutations $N(t+u)-N(u)$ in some time interval $(u,t+u]$ of length $t$ follows a Poisson distribution with expected number of events $r t$.
