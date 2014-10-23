@@ -1434,8 +1434,47 @@ The posterior sample mean is identical to the MLE up to the second decimal place
 The acceptance rate is high, suggesting that almost as many steps are accepted as are rejected.
 %GB: acceptance rates don't necessarily have to be this high, not sure if you want to discuss this though.
 
+For reference we now repeat the same procedure, yet this time we set th ewindow size to $w=1.0$.
+The resulting time-series plot is presented in Figure~\ref{fig:window_size}.
+
+%---WINDOW SIZE---%
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{window_size} 
+\caption{
+{ \footnotesize 
+{\bf MCMC output for the same problem as presented in Figure~\ref{fig:metropolis}, with proposal having the window size of $1.0$.}
+}% END: footnotesize
+}
+\label{fig:window_size}
+\end{figure}
+
 %PL: you could potentially mention the importance of tuning kernels, like the window size, and show the same trace plot for a  too high and too low window, and their acceptance ratio. This can lead to a mention of diagnozing mcmc runs, convergence, ESSs, and shit... which is a practical issue for complex problems/large data sets, etc.
 %GB: I wouldn't discuss tuning, but acceptance ratios I think are more important.
+It is clear from the plot that the proposal is sub-optimal in this case; the large window does not allow for the posterior to be efficiently explored, leading for too many moves to be rejected, which is also apparent when looking at the acceptance rate.
+This does not however mean that the algorithm fails, as it will still reach it's stationary distribution \citep{Tierney1994}, yet it needs much more samples to do so than the proposal in Figure~\ref{fig:metropolis}. 
+However for a given sample size a more efficient proposal will produce more samples from the posterior distribution.
+The efficiency of the sampler, as measured by the acceptance rate, can thus be viewed as a measure of accuracy of the inferences.
+
+Even for the most basic problems the convergence needs to be formally assesed.
+If the iterations of MCMC algorithm, such as M-H, have not proceeded long enough, the collected sample may not be representative of the true posterior (target) distribution.
+One recommended approach for assesing convergence of the chain is to compare different simulated sequences starting from different initial values in terms of their within and between chain variance, an approach known as the Gelman and Rubin diagnostics \citep{Cowles1996}. 
+If the within chain variation is much less than the between chain variation than the multiple sequences have clearly not converged.
+The weigthed average of those variances is then taken as an estimate of the variance of the stationary distribution and is guaranteed to be an unbiased estimator if the starting values come from the stationary distribution.
+
+Trace plots such as the ones in Figures~\ref{fig:metropolis} and~\ref{fig:window_size} are a usefull visual aid for assesing the mixing of a single chain.
+Density estimates, like the histogram in the bottom panel of Figure~\ref{fig:metropolis} can also help in spotting the most apparent mixing problems that the particular chain might have.
+Convergence assesment procedures can only reliably diagnose situations in which the particular chain has failed to converge in the given simulation time, yet they do not guarantee the converse; i.e. that the chain which seems like a convergent one has in fact explored the whole target distribution.
+
+There have been many propositions for improving the convergence of the chain to the equilibrium distribution, see for example \cite{Liu1994, Gelfand1995, Vines1996}.
+Even if the MCMC simulations have reached convergence, early collected iterations are still influenced by the starting value.
+To reduce the impact of those the general practice is to discard the first $10\%$ of the collected samples, often reffered to as the \textit{burn-in}.
+
+Another problem that frequently arises is inherited from the iterative nature of the algorithm, i.e. the within sequence correlations.
+Although not a problem for convergence, as after reaching the target distribution the samped value sare guaranteed to be \textit{iid}, it poses an efficency problem.
+If the collected sequences are used directly to estimate the posterior distribution of the unknown parameter the estimates are generally less efficient, because of that auto correlation.
+The Effective Sample Size (ESS) is a frequently used measure of the information that the collected sample size contains.
+One of the techniques for reducing auto correlation is the \textit{thinning}, which skips every $k$-th iteration from the sampled sequence. 
 
 \subsection{Bayesian phylogeography\label{sub:phylogeo}}
 
@@ -1447,22 +1486,6 @@ The evolutionary relationship represented by the tree was inferred omitting the 
 rapidly evolving viruses.
 This approach does not need to fix the tree topology, the branch lengths nor the Markov model parameters, and allows for integration over all possible values, requiring only for a specification of a prior distributions for the parameters that we aim to infer.
 
-%PL: this figure is eh... well... not so attractive.. I commented it out in case a better one cannot be found/made
-%It is not really needed and not referenced if I am not mistaken
-
-%%TODO: plot, tree with locations
-%%---BAYESIAN PHYLOGENETICS TREE---%
-%\begin{figure}[H]
-%\centering
-%\includegraphics[scale=0.25]{phylogeotree} 
-%\caption{
-%{ \footnotesize 
-%{\bf Spatial location and molecular sequence data observed at the tips of a phylogenetic tree.} 
-%}% END: footnotesize
-%}
-%\label{fig:phylogeotree}
-%\end{figure}
-
 Central to the Bayesian phylogeographic framework is the hypothesis that sequence evolution is occurring simultaneously with the process of geographical dispersal. 
 The observed data, residing at the $N$ tips of phylogeny $\mathbf{F}$, is recorded as both character sequence data $\mathbf{X}=(X_{1},...,X_{N})$ and discretized geographic locations (countries, districts, cities) $\mathbf{Y}=(Y_{1},...,Y_{N})$.
 We assume independent stochastic processes are responsible for generating these data, with ancestral states of $\mathbf{X}$ generated as before by a CTMC characterized by rate matrix $\mathbf{Q}$ and the unobserved ancestral locations $(Y_{N+1},...,Y_{2N-2})$ generated by a separate CTMC characterized by rate matrix $\mathbf{\Phi}$.
@@ -1470,7 +1493,7 @@ The entries of this matrix are the transition rates $\phi_{ij}$ between location
 Unlike before the rate matrix does not necessarily have to be symmetrical, i.e. there exist some $i,j$ such that $\phi_{ij}\neq\phi_{ji}$.
 Additionally, a priori one would expect many of the infinitesimal rates to be zero. 
 Unlike the molecular data, which is typically dense, the location data is sparse, with only one observation per taxon and many connections not observed at all.
-%PL: refer to BSSVS which was already mentioned earlier as a way to tackle this.
+The Bayesian stochastic search variable selection (BSSVS, see also Subsection~\ref{sub:clocks}) procedure is used to allow exchange rates in $\mathbf{\Phi}$ that do not contribute to the diffusion to be shrunken to zero with a certain probability.
 
 The Bayesian framework described in Subsections~\ref{sub:bayesTheorem} and \ref{sub:mcmc} offers the unique ability to integrate different sources of information about the viruses with their genetic data, without conditioning on either one of them.
 We use this ability to infer the tree topology, the ancestral spatial locations and the character substitution process giving rise to the aligned molecular sequence data. 
@@ -1498,4 +1521,3 @@ P\left(\mathbf{F}, \mathbf{Q}, \mathbf{\Phi}|\mathbf{X},\mathbf{Y}\right) &\prop
 The likelihood component for both molecular data $\mathbf{X}$ and location data $\mathbf{Y}$ is calculated using recursive tree pruning, as described in Subsection~\ref{sub:likelihood}.
 We approximate the joint posterior as written down in Equation~(\ref{eq:posteriorPhylogeography}) using MCMC methods we talked about in Subsection~\ref{sub:mcmc}.
 In order to study phylogeographic processes based on longitude and latitude coordinates of sampled strains, Brownian motion has been proposed as the random walk model in continuous space with conceptually very similar inference procedures \citep{Lemey2010}.
-

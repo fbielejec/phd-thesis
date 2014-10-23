@@ -419,9 +419,9 @@ prior <- function(x) {
   return(log(dexp(x, rate = 1 / mean)))
 }
 
-proposal <- function(xt) {
+proposal <- function(xt, window) {
   
-  window = 0.1
+#   window = 0.1
   
   r.cand = runif(1, min = xt - window, max = xt + window)
   r.cand = ifelse((r.cand >= 0) & (r.cand <= 1), r.cand, 
@@ -435,13 +435,13 @@ proposal <- function(xt) {
   return(list(r.cand = r.cand, d.cand = d.cand, d.curr = d.curr))
 }
 
-metropolisHastings <- function(loglikelihood, prior, proposal, startvalue, data, Nsim) {
+metropolisHastings <- function(loglikelihood, prior, proposal, window, startvalue, data, Nsim) {
   
   chain = array(dim = c(Nsim, 1))
   chain[1, ] = startvalue
   for (t in 1 : (Nsim - 1)) {
     
-    candidate = proposal(chain[t, ])
+    candidate = proposal(chain[t, ], window)
     r.candidate = candidate$r.cand
     d.candidate = candidate$d.cand
     d.curr = candidate$d.curr
@@ -463,7 +463,9 @@ metropolisHastings <- function(loglikelihood, prior, proposal, startvalue, data,
 
 Nsim = 10^3
 startvalue = runif(1, min = 0, max = 1)
-chain = metropolisHastings(loglikelihood, prior, proposal, startvalue, data, Nsim)
+window = 0.1
+
+chain = metropolisHastings(loglikelihood, prior, proposal, window, startvalue, data, Nsim)
 
 #---PLOT---#
 thetaHat = -(3/4) * log(1 - (4/3) * (data$x/data$n))
@@ -484,7 +486,7 @@ theme2 <- theme(
   panel.grid.minor = element_blank()
 )
 
-labels <- paste("acceptance rate:", round(length(unique(chain))/Nsim, 2), "\n",
+labels <- paste("acceptance rate:", round(length(unique(chain)) / Nsim, 2), "\n",
                 "sample mean: ", round(mean(chain), 2), sep = " ")
 
 grid.newpage()
@@ -508,6 +510,15 @@ p <- p + ggtitle(labels)
 p <- p + theme2
 print(p, vp = vplayout(2, 1))
 
+
+
+# p <- ggplot(plotData)
+# p <- p + geom_line(aes(x = iteration, y = value))    
+# p <- p + geom_hline(aes(yintercept = thetaHat), color = "grey")
+# p <- p + xlab("") + ylab("Chain state")
+# p <- p + theme2
+# p <- p + ggtitle(labels)
+# p
 
 ############################
 #---LIKELIHOOD ON A TREE---#
