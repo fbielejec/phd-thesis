@@ -222,7 +222,8 @@ data_melt$path <- as.factor(data_melt$path)
   
 
 p <- ggplot(data_melt)
-p <- p + geom_segment2(aes(x = x, y = y, xend = xend, yend = yend, linetype = path, color = path), size = 1.5)
+p <- p + geom_segment2(aes(x = x, y = y, xend = xend, yend = yend, linetype = path, color = path), 
+                       size = 1.5)
 
 theme1 <- theme(
   axis.line = element_line(colour = "black"),
