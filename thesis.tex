@@ -21,6 +21,10 @@
 \usepackage{multicol}  
 \usepackage{afterpage}
 % \usepackage{eso-pic}
+\usepackage[toc,page]{appendix}
+% \usepackage{listings}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %---USER SPECIFIED LaTeX COMMANDS---%
@@ -63,6 +67,60 @@
   \end{shaded}%
 }
 
+% lyxcode
+\newenvironment{lyxcode}
+{\par\begin{list}{}{
+\setlength{\rightmargin}{\leftmargin}
+\setlength{\listparindent}{0pt}% needed for AMS classes
+\raggedright
+\setlength{\itemsep}{0pt}
+\setlength{\parsep}{0pt}
+\normalfont\ttfamily}%
+ \item[]}
+{\end{list}}
+
+% Code
+\newenvironment{code}
+{\par\begin{list}{}{
+\setlength{\rightmargin}{\leftmargin}
+\setlength{\listparindent}{0pt}% needed for AMS classes
+\raggedright
+\setlength{\itemsep}{0pt}
+\setlength{\parsep}{0pt}
+\normalfont\ttfamily}%
+ \item[]}
+{\end{list}}
+
+% XML syntax highlight
+\lstdefinelanguage{XML} {
+  morestring=[b]",
+  morestring=[s]{>}{<},
+  morecomment=[s]{<?}{?>},
+  stringstyle=\color{black},
+  identifierstyle=\color{darkblue},
+  keywordstyle=\color{cyan},
+  morekeywords={code,id,idref,dimension,value} % list your attributes here
+}
+
+% XML syntax highlight
+\lstset{
+  language=XML,
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  showstringspaces=false,
+  commentstyle=\color{gray}\upshape
+}
+
+% maxwidth is the original width if it is less than linewidth
+% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+
 % Colors
 \definecolor{rulecolor}{rgb}{0.80,0.80,0.80}
 \definecolor{bgcolor}{rgb}{1.0,1.0,1.0}
@@ -71,7 +129,8 @@
 \definecolor{gray2}{gray}{0.5}
 \definecolor{fgcolor}{rgb}{0.2, 0.2, 0.2}
 \definecolor{green}{rgb}{0.0,0.5607843,0.0}
-
+\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
+\definecolor{snow3}{rgb}{0.8,0.78,0.78}
 
 % Algorithms
 \floatstyle{ruled}
@@ -87,6 +146,9 @@
 
 % TODO: shortcuts for all names, typed in \sc
 \def \bussname {$\pi$BUSS}
+
+% define how to controle figure scales
+\def\figurescale{0.25}
 
 \graphicspath{{figures/}}
 
@@ -139,5 +201,13 @@
 % TODO: all software and code availibility and requirements (copy from paper abstracts)
 % TODO: notation
 % TODO: appendix with R code for plots ?
+
+\begin{appendices}
+\include{appendices/appendixa}\cleardoublepage
+\include{appendices/appendixb}\cleardoublepage
+\include{appendices/appendixc}\cleardoublepage
+\end{appendices}
+
+
 
 \end{document}
