@@ -36,7 +36,6 @@ The last decade has witnessed a particular focus of analyses of viral evolutiona
 By aiming at the development of a full quantitative understanding of the processes that shape the epidemiology and evolution of RNA viruses, phylodynamics has become a burgeoning area of research \citep{Holmes2009}.
 In order to perform comprehensive and quantitative analyses of the interaction between the ecological and evolutionary dynamics of RNA viruses, new computational developments are needed and some of these are actively bridging the gap with the field of mathematical epidemiology.
 
-%GB: isn't a contagion already a transmission? perhaps replace contagion by infectious diseases?
 Advances in epidemiological modeling have made it possible to describe the transmission of contagions through individuals.
 Perhaps the simplest and best-studied model is the ${\mathcal{S} \rightarrow \mathcal{I} \rightarrow \mathcal{R}}$  compartmental model % TODO: citation
 , which describes how (S)usceptible individuals become (I)nfected and the (R)ecover, as a function of time.  
@@ -63,12 +62,6 @@ As a final part of the general introduction, we outline how the current doctoral
 The remainder of the chapter provides a more mathematically-oriented description of how to model evolution as a stochastic process on trees, the computational aspects involved, and how to treat the problem from a Bayesian statistical perspective.
 
 \subsection{Molecular evolution and phylogenetics\label{sub:molevol}}
-
-%PL: got confused an rewrote this.
-%The main axiom of molecular evolution is the idea that the processes that shape the fitness of organisms leave a measurable imprint on their genomes.
-%Evolution is a stochastic process that can introduce at any given moment random base changes in the genetic alphabet.
-%For some time those mutations coexist with the vanilla-type %PL: what do you mean with vanilla-type?
-%organisms until selection decides whether the mutations increases the fitness, in which case the entire population eventually carries the said mutation and it becomes a fixed substitution.  
 
 Evolution is the product of mutational processes that stochastically introduce changes into the genetic make-up of organisms and population processes that lead to the elimination, fixation or partial maintenance of these mutations in the population.
 The latter occurs through genetic drift or the more deterministic process of natural selection. 
@@ -184,9 +177,8 @@ Bayesian statistical thinking is not a new idea and stems back to the 18th centu
 
 Interestingly, Bayes has never published his famous work.
 Bayesian statistics has always been appealing as a very flexible approach to inference, as it allows for inclusion of prior belief about any unknown parameters, which, combined with the likelihood of the data, forms an `updated' view of the model, the so-called posterior distribution.
-%GB: do we need the sentence below for an introduction?
 This prior specification can reflect the degree of uncertainty we put into our belief and can be further enhanced by the use of the so called hyperpriors, prior distributions put on the parameters of first order priors.
-Moreover, Bayesian inference allows for a natural interpretation of the results in terms of probability distributions. % and not somewhat artificial concepts of p-values or critical 
+Moreover, Bayesian inference allows for a natural interpretation of the results in terms of probability distributions. 
 Unfortunately, calculating a posterior distribution requires the computation of integrals over the space of all possible parameter values, which are often multi-dimensional.
 For a long time, this has limited its use for most but the simplest problems until \cite{Metropolis1953} proposed a Markov chain Monte Carlo (MCMC) algorithm for obtaining a sequence of random samples from a probability distribution for which direct sampling is difficult. 
 Later, \cite{Hasting1970} extended and generalized the algorithm which came to be known as the Metropolis-Hastings method.
@@ -433,12 +425,12 @@ Migrate-n \citep{migrate} and LAMARC \citep{Kuhner2006} on the other hand concen
 At the core of BEAST lies a Metropolis-Hasting algorithm (\cite{Metropolis1953, Hasting1970}, see also Subsection~\ref{sub:mcmc}) for constructing Markov chains that converge on the posterior distribution as the equilibrium distribution.
 This is precisely why BEAST is not meant for reconstructing a single tree or a point estimate for a parameter of interest, but rather generates samples that can be used to summarize distributions of mutation rates, divergence times, demographic parameters, trait evolution or others.
 
-%beast is cool
+%beast
 Compared to other similar programs, BEAST stands out in the number of models available for performing inference and the flexibility by which they can be combined.
 Perhaps the most characteristic point is that BEAST uniquely focuses on sampling rooted, time-measured phylogenies.
 This allows for a very natural interpretation of reconstructed trees, and is achieved thanks to the adoption of molecular clock models, from a simple strict clock model, with an equal rate across the whole time-span of the evolution, to relaxed molecular clock models that model rate variation in various ways \citep{Thorne1998,Yoder2000,Drummond2006,Drummond2010}.
 BEAST offers a large number of complementary evolutionary models, which can be combined in a flexible way.
-Various substitution models for performing analysis on nucleotide, codon or amino-acid data, accounting for among-site and among-lineage rate variation and partitioned in arbitrary ways, are complemented with demographic tree priors such as coalescent \citep{Drummond2005;Minin2008b} or birth-death priors \citep{Nowak2006} and trait evolutionary models.
+Various substitution models for performing analysis on nucleotide, codon or amino-acid data, accounting for among-site and among-lineage rate variation and partitioned in arbitrary ways, are complemented with demographic tree priors such as coalescent \citep{Drummond2005,Minin2008b} or birth-death priors \citep{Nowak2006} and trait evolutionary models.
 
 % using beast
 %The program takes as input structured XML files which describe the data to be analyzed, the models to be used, the number of samples to collect from the posterior and the output options.
@@ -464,7 +456,7 @@ The tree and its annotated information can subsequently be visualized using \tex
 %Finally \textbf{$\pi$BUSS} is a software for sequence simulation, capable of generating XML files understood by BEAST for combined simulation-inference analysis as well as sequences in formats taht can be imported into any other phylogenetic software.
 %
 In conclusion, BEAST is a flexible package for statistical pylogenetics and hypothesis testing.
-The software is continuously being improved and new models are being developed, but the development has recently been split into a continuing BEAST1 branch and a new BEAST2 branch. %PL: add BEAST2 reference.
+The software is continuously being improved and new models are being developed, but the development has recently been split into a continuing BEAST1 branch and a new BEAST2 branch\citep{Bouckaert2014}. 
 Since the work presented in this thesis is implemented in BEAST1, all references to BEAST will implicitly refer to this development branch.
 %In addition to a large array of available models, it is actively developed with new models and enhancements included with every new stable release.
 
@@ -517,7 +509,7 @@ The particular sites of the sequence alignment are then considered to be stochas
 
 
 %PL: Since you list the mutations for the right branch, you may as well list the one on the left branch as well
-% FB: not sure what you mean, should I add some annotation on that branch? I explicite left it empty, as the rught brancg is longer so it has more substitutions on it than the left one
+% FB: not sure what you mean, should I add some annotation on that branch? I explicite left it empty, the right branch is longer so it has more substitutions on it than the left one
 \begin{figure}[H]
 \centering
 \begingroup
@@ -637,8 +629,7 @@ F_{T_{2}}(t) &=& 1-P\left(T_{2}>t|T_{1}=u\right) \nonumber \\
 \end{eqnarray}
 
 \noindent
-%GB: is there a tilde missing in the sentence below?
-Therefore, $T_2$ is independent of $T_1$ and $\text{Exponential}(r)$. 
+Therefore, $T_2$ is independent of $T_1$ and $\text{Exponential}(r)$ distributed. 
 Similarly we can show that $T_3$ is independent of $T_1$ and $T_2$ and by repeating the same argument: $T_1,T_2,\ldots$ are independent and identically distributed (i.i.d.) $\text{exponential}(r)$ random variables.
 
 % TODO: memoryless property does not depend at all, vide poiss)
@@ -764,7 +755,6 @@ p_{ij}\left(t\right) = p_{ij}\left(0,t\right) = p_{ij}\left(u,t+u\right).
 \label{eq:time_homogeneity}
 \end{equation}
 
-%GB: this next short paragraph is strangely located here ...
 Unfortunately, this assumption does not hold for many real-world data-sets and precludes the identification of biologically interesting patterns in the evolutionary process. %, as the temporal dynamics clearly do shift in time, often in a seasonal, observable manner \citep{Bahl2011}.
 %PL: deleted the above subsentence as it is too specific to phylogeography
 One of the goals of the research presented in this thesis is to efficiently confront situations in which this assumption does not hold.
@@ -990,7 +980,7 @@ We will now discuss how to calculate the likelihood of observing a particular re
 To calculate the likelihood means in a sense to reverse-engineer the evolution as it happened.
 Figure~\ref{fig:LIKELIHOOD} presents a single site with data $TCACC$ observed at the tips of the tree.
 External nodes are numbered $x_{1}, \ldots x_{5}$, internal nodes $x_{6}, \ldots x_{8}$ and the root is placed at the node $x_{0}$.
-The length of each branch leading to node $i$ is denoted as $t_{i}$. %PL: the i indices do not correspond between the nodes and branches for x7 and x8
+The length of each branch leading to node $i$ is denoted as $t_{i}$. 
 Using the methods presented in Subsection~\ref{sub:exponentiation}, we calculate the finite-time transition probabilities $p_{ij}(t_{i})$ between all pairs of characters in the alignment.
 To calculate the probability at a single site, we need to sum over all possible combinations that could give rise to the observed character data at that site, in this case:
 
@@ -1037,15 +1027,13 @@ L(\mathbf{x}_{h})=\underset{x_{0}\in\mathcal{E}}{\sum}\pi_{x_{0}}\cdot L_{0}(x_{
 \end{equation}
 
 \noindent
-%PL: maybe explicitly state why we move to log likelihoods:
+In most applications for computational reasons is is easier to work with the natural logarithm of the likelihood in Equation~\ref{eq:felsenstein3}.
 Thanks to the assumption of site-independence, the log-likelihood of the whole alignment $X$ can be computed by summing the logarithms of the likelihoods at the particular sites:
 
 \begin{equation}
 l(X)=\underset{j=1}{\overset{l}{\sum}}log\left(L(\mathbf{x}_{jh})\right)
 \label{eq:loglikelihood}
 \end{equation}
-
-%PL: perhaps note that you moved to Log L in the last step to avoid underflow when multiplying small numbers or something?
 
 \subsection{The computational burden of likelihood computations\label{sub:mlburden}}
 
@@ -1073,9 +1061,8 @@ T(n) \in \mathcal{O}\left(f(n)\right)
 \noindent
 if and only if there exists a constant $M>0$ and some $n_0 \in \mathbb{R}_{>0}$ such that:
 
-%GB: there is no n_0 here ...
 \begin{equation}
-T(n)\leq M \cdot f(n)
+\forall n\geq n_{0}\;T(n)\leq M \cdot f(n)
 \end{equation}
 \end{definition}
 
@@ -1450,8 +1437,6 @@ The resulting time-series plot is presented in Figure~\ref{fig:window_size}.
 \label{fig:window_size}
 \end{figure}
 
-%PL: you could potentially mention the importance of tuning kernels, like the window size, and show the same trace plot for a  too high and too low window, and their acceptance ratio. This can lead to a mention of diagnozing mcmc runs, convergence, ESSs, and shit... which is a practical issue for complex problems/large data sets, etc.
-%GB: I wouldn't discuss tuning, but acceptance ratios I think are more important.
 It is clear from the plot that the proposal is sub-optimal in this case; the large window does not allow for the posterior to be efficiently explored, leading for too many moves to be rejected, which is also apparent when looking at the acceptance rate.
 However, this does not mean that the algorithm fails, as it will still reach its stationary distribution \citep{Tierney1994}, although it needs much more samples to do so than the proposal in Figure~\ref{fig:metropolis}. 
 For a given sample size a more efficient proposal will produce more samples from the posterior distribution.
