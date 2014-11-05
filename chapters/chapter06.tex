@@ -2,30 +2,32 @@
 
 \begin{remark}{Outline}
 
-In this thesis, we present three pieces of work that revolve around modeling evolution as CTMC process in a phylogenetic context. 
+In this thesis, we present three pieces of work that revolve around modeling evolution as a CTMC process in a phylogenetic context. 
 First we demonstrated how we can relax the time-homogeneity assumption in a Bayesian phylogenetic framework leading to the identification of changing sequence and trait evolutionary processes through time.
 Next, we introduce a novel simulation architecture that closely matches the model developments in the Bayesian framework we contribute to.
 Finally, we complement the Bayesian phylogeographic inference framework with an easy-to-use visualization software to assist the practitioner in interpreting spatiotemporal reconstructions.
-In this concluding chapter several aspects of the presented work are put into a wider perspective, and we discuss possible extensions discussed in more detail. 
+In this concluding chapter several aspects of the presented work are put into a wider perspective, and we discuss possible extensions in more detail. 
 
-An important part of the work in this thesis is motivated by the need to relax the standard phylogenetic assumptions, in search of more biologically plausible models. 
-In that respect the work on the time-heterogenous modeling, as presented in Chapter \ref{chap:epoch}, can be viewed as an introductory step towards a broader range of models that tackle different types of time-heterogeneity.
+An important part of the work in this thesis is motivated by the need to relax the standard phylogenetic assumptions in search of more biologically plausible models. 
+In that respect the work on the time-heterogeneous modeling, presented in Chapter \ref{chap:epoch}, can be viewed as a first step towards a broader range of models that tackle different types of time-heterogeneity.
 We highlight one possible extension of the epoch model, in which time changes in a non-linear fashion.
 We then discuss the possibility to infer both the time and the number of change-points, or transition times, in the epoch model specification via Dirichlet process priors, on which we elaborate in the second section of this summarizing chapter. 
 
 One of the epoch applications focused on the use of codon substitution models to investigate changing selective pressures in HIV evolution within hosts.
 Due to their computational burden, the development of codon substitution model extensions in Bayesian phylogenetic inference involving random trees has remained limited.
-Motivated by the evolutionary insights dedicated codon substitution models can provide and by the computational speed-ups we achieved in the epoch inference through fine and coarse grain parallelization, we are now starting to explore flexible codon model parameterizations in our framework.  
-We highlight some of the ongoing work in which we adopt a promising family of priors driven by the Dirichlet process in order to model among-branch and among-site variation in the codon substitution process.
+Motivated by the evolutionary insights that dedicated codon substitution models can provide and by the computational speed-ups we achieved in the epoch inference through fine and coarse grain parallelization, we are now starting to explore flexible codon model parameterizations in our framework.  
+We highlight some of the ongoing work in which we adopt Dirichlet process priors in order to model among-branch and among-site variation in the codon substitution process.
 
-A substantial portion of the work presented in this thesis is devoted towards development of flexible, easy-to-use software.
+A substantial portion of the work presented in this thesis is devoted to the development of flexible, easy-to-use software.
 %GB: perhaps better to specify more clearly what you mean with phylogenetic and population models?
 We therefore elaborate on the continued effort to support and extend the $\pi$BUSS simulation software \citep{Bielejec2014b}, with an ever-growing array of phylogenetic and population models.
 
-Highly dimensional estimates that result from Bayesian inference of viral spread in both time and space require dedicated software capable of producing visualizations that are both visually attractive and insightful.
-We discuss the future directions that we would like to take with the next releases of the SPREAD software \citep{Bielejec2011}, ensuring that it continues to provide the users with an intuitive and user-friendly interface as well as access to a variety visualization possibilities.
+Highly dimensional estimates that result from Bayesian inference of viral spread in both time and space require dedicated software capable for producing visualizations that are both visually attractive and insightful.
+For this purpose, we designed the SPREAD software \citep{Bielejec2011}.
+Because the application note on SPREAD we reproduce in Chapter \ref{chap:spread} provides only a brief account of the software, we here take the opportunity to explain the conceptual approach of our spatiotemporal visualizations in more detail, and position them among other approaches.
+We also discuss the future directions that we would like to take with the next releases of the SPREAD software \citep{Bielejec2011}, ensuring that it continues to provide the users with an intuitive and user-friendly interface as well as access to a variety visualization possibilities.
 
-Finally we talk about the challenges and opportunities that the future might bring, in the era of the so-called `genomics plenty', where vast amounts of molecular data can be sequenced increasingly faster and at lower costs, and the high-performance computing strategies that are required to keep up with this data flood.
+Finally we outline challenges and opportunities that the future might bring in the era of the so-called `genomics plenty', where vast amounts of molecular data can be sequenced increasingly faster and at lower costs, and the high-performance computing strategies that are required to keep up with this data abundance.
 \end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -35,7 +37,7 @@ Finally we talk about the challenges and opportunities that the future might bri
 
 In Chapter \ref{chap:epoch} we presented a time-heterogeneous substitution model, for which the different types of substitution rates %of evolution
 remain constant across all lineages in any given epoch, but vary between those epochs.
-We have demonstrated the validity of the method using simulations, and its applicability to empirical HIV and Influenza data sets.
+We have demonstrated the validity of the method using simulations, and its applicability to empirical HIV and influenza data sets.
 We have stressed that by implementing the model as part of Bayesian framework we are able to incorporate uncertainty in the tree reconstruction into our analysis, and thus avoid the need to fix the tree topology or any other evolutionary parameters.
 
 \subsection{Approximating non-linear functions of rate change in time\label{sub:nonlinear}}
@@ -43,7 +45,7 @@ We have stressed that by implementing the model as part of Bayesian framework we
 For some classes of problems the substitution rates might not vary linearly, at the defined change-points, but rather as some arbitrarily complex function of time. 
 Such functions may be difficult, or computationally demanding, to fit exactly and the epoch model may offer an approximate solution to this types of problems.
 Let us consider an interval $\left[0,T\right]$ and let the elements of the substitution rate matrix $\mathbf{Q}$ vary independently as an integrable function of time, such that $\mathbf{Q}=\mathbf{Q}(t),\; t\in\left[0,T\right]$. 
-Finite-time transition probabilities can be then calculated as: 
+The finite-time transition probabilities can be then calculated as: 
 
 \begin{equation}
 \ensuremath{\mathbf{P}}(r,T)=exp\left(r\int_{0}^{T}\mathbf{Q}(t)dt\right).\label{eq:rodrigo}
@@ -51,7 +53,7 @@ Finite-time transition probabilities can be then calculated as:
 
 \noindent
 \citet{Rodrigo2008} propose a numerical approximation to $\int_{0}^{T}\mathbf{Q}(t)dt$. 
-By taking points $t_{0,}t_{1},\ldots t_{n}\in[0,T]$ such that $0=t_{0}<t_{1}<\ldots<t_{n}=T$ and dividing the interval $\left[0,T\right]$ into sub-intervals $\left[t_{i-1},t_{i}\right],\; i=1,\ldots n$ of length $\triangle t_{i}=t_{i}-t_{i-1}$ we have that:   
+By taking points $t_{0},t_{1},\ldots t_{n}\in[0,T]$ such that $0=t_{0}<t_{1}<\ldots<t_{n}=T$ and dividing the interval $\left[0,T\right]$ into sub-intervals $\left[t_{i-1},t_{i}\right],\; i=1,\ldots n$ of length $\triangle t_{i}=t_{i}-t_{i-1}$ we have that:   
 
 \begin{equation}
 \int_{0}^{T}\mathbf{Q}(t)dt\approx\underset{i=0}{\overset{n}{\sum}}\mathbf{Q}(t_{i}^{*})\cdot\triangle t_{i},\; t_{i}^{*}\in[t_{i-1},t_{i}].\label{eq:approx}
@@ -64,17 +66,17 @@ and are closed with respect to the matrix multiplication.
 Given those regularity conditions, we can perform a numerical approximation of any function of rate change by using the epoch time-discretization, and by partitioning the time interval into a fine grid of intervals.
 Extending our Bayesian epoch model implementation to accommodate complex rate change functions could be the focus of future work when confronted with a problem that would benefit from such an approach.
 
-\subsection{Evaluating number and placement of change-points in time}
+\subsection{Evaluating the number and placement of change-points in time}
 
-Both problems presented in Chapter~\ref{chap:epoch}, i.e. HIV within-host evolution before and after progression time and seasonal influenza migration represent hypotheses that condition on a particular  number and placement the transition times.
+Both problems presented in Chapter~\ref{chap:epoch}, i.e. HIV within-host evolution before and after progression time and seasonal influenza migration represent hypotheses that condition on a particular number and placement of the transition times.
 There might however be a class of problems for which those change points are not known and need to be estimated.
 % it remains interesting to investigate possible extensions that estimate the number and position of change points.
-A first approach that comes to mind is to introduce priors on the number and locations of the transition times and integrate over all their possible values using the standard MCMC framework.
-This straight-forward approach will however inflate the variance of the epoch-specific parameters and for some problems, e.g. viral diffusion between discretely sampled geographical locations where there is only one observation per taxon, the sparseness of data might be a factor impeding any accurate inference.
-
-In Subsection \ref{sub:dpp} we talk about an interesting class of non-parametric prior distributions, the so called Dirichlet Process Priors (DPP). 
-Although we mainly pursue the inference of lineage-specific parameters of codon models, it is interesting to note that the same class of priors could be used to infer the number and placement of transition-times of the epoch model.
-At the time of writing this chapter we are testing these possibilities, yet exactly how accurate the inference of the transition times can be, and how we can quantify the predictive value of those covariates remains an open question for future studies.
+A first approach that comes to mind is to introduce an arbitrary number of transitions and estimate their times using the standard MCMC framework.
+This straight-forward approach may however not be flexible enough when the number of transition times is small or it may result in
+inflated variances when the number is too large. For some problems, e.g. viral diffusion between discretely sampled geographical locations, there is only a single observation per taxon, and this data sparseness might further complicate accurate inference.
+Dirichlet Process Priors (DPP) may offer a solution to arrive at efficient estimation of the number and placement of transitions in the epoch model. 
+In Subsection \ref{sub:dpp} we further discuss this interesting class of non-parametric prior distributions that we are currently exploring to infer variable selection pressures among lineages using codon substitution models.
+%At the time of writing this chapter we are testing these possibilities, yet exactly how accurate the inference of the transition times can be, and how we can quantify the predictive value of those covariates remains an open question for future studies.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -84,16 +86,23 @@ At the time of writing this chapter we are testing these possibilities, yet exac
 
 \subsection{Introduction}
 
-The first computationally tractable models of codon substitution were independently proposed by \cite{Muse1994} and \cite{Goldman1994} and published in the same issue of Molecular Biology and Evolution (MBE).
-For codon models the non-stop codon triplet $n_{1}n_{2}n_{3}$ is considered the smallest unit of evolution.
-There are $4^3$ possible triplets minus three stop codons, resulting in a state space size of $61$ codons.
-The standard assumption of independence is used, i.e. the substitutions at these three codon positions occur independently, and only a single change per triplet can occur at a given time. 
+In Chapter \ref{chap:epoch}, we `epochized' codon substitution models in order to evaluate changing selective pressure in within-host HIV evolution. 
+This indicates that flexible codon modeling may provide important biological insights. 
+Their application in a Bayesian phylogenetic context has however been limited due to computational restrictions. 
+As also demonstrated by our work, GPU computing now offers the opportunity to push the limits of phylogenetic likelihood computation for high state-space models. 
+Our work therefore provides a motivating for codon model developments in the Bayesian framework and below, we discuss the efforts in this direction that we are currently undertaking.
+
+%PL: I am commenting out a lot below in order to reduce the amount of info to the more essential bits
+
+Codon substitution models were independently proposed by \cite{Muse1994} and \cite{Goldman1994} in the same issue of Molecular Biology and Evolution (MBE).
+In these models, a non-stop codon triplet $n_{1}n_{2}n_{3}$ is considered as the smallest unit of evolution.
+According to the universal genetic code, there are $4^3$ possible triplets minus three stop codons, resulting in a state space size of $61$ codons.
+%The standard assumption of independence is used, i.e. the substitutions at these three codon positions occur independently, and only a single change per triplet can occur at a given time. 
 %GB: explain in more detail, i.e. more than 1 change is possible in subsequent infinitesimal time intervals
 %GB: are there no codon models that allow for multiple substitution per time unit (I thought I recently read something like that ... will look it up and send e-mail)
-Proteins are coded by a set of 20 amino acids, with each amino acid being coded by a codon triplet. 
-Because there are 61 non-stop codons, inevitably some amino acids will be redundantly coded by more than 1 codon.
-A substitution which does not change the encoding amino-acid is called a synonymous substitution, as it most likely leaves the protein function unchanged.
-Conversely non-synonymous substitutions are more likely to affect the fitness of a particular organism.
+%Proteins are coded by a set of 20 amino acids, with each amino acid being coded by a codon triplet. 
+Because there are 61 non-stop codons to encode for 20 amino acids, some amino acids will inevitably be coded by more than 1 codon.
+A substitution that does not change the encoding amino-acid is called a synonymous substitution, while a non-synonymous substitution refers to a substitution that does result in an amino acid substitution.
 
 Selective pressure is the main force behind molecular evolution.
 Understanding and inferring the selective pressure is one of the central goals of molecular virology, see for example \citet{Bielejec2014a}.
