@@ -413,67 +413,72 @@ Such a bias has been attributed to the action of strong purifying selection over
 % Genetic and phenotypic data become useful only when we apply methods deriving insights from it, and these methods encompass statistical inference as well as visualization of its results. Visualizing estimates provides an efficient way to communicate results to the scientific community and beyond. Bayesian evolutionary inference, however, generates \textbf{high-dimensional} estimates, e.g. ancestral reconstructions of (multiple) traits on a posterior distribution of trees. When multidimensionality complicates the visualization task, dynamic, interactive visualizations may offer an attractive solution. In our case, the time scale of the evolutionary histories represents a natural dimension to explore for dynamic interactions. Interactivity can also encourage engagement and may lead to a better understanding and even appreciation of the statistical inference procedure itself. 
 
 \paragraph{}
-In Section~\ref{sub:clocks} we discussed how past evolutionary events can be estimated in real time units by using molecular clock models and either calibrating events or, in case of MEPs, samples obtained at various points in time.
-A natural representation of this temporal dimension is to animate the geophylogeny as it unfolds through time and space.
-The visualisation of spatiotemporal history, with the possibility to dynamically examine how the diffusion process unfolds, has been the main motivation for the development of SPREAD \citep{Bielejec2011}, presented in Chapter~\ref{chap:spread}.
-SPREAD allows for visualising animated geophylogenies in an automated manner, by producing it's output in time-annotated Keyhole Markup Language (KML), an ISO standard geographic markup language managed by the Open Geospatial Consortium that is read and written by most spatial software. 
-KML encoding allows for manipulating virtually all aspects of mapping, colour and line thicknesses, time animation, height and placement, projection used, labelling and many more.
-SPREADs GUI gives user a control over fine-tuning these parameters and the output can be used in virtual globe software like Google Earth (\url{http://www.google.com/earth/}) or high-end GIS software like ArcGIS, Cartographica.
-Here we take the opportunity to discuss the design and future directions of SPREAD in more details.
+In Section~\ref{sub:clocks} we discussed how past evolutionary events can be estimated in calendar time units by using molecular clock models and historical node calibrations or dated tip calibrations.
+A natural representation of the spatiotemporal reconstructions is to animate a `geophylogeny' as it unfolds through time and space.
+The visualization of spatiotemporal history, with the possibility to dynamically examine how the diffusion process unfolds, has been the main motivation for the development of SPREAD \citep{Bielejec2011}, presented in Chapter~\ref{chap:spread}.
+SPREAD allows for visualizing animated geophylogenies in an automated manner, by producing output in time-annotated Keyhole Markup Language (KML), an ISO standard geographic markup language maintained by the Open Geospatial Consortium that can read and written by most spatial software. 
+KML encoding allows for manipulating virtually all aspects of the mapping: colour and line thickness, height and placement, the type of projection, labeling, etc.
+The SPREAD GUI provides the user with control over fine-tuning these parameters and the output can be used in virtual globe software like Google Earth (\url{http://www.google.com/earth/}) or high-end GIS software like ArcGIS or Cartographica.
+Here, we take the opportunity to position our visualation approach among others and discuss further directions of SPREAD in more details.
 
 \subsection{Past and current efforts in visualising phylogeography}
 
 Geophylogenies, or more generally geo-trees are spatially referenced phylogenies, for which taxa exist in a real space and can be displayed as cartographic elements within a map \citep{Kidd2010}.   
-Possibly the first diagram like that, depicting evolutionary tree over geographical map is the famous \textit{Hypothetical Sketch of the Monophyletic Origin and the Extension of the 12 Races of Man from Lemuria over the Earth} shown in \cite{Haeckel1876} (see Figure~\ref{fig:lemuria})
+Possibly the first 
+mapping of a phylogeny in a geographical context 
+%diagram like that, depicting evolutionary tree over geographical map
+is the famous \textit{Hypothetical Sketch of the Monophyletic Origin and the Extension of the 12 Races of Man from Lemuria over the Earth} shown in \cite{Haeckel1876} (see Figure~\ref{fig:lemuria}).
+Ernst Haeckel, a XIX century naturalist entertained the idea that the absence of missing fossil links in human evolution at his time could be explained by existence of \textit{Lemuria}, a sunken island in the Indian Ocean.  
+Although the hypothesis obviously did not hold, the phylogenetic visualization has received considerable attention.
+%The phylogenetic visualisation has surpassed the, entirely discredited, work itself.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.25]{lemuria}
 \caption{
 { \footnotesize 
-{\bf Hypothetical Sketch of the Monophyletic Origin and the Extension of the 12 Races of Man from Lemuria over the Earth.} 
+{\bf Hypothetical Sketch of the Monophyletic Origin and the Extension of the 12 Races of Man from Lemuria over the Earth. E. Haeckel, 1876.} 
 } % END: footnotesize
 }
 \label{fig:lemuria}
 \end{figure}
 
-Ernst Haeckel, a XIX century darwinist entertained the idea that the abscence of missing fossil links in human evolution could be explained by existence of \textit{Lemuria}, a sunken land.  
-The phylogentic visualisation has surpassed the, entirely discredited, work itself.
 
 % other tools
-The joint study of diffusion processes happening in geographical coordinates along with the patterns of genomic ancestry is known as phylogeography.
-Summarising the findings in a clear and concise way, that can then be presented to a wider audience, is as important of a step as the statistical analysis itself \citep{Hadley2010}.
-This is especially true for complex patterns of biogeographic processes, where visualisation is the key for understanding them. 
-Recently great research effort has been made to visulize the phylogenetic relationships between organisms and samples in relation to their geographic distribution. 
+The joint study of spatial dispersal processes along with the patterns of genomic ancestry has been formalized into the field of phylogeography.
+Summarizing the estimates in a clear and concise way is just as important of a step as the statistical analysis itself \citep{Hadley2010}.
+This is especially true for complex patterns of biogeographic processes, where visualization is key to interpret and understand them. 
+Recently great research effort has been undertaken to visualize the phylogenetic relationships between organisms in relation to their geographic distribution. 
 
 \paragraph{}
-In the first approach geographic pattern is displayed as an annotation on the tree, with branches labelled according to the names of places in which their tips are observed.
-This can be carried out by hand for example in FigTree (\url{http://tree.bio.ed.ac.uk/software/figtree/}).
-More advanced annotations can be achieved in iTOL \citep{itol}, which is capable of displaying charts on the internal or external branches, displaying prevalence of any kind of data, including discrete geographic locations and scaled to reflect the size of it.
-This approach is most appropriate when the geographic complexity is low, as it simplifies the spatial context to text or symbolic representation, prioritising the ancestral relationship rather over the diffusion in actual geographical coordinates.
+In order to visualize the outcome of spatial dispersal and evolutionary history, geographic distributions can be displayed as an annotation on the tree, with tip branches labelled according to the names of the locations from which the samples were obtained.
+This can be carried out using advanced tree visualization tools such as FigTree (\url{http://tree.bio.ed.ac.uk/software/figtree/}).
+More complex annotations can be displayed in iTOL \citep{itol}, which is capable of displaying charts on the internal or external branches, displaying prevalence of any kind of data, including discrete geographic locations with a scale to reflect its size.
+This approach is most appropriate when the geographic complexity is low, as it simplifies the spatial context to text or symbolic representation, therefore prioritizing the ancestral relationship over the spatial process.
 
 \paragraph{}
-GenGis software (Figure~\ref{fig:tanglemaps}), presented by \cite{Parks2009} can, among other, generate visualisation which are an example of so-called tangle-maps.
-Tangle-maps are visualisations which combine cartographic maps with images of trees.
+A more geographically explicit visualization combines cartographic maps with images of trees, such as the so-called `tangle-maps'.
+The GenGis software, developed by \cite{Parks2009} supports these types of visualizations (Figure~\ref{fig:tanglemaps}).
+%Tangle-maps are visualizations that combine cartographic maps with images of trees.
+Although tangle-maps visually link the tree and the map through the use of graphic lines, the tree is merely overlaid on the map and provides little insight into dispersal history.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.3]{tanglemaps}
 \caption{
 { \footnotesize 
-{\bf Tangle-map of the biodiveristy of 19 marine metagenomes.} 
-Figure is plotted using GenGis (\url{http://kiwi.cs.dal.ca/GenGIS/Main_Page}).
+{\bf Tangle-map of the biodiversity of 19 marine metagenomes.} 
+The figure is plotted using GenGis (\url{http://kiwi.cs.dal.ca/GenGIS/Main_Page}).
 } % END: footnotesize
 }
 \label{fig:tanglemaps}
 \end{figure}
 
-Although in tangle-maps the tree and the map may are visually linked through the use of graphic lines, the tree is merely overlayed on the map, rather than projected onto the geographical coordinates.
-
 % how we do it
 \paragraph{}
-Model-based approaches to phylogenetic reconstruction, such as ancestral state reconstruction (see Subsection~\ref{sub:phylogeo}) provide estimates for phylogeographic relationships, but also the uncertainty in those estimates, which is crucial for hypothesis testing.
-Appropriately accommodating statistical uncertainty into visualisations is a major challenge.
+Through ancestral state reconstruction (see Subsection~\ref{sub:phylogeo}), model-based approaches can provide location estimates at ancestral nodes in the phylogeny as well as their uncertainty, which is crucial for hypothesis testing.
+%to phylogenetic reconstruction, such as ancestral state reconstruction (see Subsection~\ref{sub:phylogeo}) provide estimates for phylogeographic relationships, but also the uncertainty in those estimates, which is crucial for hypothesis testing.
+Appropriately accommodating statistical uncertainty into phylogeographic visualizations is a major challenge.
 In BEAST and other software capable of phylogeographical reconstruction the location data can be modeled either as finite and countable (discrete) states or bivariate (longitude and latitude) realizations in continuous space.
 This choice is mainly dependent on the sampling scheme of the data.
 Different representations of uncertainty result from each approach.
