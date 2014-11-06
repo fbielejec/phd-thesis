@@ -9,7 +9,7 @@ Finally, we complement the Bayesian phylogeographic inference framework with an 
 In this concluding chapter several aspects of the presented work are put into a wider perspective, and we discuss possible extensions in more detail. 
 
 An important part of the work in this thesis is motivated by the need to relax the standard phylogenetic assumptions in search of more biologically plausible models. 
-In that respect the work on the time-heterogeneous modeling, presented in Chapter \ref{chap:epoch}, can be viewed as a first step towards a broader range of models that tackle different types of time-heterogeneity.
+In that respect the work on the time-heterogeneous modeling, presented in Chapter~\ref{chap:epoch}, can be viewed as a first step towards a broader range of models that tackle different types of time-heterogeneity.
 We highlight one possible extension of the epoch model, in which time changes in a non-linear fashion.
 We then discuss the possibility to infer both the time and the number of change-points, or transition times, in the epoch model specification via Dirichlet process priors, on which we elaborate in the second section of this summarizing chapter. 
 
@@ -20,12 +20,12 @@ We highlight some of the ongoing work in which we adopt Dirichlet process priors
 
 A substantial portion of the work presented in this thesis is devoted to the development of flexible, easy-to-use software.
 %GB: perhaps better to specify more clearly what you mean with phylogenetic and population models?
-We therefore elaborate on the continued effort to support and extend the $\pi$BUSS simulation software \citep{Bielejec2014b}, with an ever-growing array of phylogenetic and population models.
+We therefore elaborate on the continued effort to support and extend the $\pi$BUSS simulation software (see Chapter~\ref{chap:pibuss}), with an ever-growing array of phylogenetic and population models.
 
 Highly dimensional estimates that result from Bayesian inference of viral spread in both time and space require dedicated software capable for producing visualizations that are both visually attractive and insightful.
-For this purpose, we designed the SPREAD software \citep{Bielejec2011}.
+For this purpose, we designed the SPREAD software.
 Because the application note on SPREAD we reproduce in Chapter \ref{chap:spread} provides only a brief account of the software, we here take the opportunity to explain the conceptual approach of our spatiotemporal visualizations in more detail, and position them among other approaches.
-We also discuss the future directions that we would like to take with the next releases of the SPREAD software \citep{Bielejec2011}, ensuring that it continues to provide the users with an intuitive and user-friendly interface as well as access to a variety visualization possibilities.
+We also discuss the future directions that we would like to take with the next releases of the SPREAD software, ensuring that it continues to provide the users with an intuitive and user-friendly interface as well as access to a variety of visualization possibilities.
 
 Finally we outline challenges and opportunities that the future might bring in the era of the so-called `genomics plenty', where vast amounts of molecular data can be sequenced increasingly faster and at lower costs, and the high-performance computing strategies that are required to keep up with this data abundance.
 \end{remark}
@@ -35,7 +35,7 @@ Finally we outline challenges and opportunities that the future might bring in t
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Extending the Epoch model}
 
-In Chapter \ref{chap:epoch} we presented a time-heterogeneous substitution model, for which the different types of substitution rates %of evolution
+In Chapter~\ref{chap:epoch} we presented a time-heterogeneous substitution model, for which the different types of substitution rates %of evolution
 remain constant across all lineages in any given epoch, but vary between those epochs.
 We have demonstrated the validity of the method using simulations, and its applicability to empirical HIV and influenza data sets.
 We have stressed that by implementing the model as part of Bayesian framework we are able to incorporate uncertainty in the tree reconstruction into our analysis, and thus avoid the need to fix the tree topology or any other evolutionary parameters.
@@ -81,8 +81,11 @@ In Subsection \ref{sub:dpp} we further discuss this interesting class of non-par
 %PL: added this below, check for references
 \subsection{Introducing covariates in the epoch model}
 
-In order to test which factors explain the variation in an evolutionary parameter over time, we are currently exploring a \emph{mixed effects} modeling approach. Using hierarchical modeling we can introduce random effects for the evolutionary response variable \cite{edomatas11}.
-Assuming effects are additive on the log-scale, we can complete the mixed effects model by incorporating fixed effects to model the impact of covariates on the evolutionary parameters. This represents an important data integration step, for which we have ample experience \cite{edomatas11,streicker12,vrancken14} and that will, for example, provide the opportunity to assess the association between within-host HIV evolutionary dynamics and clinical parameters (such as CD4 counts or viral load). This will lead to more direct testing of hypotheses that attempt to explain HIV divergence stabilization close to the onset of AIDS (e.g., the cellular exhaustion or immune relaxation hypotheses, \citep{lemey07}).
+In order to test which factors explain the variation in an evolutionary parameter over time, we are currently exploring a \emph{mixed effects} modeling approach. 
+Using hierarchical modeling we can introduce random effects for the evolutionary response variable \citep{Edo-Matas2011}.
+Assuming effects are additive on the log-scale, we can complete the mixed effects model by incorporating fixed effects to model the impact of covariates on the evolutionary parameters. 
+This represents an important data integration step, for which we have ample experience \citep{Edo-Matas2011,Streicker2012,Vrancken2014} and that will, for example, provide the opportunity to assess the association between within-host HIV evolutionary dynamics and clinical parameters (such as CD4 counts or viral load). 
+This will lead to more direct testing of hypotheses that attempt to explain HIV divergence stabilization close to the onset of AIDS (e.g., the cellular exhaustion or immune relaxation hypotheses, \citep{Lemey2007}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %---DPP PRIORS FOR CODON MODELS---%
@@ -100,36 +103,40 @@ Their application in a Bayesian phylogenetic context has however been limited du
 As also demonstrated by our work, GPU computing now offers the opportunity to push the limits of phylogenetic likelihood computation for high state-space models. 
 Our work therefore provides a motivation for codon model developments in the Bayesian framework, and below, we discuss the efforts in this direction that we are currently undertaking.
 
-We are implementing a general form of the Muse \& Gaut (MG94) codon substitution model \citep{muse94} that explicitly parameterizes synonymous $\alpha$ and non-synonymous substitution rates $\beta$ by defining the instantaneous rate of replacing codon $i$ with codon $j$ ($i \neq j$) as follows:
+We are implementing a general form of the Muse \& Gaut (MG94) codon substitution model \citep{Muse1994} that explicitly parameterizes synonymous $\alpha$ and non-synonymous substitution rates $\beta$ by defining the instantaneous rate of replacing codon $i$ with codon $j$ ($i \neq j$) as follows:
+
 \begin{displaymath}
 q_{ij}^{MG} = \begin{cases} \theta_{mn,s}\alpha_{s}^{b}\pi_{n}^{p}, & i \to j \text{ is a one-nucleotide synonymous substitution} \\ & \text{from nucleotide $m$ to nucleotide $n$ in codon position $p$,} \\ \theta_{mn,s}\beta_{s}^{b}\pi_{n}^{p}, & i \to j \text{ is a one-nucleotide non-synonymous substitution} \\ & \text{from nucleotide $m$ to nucleotide $n$ in codon position $p$,} \\ 0, & \text{otherwise.} \end{cases}
 \end{displaymath}
-$\pi_{n}^{p}$ denotes the frequency of nucleotide $n$ in codon position $p = 1,2,3$. As denoted by the sub/superscript, synonymous and non-synonymous substitution rates $\alpha_{s}^{b}$ and  $\beta_{s}^{b}$ may depend on both the alignment site ($s$) and  the branch of the tree ($b$).  $\theta_{mn,s}$ corrects for the nucleotide substitution bias. Setting all $\theta_{mn,s}$ equal to 1 and assuming no rate variation among sites or branches reduces the model to the original Muse \& Gaut codon model \citep{muse94}.
 
+$\pi_{n}^{p}$ denotes the frequency of nucleotide $n$ in codon position $p = 1,2,3$. 
+As denoted by the sub/superscript, synonymous and non-synonymous substitution rates $\alpha_{s}^{b}$ and  $\beta_{s}^{b}$ may depend on both the alignment site ($s$) and the branch of the tree ($b$). 
+Parameter $\theta_{mn,s}$ corrects for the nucleotide substitution bias. 
+Setting all $\theta_{mn,s}$ equal to 1 and assuming no rate variation among sites or branches reduces the model to the original Muse \& Gaut codon model.% \citep{Muse1994}.
 
-Whereas a homogeneous MG94 model is relatively straightforward to estimate, it most likely constitutes an oversimplification as there is no biological reason to assume that the selective pressures are the same for any two branches or any two sites.
+Whereas a homogeneous MG94 model is relatively straightforward to estimate, it most likely constitutes an oversimplification, as there is no biological reason to assume that the selective pressures are the same for any two branches or any two sites.
 To incorporate among-lineage variation in both $\alpha$ and $\beta$, the most flexible, but likely over-parameterized, approach would be to consider a separate MG94 for each branch in the phylogeny.
-This would be
-computationally impractical to fit to large size data sets because it requires an eigen-decomposition of the infinitesimal generator for each branch.
-Specifying different substitution models for different time intervals or epochs throughout the evolutionary history, which we demonstrated using a Goldman and Yang codon substitution model \cite{goldman94} in BEAST, provides one way of introducing heterogeneity through time, while keeping the computation manageable (Chapter \ref{chap:epoch}). 
+This would however be computationally impractical to fit to large size data sets, because it requires an eigen-decomposition of the infinitesimal generator for each branch.
+Specifying different substitution models for different time intervals or epochs throughout the evolutionary history, which we demonstrated using a Goldman and Yang codon substitution model \cite{Goldman1994} in BEAST, provides one way of introducing heterogeneity through time, while keeping the computation time manageable (Chapter~\ref{chap:epoch}). 
 
-  
+%FB: typical notation  DP(G_0,\gamma)
 Although the epoch model is useful as a specific case of allowing for variation in $\alpha$ and $\beta$ throughout evolutionary history, more general approaches would be desirable.
 We are currently developing novel Bayesian non-parametric priors specifically tailored for evolutionary problems to hold the middle ground between the homogeneous MG94 model and estimating a separate MG94 model for each branch/site.
 Bayesian non-parametric priors are often employed in problems where one wishes to cluster unknown parameters into distinct classes without making strong distributional assumptions.
 The most common is the \emph{Dirichlet process} (DP) prior. 
-In phylogenetics, this model has been developed for modeling among-site variation in the rates of non-synonymous substitutions \citep{huelsenbeck06} and to model lineage-specific substitution rates by assigning branches to rate categories \citep{heath2012}.
+In phylogenetics, this model has been developed for modeling among-site variation in the rates of non-synonymous substitutions \citep{Huelsenbeck2006} and to model lineage-specific substitution rates by assigning branches to rate categories \citep{Heath2012}.
 A Dirichlet process DP$(F, \alpha)$, where $F$ (the base distribution) is a single parametric distribution and $\alpha$ (the concentration parameter) is a positive real number, returns a random distribution that is an infinite mixture of $F$ with different base parameters, e.g.~means and variances.
 The partitioning of branches into specific realized values, called categories, is controlled by the concentration parameter $\alpha$, where small values of $\alpha$ lead to fewer categories and greater homogeneity of the substitution process, whereas large values indicate increased branch- or site-specific substitution processes.
 Whereas often a single (branch- or site-specific) parameter is drawn from the base distribution $F$, our approach for the MG94 model requires two of such parameters to be drawn, for which we propose to first adapt the suggested DP prior.
 A limitation of the DP is that there is no naturally ordering for its realizations; any two draws share the same correlation.  
-On an evolutionary history, this assumption is unrealistic; Thorne et al.~\citep{th98}, Seo et al.~\citep{seo04} and Aris-Brosou and Yang \citep{arisbrosou02} have long argued for phylogenetic auto-correlation among branch-specific rates.
+On an evolutionary history, this assumption is unrealistic; Thorne et al.~\citep{Thorne1998}, Seo et al.~\citep{SKT04} and Aris-Brosou and Yang \citep{Aris-Brosou2002} have long argued for phylogenetic auto-correlation among branch-specific rates.
 We propose to achieve both auto-correlation and non-parametric flexibility by extending DPs to have first-order dependence along the evolutionary history.  
-To accomplish this, recent work in Bayesian inference with DPs and their generalization, \emph{Polya urns}, \citep{guha2010posterior} shows that \emph{infinite hidden Markov} models \citep{beal2002infinite}
-in the computer science literature are now as convenient to fit as DPs and will allow for dependence across neighboring branches while retaining their non-parametric behavior.
+To accomplish this, recent work in Bayesian inference with DPs and their generalization, \emph{Polya urns}, \citep{Guha2010} shows that \emph{infinite hidden Markov} models \citep{Beal2002} in the computer science literature are now as convenient to fit as DPs and will allow for dependence across neighboring branches while retaining their non-parametric behavior.
 
-We are pursuing such among-branch approaches and will adopt similar non-parametrics to model among-site variability in $\alpha$ and $\beta$. These developments will yield powerful tools to uncover variable selection pressure in coding sequences for many different pathogens, as well as other organisms.
-Moreover, they will be essential to accurately estimate time-scales for viral evolutionary histories where standard evolutionary models lead to divergence time underestimation \citep{wertheim11}. Such a bias has been attributed to the action of strong purifying selection over long evolutionary time scales (), and selection-informed models have been shown to improve branch length estimation \citep{wertheim11}, but their implementation in phylogenetic dating software is still lacking.
+We are pursuing such among-branch approaches and will adopt similar non-parametrics to model among-site variability in $\alpha$ and $\beta$. 
+These developments will yield powerful tools to uncover variable selection pressure in coding sequences for many different pathogens, as well as other organisms.
+Moreover, they will be essential to accurately estimate time-scales for viral evolutionary histories where standard evolutionary models lead to divergence time underestimation \citep{Wertheim2011}. 
+Such a bias has been attributed to the action of strong purifying selection over long evolutionary time scales, and selection-informed models have been shown to improve branch length estimation \citep{Wertheim2011}, but their implementation in phylogenetic dating software is still lacking.
 
 
 
@@ -526,7 +533,6 @@ We will aim for a general visualization tool that maps the evolutionary patterns
 % For preliminary examples of interactive visualization see \url{http://justsz.github.io/pandemix/h9n2_AR.html}
 
 
-%PL: provide a bit more background on these spatial stats: wavefront, dispersal rate, diffusion coefficient, how they are drawn from continuous diffusion reconstructions and what they can do in terms of comparative analyses and hypothesis testing..
 %PL: you could also mention compatibility with BEAST2 and take this as an opportunity to describe the current situation of divergence in the two beast versions and parallel development for both.. the reader might be interested in this.
 \paragraph{}
 \cite{Pybus2012} introduced a conceptual link between phylogeography and spatial ecology, deminstrating that the large-scale dynamics of epidemic, traditionally estimated using time-consuming field methods, can be quantified from increasingly inexpensive molecular data.
@@ -570,7 +576,6 @@ In addition to it's Command Line Interface for scripting purposes and XML parser
 We will proceed along that path, by providing even closer integration between the two programs and facilitating generation of joint simulation-analysis XML documents in which fabricated data is instantly passed to BEASTs XML parsers for inference.
 
 % indel models
-%PL: you could mention why indel processes are useful -- I would think this is more for evaluating alignment procedures - and take this as an opportunity to talk about statistical alignment and joint inference of alignment and phylogeny (a la Marc's Baliphy), and that it would be great to get this in BEAST, but mention the computational hindrances. I think one of Marc's disciples also showed how to integrate such approaches in codon model approaches to identify positive selection: http://people.duke.edu/~br51/branch-site-article.pdf
 \subsection{Simulation of insertion deletion events}
 
 In the field of molecular biology, insertions and deletions (indels) exist on the other end of spectrum of mutations then substitution events, which we discussed in details in Subsection \ref{sub:subst_models}.
