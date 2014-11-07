@@ -478,35 +478,41 @@ The figure is plotted using GenGis (\url{http://kiwi.cs.dal.ca/GenGIS/Main_Page}
 \paragraph{}
 Through ancestral state reconstruction (see Subsection~\ref{sub:phylogeo}), model-based approaches can provide location estimates at ancestral nodes in the phylogeny as well as their uncertainty, which is crucial for hypothesis testing.
 %to phylogenetic reconstruction, such as ancestral state reconstruction (see Subsection~\ref{sub:phylogeo}) provide estimates for phylogeographic relationships, but also the uncertainty in those estimates, which is crucial for hypothesis testing.
-Appropriately accommodating statistical uncertainty into phylogeographic visualizations is a major challenge.
-In BEAST and other software capable of phylogeographical reconstruction the location data can be modeled either as finite and countable (discrete) states or bivariate (longitude and latitude) realizations in continuous space.
-This choice is mainly dependent on the sampling scheme of the data.
-Different representations of uncertainty result from each approach.
-In the continuous case when bicariate coordinates are inferred for the internal nodes using a Brownian motion model, the geographic uncertainty is expressed as confidence envelopes or credible contours for each internal node.
-This can be seen in Figure~\ref{fig:cont}, where a 3D-geophylogeny with credible contours for each internal node projected on the surface in the Google Earth.
+Appropriately accommodating statistical uncertainty into phylogeographic visualizations is however a major challenge.
+Ancestral location reconstructions allow mapping the entire tree structure, both internal and external nodes, in a geographic context.
+In BEAST, location data can be modeled either as finite and countable (discrete) states or bivariate (longitude and latitude) realizations in continuous space.
+This choice is mainly dependent on the sampling scheme of the data and the nature of the dispersal process.
+Different representations of uncertainty need to be applied in these approaches.
+When bivariate coordinates are inferred for the internal nodes using a Brownian motion model, the geographic uncertainty is expressed as confidence envelopes or credible contours for each internal node.
+This is illustrated by Figure~\ref{fig:cont}, where a 3D-geophylogeny with credible contours for particular points in time is projected on the surface in the Google Earth.
+We can only project a single tree from the posterior (e.g. using the mean bivariate location estimates for every node) , but the uncertainty can be obtained by slicing the each tree in the posterior at a particular point in time and imputing the locations for each branch that is sliced (Figure~\ref{fig:cont} illustrates two time slices).
+All these time-specific location estimate can be used to build a credible contour through kernel density estimation.
+SPREAD supports such 2D projections based on estimates resulting from a BEAST analysis.
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.6]{continuous}
+\includegraphics[scale=0.2]{continuous.pdf}
 \caption{
 { \footnotesize 
-{\bf Visualising geography uncertainty and phylogenetic tree uncertainty.} 
-Bottom facets explain the concept of time-slicing, upper facet presents a resulting animation.
+{\bf Visualizing continuous phylogeographic reconstructions with uncertainty.} 
+A. Example visualization in Google Earth based in estimates obtained from a real data set. B. Conceptual representation of visualizing uncertainty by time slicing a posterior distribution.
 } % END: footnotesize
 }
 \label{fig:cont}
 \end{figure}
 
-Two time slices are shown as an example for the continuous diffusion through time. 
-An example tree is mapped in continuous space, based on average bivariate coordinates for the internal nodes. 
-The uncertainty at any time-slice is depicted using credible contours, obtained from slicing the complete posterior distribution of location-annotated trees, sampled by BEAST.
-SPREAD supports also 2D alternatives of such projections.
+%Two time slices are shown as an example for the continuous diffusion through time. 
+%An example tree is mapped in continuous space, based on average bivariate coordinates for the internal nodes. 
+%The uncertainty at any time-slice is depicted using credible contours, obtained from slicing the complete posterior distribution of location-annotated trees, sampled by BEAST.
+%SPREAD supports also 2D alternatives of such projections.
 
 \paragraph{}
-In the discrete mapping , where each state represents a point location, similar easily interpreatble projections are harder to obtain.
-Only branches that accommodate a state transition can be distinguished and are projected as arcs, as depicted in Figure~\ref{fig:discrete}.
-This lead to a restrictive assumption of SPREADs approach, i.e. all nodes are assumed to have lived in the locations from which samples were obtained.
-The circle diameter reflects the number of branches that maintain a single state according to the parent and descendent node state.
+In the discrete mapping, where each state represents a point location, similar easily interpretable projections including uncertainty are harder to obtain.
+Only branches that accommodate a state transition, according to the modal estimates at the parent and descendent node, can be distinguished and are projected as arcs, as depicted in Figure~\ref{fig:discrete}.
+This illustrates a restrictive assumption of discrete phylogeographic inference, that is all nodes are assumed to have lived in the locations from which samples were obtained.
+Branches that maintain a particular state according to the parent and descendent node estimate can be displayed by a circle with a diameter proportional to the number of branches maintaining that state at any point in time.
+The uncertainty associated with the node estimates in different posterior trees is however difficult to represent.
+%The circle diameter reflects the number of branches that maintain a single state according to the parent and descendent node state.
 
 \begin{figure}[H]
 \centering
@@ -524,14 +530,14 @@ B. An example projection of influenza H5N1 over time in Google Earth for two dif
 % now highlight some of the future perspectives
 \subsection{Future perspectives}
 
-With over 90 citations by the time of writing this thesis, the original manuscript presenting the SPREAD software (\citet{Bielejec2011}, see Chapter \ref{chap:spread}) indicates a clear need for a package that can visualize phylogeographic diffusion processes inferred using Bayesian methods.
-With that responsibility in mind we will continue to support SPREAD by adding new functionalities and making more analyses possible.
-The next major release of the software will be aimed at a thorough re-write of SPREADs internal engine, that would hopefully result in a more stable and responsive package.
+With over a hundred citations by the time of writing this thesis, the original manuscript presenting SPREAD (\citet{Bielejec2011}, see Chapter \ref{chap:spread}) indicates a clear need for a package that can visualize phylogeographic diffusion processes inferred using Bayesian methods.
+With that responsibility in mind we will continue to support SPREAD by adding new functionalities and making more analyses available to the practioner.
+The next major release of the software will be aimed at a thorough re-write of SPREAD's internal engine, which will hopefully result in a more stable and interactive package.
 % Specifically we will target many of the feature requests, for example the ability to instantenously alter line and polygon coloring without the need to re-compute the analysis.
 
 % outputting KML and web interfaces
 \paragraph{}
-The ability to output time-stamped KML documents which can then be played as animations is one of the most important functionalities of SPREAD and a source of its popularity.
+The ability to output time-stamped KML documents which can then be played as animations is one of the most important functionalities of SPREAD and a major source of its popularity.
 Future releases will continue to support that function, yet we will also add the ability to produce animated documents which can be embedded in webpages, viewed on mobile devices or locally on web browsers.
 In our digital age, web visualization ensures accessibility and avoids the need to design proprietary software and plug-ins. We propose to merge data visualization concepts, interactive design and web development using D3 (\url{d3js.org}), a powerful JavaScript library for custom, web-based visualization. 
 We will aim for a general visualization tool that maps the evolutionary patterns of traits with their uncertainty over time in their appropriate space. 
@@ -540,9 +546,9 @@ We will aim for a general visualization tool that maps the evolutionary patterns
 
 %PL: you could also mention compatibility with BEAST2 and take this as an opportunity to describe the current situation of divergence in the two beast versions and parallel development for both.. the reader might be interested in this.
 \paragraph{}
-\cite{Pybus2012} introduced a conceptual link between phylogeography and spatial ecology, deminstrating that the large-scale dynamics of epidemic, traditionally estimated using time-consuming field methods, can be quantified from increasingly inexpensive molecular data.
-We plan to make these new analyses attainable as part of SPREAD, with the possibility to produce spatial which can be extracted  from the posterior distribution of trees by slicing each phylogeny at multiple times and summarizing the resulting distributions.
-The new release of SPREAD will also have a Command Line Interface that will make it easier to pipeline large repeatable analysis, produce scripts or call SPREAD from interpretable languages like R \citep{RCran} or Python.
+\cite{Pybus2012} recently introduced a conceptual link between phylogeography and spatial ecology, demonstrating that large-scale invasion dynamics, traditionally estimated using time-consuming field ecology methods, can be quantified from increasingly inexpensive molecular data.
+We plan to make these new analyses available as part of SPREAD, with the possibility to produce spatial statistics (dispersal rate, wavefront, diffusivity), which can be extracted from the posterior distribution of BEAST trees by slicing each phylogeny at multiple times and summarizing the resulting distributions.
+The new release of SPREAD will also have a Command Line Interface in support of pipelining large repetitive analyses, producing scripts or calling SPREAD from interpretable languages like R \citep{RCran} or Python.
 
 
 %%%%%%%%%%%%%%
@@ -550,50 +556,54 @@ The new release of SPREAD will also have a Command Line Interface that will make
 %%%%%%%%%%%%%%
 \section{Areas of improvement for the {\bussname} simulator software}
 
-Except for empirical models of evolution, most phylogenetic methods are built on mathematical theories that predict outcomes conditional on a set of assumptions.
-How well these models fit the real data, and how robust they are to the violations of these assumptions remains an open question.
-Furthermore, complex biological systems targeted phylogenetic studies undergo many processes, which interact and are difficult to accurately model or distinguish from the background noise in the data.
+Except for empirical models of evolution, most phylogenetic methods build on mathematical theory that predicts outcomes conditional on a set of assumptions.
+How well these models fit to real data, and how robust they are to the violations of these assumptions remains to a large extent an open question.
+Furthermore, biological systems targeted by phylogenetic studies undergo complex processes, which may be difficult to distinguish from stochastic error in the data.
 Rapidly evolving viruses, which are the main interest of the research presented in this thesis, are subject to mutation, natural selection and spatial diffusion.
-Therefore, for most of the molecular epidemiology data-sets, the true underlying evolutionary process that generated them remains unknown or particular aspects of the process remain difficult to test.
-All of these factors stress the need for development of flexible simulation software, that can match the diversity, complexity and sheer amount of the real data that is currently being sampled.
+For most of the molecular epidemiology data-sets, the true underlying evolutionary process that generated the observations remains unknown or particular aspects of the process remain difficult to test.
+For all these reasons, the is a need to develop flexible simulation software that allows evaluating the performance of phylogenetic and phylogeographic estimators.
 
 % adding more models
 \subsection{Model availability}
 
-Our phylogenetic simulation software $\pi$BUSS presented in Chapter \ref{chap:pibuss} allows for fabricating evolution under a variety of coalescent, amino-acid, nucleotide and codon substitution models, as well as diffusion models, combined with various molecular clock models.
-In addition it offers an ability to apply different models across arbitrary partitioning schemes. %PL: also epochs?
-In future releases of $\pi$BUSS the collection of available models and data types will be extended even further.
-The development effort will be aimed at matching the model richness available for inference in BEAST, and supplying every method with its simulation counterpart in $\pi$BUSS.
-Specifically we will implement simulation counterparts for the flexible coalescent priors, like skyline \citep{Drummond2005} or skyride \citep{Minin2008b}.
-Various extensions of biologically realistic codon models with across-site and across-branch variation will appear in future releases of the software.
-
-Currently simulation of trait data in $\pi$BUSS is limited to discrete univariate traits.
-With a growing attention received by multivariate trait data, spurred by the growing interested in continuously sampled comparative biological data, there will arise a need simulate under processes generating such data.
-We plan to implement several models to do so, such as Brownian diffusion models, relaxed random walk models and models driven by the Ornstein-Uhlenbeck process.
+Our phylogenetic simulation software, $\pi$BUSS, presented in Chapter \ref{chap:pibuss} allows fabricating evolution under a variety of coalescent, nucleotide, amino-acid and codon substitution models, as well as diffusion models, combined with various molecular clock specifications.
+In addition it offers the ability to specify different models for arbitrary partitioning schemes.
+We are committed to extend the collection of available models and data types even further in future releases of $\pi$BUSS.
+We aim at matching the model richness available for inference in BEAST, and supplying every model available for inference with its simulation counterpart.
+Specifically, we will implement simulation counterparts for the flexible coalescent priors, like the skyline \citep{Drummond2005} or skyride \citep{Minin2008b} models.
+We are also considering various extensions of biologically realistic codon models with across-site and across-branch variation for future releases of the software.
+Currently, simulation of trait data in $\pi$BUSS is limited to discrete univariate traits.
+With a growing interest in multivariate trait data, not only in molecular epidemiology but in comparative biological in general, there will arise a need to simulate under continuous diffuse models.
+We plan to implement several models to this effect, such as Brownian diffusion models, relaxed random walk models and further extensions that model drift dynamics.
 
 \subsection{Graphical user interface and BEAUti integration}
 
 % gui for more complex models
-The models' specification will continue to be available via the user-friendly Graphical User Interface (GUI), which allows to setup a simulation by choosing models from drop-down menus, partitioning data in tables and parsing parameters from text fields in an intuitive fashion.
-Time-heterogenous models, for which evolutionary parameters change both across different lineages (see Subsection~\ref{sub:dpp}) as well as models of pan-lineage change (see Chapter \ref{chap:epoch}) will have dedicated panels, where users can formulate them without the need to manually edit XML files.
+We will continue to support model specification via a 
+%The models' specification will continue to be available via the
+user-friendly Graphical User Interface (GUI), which allows to setup a simulation by choosing models from drop-down menus, partitioning data in tables and parsing parameters from text fields in an intuitive fashion.
+Time-heterogeneous models, for which evolutionary parameters change both across different lineages (see Subsection~\ref{sub:dpp}) as well as models of pan-lineage change (see Chapter \ref{chap:epoch}) will be supported by dedicated panels, therefore avoiding the need to manually edit XML files.
 % beauti integration
-In addition to it's Command Line Interface for scripting purposes and XML parsers available via BEAST's core implementation, $\pi$BUSS is in a sense similar to the BEAUti software package, which helps BEAST users in setting up their analysis through a user-friendly GUI.
-We will proceed along that path, by providing even closer integration between the two programs and facilitating generation of joint simulation-analysis XML documents in which fabricated data is instantly passed to BEASTs XML parsers for inference.
+In addition to the Command Line Interface for scripting purposes, $\pi$BUSS is in a sense similar to the BEAUti software tool, which assists BEAST users in setting up their analysis through a user-friendly GUI.
+We will proceed along that path and provide even closer integration between the two programs in order to facilitate the generation of joint simulation-analysis XML documents in which fabricated data is instantly passed to the BEAST XML parsers for inference.
 
 % indel models
 \subsection{Simulation of insertion deletion events}
 
-In the field of molecular biology, insertions and deletions (indels) exist on the other end of spectrum of mutations then substitution events, which we discussed in details in Subsection \ref{sub:subst_models}.
-Whereas substitutions are point mutations which replace one nucleotide with another, indels proceed by either inserting or deleting nucleotides in a sequence, thus altering its length. 
-Indel mutations are well known to have a significant impact on processes of molecular evolution \citep{Fletcher2009}, especially on viral genomes, which are usually small.
-The extent of this impact will depends on the position of the event in the coding regions of the genome.
+In molecular evolution, not only substitution processes (Subsection \ref{sub:subst_models}), but also insertions and deletions (indels) provide a mechanism for generating genetic diversity.
+%Whereas substitutions are point mutations which replace one nucleotide with another, indels proceed by either inserting or deleting nucleotides in a sequence, thus altering its length. 
+Indel mutations are well known to have a significant impact on molecular evolutionary processes \citep{Fletcher2009}, and small viral genomes may be particularly sensitive to them.
+%The extent of this impact will depends on the position of the event in the coding regions of the genome.
 % FB: check if I'm not talking out of my ass here:
-When an integer multiple of a codon triplet is inserted or deleted it means that one or more amino acids are inserted or deleted leaving the protein function unchanged.
-In the case of one or two indel events the resulting gene usually codes for a different protein with different amino-acids.
-This makes insertion/deletion sequence simulation important for evaluating new models and alignment procedures.
-Realistic indel simulation requires however separate stochastic models.
-Standard modelling assumptions, such as those used for standard substitution models (see Subsection~\ref{sub:subst_models}), are not realistic for indel events.
-Future releases of $\pi$BUSS will implement that option, starting with the stochastic Dollo model \citep{LeQuesne1974}.
+% PL: you are :), an indel that disrupts the reading frame makes the protein dysfunctional. If not, it still has a high probability of affecting the protein function
+%When an integer multiple of a codon triplet is inserted or deleted it means that one or more amino acids are inserted or deleted leaving the protein function unchanged.
+%In the case of one or two indel events the resulting gene usually codes for a different protein with different amino-acids.
+Indels are not only of interest because of their evolutionary consequences, but they are also important to accurately position by alignment procedures.
+%This makes insertion/deletion sequence simulation important for evaluating new models and alignment procedures.
+Realistic indel simulation requires however specific stochastic models.
+Standard modeling assumptions, such as those used in CTMC substitution models (see Subsection~\ref{sub:subst_models}), are not realistic for indel events. %PL:  point out which ones. Reversibility seems a major one
+Future releases of $\pi$BUSS will aim at implementation stochastic processes for indel evolution. % that option, starting with the stochastic Dollo model \citep{LeQuesne1974}.
+%PL: I deleted the stochastic doll model as it doesn't seem to be the first to think about. It is a specific acquisition-loss process that allows acquiring a trait once and then independently loosing that trait on multiple occasions (but never acquiring it anymore). A bit more on models specifically dealing with indel evolution and some references would suit better here. Quickly scan some papers to drop something on them -- you may get questions on this anyway.
 
 %%%%%%%%%%%
 %---HPC---%
