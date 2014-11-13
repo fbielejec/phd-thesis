@@ -78,7 +78,6 @@ Dirichlet Process Priors (DPP) may offer a solution to arrive at efficient estim
 In Subsection \ref{sub:dpp} we further discuss this interesting class of non-parametric prior distributions that we are currently exploring to infer variable selection pressures among lineages using codon substitution models.
 %At the time of writing this chapter we are testing these possibilities, yet exactly how accurate the inference of the transition times can be, and how we can quantify the predictive value of those covariates remains an open question for future studies.
 
-%PL: added this below, check for references
 \subsection{Introducing covariates in the epoch model}
 
 In order to test which factors explain the variation in an evolutionary parameter over time, we are currently exploring a \emph{mixed effects} modeling approach. 
@@ -93,9 +92,6 @@ This will lead to more direct testing of hypotheses that attempt to explain HIV 
 \section{Heterogenous models of codon evolution\label{sub:dpp}}
 
 %\subsection{Introduction}
-
-%PL: incorporate the citations of this section
-
 
 In Chapter \ref{chap:epoch}, we `epochized' codon substitution models in order to evaluate changing selective pressure in within-host HIV evolution. 
 This indicates that flexible modeling of codon evolution may provide important biological insights. 
@@ -429,8 +425,9 @@ mapping of a phylogeny in a geographical context
 %diagram like that, depicting evolutionary tree over geographical map
 is the famous \textit{Hypothetical Sketch of the Monophyletic Origin and the Extension of the 12 Races of Man from Lemuria over the Earth} shown in \cite{Haeckel1876} (see Figure~\ref{fig:lemuria}).
 Ernst Haeckel, a XIX century naturalist entertained the idea that the absence of missing fossil links in human evolution at his time could be explained by existence of \textit{Lemuria}, a sunken island in the Indian Ocean.  
-Although the hypothesis obviously did not hold, the phylogenetic visualization has received considerable attention.
+% Although the hypothesis obviously did not hold, the phylogenetic visualization has received considerable attention.
 %The phylogenetic visualisation has surpassed the, entirely discredited, work itself.
+Although the hypothesis obviously did not hold, the phylogenetic visualization has received considerable attention and surpassed the discredited work.
 
 \begin{figure}[H]
 \centering
@@ -589,21 +586,52 @@ We will proceed along that path and provide even closer integration between the 
 
 % indel models
 \subsection{Simulation of insertion deletion events}
-
-In molecular evolution, not only substitution processes (Subsection \ref{sub:subst_models}), but also insertions and deletions (indels) provide a mechanism for generating genetic diversity.
-%Whereas substitutions are point mutations which replace one nucleotide with another, indels proceed by either inserting or deleting nucleotides in a sequence, thus altering its length. 
-Indel mutations are well known to have a significant impact on molecular evolutionary processes \citep{Fletcher2009}, and small viral genomes may be particularly sensitive to them.
 %The extent of this impact will depends on the position of the event in the coding regions of the genome.
 % FB: check if I'm not talking out of my ass here:
 % PL: you are :), an indel that disrupts the reading frame makes the protein dysfunctional. If not, it still has a high probability of affecting the protein function
 %When an integer multiple of a codon triplet is inserted or deleted it means that one or more amino acids are inserted or deleted leaving the protein function unchanged.
 %In the case of one or two indel events the resulting gene usually codes for a different protein with different amino-acids.
+
+In molecular evolution, not only substitution processes (Subsection \ref{sub:subst_models}), but also insertions and deletions (indels) provide a mechanism for generating genetic diversity.
+Indel mutations are well known to have a significant impact on molecular evolutionary processes \citep{Fletcher2009}, and small viral genomes may be particularly sensitive to them.
 Indels are not only of interest because of their evolutionary consequences, but they are also important to accurately position by alignment procedures.
-%This makes insertion/deletion sequence simulation important for evaluating new models and alignment procedures.
 Realistic indel simulation requires however specific stochastic models.
 Standard modeling assumptions, such as those used in CTMC substitution models (see Subsection~\ref{sub:subst_models}), are not realistic for indel events. %PL:  point out which ones. Reversibility seems a major one
-Future releases of $\pi$BUSS will aim at implementation stochastic processes for indel evolution. % that option, starting with the stochastic Dollo model \citep{LeQuesne1974}.
+Future releases of $\pi$BUSS will aim at implementation stochastic processes for indel evolution.
 %PL: I deleted the stochastic doll model as it doesn't seem to be the first to think about. It is a specific acquisition-loss process that allows acquiring a trait once and then independently loosing that trait on multiple occasions (but never acquiring it anymore). A bit more on models specifically dealing with indel evolution and some references would suit better here. Quickly scan some papers to drop something on them -- you may get questions on this anyway.
+
+Just like substitutions, indels are discrete event occuring in a real time.
+By convention, following \cite{Thorne1991} the insertion-deletion events are typically presented as links separating character sequence bases (see Figure~\ref{fig:indels}).
+Indels are characterized by two parameters.
+The length represents the number of blocks inserted or deleted, where each block is an integer multiple of 1 for nucleotide or an integer multiple of 3 for codons space. 
+Conversely the location is the position in the sequence where the blocks of characters are inserted or the position where the deletion begins.
+
+\begin{figure}
+\centering
+$$\bullet\; C\;\star C\;\star\; A\;\star\; C\;\star\; T\;\star$$
+\caption{
+{ \footnotesize 
+{\bf DNA sequence CCACT of length $L=5$, with $L+1$ links that separate the characters.} 
+By convention to the right of each base there is a \textit{normal link} ($\star$); the leftmost base has an \textit{immortal link} to itself($\bullet$), ensuring that an insertion can occur at position $l=0$.
+} % END: footnotesize
+}
+\label{fig:indels}
+\end{figure}
+
+\cite{dawg} models indel sizes \textit{i.a.} using a negative binomial distribution and a power law, truncated at some user specified, maximum indel size $M$.
+\cite{Benner1993} notes that the power law (the Zipfian distribution, \cite{Gonnet1991}) follows the empirical gap lengths distribution. 
+
+If by $\lambda_{I}$ we denote the insertion rate at a location, then the waiting times until an insertion occurs are exponentially distributed with rate $\lambda_{I}(L+1)$.
+Insertions are then drawn from the stationary distribution $\mathbf{\Pi}=\{\pi_{i},\ i\in\mathcal{E}\}$ of the underlying substitution model.
+
+The procedure of \cite{dawg} simulates deletion by assuming that the simulated sequence, of length $L$ lies within a larger sequence of length $N$, where $L\ll N$.
+The maximum allowed deletion spans for $M$ blocks, such that $M \ll N$.
+This ensures that the deletions can happen at the end of the sequence.
+A deletion of an arbitrary size $u$ happening in the larger sequence will result in deletions in the subsequence, if it begins at one of the L sites of the smaller sequence, or one of the $u-1$ sites preceding the subsequence.
+Deletions are assumed to appear uniformly along the larger sequence, therefore the probability of a deletion of size $u$ in the larger sequence deleting some part of the smaller sequence is $\frac{u-1+L}{N}$.
+If $\lambda_{D}$ is the rate of deletion per location then the waiting time for a deletion in a smaller sequence is exponentially distributed with rate $\lambda_{D}(u-1+L)$ \citep{dawg}.
+
+
 
 %%%%%%%%%%%
 %---HPC---%
