@@ -1,0 +1,53 @@
+% Samenvatting ====================================================================
+
+\pdfbookmark[1]{Samenvatting}{Samenvatting}
+\chapter*{Samenvatting}
+
+TODO
+
+\bigskip{}
+
+\emph{``28 gram van preventie zijn de moeite 454 gram cure''}
+--- Een oud gezegde
+
+\bigskip{}
+
+Opkomst van pandemische uitbraken, waarvan we getuige met alarmerend toenemende frequentie, een duidelijke en onmiddellijke bedreiging van de volksgezondheid.
+Deze dreiging is geillustreerd door de H1N1 influenza A uitbraak, of het Ebola-virus uitbraak in West-Afrika.
+Bestrijding van virale verspreiding en de bijbehorende ziektelast is een enorme uitdaging aanzienlijke onderzoeksinspanningen en besloot de volksgezondheid maatregelen vereisen.
+
+Virale sequentiegegevens, die nu beschikbaar komen in ongekende hoeveelheden en met opmerkelijke snelheid, vaak gekarakteriseerd als een van de belangrijkste activa karakterisatie van pathogenen geassocieerd met een hoge mortaliteit.
+Het onderzoek richting bedacht `phylodynamics 'integreert moleculaire en epidemiologische gegevens, met als doel om een volledig kwantitatief inzicht in de processen die de epidemiologie, de evolutie en verspreiding van virussen vorm te ontwikkelen.
+
+In dit proefschrift ik mijn bijdragen schetsen om uitgebreide analyses van de interactie tussen de ecologische en evolutionaire dynamiek van opkomende virussen te streven.
+In het bijzonder beoogt dit promotie project bij het bevorderen van statistische modellen voor het ontrafelen van virale tijdruimtelijk geschiedenis, om een adequate visualisatie van onze statistische schattingen te verstrekken, en om de computationele last in verband met het opstellen gevolgtrekking onder deze modellen te verlichten.
+
+Ik ben van mening dat deze ontwikkelingen uiteindelijk zal bijdragen aan de ontwikkeling van effectieve interventie en preventie strategieen.
+
+Hoofdstuk~\ref {chap:intro} van dit proefschrift introduceert fundamentele aspecten van phylogenetics.
+Sectie~\ref{sub:general} bespreekt welke processen de vorm van de evolutie en de opkomst van ziekteverwekkers en hoe phylogenetics gevolgtrekking kan worden gebruikt om die verleden processen af te leiden.
+In hoofdstuk~\ref{sec:markov} Ik ga dan verder met de theorie van Markov-ketens en waarschijnlijkheid berekening te introduceren, en hoe deze theorie wordt gebruikt om stochastische modellen van sequence evolutie formuleren.
+Er zijn ook eenvoudige voorbeelden die dienen om de concepten te illustreren.
+Tenslotte Sectie~\ref{sec:bayesian_inference} dekt Bayesiaanse methoden en MCMC algoritmen, met enkele details van de uitvoering van die in de BEAST software.
+
+Hoofdstuk ~\ref{chap:epoch} is een uitgebreide versie van het artikel door mij, Philippe Lemey, Marc Suchard, Guy Baele en Andrew Rambaut \citep{Bielejec2014a} on time-heterogene `epoch 'modellen.
+Ik omvatte de details van de uitvoering van de numerieke procedures in BEAST softwarepakket en BEAGLE bibliotheek, evenals speed-up vergelijkingen tussen sequentiele (CPU) en parallel (GPU) implementaties, die in de gedrukte versie van het manuscript werden achtergelaten.
+In dit hoofdstuk wordt begeleid door aanhangsel~\ref{app:epoch}, waarin wordt beschreven hoe de geimplementeerde modellen setup als een XML-document leesbaar BEAST kan zijn.
+In hoofdstuk~\ref{sec:extend_epoch} bespreek ik een aantal interessante mogelijke uitbreidingen en de lopende werkzaamheden met betrekking tot dit model.
+
+In de hoofdstukken~\ref{chap:spread}~en~\ref{chap:pibuss}, overgenomen uit eerdere publicaties, introduceer ik twee softwarepakketten geschreven en onderhouden door mij in de loop van mijn PhD opleiding.
+In het bijzonder hoofdstuk~\ref{chap:spread} presenteert software voor het visualiseren fylogeografische reconstructies als gevolg van Bayesiaanse gevolgtrekking van virale diffusie genoemd SPREAD.
+Dit bijzondere programma heeft bewezen zeer populair, dat is de reden waarom in paragraaf~\ref{sec:spread_exten} Ik bespreek uitbreidingen en verbeteringen die zijn gepland om te verschijnen in de tweede versie van het pakket.
+Gedetailleerde tutorial over het gebruik van de huidige versie van dit pakket is te vinden in appendix~\ref{app:spread_tuto}.
+
+{\bussname} simulatie softwarepakket wordt besproken in hoofdstuk~\ref{chap:pibuss}, samen met een simulatie-onderzoek dat is gericht op het verkennen van de grenzen van het schatten van oude divergentie tijden wanneer zij worden geconfronteerd met moleculaire data afkomstig van snel veranderende virussen.
+Deze studie is mijn interesse in het ontwikkelen van meer biologisch realistische codon modellen, die het mogelijk maken voor zowel over het terrein en over-tak variatie aangewakkerd.
+De modellen moeten de resolutie waarmee we kunnen schatten oude Rooth hoogten te verbeteren. % Zeker verduisterd met zuiverende selectie.
+Dit lopende werkzaamheden wordt beschreven in hoofdstuk~\ref{sub:dpp}.
+Toekomstige uitbreidingen van de {\bussname} simulator zijn beschreven in hoofdstuk~\ref{sec:buss_future} en een zachte tutorial over het gebruik van deze software is in appendix~\ref{app:pibuss_tuto}.
+
+Tenslotte hoofdstuk~\ref{chap:discussion} biedt een breder perspectief op het gepresenteerde werk.
+Onderafdeling~\ref{sub:visual} van dit hoofdstuk beschrijf ik een aantal van de vroegere en huidige inspanningen tijdruimtelijke diffusie processen te visualiseren, en hoe SPREAD is gepositioneerd ten opzichte van die inspanningen.
+
+In het laatste hoofdstuk~\ref{sec:hpc} kort ik ingaan op de geschiedenis van de high-performance computing en overgaan tot een aantal van de parallel computing architecturen die in gebruik zijn vandaag de dag te bespreken.
+Deze voorschotten zijn van het grootste belang voor de data-driven bioinformatica gemeenschap, en leren hoe ze hun rekenkracht mogelijkheden behoren benutten is een neccesity als we willen profiteren van de enorme hoeveelheid genomische data elke dag verzameld.
