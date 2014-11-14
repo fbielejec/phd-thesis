@@ -3,7 +3,58 @@
 \pdfbookmark[1]{Summary}{Summary}
 \chapter*{Summary}
 
-TODO
+\bigskip{}
 
-28 grams of prevention are worth 454 grams of cure
--- Old saying
+\emph{``28 grams of prevention are worth 454 grams of cure''}
+--- An old saying
+
+\bigskip{}
+
+Emergence of pandemic outbreaks, which we witness with alarmingly increasing frequency, represents a clear and imminent threat to the public health. 
+This threat has been exemplified by the H1N1 influenza A outbreak, or the Ebola virus outbreak in West Africa.
+Combating viral spread and their associated disease burden is a tremendous challenge requiring significant research efforts and decided public health measures. 
+
+Viral sequence data, which is now becoming available in unprecedented quantities and with remarkable rapidity, is frequently characterized to be one of the main assets in characterization of pathogens associated with high mortality. 
+The research direction coined `phylodynamics' integrates molecular and epidemiological data, aiming to develop a full quantitative understanding  of the processes that shape the epidemiology, evolution and spread of viruses.
+
+In this thesis I outline my contributions to pursue comprehensive analyses of the interaction between the ecological and evolutionary dynamics of emerging viruses.
+In particular this PhD project aims at advancing statistical models for unravelling viral spatiotemporal history, to provide adequate visualization of our statistical estimates, and to alleviate the computational burden associated with drawing inference under these models.
+
+I believe that these developments will ultimately contribute to the development of effective intervention and prevention strategies. 
+
+Chapter~\ref{chap:intro} of this thesis introduces fundamental aspects of phylogenetics.
+Section~\ref{sub:general} discusses what processes shape the evolution and emergence of pathogens and how phylogenetics inference can be used to infer those past processes.
+In Section~\ref{sec:markov} I then proceed to introduce the theory of Markov chains and likelihood computation, and how this theory is used to formulate stochastic models of sequence evolution. 
+There are also simple examples which serve to illustrate these concepts.
+Finally Section~\ref{sec:bayesian_inference} covers Bayesian methods and MCMC algorithms, with some details of the implementation of those in the BEAST software.
+
+Chapter~\ref{chap:epoch} is an expanded version of article by me, Philippe Lemey, Marc Suchard, Guy Baele and Andrew Rambaut \citep{Bielejec2014a} on time-heterogenous `epoch' models.
+I included details of the implementation of the numerical procedures in BEAST software package and BEAGLE library, as well as speed-up comparisons between sequential (CPU) and parallel (GPU) implementations, which were left out in the printed version of the manuscript.
+This chapter is accompanied by Appendix~\ref{app:epoch}, which describes how the implemented models can be setup as an XML document readable by BEAST.
+In Section~\ref{sec:extend_epoch} I discuss some interesting possible extensions and ongoing work regarding this model.
+
+In Chapters~\ref{chap:spread}~and~\ref{chap:pibuss}, adopted from earlier publications, I introduce two software packages written and maintained by me in course of my PhD training.
+In particular Chapter~\ref{chap:spread} presents software for visualising phylogeographic reconstructions resulting from Bayesian inference of viral diffusion processes called SPREAD.
+This particular program has proven to be quite popular, which is why in Section~\ref{sec:spread_exten} I discuss extensions and improvements which are planned to appear in the second version of the package.
+Detailed tutorial on using the current version of this package can be found in Appendix~\ref{app:spread_tuto}.
+
+{\bussname} simulation software package is discussed in Chapter~\ref{chap:pibuss}, along with a simulation study that aims at exploring the limits of estimating old divergence times when faced with molecular data coming from rapidly evolving viruses.
+This study has sparked my interest in developing more biologically realistic codon models, which allow for both across-site and across-branch variation
+Such models should improve the resolution with which we can estimate old rooth heights. % especially obscured with purifying selection.
+This ongoing work is decribed in Section~\ref{sub:dpp}.
+Future extensions of the {\bussname} simulator are described in Section~\ref{sec:buss_future} and a gentle tutorial on using this software is in Appendix~\ref{app:pibuss_tuto}.
+
+Finally Chapter~\ref{chap:discussion} offers a wider perspective on the presented work. 
+In Subsection~\ref{sub:visual} of this chapter I describe some of the past and current efforts to visualize spatio-temporal diffusion processes, and how SPREAD is positioned in relation to those endeavors.
+
+In the last Section~\ref{sec:hpc} I briefly touch upon the history of high-performance computing and proceed to discuss some of the parallel computing architectures which are in use today. 
+These advances are of utmost importance for the data-driven bioinformatics community, and learning how to properly leverage their computing capabilities is a neccesity if we want to capitalize on the vast amount of genomic data collected every day.
+
+
+
+
+
+
+
+
+
