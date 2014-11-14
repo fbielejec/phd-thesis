@@ -2,20 +2,20 @@
 
 \begin{remark}{Outline}
 
-In this thesis, we present three pieces of work that revolve around modeling evolution as a CTMC process in a phylogenetic context. 
-First we demonstrated how we can relax the time-homogeneity assumption in a Bayesian phylogenetic framework leading to the identification of changing sequence and trait evolutionary processes through time.
-Next, we introduce a novel simulation architecture that closely matches the model developments in the Bayesian framework we contribute to.
-Finally, we complement the Bayesian phylogeographic inference framework with an easy-to-use visualization software to assist the practitioner in interpreting spatiotemporal reconstructions.
-In this concluding chapter several aspects of the presented work are put into a wider perspective, and we discuss possible extensions in more detail. 
+In this thesis, we presented three pieces of work that revolve around modeling evolution as a CTMC process in a phylogenetic context. 
+First, we demonstrated how we can relax the time-homogeneity assumption in a Bayesian phylogenetic framework leading to the identification of changing sequence and trait evolutionary processes through time.
+Next, we introduced a novel simulation architecture that closely matches the model developments in the Bayesian framework we contribute to.
+Finally, we complemented the Bayesian phylogeographic inference framework with an easy-to-use visualization software to assist the practitioner in interpreting spatiotemporal reconstructions.
+In this concluding chapter, we put several aspects of the presented work into a wider perspective, and we discuss possible extensions in more detail. 
 
 An important part of the work in this thesis is motivated by the need to relax the standard phylogenetic assumptions in search of more biologically plausible models. 
 In that respect the work on the time-heterogeneous modeling, presented in Chapter~\ref{chap:epoch}, can be viewed as a first step towards a broader range of models that tackle different types of time-heterogeneity.
 We highlight one possible extension of the epoch model, in which time changes in a non-linear fashion.
-We then discuss the possibility to infer both the time and the number of change-points, or transition times, in the epoch model specification via Dirichlet process priors, on which we elaborate in the second section of this summarizing chapter. 
+We then discuss the possibility of inferring both the time and the number of change-points, or transition times, in the epoch model specification via Dirichlet process priors, on which we elaborate in the second section of this summarizing chapter. 
 
 One of the epoch applications focused on the use of codon substitution models to investigate changing selective pressures in HIV evolution within hosts.
 Due to their computational burden, the development of codon substitution model extensions in Bayesian phylogenetic inference involving random trees has remained limited.
-Motivated by the evolutionary insights that dedicated codon substitution models can provide and by the computational speed-ups we achieved in the epoch inference through fine and coarse grain parallelization, we are now starting to explore flexible codon model parameterizations in our framework.  
+Motivated by the evolutionary insights that dedicated codon substitution models can provide and by the computational speed-ups we achieved in the epoch inference through fine-grained and coarse-grained parallelization, we are now starting to explore flexible codon model parameterizations in our framework.  
 We highlight some of the ongoing work in which we adopt Dirichlet process priors in order to model among-branch and among-site variation in the codon substitution process.
 
 A substantial portion of the work presented in this thesis is devoted to the development of flexible, easy-to-use software.
@@ -94,7 +94,7 @@ This will lead to more direct testing of hypotheses that attempt to explain HIV 
 %\subsection{Introduction}
 
 In Chapter \ref{chap:epoch}, we `epochized' codon substitution models in order to evaluate changing selective pressure in within-host HIV evolution. 
-This indicates that flexible codon modeling may provide important biological insights. 
+This indicates that flexible modeling of codon evolution may provide important biological insights. 
 Their application in a Bayesian phylogenetic context has however been limited due to computational restrictions. 
 As also demonstrated by our work, GPU computing now offers the opportunity to push the limits of phylogenetic likelihood computation for high state-space models. 
 Our work therefore provides a motivation for codon model developments in the Bayesian framework, and below, we discuss the efforts in this direction that we are currently undertaking.
@@ -113,7 +113,7 @@ Setting all $\theta_{mn,s}$ equal to 1 and assuming no rate variation among site
 Whereas a homogeneous MG94 model is relatively straightforward to estimate, it most likely constitutes an oversimplification, as there is no biological reason to assume that the selective pressures are the same for any two branches or any two sites.
 To incorporate among-lineage variation in both $\alpha$ and $\beta$, the most flexible, but likely over-parameterized, approach would be to consider a separate MG94 for each branch in the phylogeny.
 This would however be computationally impractical to fit to large size data sets, because it requires an eigen-decomposition of the infinitesimal generator for each branch.
-Specifying different substitution models for different time intervals or epochs throughout the evolutionary history, which we demonstrated using a Goldman and Yang codon substitution model \cite{Goldman1994} in BEAST, provides one way of introducing heterogeneity through time, while keeping the computation time manageable (Chapter~\ref{chap:epoch}). 
+Specifying different substitution models for different time intervals or epochs throughout the evolutionary history, which we demonstrated using a Goldman and Yang codon substitution model \citep{Goldman1994} in BEAST, provides one way of introducing heterogeneity through time, while keeping the computation time manageable (Chapter~\ref{chap:epoch}). 
 
 %FB: typical notation  DP(G_0,\gamma)
 Although the epoch model is useful as a specific case of allowing for variation in $\alpha$ and $\beta$ throughout evolutionary history, more general approaches would be desirable.
@@ -124,7 +124,7 @@ In phylogenetics, this model has been developed for modeling among-site variatio
 A Dirichlet process DP$(F, \alpha)$, where $F$ (the base distribution) is a single parametric distribution and $\alpha$ (the concentration parameter) is a positive real number, returns a random distribution that is an infinite mixture of $F$ with different base parameters, e.g.~means and variances.
 The partitioning of branches into specific realized values, called categories, is controlled by the concentration parameter $\alpha$, where small values of $\alpha$ lead to fewer categories and greater homogeneity of the substitution process, whereas large values indicate increased branch- or site-specific substitution processes.
 Whereas often a single (branch- or site-specific) parameter is drawn from the base distribution $F$, our approach for the MG94 model requires two of such parameters to be drawn, for which we propose to first adapt the suggested DP prior.
-A limitation of the DP is that there is no naturally ordering for its realizations; any two draws share the same correlation.  
+A limitation of the DP is that there is no natural ordering for its realizations; any two draws share the same correlation.  
 On an evolutionary history, this assumption is unrealistic; Thorne et al.~\citep{Thorne1998}, Seo et al.~\citep{SKT04} and Aris-Brosou and Yang \citep{Aris-Brosou2002} have long argued for phylogenetic auto-correlation among branch-specific rates.
 We propose to achieve both auto-correlation and non-parametric flexibility by extending DPs to have first-order dependence along the evolutionary history.  
 To accomplish this, recent work in Bayesian inference with DPs and their generalization, \emph{Polya urns}, \citep{Guha2010} shows that \emph{infinite hidden Markov} models \citep{Beal2002} in the computer science literature are now as convenient to fit as DPs and will allow for dependence across neighboring branches while retaining their non-parametric behavior.
@@ -412,10 +412,10 @@ Such a bias has been attributed to the action of strong purifying selection over
 In Section~\ref{sub:clocks} we discussed how past evolutionary events can be estimated in calendar time units by using molecular clock models and historical node calibrations or dated tip calibrations.
 A natural representation of the spatiotemporal reconstructions is to animate a `geophylogeny' as it unfolds through time and space.
 The visualization of spatiotemporal history, with the possibility to dynamically examine how the diffusion process unfolds, has been the main motivation for the development of SPREAD \citep{Bielejec2011}, presented in Chapter~\ref{chap:spread}.
-SPREAD allows for visualizing animated geophylogenies in an automated manner, by producing output in time-annotated Keyhole Markup Language (KML), an ISO standard geographic markup language maintained by the Open Geospatial Consortium that can read and written by most spatial software. 
+SPREAD allows for visualizing animated geophylogenies in an automated manner, by producing output in time-annotated Keyhole Markup Language (KML), an ISO standard geographic markup language maintained by the Open Geospatial Consortium that can be read and written by most spatial software. 
 KML encoding allows for manipulating virtually all aspects of the mapping: colour and line thickness, height and placement, the type of projection, labeling, etc.
 The SPREAD GUI provides the user with control over fine-tuning these parameters and the output can be used in virtual globe software like Google Earth (\url{http://www.google.com/earth/}) or high-end GIS software like ArcGIS or Cartographica.
-Here, we take the opportunity to position our visualation approach among others and discuss further directions of SPREAD in more details.
+Here, we take the opportunity to position our visualization approach among others and discuss further directions of SPREAD in more details.
 
 \subsection{Past and current efforts in visualising phylogeography\label{sub:visual}}
 
@@ -481,9 +481,9 @@ In BEAST, location data can be modeled either as finite and countable (discrete)
 This choice is mainly dependent on the sampling scheme of the data and the nature of the dispersal process.
 Different representations of uncertainty need to be applied in these approaches.
 When bivariate coordinates are inferred for the internal nodes using a Brownian motion model, the geographic uncertainty is expressed as confidence envelopes or credible contours for each internal node.
-This is illustrated by Figure~\ref{fig:cont}, where a 3D-geophylogeny with credible contours for particular points in time is projected on the surface in the Google Earth.
-We can only project a single tree from the posterior (e.g. using the mean bivariate location estimates for every node) , but the uncertainty can be obtained by slicing the each tree in the posterior at a particular point in time and imputing the locations for each branch that is sliced (Figure~\ref{fig:cont} illustrates two time slices).
-All these time-specific location estimate can be used to build a credible contour through kernel density estimation.
+This is illustrated by Figure~\ref{fig:cont}, where a 3D-geophylogeny with credible contours for particular points in time is projected on the surface in Google Earth.
+We can only project a single tree from the posterior (e.g. using the mean bivariate location estimates for every node), but the uncertainty can be obtained by slicing each tree in the posterior at a particular point in time and imputing the locations for each branch that is sliced (Figure~\ref{fig:cont} illustrates two time slices).
+All these time-specific location estimates can be used to build a credible contour through kernel density estimation.
 SPREAD supports such 2D projections based on estimates resulting from a BEAST analysis.
 
 \begin{figure}[H]
@@ -504,9 +504,9 @@ A. Example visualization in Google Earth based in estimates obtained from a real
 %SPREAD supports also 2D alternatives of such projections.
 
 \paragraph{}
-In the discrete mapping, where each state represents a point location, similar easily interpretable projections including uncertainty are harder to obtain.
+In the discrete mapping, where each state represents a point location, similarly easily interpretable projections including uncertainty are harder to obtain.
 Only branches that accommodate a state transition, according to the modal estimates at the parent and descendent node, can be distinguished and are projected as arcs, as depicted in Figure~\ref{fig:discrete}.
-This illustrates a restrictive assumption of discrete phylogeographic inference, that is all nodes are assumed to have lived in the locations from which samples were obtained.
+This illustrates a restrictive assumption of discrete phylogeographic inference, i.e. that all nodes are assumed to have lived in the locations from which samples were obtained.
 Branches that maintain a particular state according to the parent and descendent node estimate can be displayed by a circle with a diameter proportional to the number of branches maintaining that state at any point in time.
 The uncertainty associated with the node estimates in different posterior trees is however difficult to represent.
 %The circle diameter reflects the number of branches that maintain a single state according to the parent and descendent node state.
@@ -528,7 +528,7 @@ B. An example projection of influenza H5N1 over time in Google Earth for two dif
 \subsection{Future perspectives}
 
 With over a hundred citations by the time of writing this thesis, the original manuscript presenting SPREAD (\citet{Bielejec2011}, see Chapter \ref{chap:spread}) indicates a clear need for a package that can visualize phylogeographic diffusion processes inferred using Bayesian methods.
-With that responsibility in mind we will continue to support SPREAD by adding new functionalities and making more analyses available to the practioner.
+With that responsibility in mind we will continue to support SPREAD by adding new functionalities and making more analyses available to the practitioner.
 The next major release of the software will be aimed at a thorough re-write of SPREAD's internal engine, which will hopefully result in a more stable and interactive package.
 % Specifically we will target many of the feature requests, for example the ability to instantenously alter line and polygon coloring without the need to re-compute the analysis.
 
@@ -563,14 +563,14 @@ For all these reasons, the is a need to develop flexible simulation software tha
 % adding more models
 \subsection{Model availability}
 
-Our phylogenetic simulation software, $\pi$BUSS, presented in Chapter \ref{chap:pibuss} allows fabricating evolution under a variety of coalescent, nucleotide, amino-acid and codon substitution models, as well as diffusion models, combined with various molecular clock specifications.
+Our phylogenetic simulation software, $\pi$BUSS, presented in Chapter \ref{chap:pibuss} allows to fabricate evolution under a variety of coalescent, nucleotide, amino-acid and codon substitution models, as well as diffusion models, combined with various molecular clock specifications.
 In addition it offers the ability to specify different models for arbitrary partitioning schemes.
 We are committed to extend the collection of available models and data types even further in future releases of $\pi$BUSS.
 We aim at matching the model richness available for inference in BEAST, and supplying every model available for inference with its simulation counterpart.
 Specifically, we will implement simulation counterparts for the flexible coalescent priors, like the skyline \citep{Drummond2005} or skyride \citep{Minin2008b} models.
 We are also considering various extensions of biologically realistic codon models with across-site and across-branch variation for future releases of the software.
 Currently, simulation of trait data in $\pi$BUSS is limited to discrete univariate traits.
-With a growing interest in multivariate trait data, not only in molecular epidemiology but in comparative biological in general, there will arise a need to simulate under continuous diffuse models.
+With a growing interest in multivariate trait data, not only in molecular epidemiology but in comparative biology in general, there will arise a need to simulate under continuous diffusion models.
 We plan to implement several models to this effect, such as Brownian diffusion models, relaxed random walk models and further extensions that model drift dynamics.
 
 \subsection{Graphical user interface and BEAUti integration}
@@ -582,7 +582,7 @@ user-friendly Graphical User Interface (GUI), which allows to setup a simulation
 Time-heterogeneous models, for which evolutionary parameters change both across different lineages (see Subsection~\ref{sub:dpp}) as well as models of pan-lineage change (see Chapter \ref{chap:epoch}) will be supported by dedicated panels, therefore avoiding the need to manually edit XML files.
 % beauti integration
 In addition to the Command Line Interface for scripting purposes, $\pi$BUSS is in a sense similar to the BEAUti software tool, which assists BEAST users in setting up their analysis through a user-friendly GUI.
-We will proceed along that path and provide even closer integration between the two programs in order to facilitate the generation of joint simulation-analysis XML documents in which fabricated data is instantly passed to the BEAST XML parsers for inference.
+We will proceed along that path and provide even closer integration between the two programs in order to facilitate the generation of joint simulation-analysis XML documents in which fabricated data is instantly passed on to the BEAST XML parsers for inference.
 
 % indel models
 \subsection{Simulation of insertion deletion events}
@@ -638,8 +638,8 @@ If $\lambda_{D}$ is the rate of deletion per location then the waiting time for 
 %%%%%%%%%%%
 \section{High performance computing\label{sec:hpc}}
 
-The ever growing availability of molecular data produced by high-throughput sequencing brings about formidable analysis challenges, and it is even dubbed the biggest challenge for the field of virology and molecular epidemiology. 
-High performance computing (HPC) will even become more critical to address this challenge.
+The ever growing availability of molecular data produced by high-throughput sequencing brings about formidable challenges for analyses, and it is even dubbed the biggest challenge for the field of virology and molecular epidemiology. 
+High performance computing (HPC) will become even more critical to address this challenge.
 %High performance computing (HPC) tasks are characterized as needing large amounts of computing power, and teh field is interested in reducing the time to complete an individual job.
 Here, we discuss several architectures that are used for high performance statistical phylogenetics. 
 
@@ -676,14 +676,13 @@ The report itself provided the first description of a computer in the modern sen
 
 Traditionally a vast majority of programs were written as sequential code, following von Neumanns design, which proved to be working well for the scientific community for many years.
 This relates to an observation, which later came to be known as Moore's law, predicting the trend in chip performance as doubling roughly every $18$ months.
-As captured by an observation that later came to be known as Moore's law, chip performance was predicted to double roughly every $18$ months.
-Figure~\ref{fig:moore} shows how during the time of $15$ years the hardware performance and improvements in compiler technology provided a speedup by a factor of $80$.
+%As captured by an observation that later came to be known as Moore's law, chip performance was predicted to double roughly every $18$ months.
+Figure~\ref{fig:moore} shows how, during the time of $15$ years, the hardware performance and improvements in compiler technology provided a speedup by a factor of $80$.
 %PL: whats the best and average in the plot; was it taken from somewhere -- in other words does it needs acknowledgements?
-For practical purposes this meant that just by updating the hardware architecture and compilators %PL: compilers?
-increasingly bigger problems could be tackled, without ever changing the code-base of the numerical programs. 
+For practical purposes this meant that just by updating the hardware architecture and compilers increasingly bigger problems could be tackled, without ever changing the code-base of the numerical programs. 
 The same software would simply run faster with the introduction of new generations of processors and new versions of compilers.
 %This has created a positive cycle for the computer industry.
-However, during last two years in the plot this gain is no longer visible\footnote{The free ride is over!}.
+However, during the last two years in the plot this gain is no longer visible\footnote{The free ride is over!}.
 Due to hardware limitations, and problems with heat dissipation, we are now at the limit of how many transistors can be put into integrated circuits, which determines CPU performance.
 As a consequence, serial computations on new CPUs no longer benefit from the same increases in speed and performance.
 
@@ -701,9 +700,9 @@ As a consequence, serial computations on new CPUs no longer benefit from the sam
 
 
 \paragraph{}
-Fortunately increasing availability of parallel processing hardware offers a solution for almost all data intensive computations.
+Fortunately the increasing availability of parallel processing hardware offers a solution for almost all data intensive computations.
 This implies that software applications will continue to benefit from performance improvements as long as they target the new generation of parallel microprocessors in which multiple threads cooperate to jointly complete the work faster.
-Parallel computers are becoming more widespread, and can take a form of supercomputer clusters, but also inexpensive desktop multiprocessors or workstations equipped with parallel accelerators that can be geared specifically towards scientific computing.
+Computers employing parallel architectures are becoming more widespread, and can take a form of supercomputer clusters, but also inexpensive desktop multiprocessors or workstations equipped with parallel accelerators that can be geared specifically towards scientific computing.
 This brings about an increasing need for parallelizing programming code, something referred to as the \textit{concurrency revolution} \citep{Sutter2005}.
 
 % two roads: many core and multi core
@@ -711,33 +710,33 @@ This brings about an increasing need for parallelizing programming code, somethi
 
 %Emerging areas of research, such as computational biology have all implications for algorithms and software development.
 To capitalize on the vast amounts of data that are now available, future development of phylogenetic software should target high performance parallel computing devices.
-To properly leverage this compute power, the burden of improving the performance is, at least partially, shifted from hardware vendors to software developers.
-Writing and optimizing massively parallel code requires deep understanding of the underlying architecture, associated libraries and APIs and the correct use of the performance assessment tools.
+To properly leverage this computation power, the burden of improving the performance is, at least partially, shifted from hardware vendors to software developers.
+Writing and optimizing massively parallel code requires a thorough understanding of the underlying architecture, associated libraries and APIs and the correct use of the performance assessment tools.
 
 \paragraph{}
-Currently it seems that the semiconductor industry has established two, \textit{nomen omen}, parallel paths for designing multiprocessors.
+Currently it seems that the semiconductor industry has established two, \textit{nomen set omen}, parallel paths for designing multiprocessors.
 The \textit{multicore} path began with the idea of putting two CPU cores on the same chip.
 This approach means that the current clock speed of a single core remains the same, but at the same time the vendors are approximately doubling the number of effective cores with every new generation.
 In contrast, the \textit{many-core} path focuses on increasing the throughput of parallel applications by using large numbers of much smaller and simpler cores, and again approximately doubling the number of cores that is put on every new generation of devices. 
-NVIDIAa GPUs are an exemplar of such many-core devices.
-GPUs \citep{Nickolls2008} are making a big impact on the scientific computing, which falls under under the term of general-purpose computing on graphics processing units (GPGPU).
+NVIDIA's GPUs are an exemplar of such many-core devices.
+GPUs \citep{Nickolls2008} are making a big impact on the scientific computing, which falls under the term of general-purpose computing on graphics processing units (GPGPU).
 %Because modern GPU devices are designed to maximize throughput of a given computation they are capable of achieving impressive peak performances (see Subsection~\ref{sub:fine_grain}).
-The most important factor that contributed to the wide adoption of GPUs for scientific computing is the fact that the substantial performance improvements are  relatively easily affordable. 
-Furthermore the parallel computing architecture comes with a variety of libraries, tools and extended C language to leverage the GPGPU capabilities, including NVIDIAs CUDA framework and various implementations of the OpenCL (Open Computing Language) standard.
+The most important factor that contributed to the wide adoption of GPUs for scientific computing is the fact that substantial performance improvements are relatively easily affordable. 
+Furthermore the parallel computing architecture comes with a variety of libraries, tools and extended C language to leverage the GPGPU capabilities, including NVIDIA's CUDA framework and various implementations of the OpenCL (Open Computing Language) standard.
 
 % beagle
 \paragraph{}
 %\cite{Suchard2009} have pioneered the use of GPGPU for statistical phylogenetics.
-By developing the Beagle high-performance library for  evaluating phylogenetic likelihoods of biomolecular sequence evolution, \cite{Suchard2009} 
+By developing the BEAGLE high-performance library for  evaluating phylogenetic likelihoods of molecular sequence evolution, \cite{Suchard2009} 
 have pioneered the use of GPGPU in statistical phylogenetics.
 %This work has resulted in the development of the Beagle high-performance library for  evaluating phylogenetic likelihoods of biomolecular sequence evolution \citep{Ayres2012}.
-Beagle can make use of other highly-parallel processors beside GPUs and is also capable of calling SSE (Streaming SIMD Extensions) as well as AVX (Advanced Vector Extensions) vector instructions, thus achieving improved performance on the current generation of Intel microprocessor architectures.
-The Beagle API \citep{Ayres2012} can currently be used by a range of phylogenetic software tools, such as MrBayes (\url{http://mrbayes.sourceforge.net}), Garli (\url{https://garli.googlecode.com}), PhyML (\url{https://phyml.googlecode.com}) and BEAST.
+BEAGLE can make use of other highly-parallel processors beside GPUs and is also capable of calling SSE (Streaming SIMD Extensions) as well as AVX (Advanced Vector Extensions) vector instructions, thus achieving improved performance on the current generation of Intel microprocessor architectures.
+The BEAGLEAPI \citep{Ayres2012} can currently be used by a range of phylogenetic software tools, such as MrBayes (\url{http://mrbayes.sourceforge.net}), Garli (\url{https://garli.googlecode.com}), PhyML (\url{https://phyml.googlecode.com}) and BEAST.
 
 \paragraph{}
 The use of Graphics Processing Units for scientific computing does not come without some caveats.
-Recent NVIDIAs GPU chips intended for the high-margin PC gaming market, the GeForce 600 and 700 series, have had their double-precision capabilities crippled.
-This means that the scientific community interested in high-precision computations instead of cost-sensitive consumer-class devices would have to turn towards more expensive Quadro and Tesla cards, or the GTX TITAN card.
+Recent NVIDIA GPU chips intended for the high-margin PC gaming market, the GeForce 600 and 700 series, have had their double-precision capabilities crippled.
+This means that the scientific community interested in high-precision computations would have to turn towards more expensive Quadro and Tesla cards, or the GeForce GTX Titan card, instead of cost-sensitive consumer-class devices.
 
 \paragraph{}
 Perhaps more important is the fact that the host-device scheme, in which the GPUs operate, represents a bottleneck that hampers the effective usage of GPU devices.
@@ -750,7 +749,7 @@ This bottleneck can severely affect the potential for speed increases on GPUs, i
 \subsection{Emerging architectures}
 
 % Perhaps the emerging Heterogeneous System Architecture (HSA) will offer and interesting solution to this problem.
-While current CPUs and GPUs are designed as separate devices, requiring an application to explicitly copy data from CPU to GPU and then back again, Heterogeneous System Architecture (HSA) is geared towards having a single, unified memory address space for all the data structures.
+While current CPUs and GPUs are designed as separate devices, requiring an application to explicitly copy data from CPU to GPU and then back again, a Heterogeneous System Architecture (HSA) is geared towards having a single, unified memory address space for all the data structures.
 This means that multiple compute tasks can work on the same memory regions avoiding the bottlenecks mentioned above.
 As an example, NVIDIAs Tesla accelerator cards based on the Maxwell architecture aim at an integrated ARM CPU. %of its own\footnote{Barcelona Supercomputing Center in Spain has been working on a prototype ARM-GPU supercomputer for a few years now.}.
 ARM is a family of processors based on the RISC (Reduced Instruction Set Computing) architecture, best known from portable, battery-powered devices such as smartphones or tablets. 
@@ -778,7 +777,7 @@ The first attempts at extending the BEAGLE library to FPGA architecture have rec
 In the light of these advances it is fair to say that we are entering a new era of parallel computing.
 The barrier for writing parallel code lowers with every generation of parallel devices.
 Researchers all over the world are starting to develop new models and algorithms that can benefit from this revolution.
-The hardware vendors are designing new devices that improve the power efficiency, bandwith and clock speed with every new generation.
+Hardware vendors are designing new devices that improve power efficiency, bandwidth and clock speed with every new generation.
 All these improvements come at the right moment.
 The advent of next generation sequencing data has lead to the generation of complete genome sequences in short time and at relatively low costs.
 Nowadays, it is not uncommon to work with datasets including whole genomes of organisms.
