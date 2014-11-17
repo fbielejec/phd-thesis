@@ -95,8 +95,9 @@ From the rate matrix $\mathbf{Q}$, a stochastic matrix $\mathbf{P}$ is computed 
 =\underset{j=0}{\overset{\infty}{\sum}}
 (t\mathbf{Q})^{j} / j!$. For an overview of methods to numerically approximate a matrix exponential, we refer to \citet{Moler1978}.
 %
-Drawing realizations with probabilities defined by $\mathbf{P}$ gives rise to 
-a stochastic process $\left\{ X(t):\; t\geq0\right\}$ satisfying the Markov property, such that for every $n\geq 0$, given the time points $0\leq t_{0}\leq t_{1}<\ldots<t_{n}\leq t_{n+1}$ and discrete states $i_{0},i_{1}, \ldots, i_{n},i_{n+1}$ it holds that $P\left\{ X(t_{n+1})=i_{n+1}\mid X(t_{n})=i_{n},\ldots, X(t_{0})=i_{0}\right\} =P\left\{ X(t_{n+1})=i_{n+1}\mid X(t_{n})=i_{n}\right\} $. 
+Drawing realizations with probabilities defined by $\mathbf{P}$ gives rise to a stochastic process $\left\{ X(t):\; t\geq0\right\}$ satisfying the Markov property, such that for every $n\geq 0$, given the time points $0\leq t_{0}\leq t_{1}<\ldots<t_{n}\leq t_{n+1}$ and discrete states $i_{0},i_{1}, \ldots, i_{n},i_{n+1}$ it holds that %\newline
+%
+$P\left\{ X(t_{n+1})=i_{n+1}\mid X(t_{n})=i_{n},\ldots, X(t_{0})=i_{0}\right\} =P\left\{ X(t_{n+1})=i_{n+1}\mid X(t_{n})=i_{n}\right\} $. 
 %
 In general, one refers to the elements of $\mathbf{P}$ as finite-time transition probabilities between the $K$ discrete state-space elements. Let us denote a transition probability between two states $i$ and $j$ over time $u$ to $t+u$ by
 
@@ -106,15 +107,15 @@ p_{ij}\left(u,t+u\right)=P\left\{ X(t+u)=j\mid X(u)=i\right\} .
 
 In the phylogenetic setting, researchers often further constrain these processes 
 to be time-homogeneous and time-reversible. Time-homogeneity mandates that  transition probabilities depend only on the difference $t$ between times $u$ and $t + u$,
+
 \begin{equation}
 p_{ij}\left(u,t+u\right)= p_{ij}\left(0,t\right) \equiv p_{ij}\left(t\right) .
 \end{equation}
-Time-reversible CTMCs satisfy detailed balance, such that
-$
-\pi_{i}p_{ij}(t)=\pi_{j}p_{ji}(t)
-%,
-$
-for all $i$, $j$ and $t$, where $\pi_j = p_{ij}(\infty)$ for all $j$ return the stationary distribution of the CTMC and are independent of starting state $i$.  Finally, common practice in phylogenetics reparametrizes the elements of $\mathbf{Q}$ into relative rates through the constraint $\sum_i \pi_i q_{ii} = -1$ and then, for studies involving phylogenies set in calendar time, multiples $\mathbf{Q}$ by a rate scalar $r$ to form the argument to $\mathbf{P}(t)$.  In this case, we define
+
+Time-reversible CTMCs satisfy detailed balance, such that $\pi_{i}p_{ij}(t)=\pi_{j}p_{ji}(t)$ for all $i$, $j$ and $t$, where $\pi_j = p_{ij}(\infty)$ for all $j$ return the stationary distribution of the CTMC and are independent of starting state $i$.  
+Finally, common practice in phylogenetics reparametrizes the elements of $\mathbf{Q}$ into relative rates through the constraint $\sum_i \pi_i q_{ii} = -1$ and then, for studies involving phylogenies set in calendar time, multiples $\mathbf{Q}$ by a rate scalar $r$ to form the argument to $\mathbf{P}(t)$. 
+In this case, we define
+
 \begin{equation}
 p_{ij}(u,t+u,r) 
 =
@@ -125,6 +126,7 @@ r  t  \mathbf{Q})
 ,
 \label{eq:makeprobs}
 \end{equation}
+
 where $\{ \cdot \}_{ij}$ extracts the $ij$-th element.
 
 \newcommand{\tmax}{t_{\mbox{\tiny max}}}
