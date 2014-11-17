@@ -3,6 +3,14 @@
 \pdfbookmark[1]{Samenvatting}{Samenvatting}
 \chapter*{Samenvatting}
 
+%\hyphenation{aan-zien-lij-ke}
+%\hyphenation{hoe-veel-he-den}
+%\hyphenation{dy-na-miek}
+%\hyphenation{ge-schie-de-nis}
+%\hyphenation{pro-ject}
+
+\selectlanguage{dutch}{
+
 TODO
 
 \bigskip{}
@@ -20,33 +28,35 @@ Virale sequentie data, die nu beschikbaar komen in ongekende hoeveelheden en met
 De onderzoeksrichting `phylodynamics' integreert moleculaire en epidemiologische gegevens, met als doel om tot een volledig kwantitatief inzicht te komen in de processen die de epidemiologie, de evolutie en verspreiding van virussen bepalen.
 
 In dit proefschrift beschrijf ik mijn bijdrage om tot inzichtgevende analyses van de interactie tussen de ecologische en evolutionaire dynamiek van opkomende virussen te streven.
-Specifiek beoogt dit project om betere statistische modellen voor het ontrafelen van virale geschiedenis in tijd en ruimte te ontwikkelen, om een adequate visualisatie van onze statistische schattingen te verstrekken, en om de computationele last in geassocieerd met schattingsprocedures onder deze modellen te verlichten.
-Ik ben van mening dat deze ontwikkelingen tot een beter begrip van pathogeen evolutie en epidemiologie kunnen leiden, hetgeen uiteindelijk kan bijdragen tot de ontwikkeling van effectieve interventie en preventie strategie‘n.
+Specifiek beoogt dit project om betere statistische modellen voor het ontrafelen van virale geschiedenis in tijd en ruimte te ontwikkelen, om een adequate visualisatie van onze statistische schattingen te verstrekken, en om de computationele last geassocieerd met schattingsprocedures onder deze modellen te verlichten.
+Ik ben van mening dat deze ontwikkelingen tot een beter begrip van pathogeen evolutie en epidemiologie kunnen leiden, hetgeen uiteindelijk kan bijdragen tot de ontwikkeling van effectieve interventie en preventie strategie\"en.
 
 Hoofdstuk~\ref {chap:intro} van dit proefschrift introduceert fundamentele aspecten van fylogenetische analyses.
 Sectie~\ref{sub:general} bespreekt welke processen de evolutie en de opkomst van pathogenen bepalen en hoe fylogenie kan gebruikt worden om deze historische processen te reconstrueren.
-Hoofdstuk~\ref{sec:markov} introduceert de theorie van Markov-ketens en probabilistische inferentie, en hoe deze theorie wordt gebruikt om stochastische modellen van sequence evolutie formuleren.
-Dit bevat ook eenvoudige voorbeelden die dienen om de concepten te illustreren.
-Sectie~\ref{sec:bayesian_inference} tenslotte, behandelt Bayesiaanse methoden en MCMC algoritmen, alsook enig details van hun impelmentatie in de BEAST software.
+Hoofdstuk~\ref{sec:markov} introduceert de theorie van Markov-ketens en probabilistische inferentie, en hoe deze theorie wordt gebruikt om stochastische modellen van sequentie evolutie formuleren.
+Dit hoofdstuk bevat ook eenvoudige voorbeelden die dienen om de concepten te illustreren.
+Sectie~\ref{sec:bayesian_inference} tenslotte, behandelt Bayesiaanse methoden en MCMC algoritmen, alsook enige details van hun implementatie in de BEAST software.
 
-Hoofdstuk ~\ref{chap:epoch} is een uitgebreide versie van een gepubliceerd artikel over `epoch 'modellen die process variate over de tijd toelaten \citep{Bielejec2014a}.
-Details van de uitvoering van de numerieke procedures in BEAST softwarepakket en BEAGLE bibliotheek werden toegevoegd, evenals snelheidsvergelijkingen tussen sequenti‘le (CPU) en parallele (GPU) implementaties, die in de gedrukte versie van het manuscript achterwege werden gelaten.
-Dit hoofdstuk wordt begeleid door Appendix~\ref{app:epoch}, waarin beschreven wordt hoe de ge•mplementeerde modellen in een XML-document worden gespecifieerd dat door BEAST ge•nterpreteerd wordt.
+Hoofdstuk ~\ref{chap:epoch} is een uitgebreide versie van een gepubliceerd artikel over `epoch' modellen die process variate over de tijd toelaten \citep{Bielejec2014a}.
+Details van de uitvoering van de numerieke procedures in het BEAST software pakket en de BEAGLE bibliotheek werden toegevoegd, evenals snelheidsvergelijkingen tussen sequenti\"ele (CPU) en parallelle (GPU) implementaties, die in de gedrukte versie van het manuscript achterwege werden gelaten.
+Dit hoofdstuk wordt begeleid door Appendix~\ref{app:epoch}, waarin beschreven wordt hoe de ge\"implementeerde modellen in een XML-document worden gespecificeerd dat door BEAST ge\"interpreteerd wordt.
 In hoofdstuk~\ref{sec:extend_epoch} bespreek ik een aantal interessante uitbreidingsmogelijkheden en het lopend onderzoek met betrekking tot dit model.
 
-In de hoofdstukken~\ref{chap:spread}~en~\ref{chap:pibuss}, overgenomen uit twee publicaties, introduceer ik twee softwarepakketten die geschreven en onderhouden werden als deel mijn doctoraatsproject.
-Hoofdstuk~\ref{chap:spread} presenteert de SPREAD software voor het visualiseren fylogeografische reconstructies die resulteren uit Bayesiaanse schattingen van virale diffusie.
-Omdat programma een zekere populariteit bewezen heeft, bespreek ik in paragraaf~\ref{sec:spread_exten} uitbreidingen en verbeteringen die  gepland zijn voor toekomstige versies van het pakket.
-Een gedetailleerde handleiding over het gebruik van de huidige versie van dit pakket is te vinden in appendix~\ref{app:spread_tuto}.
+In de hoofdstukken~\ref{chap:spread}~en~\ref{chap:pibuss}, overgenomen uit twee publicaties, introduceer ik twee software pakketten die geschreven en onderhouden werden als deel mijn doctoraatsproject.
+Hoofdstuk~\ref{chap:spread} presenteert de SPREAD software voor het visualiseren van fylogeografische reconstructies die resulteren uit Bayesiaanse schattingen van virale diffusie.
+Omdat het programma een zekere populariteit bewezen heeft, bespreek ik in paragraaf~\ref{sec:spread_exten} uitbreidingen en verbeteringen die  gepland zijn voor toekomstige versies van het pakket.
+Een gedetailleerde handleiding over het gebruik van de huidige versie van dit pakket is te vinden in Appendix~\ref{app:spread_tuto}.
 
-Het simulatie softwarepakket {\bussname} wordt besproken in hoofdstuk~\ref{chap:pibuss}, samen met een simulatie-onderzoek dat gericht is op het verkennen van de grenzen van het schatten van oude divergentietijden wanneer het moleculaire data afkomstig van snel veranderende virussen betreft.
+Het simulatie software pakket {\bussname} wordt besproken in hoofdstuk~\ref{chap:pibuss}, samen met een simulatie-onderzoek dat gericht is op het verkennen van de grenzen van het schatten van oude divergentietijden wanneer het moleculaire data afkomstig van snel veranderende virussen betreft.
 Deze studie heeft mijn interesse in het ontwikkelen van biologisch meer realistische codon substitutiemodellen aangewakkerd, specifiek om zowel variatie in substitutiesnelheid over posities als over takken in rekening te brengen.
 De modellen moeten de resolutie waarmee we oude divergentietijden kunnen schatten verbeteren. % Zeker verduisterd met zuiverende selectie.
 Het lopende onderzoek in die richting wordt beschreven in hoofdstuk~\ref{sub:dpp}.
-Toekomstige uitbreidingen van de {\bussname} simulator zijn beschreven in hoofdstuk~\ref{sec:buss_future} en een inleiding tot het gebruik van deze software kan in appendix~\ref{app:pibuss_tuto} gevonden worden.
+Toekomstige uitbreidingen van de {\bussname} simulator zijn beschreven in hoofdstuk~\ref{sec:buss_future} en een inleiding tot het gebruik van deze software kan in Appendix~\ref{app:pibuss_tuto} gevonden worden.
 
 Tenslotte biedt hoofdstuk~\ref{chap:discussion} een breder perspectief op het gepresenteerde werk.
 In Sectie~\ref{sub:visual} van dit hoofdstuk beschrijf ik een aantal van de vroegere en huidige inspanningen om ruimtelijke evolutieprocessen te visualiseren, en hoe SPREAD gepositioneerd kan worden ten opzichte van die inspanningen.
 
 In het laatste hoofdstuk~\ref{sec:hpc} ga ik kort in op de geschiedenis van `high-performance computing' en bespreek ik een aantal van de parallel computing architecturen die vandaag de dag gebruikt worden.
 Deze ontwikkelingen zijn van het grootste belang voor de `data-driven 'bioinformatica gemeenschap, en leren hoe hun rekenkracht kan benut worden is primordiaal als we de enorme hoeveelheid genomische data die elke dag verzameld wordt willen blijven analyseren.
+
+}
