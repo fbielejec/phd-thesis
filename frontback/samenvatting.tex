@@ -23,21 +23,21 @@ In dit proefschrift beschrijf ik mijn bijdrage om tot inzichtgevende analyses va
 Specifiek beoogt dit project om betere statistische modellen voor het ontrafelen van virale geschiedenis in tijd en ruimte te ontwikkelen, om een adequate visualisatie van onze statistische schattingen te verstrekken, en om de computationele last in geassocieerd met schattingsprocedures onder deze modellen te verlichten.
 Ik ben van mening dat deze ontwikkelingen tot een beter begrip van pathogeen evolutie en epidemiologie kunnen leiden, hetgeen uiteindelijk kan bijdragen tot de ontwikkeling van effectieve interventie en preventie strategie‘n.
 
-Hoofdstuk~\ref {chap:intro} van dit proefschrift introduceert fundamentele aspecten van phylogenetics.
-Sectie~\ref{sub:general} bespreekt welke processen de vorm van de evolutie en de opkomst van ziekteverwekkers en hoe phylogenetics gevolgtrekking kan worden gebruikt om die verleden processen af te leiden.
-In hoofdstuk~\ref{sec:markov} Ik ga dan verder met de theorie van Markov-ketens en waarschijnlijkheid berekening te introduceren, en hoe deze theorie wordt gebruikt om stochastische modellen van sequence evolutie formuleren.
-Er zijn ook eenvoudige voorbeelden die dienen om de concepten te illustreren.
-Tenslotte Sectie~\ref{sec:bayesian_inference} dekt Bayesiaanse methoden en MCMC algoritmen, met enkele details van de uitvoering van die in de BEAST software.
+Hoofdstuk~\ref {chap:intro} van dit proefschrift introduceert fundamentele aspecten van fylogenetische analyses.
+Sectie~\ref{sub:general} bespreekt welke processen de evolutie en de opkomst van pathogenen bepalen en hoe fylogenie kan gebruikt worden om deze historische processen te reconstrueren.
+Hoofdstuk~\ref{sec:markov} introduceert de theorie van Markov-ketens en probabilistische inferentie, en hoe deze theorie wordt gebruikt om stochastische modellen van sequence evolutie formuleren.
+Dit bevat ook eenvoudige voorbeelden die dienen om de concepten te illustreren.
+Sectie~\ref{sec:bayesian_inference} tenslotte, behandelt Bayesiaanse methoden en MCMC algoritmen, alsook enig details van hun impelmentatie in de BEAST software.
 
-Hoofdstuk ~\ref{chap:epoch} is een uitgebreide versie van het artikel door mij, Philippe Lemey, Marc Suchard, Guy Baele en Andrew Rambaut \citep{Bielejec2014a} on time-heterogene `epoch 'modellen.
-Ik omvatte de details van de uitvoering van de numerieke procedures in BEAST softwarepakket en BEAGLE bibliotheek, evenals speed-up vergelijkingen tussen sequentiele (CPU) en parallel (GPU) implementaties, die in de gedrukte versie van het manuscript werden achtergelaten.
-In dit hoofdstuk wordt begeleid door aanhangsel~\ref{app:epoch}, waarin wordt beschreven hoe de geimplementeerde modellen setup als een XML-document leesbaar BEAST kan zijn.
-In hoofdstuk~\ref{sec:extend_epoch} bespreek ik een aantal interessante mogelijke uitbreidingen en de lopende werkzaamheden met betrekking tot dit model.
+Hoofdstuk ~\ref{chap:epoch} is een uitgebreide versie van een gepubliceerd artikel over `epoch 'modellen die process variate over de tijd toelaten \citep{Bielejec2014a}.
+Details van de uitvoering van de numerieke procedures in BEAST softwarepakket en BEAGLE bibliotheek werden toegevoegd, evenals snelheidsvergelijkingen tussen sequenti‘le (CPU) en parallele (GPU) implementaties, die in de gedrukte versie van het manuscript achterwege werden gelaten.
+Dit hoofdstuk wordt begeleid door Appendix~\ref{app:epoch}, waarin beschreven wordt hoe de ge•mplementeerde modellen in een XML-document worden gespecifieerd dat door BEAST ge•nterpreteerd wordt.
+In hoofdstuk~\ref{sec:extend_epoch} bespreek ik een aantal interessant uitbreidingsmogelijkheden en lopend onderzoek met betrekking tot dit model.
 
-In de hoofdstukken~\ref{chap:spread}~en~\ref{chap:pibuss}, overgenomen uit eerdere publicaties, introduceer ik twee softwarepakketten geschreven en onderhouden door mij in de loop van mijn PhD opleiding.
-In het bijzonder hoofdstuk~\ref{chap:spread} presenteert software voor het visualiseren fylogeografische reconstructies als gevolg van Bayesiaanse gevolgtrekking van virale diffusie genoemd SPREAD.
-Dit bijzondere programma heeft bewezen zeer populair, dat is de reden waarom in paragraaf~\ref{sec:spread_exten} Ik bespreek uitbreidingen en verbeteringen die zijn gepland om te verschijnen in de tweede versie van het pakket.
-Gedetailleerde tutorial over het gebruik van de huidige versie van dit pakket is te vinden in appendix~\ref{app:spread_tuto}.
+In de hoofdstukken~\ref{chap:spread}~en~\ref{chap:pibuss}, overgenomen uit twee publicaties, introduceer ik twee softwarepakketten die geschreven en onderhouden werden als deel mijn doctoraatsproject.
+Hoofdstuk~\ref{chap:spread} presenteert de SPREAD software voor het visualiseren fylogeografische reconstructies die resulteren uit Bayesiaanse schattingen van virale diffusie.
+Omdat programma een zekere populariteit bewezen heeft, bespreek ik in paragraaf~\ref{sec:spread_exten} uitbreidingen en verbeteringen die  gepland zijn voor toekomstige versies van het pakket.
+Een gedetailleerde handleiding over het gebruik van de huidige versie van dit pakket is te vinden in appendix~\ref{app:spread_tuto}.
 
 {\bussname} simulatie softwarepakket wordt besproken in hoofdstuk~\ref{chap:pibuss}, samen met een simulatie-onderzoek dat is gericht op het verkennen van de grenzen van het schatten van oude divergentie tijden wanneer zij worden geconfronteerd met moleculaire data afkomstig van snel veranderende virussen.
 Deze studie is mijn interesse in het ontwikkelen van meer biologisch realistische codon modellen, die het mogelijk maken voor zowel over het terrein en over-tak variatie aangewakkerd.
