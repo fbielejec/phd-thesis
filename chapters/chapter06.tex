@@ -612,7 +612,7 @@ $$\bullet\; C\;\star C\;\star\; A\;\star\; C\;\star\; T\;\star$$
 \caption{
 { \footnotesize 
 {\bf DNA sequence CCACT of length $L=5$, with $L+1$ links that separate the characters.} 
-By convention to the right of each base there is a \textit{normal link} ($\star$); the leftmost base has an \textit{immortal link} to itself($\bullet$), ensuring that an insertion can occur at position $l=0$.
+By convention to the right of each base there is a \textit{normal link} ($\star$); the leftmost base has an \textit{immortal link} to itself ($\bullet$), ensuring that an insertion can occur at position $l=0$.
 } % END: footnotesize
 }
 \label{fig:indels}
@@ -678,11 +678,10 @@ Traditionally a vast majority of programs were written as sequential code, follo
 This relates to an observation, which later came to be known as Moore's law, predicting the trend in chip performance as doubling roughly every $18$ months.
 %As captured by an observation that later came to be known as Moore's law, chip performance was predicted to double roughly every $18$ months.
 Figure~\ref{fig:moore} shows how, during the time of $15$ years, the hardware performance and improvements in compiler technology provided a speedup by a factor of $80$.
-%PL: whats the best and average in the plot; was it taken from somewhere -- in other words does it needs acknowledgements?
 For practical purposes this meant that just by updating the hardware architecture and compilers increasingly bigger problems could be tackled, without ever changing the code-base of the numerical programs. 
 The same software would simply run faster with the introduction of new generations of processors and new versions of compilers.
 %This has created a positive cycle for the computer industry.
-However, during the last two years in the plot this gain is no longer visible\footnote{The free ride is over!}.
+However, during the last two years in the plot this gain is no longer visible\footnote{The free lunch is over!}.
 Due to hardware limitations, and problems with heat dissipation, we are now at the limit of how many transistors can be put into integrated circuits, which determines CPU performance.
 As a consequence, serial computations on new CPUs no longer benefit from the same increases in speed and performance.
 
@@ -691,8 +690,8 @@ As a consequence, serial computations on new CPUs no longer benefit from the sam
 \includegraphics[scale=0.2]{moore}
 \caption{
 { \footnotesize 
-{\bf Performance gains of a numerical code over the course of 15 years.}
-%PL: whats the best and average in the plot; was it taken from somewhere -- in other words does it needs acknowledgements?
+{\bf Performance gains of a numerical code benchmarked on a single CPU core over the course of 15 years \citep{Turek1999}.}
+Last two years have seen only a marginal speed-up, and correspond to the shift to multicore architectures.
 } % END: footnotesize
 }
 \label{fig:moore}

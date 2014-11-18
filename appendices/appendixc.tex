@@ -1,4 +1,5 @@
 \chapter{Tutorial to parallel BEAST/BEAGLE utility for sequence simulation ({\bussname})\label{app:pibuss_tuto}}
+\chaptermark{Tutorial: {\bussname}}
 
 \section{Introduction} % LM: ? lacking a better name 
 
@@ -35,12 +36,16 @@ where \texttt{-Djava.library.path} again points to the directory where BEAGLE is
 \subsection{\loading}
 
 In order to simulate character sequences, one will need a tree topology, with correspondent branch lengths, as  backbone. In {\bussname}, to import a tree, the user needs simply to go the \textbf{Trees} tab and click the `Choose file' button. After that, a window will open for you to browse though your files and go the desired tree file (see Figure~\ref{fig:loadingtopology}). {\bussname} accepts input trees in newick or nexus formats.
+
 %%
 \begin{figure}[H]
-\begin{center}
+\centering
 \includegraphics[scale=\figurescale]{LOAD_TREE.png} 
-\end{center}
-\caption{How to load a tree into {\bussname}}
+\caption{
+{ \footnotesize 
+{\bf How to load a tree into {\bussname}.}
+} % END: footnotesize
+}
 \label{fig:loadingtopology}
 \end{figure}
 %%
@@ -60,10 +65,13 @@ Figure~\ref{fig:demographic} illustrates this step.
 
 %%
 \begin{figure}[H]
-\begin{center}
+\centering
 \includegraphics[scale=\figurescale]{DEMOGRAPHIC.png} 
-\end{center}
-\caption{Choosing a demographic (coalescent) model}
+\caption{
+{ \footnotesize 
+{\bf Choosing a demographic (coalescent) model.}
+} % END: footnotesize
+}
 \label{fig:demographic}
 \end{figure}
 %%
@@ -84,10 +92,13 @@ For the TN93 model, the user needs to supply two $\kappa$ values, and for the GT
 
 %%
 \begin{figure}[H]
-\begin{center}
+\centering
 \includegraphics[scale=\figurescale]{HKY.png} 
-\end{center}
-\caption{Setting a HKY substitution model with $\kappa$ parameter of 1.0.}
+\caption{
+{ \footnotesize 
+{\bf Setting a HKY substitution model with $\kappa$ parameter of $1.0$.}
+} % END: footnotesize
+}
 \label{fig:hky}
 \end{figure}
 %%
@@ -100,7 +111,11 @@ See Figures~\ref{fig:hky} and~\ref{fig:gy94} for examples.
 \begin{figure}[H]
 \centering
 \includegraphics[scale=\figurescale]{GY94.png} 
-\caption{Setting a codon model (GY94) with $\kappa=1.0$ and $\omega=0.1$.}
+\caption{
+{ \footnotesize 
+{\bf Setting a codon model (GY94) with $\kappa=1.0$ and $\omega=0.1$.}
+} % END: footnotesize
+}
 \label{fig:gy94}
 \end{figure}
 %%
@@ -121,7 +136,12 @@ There the user can specify how many categories should be created for the discret
 \begin{figure}[H]
 \centering
 \includegraphics[scale=\figurescale]{GAMMA.png} 
-\caption{Site heterogeinity can be simulated by going to the \textbf{Partitions} and click on the `Site Rate Model' button.}
+\caption{
+{ \footnotesize 
+{\bf Site rate heterogeinity.}
+Site heterogeinity can be simulated by going to the \textbf{Partitions} and click on the `Site Rate Model' button.
+} % END: footnotesize
+}
 \label{fig:gamma}
 \end{figure}
 %%
@@ -133,7 +153,12 @@ In {\bussname}, one can specify frequencies for nucleotides or codons by going t
 \begin{figure}[H]
 \centering
 \includegraphics[scale=\figurescale]{BASE_FREQUENCIES.png} 
-\caption{To specify base frequencies, go to the \textbf{Partitions} table and click the `Frequency Model' button.}
+\caption{
+{ \footnotesize 
+{\bf Base frequencies.}
+To specify base frequencies, go to the \textbf{Partitions} table and click the `Frequency Model' button.
+} % END: footnotesize
+}
 \label{fig:bases}
 \end{figure}
 %%
@@ -155,7 +180,12 @@ See Figure \ref{fig:clock2} for an examples.
 \begin{figure}[H]
 \centering
 \includegraphics[scale=\figurescale]{CLOCK2.png} 
-\caption{ Setting up an Inverse Gaussian relaxed clock with mean$=0$, unit standard deviation and no offset}
+\caption{
+{ \footnotesize 
+{\bf Clock model.}
+Setting up an Inverse Gaussian relaxed clock with mean$=0$, standard deviation of $1.0$ and no offset.
+} % END: footnotesize
+}
 \label{fig:clock2}
 \end{figure}
 %%
@@ -172,7 +202,13 @@ Partition settings apply from position in the alignment specified as`from' to po
 \begin{figure}[H]
 \centering
 \includegraphics[scale=\figurescale]{MULTIPLE_PARTITIONS.png} 
-\caption{You can set up any number of partitions, each with its own tree topology, model of evolution, molecular clock and base frequency. Just click the `+' button at the bottom left corner of the GUI window at the \textbf{Partitions} tab.}
+\caption{
+{ \footnotesize 
+{\bf Setting multiple partitions.}
+You can set up any number of partitions, each with its own tree topology, model of evolution, molecular clock and base frequency. 
+Just click the `+' button at the bottom left corner of the GUI window at the \textbf{Partitions} tab.
+} % END: footnotesize
+}
 \label{fig:partitions}
 \end{figure}
 %%
@@ -242,9 +278,11 @@ Taxa set & -taxaSet & -\tabularnewline
 Root sequence & -rootSequence & -\tabularnewline
 \end{tabular}
 } % END: footnotesize
-\caption{{ \footnotesize
-List of command line options for {\bussname}.
-}} 
+\caption{
+{ \footnotesize 
+{\bf List of command line options for {\bussname}.}
+} % END: footnotesize
+}
 \label{tab:commands}
 \end{center}
 \end{table}
@@ -277,15 +315,23 @@ The user can specify a seed and choose to use the parallel implementation by add
 after the last ``:'' sign dividing the desired partitions.
 The first true/false statement allows the ancestral sequences in the inner nodes to  be saved -- also accomplished by checking the corresponding box in the {\bf Simulation} tab.
 The last argument corresponds to the use of the parallel implementation, which is false by default. 
+
 %%
 \begin{figure}[H]
 \centering
 \includegraphics[scale=\figurescale]{SIMUTAB.png} 
-\caption{To set the seed for your simulation and choose the parallel BEAGLE implementation, check the corresponding tick boxes at the {\bf Simulation} tab.}
+\caption{
+{ \footnotesize 
+{\bf Setting RNG seed.}
+To set the seed for your simulation and choose the parallel BEAGLE implementation, check the corresponding tick boxes at the {\bf Simulation} tab.
+} % END: footnotesize
+}
 \label{fig:simutab}
 \end{figure}
 %%
+
 \subsection{Generating data evolving under GY94 codon model}
+
 To generate sequence data evolving according to codon substitution model we start by importing a backbone tree topology. 
 Load the \href{http://rega.kuleuven.be/cev/ecv/software/buss_files/simtree.figtree}{\emph{SimTree.figtree}} tree file shipped with this tutorial as described in \emph{\loading} subsection.   
 
@@ -294,12 +340,14 @@ Next click on the button under the \emph{Base Frequencies} column, select codon 
 Confirm your choice and move to \textbf{Simulation} panel to generate XML or simulate a fasta or nexus file.
 
 \begin{figure}[H]
-\begin{center}
+\centering
 \includegraphics[scale=\figurescale]{CODON_FREQUENCIES.png} 
-\end{center}
 \caption{
-Setting codon frequencies. Just select codon frequencies in the drop-down menu and you're done. The default is $1/61$ for each codon.
-} % END: caption
+{ \footnotesize 
+{\bf Setting codon frequencies.}
+Just select codon frequencies in the drop-down menu and you're done. The default is $1/61$ for each codon.
+} % END: footnotesize
+}
 \label{fig:CodonFrequencies}
 \end{figure}
 
@@ -307,12 +355,13 @@ Setting codon frequencies. Just select codon frequencies in the drop-down menu a
 As before start by loading the \href{http://rega.kuleuven.be/cev/ecv/software/buss_files/simtree.figtree}{\emph{SimTree.figtree}} tree file, this time we will however need to set three separate partitions, from different positions in the alignment and simulating to every third alignment position, just like in Figure \ref{fig:CodonPartitoning}.
 
 \begin{figure}[H]
-\begin{center}
+\centering
 \includegraphics[scale=\figurescale]{CODON_PARTITIONING.png} 
-\end{center}
 \caption{
-Codon partitioned simulation.
-} % END: caption
+{ \footnotesize 
+{\bf Codon partitioned simulation.}
+} % END: footnotesize
+}
 \label{fig:CodonPartitoning}
 \end{figure}
 
@@ -339,36 +388,40 @@ In this example we will use a set of taxa shipped with this tutorial in \href{ht
 Set the taxa as simulations backbone in drop-list under \emph{Data} column in \textbf{Partitions} panel.
 
 \begin{figure}[H]
-\begin{center}
+\centering
 \includegraphics[scale=\figurescale]{TAXA_EDITOR.png} 
-\end{center}
 \caption{
-Loading a taxa set from tab-separated file. Once you load the taxa set onto {\bussname}, you are ready to simulate under any of the coalescent dynamics available. 
-} % END: caption
+{ \footnotesize 
+{\bf Loading a taxa set from tab-separated file.}
+Once you load the taxa set onto {\bussname}, you are ready to simulate under any of the coalescent dynamics available.
+} % END: footnotesize
+}
 \label{fig:TaxaEditor}
 \end{figure}   
 
 Now it's time to set the demographic model that will drive the coalescent. Click on the editor button under \emph{demographic model} column and choose the \emph{Constant Population} model with \emph{Population Size} parameter of $50.0$, like shown in Figure \ref{fig:DemoModel} below.
 
 \begin{figure}[H]
-\begin{center}
+\centering
 \includegraphics[scale=\figurescale]{DEMOGRAPHIC_MODEL.png} 
-\end{center}
 \caption{
-Loading a taxa set from tab-separated file.
-} % END: caption
+{ \footnotesize 
+{\bf Loading a taxa set from tab-separated file.}
+} % END: footnotesize
+}
 \label{fig:DemoModel}
 \end{figure}  
 
 To generate the data, click on the \emph{Simulate} button in the \textbf{Simulation} panel. The generated tree (newick format) can be copy-pasted from \textbf{Terminal} panel as shown in Figure \ref{fig:Terminal}.
 
 \begin{figure}[H]
-\begin{center}
+\centering
 \includegraphics[scale=\figurescale]{TERMINAL_OUTPUT.png} 
-\end{center}
 \caption{
-Terminal output
-} % END: caption
+{ \footnotesize 
+{\bf Terminal output.}
+} % END: footnotesize
+}
 \label{fig:Terminal}
 \end{figure} 
 
@@ -383,7 +436,7 @@ Start with loading the \href{http://rega.kuleuven.be/cev/ecv/software/buss_files
 Now go to the \textbf{Simulation} panel and click on \emph{Generate XML} button, saving the file as \emph{generate\_sequences.xml}.
 Open the generated file in your favourite text editor.
 
-We need to define the discrete geographical locations that {\bussname} will sample from. After the \emph{taxa} block paste the following code:
+We need to define the discrete geographical locations that {\bussname} will sample from. After the  {\color{darkblue}taxa} block paste the following code:
 
 \begin{lstlisting}
 <generalDataType id="geography"> 
@@ -393,7 +446,7 @@ We need to define the discrete geographical locations that {\bussname} will samp
 </generalDataType>
 \end{lstlisting}
 
-Scroll to the \emph{frequencyModel} block. Because we have specified $K=3$ discrete locations we need to specify base frequencies for them. Delete the existing \emph{frequencyModel} block and paste there following code instead:
+Scroll to the {\color{darkblue}frequencyModel} block. Because we have specified $K=3$ discrete locations we need to specify base frequencies for them. Delete the existing {\color{darkblue}frequencyModel} block and paste there following code instead:
 
 \begin{lstlisting}
 <frequencyModel id="freqModel">
@@ -404,7 +457,8 @@ Scroll to the \emph{frequencyModel} block. Because we have specified $K=3$ discr
 </frequencyModel>
 \end{lstlisting}
 
-Now scroll further down to the substitution model block (defined between \emph{HKYModel} tags if you generated the XML using default settings). We need to define a geographical substitution model, driven by a rate matrix. 
+Now scroll further down to the substitution model block (defined between {\color{darkblue}HKYModel} tags if you generated the XML using default settings). 
+We need to define a geographical substitution model, driven by a rate matrix. 
 We specify $K\times(K-1)=6$ entries such that the underlying instantaneous rate matrix is asymmetric (non-reversible). 
 Replace the existing block with: 
 
@@ -420,7 +474,7 @@ Replace the existing block with:
 </complexSubstitutionModel>
 \end{lstlisting}
 
-Now reference the created substitution model inside \emph{siteModel} tags like this:
+Now reference the created substitution model inside {\color{darkblue}siteModel} tags like this:
 
 \begin{lstlisting}
 <siteModel id="geoSiteModel.simulation">
@@ -430,7 +484,8 @@ Now reference the created substitution model inside \emph{siteModel} tags like t
 </siteModel>
 \end{lstlisting}
 
-Finally all the new elements need to be referenced in the \emph{beagleSequenceSimulator} block. We specify one replicate, as every taxa can ultimately have only one geographical trait:
+Finally all the new elements need to be referenced in the {\color{darkblue}beagleSequenceSimulator} block. We specify one replicate, as every taxa can ultimately have only one geographical trait:
+
 \begin{lstlisting}
 <beagleSequenceSimulator id="simulator">
   <partition from="1" to="1"> 
