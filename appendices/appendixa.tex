@@ -1,4 +1,5 @@
 \chapter{Tutorial on setting up time-heterogeneous Epoch Models of substitution in BEAST.\label{app:epoch}}
+\chaptermark{Epoch Models of substitution in BEAST}
 
 \section{Introduction}
 
@@ -167,7 +168,7 @@ We need three prior distributions, one per each $\kappa$ parameter (in this exam
 
 Naturally we want to log the three parameters of our epoch model. 
 To monitor the analysis we start with the screen log. 
-Look for the following line: <{\color{darkblue}log} {\color{darkblue}id}="screenLog" {\color{darkblue}logEvery}="5000">.
+Look for the following line: <{\color{darkblue}log} {\color{darkblue}id}=\textquotedbl{}screenLog \textquotedbl{}{\color{darkblue}logEvery}=\textquotedbl{}5000\textquotedbl{}>.
 
 Find the {\color{darkblue}column} block where the kappa parameter is referenced and paste these three blocks here instead:
 
@@ -186,7 +187,7 @@ Find the {\color{darkblue}column} block where the kappa parameter is referenced 
 \end{lstlisting}
 
 We then still need to modify the lines responsible for storing the parameter estimates of the epoch model to file.
-Go to the beginning of the {\color{darkblue}log} block responsible for keeping a log file, i.e. <{\color{darkblue}log} {\color{darkblue}id}="fileLog" {\color{darkblue}logEvery}="1000">.
+Go to the beginning of the {\color{darkblue}log} block responsible for keeping a log file, i.e. <{\color{darkblue}log} {\color{darkblue}id}=\textquotedbl{}fileLog\textquotedbl{} {\color{darkblue}logEvery}=\textquotedbl{}1000\textquotedbl{}>.
 Find the line which references the \textit{kappa} parameter and paste there instead:
 
 \begin{lstlisting}
