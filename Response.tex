@@ -1,0 +1,96 @@
+\documentclass[english]{article}
+
+%%%%%%%%%%%%%%%%
+%---PACKAGES---%
+%%%%%%%%%%%%%%%%
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{natbib}
+\usepackage{url}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{dcolumn}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{color}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{textpos}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%---USER SPECIFIED LaTeX COMMANDS---%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% dcolumn definition of decimally aligned table
+\newcolumntype{.}{D{.}{.}{-1}}
+
+% Text layout (margins)
+\topmargin 0.0cm
+\oddsidemargin 0.5cm
+\evensidemargin 0.5cm
+\textwidth 16cm 
+\textheight 21cm
+
+% double line spacing
+\linespread{1.6}
+
+% paragraph indent
+\setlength{\parindent}{0.5in}
+
+% font for math
+\usepackage{mathpazo}
+\DeclareSymbolFont{letters}{OML}{ztmcm}{m}{it}
+\DeclareSymbolFontAlphabet{\mathnormal}{letters}
+
+\definecolor{fgcolor}{rgb}{0.2, 0.2, 0.2}
+
+
+%%%%%%%%%%%%%%%%
+%---DOCUMENT---%
+%%%%%%%%%%%%%%%%
+\begin{document}
+
+% consistent edits between manuscript and rebuttal letter
+\input{thesis.xtr}
+
+\setcounter{page}{1}
+
+\bigskip
+\medskip
+\noindent{\Large 
+Response 
+}
+\bigskip
+
+
+%%%%%%%%%%%%%%%%%%%%
+%--- COMMENTS---%
+%%%%%%%%%%%%%%%%%%%%
+\section*{Comments by }
+
+\begin{itemize}
+
+% 1
+\item {
+{\it
+\textbf{
+AAA
+}% END: textbf
+}% END: it
+}% END: item
+\\
+AAA
+
+
+
+\end{itemize}
+
+
+
+
+%\bibliography{epochrefs}
+
+\end{document}
