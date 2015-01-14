@@ -66,10 +66,68 @@ Response
 \bigskip
 
 
-%%%%%%%%%%%%%%%%%%%%
-%--- COMMENTS---%
-%%%%%%%%%%%%%%%%%%%%
-\section*{Comments by }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%---SUGGESTED SIMULATION SCENARIOS---%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Simulations}
+
+\begin{itemize}
+
+\item {
+{\it
+\textbf{
+Simulate a number of epochs that do not correspond with the assumed ones.
+}% END: textbf
+}% END: it
+}% END: item
+\\
+FB: Perhaps two sets of simulations here:
+* simulate 2 epochs - inference under 1
+* simulate 3 - inference for 2
+Check the variance and bias
+
+\item {
+{\it
+\textbf{
+Simulating under a non-epoch model for example where different process can apply to contemporaneous branches, would be fundamental to understand the robustness of the model.
+}% END: textbf
+}% END: it
+}% END: item
+\\
+AAA
+
+
+\item {
+{\it
+\textbf{
+Simulating discrete phylogeographic traits. Here it would have been interesting to see the correspondence between simulated and estimated tMRCAs when the true model has one epoch with omega=0.5 (or even better, omega equal to the weighted mean of the n-epoch model).
+}% END: textbf
+}% END: it
+}% END: item
+\\
+AAA
+
+
+\item {
+{\it
+\textbf{
+How mislead one could be if the data were generated under an epoch model, but analyzed under a simpler model.
+}% END: textbf
+}% END: it
+}% END: item
+\\
+AAA
+
+
+\end{itemize}
+
+
+%TODO: I'm including only reviewers which had some majr/minor comments
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--- COMMENTS BY STIJN VANSTEELANDT---%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Comments by Stijn Vansteelandt}
 
 \begin{itemize}
 
@@ -77,7 +135,283 @@ Response
 \item {
 {\it
 \textbf{
+The thesis starts with a very nice introduction, which I think is very insightful for the reader who is not familiar with phylogenetic and/or Bayesian inference. 
+In spite of this, I believe that the readability of the later chapters would be further improved if the introduction:
+}% END: textbf
+}% END: it
+}% END: item
+
+\begin{itemize}
+
+% 1a
+\item {
+{\it
+\textbf{
+Briefly described the evolutionary models, such as GY94, that are later used.
+}% END: textbf
+}% END: it
+}% END: item
+\\
 AAA
+
+% 1b
+\item {
+{\it
+\textbf{
+Briefly described the evolutionary models, such as GY94, that are later used.
+}% END: textbf
+}% END: it
+}% END: item
+\\
+AAA
+
+% 1c
+\item {
+{\it
+\textbf{
+Briefly described how to accommodate time-stamped sequences, which is now considered in the analyses in Chapter 2, but not really discussed.
+}% END: textbf
+}% END: it
+}% END: item
+\\
+AAA
+
+\end{itemize}
+
+% 2
+\item {
+{\it
+\textbf{
+It is sometimes unclear in Chapter 2 whether the analysis is performed under a fixed evolutionary tree or not. 
+This is especially so in the evaluation of Bayes Factors in Table 2.3. 
+It would also have been nice to understand better whether the use of the epoch model (versus not) has an essential impact on tree reconstruction. 
+Somewhat related, it would have been nice to learn from the simulation study how mislead one could be if the data were generated under an epoch model, but analyzed under a simpler model. 
+I am not asking for additional analyses here, but merely for additional clarification or insight.
+}% END: textbf
+}% END: it
+}% END: item
+\\
+AAA
+
+% 3
+\item {
+{\it
+\textbf{
+P6, lines 5-7: this is not correctly phrased as the parameter values do not have an associated probability in the frequentist likelihood framework.
+}% END: textbf
+}% END: it
+}% END: item
+\\
+AAA
+
+% 4
+\item {
+{\it
+\textbf{
+Expression (1.12) is confusing in that indices i and j appear in the lefthand side, but not in the righthand side. 
+Likewise in expression (1.13).
+}% END: textbf
+}% END: it
+}% END: item
+\\
+AAA
+
+% 5
+\item {
+{\it
+\textbf{
+P20, 2nd display: an equality sign is missing on the 2nd line.
+}% END: textbf
+}% END: it
+}% END: item
+\\
+AAA
+
+% 6
+\item {
+{\it
+\textbf{
+I would find it useful to see a brief discussion on the plausibility of (1.22).
+}% END: textbf
+}% END: it
+}% END: item
+\\
+AAA
+
+% 7
+\item {
+{\it
+\textbf{
+If I am right that matrix P(t) on the bottom of page 22 is four-dimensional, then why not write it in full, which will be less confusing?
+}% END: textbf
+}% END: it
+}% END: item
+\\
+AAA
+
+% 8
+\item {
+{\it
+\textbf{
+P25, the statement at the end of the penultimate paragraph (`most plausible hypothesis for the data') is vague.
+}% END: textbf
+}% END: it
+}% END: item
+\\
+AAA
+
+% 9
+\item {
+{\it
+\textbf{
+P28, I understand what T(n) is, but would nevertheless find it helpful if it were stated more explicitly.
+}% END: textbf
+}% END: it
+}% END: item
+\\
+AAA
+
+% 10
+\item {
+{\it
+\textbf{
+P31, If the phrase `proper prior' is used, then perhaps it should be defined.
+}% END: textbf
+}% END: it
+}% END: item
+\\
+AAA
+
+
+
+% 11
+\item {
+{\it
+\textbf{
+P32, Since the author assumes that the reader may have no prior knowledge of Bayesian inference, I believe the meaning of Figure 1.11 should be explained in more detail.
+}% END: textbf
+}% END: it
+}% END: item
+\\
+AAA
+
+
+% 12
+\item {
+{\it
+\textbf{
+P33,. I think the notation $\theta[t]$ has not been defined.
+}% END: textbf
+}% END: it
+}% END: item
+\\
+AAA
+
+
+% 13
+\item {
+{\it
+\textbf{
+There is a typo in the lefthand side of (1.37).
+}% END: textbf
+}% END: it
+}% END: item
+\\
+AAA
+
+
+% 14
+\item {
+{\it
+\textbf{
+I would find it useful to get a bit more detail how a model for the likelihood of Y and for the prior of $\Phi$ might look like.
+}% END: textbf
+}% END: it
+}% END: item
+\\
+AAA
+
+
+% 15
+\item {
+{\it
+\textbf{
+P43. What is compositional heterogeneity?
+}% END: textbf
+}% END: it
+}% END: item
+\\
+AAA
+
+
+% 16
+\item {
+{\it
+\textbf{
+P44. I would find it useful to receive a bit more guidance concerning the connection to phylogeographic inference. 
+Also in Section 2.4.3, the description of the proposal by Bahl et al. (2011) is too brief for me to appreciate why the epoch model is more appropriate.
+}% END: textbf
+}% END: it
+}% END: item
+\\
+AAA
+
+
+% 17
+\item {
+{\it
+\textbf{
+Display (2.5): I believe this display implicitly assumes that the time T1 is a priori known. 
+It would be good to state this explicitly.
+}% END: textbf
+}% END: it
+}% END: item
+\\
+AAA
+
+
+% 18
+\item {
+{\it
+\textbf{
+P57. The sentence `To determine the posterior odds, ... of that model' is vague.
+}% END: textbf
+}% END: it
+}% END: item
+\\
+AAA
+
+
+% 19
+\item {
+{\it
+\textbf{
+P85. Riemannian -> Riemann
+}% END: textbf
+}% END: it
+}% END: item
+\\
+AAA
+
+
+% 20
+\item {
+{\it
+\textbf{
+P86. The last sentence of Section 5.1.3 is not sufficiently clear. 
+Please make clear why the use of mixed effects models could allow this.
+}% END: textbf
+}% END: it
+}% END: item
+\\
+AAA
+
+
+% 21
+\item {
+{\it
+\textbf{
+P88. It would be useful to receive a bit more detail what is meant by `infinite hidden Markov Model'.
 }% END: textbf
 }% END: it
 }% END: item
@@ -87,6 +421,146 @@ AAA
 
 
 \end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%
+%--- COMMENTS---%
+%%%%%%%%%%%%%%%%%%%%
+\section*{Comments by David Posada}
+
+\begin{itemize}
+
+% 1
+\item {
+{\it
+\textbf{
+I missed a brief primer of Bayesian model selection in the introductory chapter.
+Techniques such Bayes factors, path sampling or stepping-stone sampling are used throughout but never explained. 
+This should be very easy to fix.
+}% END: textbf
+}% END: it
+}% END: item
+
+
+% 2
+\item {
+{\it
+\textbf{
+In the simulations in Chapter 2 you assume you know the true epoch times, but this information is rarely available in real life. 
+Simulation 1 addresses the impact of model misspecification partially, as the true process does not have epochs. 
+It could be a good idea to further check the impact of model misspecification, in particular simulating a number of epochs that do not correspond with the assumed ones (you later mention this idea in the final chapter but do not end up testing its potential biasing effect). 
+Also, simulating under a non-epoch model - for example where different process can apply to contemporaneous branches, would be fundamental to understand the robustness of the model. 
+This does not need to be done before the defense, but it could be a nice extension for the future.
+}% END: textbf
+}% END: it
+}% END: item
+\\
+AAA
+
+% 3
+\item {
+{\it
+\textbf{
+In general, there is some repetitive text, sometimes with identical phrases/paragraphs, between the introduction and some of the other chapters. 
+On the other hand, some relevant aspects of the research are discussed in the general discussion in Chapter 5, instead of in the corresponding `research' chapter. 
+This is true in particular for Chapter 3, were a very concise description of SPREAD is provided. 
+I understand these redundancies and fragmentations are a byproduct of reproducing papers as chapters, but however these issues have been corrected in some occasions. 
+For example, chapter 2 is not identical to the SysBio paper. 
+I suggest you try a bit to further consolidate the different chapters.
+}% END: textbf
+}% END: it
+}% END: item
+\\
+AAA
+
+% 4
+\item {
+{\it
+\textbf{
+The simulation software piBUSS described in Chapter 4 can be very useful, in particular in regards to its connectivity with BEAST. 
+The possibility of simulating discrete phylogeographic traits is very convenient. 
+Here it would have been interesting to see, for the sake of comparison and interpretation, the correspondence between simulated and estimated tMRCAs when the true model has one epoch with omega=0.5 (or even better, omega equal to the weighted mean of the n-epoch model). 
+This does not need to be done before the defense, but it could be a nice extension for the future.
+}% END: textbf
+}% END: it
+}% END: item
+\\
+AAA
+
+
+% 5
+\item {
+{\it
+\textbf{
+Page 14: I would say that the term `Big Data' does not apply to sequence alignments. 
+It might do for NGS files etc., but not for the type of data that BEAST uses as input. 
+Not yet. 
+Moreover, you focus on HPC architectures like GPU and multicores, which are in some senses opposite to Big Data architectures (i.e., Hadoop Map Reduce).
+}% END: textbf
+}% END: it
+}% END: item
+\\
+AAA
+
+
+% 6
+\item {
+{\it
+\textbf{
+Page 25, 31: likelihood should be $P(X| \theta)$, not $P(\theta | X)$.
+}% END: textbf
+}% END: it
+}% END: item
+\\
+AAA
+
+
+% 7
+\item {
+{\it
+\textbf{
+Page 34: on the left-term of equation 1.37, the denominator should be
+$P(\theta[t]|X) q(\theta^{*} | \theta[t])$
+not 
+$P(\theta[t]|X) q(\theta[t] | \theta^{*})$
+}% END: textbf
+}% END: it
+}% END: item
+\\
+AAA
+
+
+
+% 8
+\item {
+{\it
+\textbf{
+Page 52: according to the legend in Figure 2.3, a two-epoch plot is missed.
+}% END: textbf
+}% END: it
+}% END: item
+\\
+AAA
+
+
+
+
+
+
+
+
+
+
+
+
+\end{itemize}
+
+
+
+
+
+
+
 
 
 
