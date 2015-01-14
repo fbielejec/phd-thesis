@@ -439,8 +439,11 @@ Various substitution models for performing analysis on nucleotide, codon or amin
 %The output consists of a simple tab-separated files, with each row corresponding to one value sampled from the posterior distribution, for both the parameter values and actual trees.
 
 %gpus
-The growing availability of large complex data-sets has led to the term `Big Data'. %being coined.
-Large sample sizes, such as full genome sequences or the ones generated with next-generation sequencing techniques are increasingly challenging phylogenetic inference.
+\myedit{DPfive}{
+% The growing availability of large complex data-sets has led to the term `Big Data'. %being coined.
+% Large sample sizes, such as full genome sequences or the ones generated with next-generation sequencing techniques are increasingly challenging phylogenetic inference.
+Growing availability of large sample size, complex data-sets such as full genome sequences or the ones generated with next-generation sequencing techniques are increasingly challenging phylogenetic inference.
+}%END: myedit
 Fortunately strategies have been proposed to reduce the time that it takes to fit complex phylogenetic models to vast amounts of data.
 These solutions are mainly focused on parallellization and on harnessing the capabilities of modern graphics processing units (GPUs), such as the NVIDIAs Tesla line of GPUs that target the high performance computing market.
 BEAGLE (Broad-platform evolutionary analysis generalized likelihood evaluator, \cite{Ayres2012}), is a library that can be used in conjunction with BEAST and provides an API (Application Programming Interface) that massively parallel graphics processors and other multicore devices can exploit to substantially decrease the runtime of phylogenetic analysis \citep{Suchard2009}.

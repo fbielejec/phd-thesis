@@ -354,6 +354,7 @@ In E, the parallel convolve queue is used to compute the final transition matrix
 To evaluate the performance of the epoch model, we conduct a simulation study, in which replicate data are generated along an evolutionary history inferred from a real data set with samples collected at different points in time.
 Specifically, we use a maximum clade credibility (MCC) tree summarizing a Bayesian phylogenetic inference of human influenza A hemagglutinin gene sequences sampled through different epidemic seasons \citep{Drummond2010}. 
 
+
 %---TOPOLOGY FOR SIMULATIONS---%
 \begin{figure}[H]
 \centering
@@ -361,13 +362,21 @@ Specifically, we use a maximum clade credibility (MCC) tree summarizing a Bayesi
 \includegraphics[scale=0.35]{treeplot} 
 \caption{
 { \footnotesize 
+% \myedit{DPsix}{
 {\bf  Epoch simulation scenarios on an influenza A maximum clade credibility tree topology.} 
-In the two-epoch example illustrated at the top, the transition time is set at $t_{1}=7$, creating two epochs with substitution processes governed by infinitesimal rate matrices $\mathbf{Q_{1}}$ and $\mathbf{Q_{2}}$ respectively, separated by the light and dark grey areas and the dotted line.
-In the three-epoch example illustrated at the bottom, transition times are put at $t_{1}=7$ and $t_{2}=15$, creating three epochs with substitution processes governed by infinitesimal rate matrices $\mathbf{Q_{1}}$, $\mathbf{Q_{2}}$ and then again $\mathbf{Q_{1}}$, as indicated by the alternating dark and light areas and the dotted lines.
+In the two-epoch example illustrated by the top alternating background
+% at the top, 
+the transition time is set at $t_{1}=7$, creating two epochs with substitution processes governed by infinitesimal rate matrices $\mathbf{Q_{1}}$ and $\mathbf{Q_{2}}$ respectively, separated by the light and dark grey areas and the dotted line.
+In the three-epoch example illustrated 
+by the bottom alternating background
+% at the bottom, 
+transition times are put at $t_{1}=7$ and $t_{2}=15$, creating three epochs with substitution processes governed by infinitesimal rate matrices $\mathbf{Q_{1}}$, $\mathbf{Q_{2}}$ and then again $\mathbf{Q_{1}}$, as indicated by the alternating dark and light areas and the dotted lines.
+% }%END: myedit
 }% END: footnotesize
-}
+}%END: caption
 \label{fig:2RateTree}
 \end{figure}
+
 
 In Figure~\ref{fig:2RateTree}, we illustrate the tree topology and the transition times defined for both a two-epoch and three-epoch specification.
 This tree has 69 tips, is rooted and time-scaled, effectively covering a period of about 18 years. 
