@@ -81,31 +81,34 @@ Simulate a number of epochs that do not correspond with the assumed ones.
 }% END: it
 }% END: item
 \\
-FB: Perhaps two sets of simulations here:
-* simulate 2 epochs - inference under 1
-* simulate 3 - inference for 2
+FB: Perhaps two sets of simulations here: \\
+* simulate 2 epochs - inference under 1 \\
+* simulate 3 - inference for 2 \\
 Check the variance and bias
 
 \item {
 {\it
 \textbf{
-Simulating under a non-epoch model for example where different process can apply to contemporaneous branches, would be fundamental to understand the robustness of the model.
+Simulating under a non-epoch model, for example where different process can apply to contemporaneous branches, would be fundamental to understand the robustness of the model.
 }% END: textbf
 }% END: it
 }% END: item
 \\
-AAA
+FB: I think he means we did simulations with an ultrametric tree, but we simulated and recovered the values under the same (epoch) model.
+For that I could set up a scenario where data is generated under e.g. HKY(1.0) with an underlying ultrametric topology and then we recover two epochs, placing the transition time somewhere arbitrary.
+
+
 
 
 \item {
 {\it
 \textbf{
-Simulating discrete phylogeographic traits. Here it would have been interesting to see the correspondence between simulated and estimated tMRCAs when the true model has one epoch with omega=0.5 (or even better, omega equal to the weighted mean of the n-epoch model).
+Here it would have been interesting to see the correspondence between simulated and estimated tMRCAs when the true model has one epoch with omega=0.5 (or even better, omega equal to the weighted mean of the n-epoch model).
 }% END: textbf
 }% END: it
 }% END: item
 \\
-AAA
+FB: I think here we could repeat the study from the $\pi$BUSS paper but simulate under a homogenous model. We indeed could set the $\omega$ parameter to a weighted mean of the values we used previously (1.0, 0.2, 0.1, 0.02, 0.01, 0.002, 0.001), as weights we could use epoch length, where for last epoch it's tMRCa - T[n]. At least that's how I understand this comment.
 
 
 \item {
@@ -116,7 +119,7 @@ How mislead one could be if the data were generated under an epoch model, but an
 }% END: it
 }% END: item
 \\
-AAA
+I think this comment is asking basically the same thing as David Posada's first sugested simulation.
 
 
 \end{itemize}
@@ -547,7 +550,7 @@ Page 52: according to the legend in Figure 2.3, a two-epoch plot is missed.
 Hmm I think it wasn't clear that it's all on one plot. Needs re-phrasing:
 
 % \begin{quote}
-% \myeditDPsix
+% \myeditDPeight
 % \end{quote}
 
 
