@@ -952,7 +952,7 @@ Typically, we start with just the observed data and aim the inference efforts at
 We can therefore denote the likelihood simply as: 
 
 \begin{equation}
-L\left(\mathbf{\Theta}|\mathbf{X}\right)=P\left(\mathbf{\Theta}|\mathbf{X}\right), 
+L\left(\mathbf{\Theta}|\mathbf{X}\right)=P\left( \mathbf{X} | \mathbf{\Theta} \right), 
 \label{eq:likelihood}
 \end{equation}
 
@@ -1225,7 +1225,7 @@ However in some cases there may be no suitable objective distribution at hand, i
 All of these proper prior choices lead to a proper posterior distribution, yet some controversies about their choice may still arise.
 
 % TODO: discuss hyperpriors?
-The prior information is then combined with the likelihood of the data $P\left(\theta|\mathbf{X}\right)$ to form the posterior, via Bayes' theorem (Equation~(\ref{eq:bayesian1})).
+The prior information is then combined with the likelihood of the data $P\left( \mathbf{X} | \theta \right)$ to form the posterior, via Bayes' theorem (Equation~(\ref{eq:bayesian1})).
 The posterior distribution of $\theta$ follows:
 
 \begin{align}
@@ -1254,7 +1254,7 @@ P\left(\mathbf{\Theta}|\mathbf{X}\right) &=& P\left(\theta,\mathbf{F}|\mathbf{X}
 and the marginal posterior density of $\theta$ can be obtained from Equation~\ref{eq:bayesian2} as:
 
 \begin{equation}
-P\left(\theta|\mathbf{X}\right) =\int P\left(\mathbf{\Theta},\mathbf{F}|\mathbf{X}\right)d\mathbf{F}
+P\left(\theta|\mathbf{X}\right) =\int P\left(\theta,\mathbf{F}|\mathbf{X}\right)d\mathbf{F}
 \label{eq:bayesian3}
 \end{equation}
 
@@ -1349,10 +1349,12 @@ The Metropolis-Hastings algorithm allows for the use of an asymmetrical proposal
 The acceptance probability is simply the ratio of the target posterior evaluated at the proposal and at the current state of the chain, times the ratio of the proposal: 
 % prior ratio times the likelihood ratio times the proposal ratio
 
+% \myedit{DPseven}{
 \begin{equation}
-\frac{P\left(\theta^{*}|\mathbf{X}\right)\cdot q\left(\theta\left[t\right]|\theta^{*}\right)}{P\left(\theta\left[t\right]|\mathbf{X}\right)\cdot q\left(\theta\left[t\right]|\theta^{*}\right)}=\frac{P(\theta^{*})\cdot P\left(\mathbf{X}|\theta^{*}\right)\cdot q\left(\theta\left[t\right]|\theta^{*}\right)}{P(\theta\left[t\right])\cdot P\left(\mathbf{X}|\theta\left[t\right]\right)\cdot q\left(\theta^{*}|\theta\left[t\right]\right)}.
+\frac{P\left(\theta^{*}|\mathbf{X}\right)\cdot q\left(\theta\left[t\right]|\theta^{*}\right)}{P\left(\theta\left[t\right]|\mathbf{X}\right)\cdot q\left(\theta^{*}|\theta\left[t\right]\right)}=\frac{P(\theta^{*})\cdot P\left(\mathbf{X}|\theta^{*}\right)\cdot q\left(\theta\left[t\right]|\theta^{*}\right)}{P(\theta\left[t\right])\cdot P\left(\mathbf{X}|\theta\left[t\right]\right)\cdot q\left(\theta^{*}|\theta\left[t\right]\right)}.
 \label{eq:metropolis1}
 \end{equation}
+% }
 
 Note that the integral in Equation~(\ref{eq:bayesian1}) which is notoriously hard to compute cancels out in (\ref{eq:metropolis1}).
 Hence, to estimate the posterior $P\left(\theta|\mathbf{X}\right)$ one only needs to run the algorithm for a sufficiently long time to let the chain reach its equilibrium, which is precisely the target posterior.
@@ -1514,3 +1516,49 @@ P\left(\mathbf{F}, \mathbf{Q}, \mathbf{\Phi}|\mathbf{X},\mathbf{Y}\right) &\prop
 The likelihood component for both molecular data $\mathbf{X}$ and location data $\mathbf{Y}$ is calculated using recursive tree pruning, as described in Subsection~\ref{sub:likelihood}.
 We approximate the joint posterior as written down in Equation~(\ref{eq:posteriorPhylogeography}) using MCMC methods we discussed in Subsection~\ref{sub:mcmc}.
 In order to study phylogeographic processes based on longitude and latitude coordinates of sampled strains, Brownian motion has been proposed as the random walk model in continuous space with conceptually very similar inference procedures \citep{Lemey2010}.
+
+
+\subsection{Bayesian model selection\label{sub:model_selection}}
+% https://radfordneal.wordpress.com/2008/08/17/the-harmonic-mean-of-the-likelihood-worst-monte-carlo-method-ever/
+
+A standard approach to compare models in a Bayesian phylogenetic framework is through the evaluation of Bayes factors (BFs).   
+The BF is a ratio of two marginal likelihoods, which given the observed data $\mathbf{X}$ quantify the plausibility of two models, denoted $M_{1}$ and $M_{2}$ and parametrised in terms of parameters $\theta_{1}$ and $\theta_{2}$ respectively:
+
+% 
+\begin{equation}  
+\frac{\int P\left(\mathbf{X}|\theta_{1},M_{1}\right)\times P\left(\theta_{1} \mid M_{1}  \right)d_{\theta_{1}}}{\int P\left(\mathbf{X}|\theta_{1},M_{2}\right)\times P\left(\theta_{2} \mid M_{2} \right)d_{\theta_{2}}},
+\label{eq:bayes_factor}
+\end{equation}  
+% 
+
+\noindent
+where $P\left(\mathbf{X}|\theta_{i},M_{i}\right)$ is the likelihood function and $P\left(\theta_{i} \mid M_{i} \right)$ is the prior, for $i=1, \ldots, 2$.
+The parameters $\theta_{i},\; i=1, \ldots, 2$ can be possibly multidimensional, making the integral in Equation~\ref{eq:bayes_factor} non-trivial to estimate.
+For a number of years the posterior Harmonic Mean Estimator (HME, \cite{Newton1994}) has been extesively used in Bayesian phylogenetic inference, mainly for the simplicity in it's calculation. 
+To evaluate the HME one only needs the samples from the posterior distribution which are readilly availiable as output form any MCMC program.
+
+\cite{Meng1996} as well as \cite{Xie2011} warn that despite this computational convenience the HME is a biased estimator of the marginal likelihood, severely overestimating and with potential infinite variance.
+Realizing this has lead to a substantial amount of work invested in the development of efficient methods for estimating marginal likelihoods \citep{Suchard2001,Lemey2009,Li2012}.
+Recently \cite{Lartillot2006} as well as \cite{Xie2011} proposed to incorporate the path sampling (PS) and stepping-stone sampling (SS) methods for accurate estimation of the marginal likelihood into Bayesian phylogenetic frameworks.
+\cite{Baele2012} have proposed the first implementation of PS and SS into phylogenetic inference software.
+Both these techniques rely on drawing MCMC samples from a series of distributions, each of which is a power posterior differing only in its power, along the path going from the prior to the unnormalized posterior defined by the model $M$:  
+
+\begin{equation}  
+q_{\beta}\left(\theta\right)=P\left(\mathbf{X}\mid\theta,M\right)\times P\left(\theta\mid M\right).
+\label{eq:ss_ps}
+\end{equation}  
+
+Although offering tremendous improvements in bias and variance over the HME both PS and SS require considerable computational effort as the marginal likelihood can no longer be estimated from the likelihood trace that is being output from the standard MCMC analysis. 
+% When only modest computation is invested to keep marginal likelihood manageable for large data sets, the estimates may suffer from considerable variance, preventing an accurate comparison of two models.
+Further, great care must also be taken to specify proper priors for all parameters in Equation~\ref{eq:ss_ps}, so as to avoid numerical instabilities when the integration approaches the prior.  
+
+
+
+
+
+
+
+
+
+
+
