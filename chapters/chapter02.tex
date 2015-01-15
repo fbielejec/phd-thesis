@@ -541,7 +541,10 @@ patient 9 & $0.895$ & $2.142$\tabularnewline
 
 Despite the observation that the Bayesian credible intervals for patient 1, 2, 6 and 7 estimates do not overlap, this does not provide a formal test to evaluate their differences.
 Therefore, we conduct a Bayes factor (BF) test \citep{Suchard2005} that expresses the posterior odds over the prior odds that $\omega_{1} < \omega_{2}$ for the individual analyses of each patient.
+%TODO: rephrase
 To determine the posterior odds, we note that the MCMC sample average of an indicator function that the parameter values fall within one competing model space converges to the posterior probability of that model.
+% The sample average of the
+% The posterior expectation of the indicator function governing the inclusion of 
 The prior odds in our case is simply 1.
 The log Bayes factors listed in Table \ref{tab:shank_bf} suggest generally strong evidence for a declining selective pressure after progression, with one notable exception for patient 5.
 We also provide a Bayes factor that summarizes the joint evidence for $\omega_{1} < \omega_{2}$, which suggest an overall support in favor of the immune relaxation hypothesis (log BF = 2.14), in accordance with previous findings suggesting a general decrease in non-synonymous divergence at late-stage infection \citep{williamson2005, Lemey2007}.

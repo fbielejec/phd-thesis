@@ -492,7 +492,7 @@ Clear and intuitive visualizations are an important aspect of every analysis \ci
 
 Spatial phylogenetic projections have already been utilized in the field \citep{Kidd2006,Parks2009}, yet most of these applications remain limited to mapping phylogenetic tip taxa to their geographical coordinates, without providing robust statistical estimates of the geographic locations at the ancestral nodes nor the measures of uncertainty in the inference.
 Fortunately, the advent of powerful and flexible Geographic Information Systems (GIS) has fostered an interesting possibility to visualize both the spatial and temporal information resulting from viral phylogenetic analysis.
-Presenting readily interpretable visual summaries of the inferences in e communicated to the researchers across different fields is one of the more important aspects of this thesis.
+Presenting readily interpretable visual summaries of the inferences that can be communicated to the researchers across different fields is one of the more important aspects of this thesis.
 
 \section{Evolution as a stochastic process\label{sec:markov}}
 
@@ -849,6 +849,22 @@ Second, the rate and time in Equation~(\ref{eq:jc69Finite}) occur as a product, 
 If we were to simulate two sequences, using the algorithm listed in (\ref{alg:simulation}) and start the random number generators from the same seed, they will look the same for every $r$ and $t$ as long as their product $rt$ is the same.
 This is true for most of the substitution models and implies that typical phylogenetic estimation focuses on inferring the product parameter $\theta=rt$, or genetic distance.
 In Subsection~\ref{sub:clocks} we discuss how, under certain conditions, the time and substitution rate can be separated.
+
+\subsection{Codon models of evolution\label{sub:codon})
+%TODO: briefly introduce, mg is later, show gy94 
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \subsection{Phylogenetic trees}
 
@@ -1544,7 +1560,7 @@ Recently \cite{Lartillot2006} as well as \cite{Xie2011} proposed to incorporate 
 Both these techniques rely on drawing MCMC samples from a series of distributions, each of which is a power posterior differing only in its power, along the path going from the prior to the unnormalized posterior defined by the model $M$:  
 
 \begin{equation}  
-q_{\beta}\left(\theta\right)=P\left(\mathbf{X}\mid\theta,M\right)\times P\left(\theta\mid M\right).
+q_{\beta}\left(\theta\right)=P\left(\mathbf{X}\mid\theta,M\right)^{\beta} \times P\left(\theta\mid M\right).
 \label{eq:ss_ps}
 \end{equation}  
 
