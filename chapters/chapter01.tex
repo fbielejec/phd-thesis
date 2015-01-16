@@ -220,13 +220,32 @@ To estimate concrete dates for phylogenetic nodes, it needs to be calibrated usi
 For rapidly evolving viruses however, it is possible to sample sequences that diverge over an observable timescale. 
 As opposed to the ultrametric topology assumed for slowly evolving organisms (Figure~\ref{fig:ultrametric}), the dates of the samples themselves can be used to calibrate the molecular clock \citep{Rambaut2000}.
 
-%GB: I think you should discuss some properties of EIDs at the nucleotide/amino acid/codon level (since that's what we've ended up extending) and link this to what you've done.
-%Perhaps you can get some inspiration from the following paper: http://jvi.asm.org/content/84/19/9864.long
-%Jeff Thorne is incorporating ''disease properties'' (for example, if they know that a certain non-synonymous mutation can be lethal) into his new codon models, explicitly taking into account likely lethal mutations.
+%TODO:  how to accommodate time-stamped sequences
 
-%GB: Can you give a (or some) know example(s) of such substitution or the importance of some particular substitutions?
-%How about the fact that a very dangerous virus (which made the news and hence readers will be able to relate to) is only a few mutations away from current bird flu viruses?
-%Check this article (the links to the actual Nature and Science papers are at the bottom of the page): http://www.medicalnewstoday.com/articles/246964.php
+% Consider a set of five virus sequences isolated on a range
+% of dates from 1980 to 2000 (I shall assume they were
+% all isolated on the same day of the year). Furthermore,
+% assume that the phylogenetic relationships between these
+% sequences have been estimated without error. On a hor-
+% izontal scale representing time, we position the tips of
+% the tree at points on this scale that correspond to their
+% isolation date (Figure 2). We now have four internal nodes
+% that are at times T0 –T3 ; but to begin with, these times
+% are unknown and are given arbitrary values. In effect, the
+% tree has two scales; the time-scale measured in years and
+% the branch-length scale measured in expected number of
+% substitutions per site. We now assume a single rate of
+% evolution for the entire tree, μ, which gives the linear
+% relationship between these two scales. The information
+% that allows us to estimate μ, is provided by the differences
+% in tip dates. Thus, for any given values of our parameters,
+% T0 , T1 , T2 , T3 and μ, we can calculate the branch lengths
+% for the whole tree. With these branch lengths and our as-
+% sumed topology, we can calculate the likelihood of the tree
+% for these parameters using the procedure of Felsenstein
+% (1981). 
+
+
 
 %---SAMPLING SCHEMES---%
 \begin{figure}[H]

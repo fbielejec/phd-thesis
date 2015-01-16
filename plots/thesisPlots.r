@@ -671,3 +671,39 @@ p <- p + scale_colour_manual(values = gs.pal(2))
 
 print(p)
 
+####################
+#---TIME STAMPED---#
+####################
+
+map <- function(value, low1, high1, low2, high2) {
+  return( (value - low1) / (high1 - low1) * (high2 - low2) + low2)
+}
+
+tree <- read.tree(text="(((T1:1.0,T2:1.0):1.0,T3:2.0):1.0,(T4:1.0,T5:1.0):2.0);")
+
+phylo = fortify.phylo(tree)
+phyloLabels = label.phylo(tree)
+
+yrng  = range(phylo$y)
+xrng  = range(phylo$x)
+
+# turn to dates
+phylo$x    <- round( map(phylo$x, xrng[1], xrng[2], 1940, 2000), digits = 0 )
+phylo$xend <- round( map(phylo$xend, xrng[1], xrng[2], 1940, 2000), digits = 0 )
+
+p <- ggplot()
+p <- p + geom_segment2(aes(x = x, y = y, xend = xend, yend = yend), colour = "black", size = lineSize, data = phylo)
+
+
+
+print(p)
+
+
+
+
+
+
+
+
+
+
