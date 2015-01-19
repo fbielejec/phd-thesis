@@ -20,7 +20,7 @@ BATCH=40
 SEED=123
 
 # burnin for LogAnalyser
-BURNIN=50000
+BURNIN=100
 
 TAB='\t'
 NEW='\n'

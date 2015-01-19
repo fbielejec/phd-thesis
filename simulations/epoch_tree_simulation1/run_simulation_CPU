@@ -2,7 +2,8 @@
 
 # ---README--- #
 # Simulates for kappa = 1, kappa = 10, kappa = 1
-# Inference for 2 epochs
+# Inference for homogenous model, logging MCC tree (for a target 'true' tree)
+
 
 #BEAGLE_PATH=/usr/local/lib
 #BEAST_PATH=/home/filip/Dropbox/JavaProjects/beast-mcmc/build/dist/beast.jar
@@ -19,17 +20,14 @@ BATCH=40
 # starting seed
 SEED=123
 
-# burnin for LogAnalyser
-BURNIN=100
+# burnin for TreeAnnotator
+BURNIN=1000
 
 TAB='\t'
 NEW='\n'
 
 # create results sub-directory
 mkdir results
-
-echo -e time $TAB seed $TAB statistic $TAB mean $TAB stdErr $TAB median $TAB hpdLower $TAB hpdUpper $TAB ESS >> results/kappa.1
-echo -e time $TAB seed $TAB statistic $TAB mean $TAB stdErr $TAB median $TAB hpdLower $TAB hpdUpper $TAB ESS >> results/kappa.2
 
 for ((i = 1 ; i <= N ; i += BATCH)); do
   
@@ -71,13 +69,13 @@ for ((i = 1 ; i <= N ; i += BATCH)); do
         
         echo "Finished in: $TIME h"
         
-        # analyse results
-        java -cp $BEAST_PATH dr.app.tools.LogAnalyser -burnin $BURNIN epoch.log > summary_standard
+        # analyse results (tree annotator)
+#        java -cp $BEAST_PATH dr.app.tools.LogAnalyser -burnin $BURNIN epoch.log > summary_standard
+         java -cp $BEAST_PATH dr.app.tools.TreeAnnotator -burnin $BURNIN -target ../startingTree.newick epoch.trees mcc.tree
         
-        # log the results
-        echo -ne "$TIME$TAB$NEWSEED$TAB$(grep kappa.1 summary_standard | cut -d $'\t' -f1-7)$NEW" >> ../results/kappa.1
-        echo -ne "$TIME$TAB$NEWSEED$TAB$(grep kappa.2 summary_standard | cut -d $'\t' -f1-7)$NEW" >> ../results/kappa.2
-
+        # log the resulting mcc tree
+        cp mcc.tree ../results/$NEWSEED.tree
+        
         # come back to the root directory
         cd ../
         

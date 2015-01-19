@@ -679,7 +679,7 @@ map <- function(value, low1, high1, low2, high2) {
   return( (value - low1) / (high1 - low1) * (high2 - low2) + low2)
 }
 
-tree <- read.tree(text="(((T1:1.0,T2:1.0):1.0,T3:2.0):1.0,(T4:1.0,T5:1.0):2.0);")
+tree <- read.tree(text = "(((T1:1.5,T2:2.0):2.5,T3:4.5):2.0,(T4:2.0,T5:4.0):3.0);")
 
 phylo = fortify.phylo(tree)
 phyloLabels = label.phylo(tree)
@@ -691,9 +691,25 @@ xrng  = range(phylo$x)
 phylo$x    <- round( map(phylo$x, xrng[1], xrng[2], 1940, 2000), digits = 0 )
 phylo$xend <- round( map(phylo$xend, xrng[1], xrng[2], 1940, 2000), digits = 0 )
 
-p <- ggplot()
-p <- p + geom_segment2(aes(x = x, y = y, xend = xend, yend = yend), colour = "black", size = lineSize, data = phylo)
+phyloLabels$x <- round( map(phyloLabels$x, xrng[1], xrng[2], 1940, 2000), digits = 0 )
 
+source("indices.r")
+indices <- indices[which(indices$type == "node"), ]
+# indices$x <- round( map(indices$x, xrng[1], xrng[2], 1940, 2000), digits = 0 )
+
+lineSize = 1.5
+textSize = 9 #5
+
+p <- ggplot()
+p <- p + geom_segment2(aes(x = x, y = y, xend = xend, yend = yend), colour = "black", 
+                       size = lineSize, data = phylo)
+
+# data
+p <- p + geom_text(aes(x = x, y = y, label = get_expr(c("T", "C", "A", "C", "C")) ), 
+                   hjust = -1.0, vjust = 0.5, size = textSize, data = phyloLabels )
+
+# internal nodes
+p <- p + geom_point(aes(x = x, y = y, colour = type, fill = type), size = dotSize, pch = 21, data = indices)
 
 
 print(p)
