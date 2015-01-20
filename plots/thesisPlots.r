@@ -674,7 +674,8 @@ print(p)
 ####################
 #---TIME STAMPED---#
 ####################
-
+# 6 x 10
+# TODO: known tip dates T_1 - T_5 (grey fill)
 map <- function(value, low1, high1, low2, high2) {
   return( (value - low1) / (high1 - low1) * (high2 - low2) + low2)
 }
@@ -688,17 +689,18 @@ yrng  = range(phylo$y)
 xrng  = range(phylo$x)
 
 # turn to dates
-phylo$x    <- round( map(phylo$x, xrng[1], xrng[2], 1940, 2000), digits = 0 )
-phylo$xend <- round( map(phylo$xend, xrng[1], xrng[2], 1940, 2000), digits = 0 )
-
+phylo$x       <- round( map(phylo$x, xrng[1], xrng[2], 1940, 2000), digits = 0 )
+phylo$xend    <- round( map(phylo$xend, xrng[1], xrng[2], 1940, 2000), digits = 0 )
 phyloLabels$x <- round( map(phyloLabels$x, xrng[1], xrng[2], 1940, 2000), digits = 0 )
 
 source("indices.r")
-indices <- indices[which(indices$type == "node"), ]
-# indices$x <- round( map(indices$x, xrng[1], xrng[2], 1940, 2000), digits = 0 )
+indices       <- indices[which(indices$type == "node"), ]
+indices$label <- c("T[0]", "T[6]", "T[7]", "T[8]")
 
 lineSize = 1.5
-textSize = 9 #5
+textSize = 5
+dotSize = 12
+
 
 p <- ggplot()
 p <- p + geom_segment2(aes(x = x, y = y, xend = xend, yend = yend), colour = "black", 
@@ -706,14 +708,38 @@ p <- p + geom_segment2(aes(x = x, y = y, xend = xend, yend = yend), colour = "bl
 
 # data
 p <- p + geom_text(aes(x = x, y = y, label = get_expr(c("T", "C", "A", "C", "C")) ), 
-                   hjust = -1.0, vjust = 0.5, size = textSize, data = phyloLabels )
+                   hjust = -0.5, vjust = 0.5, size = textSize + 4, data = phyloLabels )
 
-# internal nodes
-p <- p + geom_point(aes(x = x, y = y, colour = type, fill = type), size = dotSize, pch = 21, data = indices)
+# nodes time
+p <- p + geom_point(aes(x = x, y = y, colour = type, fill = type), pch = 21, color = "white", fill = "black", size = dotSize, data = indices)
+p <- p + geom_text(aes(x = x, y = y, label = get_expr(label)), color = "white", size = textSize, data = indices, 
+                   parse = TRUE, family = "Arial Black")
 
+theme <- theme_update(
+  axis.line = element_line(colour = "black"),
+  axis.title.y = element_blank(),
+  axis.text.x = element_text(colour = "black"),
+  axis.ticks.x = element_line(colour = "black"),
+  legend.position = "none",
+  panel.background = element_rect(size = 1, fill = "white", colour = NA),
+  panel.border = element_blank(),
+  panel.grid.major = element_blank(),
+  panel.grid.minor = element_blank(),
+  axis.text.y = element_blank(),
+  axis.ticks.y = element_blank(),
+  axis.line.y = element_blank()
+)
+
+p <- p + theme_set(theme)
+# p <- p + scale_x_reverse(limits = c(xlim, -0.5))
+p <- p + scale_x_continuous(breaks = sort(c(indices$x, phyloLabels$x)) )
+p <- p + xlab(NULL)
+
+p <- p + scale_fill_grey()
+gs.pal <- colorRampPalette(c("white","black"))
+p <- p + scale_colour_manual(values = gs.pal(2))
 
 print(p)
-
 
 
 

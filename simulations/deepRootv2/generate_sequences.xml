@@ -1,0 +1,240 @@
+<?xml version="1.0" standalone="yes"?>
+
+<beast>
+		
+	<taxa id="taxa">		
+		<taxon id="taxon1">
+			<date value="2000" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon2">
+			<date value="1999.5" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon3">
+			<date value="1999" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon4">
+			<date value="1998.5" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon5">
+			<date value="1998" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon6">
+			<date value="1997.5" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon7">
+			<date value="1997" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon8">
+			<date value="1996.5" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon9">
+			<date value="1996" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon10">
+			<date value="1995.5" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon11">
+			<date value="1995" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon12">
+			<date value="1994.5" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon13">
+			<date value="1994" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon14">
+			<date value="1993.5" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon15">
+			<date value="1993" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon16">
+			<date value="1992.5" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon17">
+			<date value="1992" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon18">
+			<date value="1991.5" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon19">
+			<date value="1991" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon20">
+			<date value="1990.5" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon21">
+			<date value="1990" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon22">
+			<date value="1989.5" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon23">
+			<date value="1989" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon24">
+			<date value="1988.5" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon25">
+			<date value="1988" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon26">
+			<date value="1987.5" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon27">
+			<date value="1987" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon28">
+			<date value="1986.5" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon29">
+			<date value="1986" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon30">
+			<date value="1985.5" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon31">
+			<date value="1985" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon32">
+			<date value="1984.5" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon33">
+			<date value="1984" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon34">
+			<date value="1983.5" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon35">
+			<date value="1983" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon36">
+			<date value="1982.5" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon37">
+			<date value="1982" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon38">
+			<date value="1981.5" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon39">
+			<date value="1981" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon40">
+			<date value="1980.5" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon41">
+			<date value="1980" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon42">
+			<date value="1979.5" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon43">
+			<date value="1979" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon44">
+			<date value="1978.5" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon45">
+			<date value="1978" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon46">
+			<date value="1977.5" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon47">
+			<date value="1977" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon48">
+			<date value="1976.5" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon49">
+			<date value="1976" direction="forwards" units="years"/>
+		</taxon>
+		<taxon id="taxon50">
+			<date value="1975.5" direction="forwards" units="years"/>
+		</taxon>		
+	</taxa>
+	
+	<!-- This is a simple constant population size coalescent model              -->
+	<!-- that is used to generate an initial tree for the chain.                 -->
+	<constantSize id="constant" units="years">
+		<populationSize>
+			<parameter id="constant.popSize" value="500.0"/>
+		</populationSize>
+	</constantSize>
+
+	<!-- Generate a random starting tree under the coalescent process            -->
+	<coalescentSimulator id="startingTree">
+		<taxa idref="taxa"/>
+		<constantSize idref="constant"/>
+	</coalescentSimulator>
+
+	<treeModel id="treeModel">
+		<newick idref="startingTree"/>
+		<rootHeight>
+			<parameter id="treeModel.rootHeight"/>
+		</rootHeight>
+		<nodeHeights internalNodes="true">
+			<parameter id="treeModel.internalNodeHeights"/>
+		</nodeHeights>
+		<nodeHeights internalNodes="true" rootNode="true">
+			<parameter id="treeModel.allInternalNodeHeights"/>
+		</nodeHeights>
+	</treeModel>
+
+    <report>
+        Tree: <tree idref="treeModel"/>
+    </report>
+	
+	<frequencyModel id="freqModel" dataType="codon-universal">
+        <frequencies>
+            <parameter id="codonfrequencies" dimension="61" value="0.0163936 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344 0.01639344"/>
+        </frequencies>
+     </frequencyModel>
+
+    <yangCodonModel id="yang.1" geneticCode="universal">
+        <frequencyModel idref="freqModel"/>
+    	<omega>
+        	<parameter id="omega.1" value="0.19"/>
+    	</omega>
+    	<kappa>
+        	<parameter id="kappa.1" value="4.0"/>
+    	</kappa>
+    </yangCodonModel>
+
+
+	<!-- The strict clock (Uniform rates across branches)                        -->
+	<strictClockBranchRates id="branchRates">
+		<rate>
+			<parameter id="clock.rate" value="3E-3"/>
+		</rate>
+	</strictClockBranchRates>
+
+	<!-- site model                                                              -->
+	<siteModel id="siteModel">
+        <yangCodonModel idref="yang.1"/>
+<!--
+	     <gammaShape gammaCategories="4">
+			<parameter id="siteModel.alpha" value="0.5""/>
+		</gammaShape>
+-->
+	</siteModel>
+
+    <!-- simulate some sequence data under this model -->
+	<beagleSequenceSimulator id="simulator" output="XML">
+	
+		<partition from="1" to="500" every="1">
+			<treeModel idref="treeModel"/>
+			<yangCodonModel idref="yang.1"/>
+  			<siteModel idref="siteModel"/>
+  			<strictClockBranchRates idref="branchRates"/>
+  			<frequencyModel idref="freqModel"/>
+		</partition>
+		
+	</beagleSequenceSimulator>
+
+    <report fileName="sequences.xml">
+        <beagleSequenceSimulator idref="simulator"/>
+    </report>
+
+</beast>

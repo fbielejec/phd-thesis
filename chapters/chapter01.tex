@@ -220,33 +220,6 @@ To estimate concrete dates for phylogenetic nodes, it needs to be calibrated usi
 For rapidly evolving viruses however, it is possible to sample sequences that diverge over an observable timescale. 
 As opposed to the ultrametric topology assumed for slowly evolving organisms (Figure~\ref{fig:ultrametric}), the dates of the samples themselves can be used to calibrate the molecular clock \citep{Rambaut2000}.
 
-%TODO:  how to accommodate time-stamped sequences
-
-% Consider a set of five virus sequences isolated on a range
-% of dates from 1980 to 2000 (I shall assume they were
-% all isolated on the same day of the year). Furthermore,
-% assume that the phylogenetic relationships between these
-% sequences have been estimated without error. On a hor-
-% izontal scale representing time, we position the tips of
-% the tree at points on this scale that correspond to their
-% isolation date (Figure 2). We now have four internal nodes
-% that are at times T0 –T3 ; but to begin with, these times
-% are unknown and are given arbitrary values. In effect, the
-% tree has two scales; the time-scale measured in years and
-% the branch-length scale measured in expected number of
-% substitutions per site. We now assume a single rate of
-% evolution for the entire tree, μ, which gives the linear
-% relationship between these two scales. The information
-% that allows us to estimate μ, is provided by the differences
-% in tip dates. Thus, for any given values of our parameters,
-% T0 , T1 , T2 , T3 and μ, we can calculate the branch lengths
-% for the whole tree. With these branch lengths and our as-
-% sumed topology, we can calculate the likelihood of the tree
-% for these parameters using the procedure of Felsenstein
-% (1981). 
-
-
-
 %---SAMPLING SCHEMES---%
 \begin{figure}[H]
 \centering
@@ -939,6 +912,33 @@ Branch lengths can be estimated in units of genetic distance, or as in this case
 Within our framework we focus on trees which are rooted and time-measured, i.e. their branch lengths are scaled in actual time units.
 A rooted binary tree with $n$ leaves has $2n-2$ branches and $n-1$ internal nodes.
 The branching pattern of the tree is called the \emph{topology}. 
+
+\subsection{Dated phylogenetic trees\label{sub:dated_trees}}
+%how to accommodate time-stamped sequences
+
+Time-stamped sequence data, which frequently arises from studies involving MEP populations for which sequences are sampled at different points in time and the evolutionary rates are high enough for significant changes to occur, can be used to calibrate the molecular clock and convert branch lengths into actual time units.
+
+Fo simplicity let us assume a single site, where character sequence data was sampled on dates ranging from $1983$ to $2000$, as seen in Figure~\ref{fig:timing_sequences}.
+We also assume that the tree topology is known and we want to estimate the unknown times $T_{0},T_{6},T_{7},T_{8}$.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{timing_sequences} 
+\caption{
+{ \footnotesize 
+{\bf Dated phylogenetic tree.} 
+Discrete characters $CCACT$ observed at the external nodes (the tips of the tree) were sampled at different points in time.
+The tree topology is known and assumed to be true.
+The unknown dates of the internal nodes are labelled $T_{0},T_{6},T_{7},T_{8}$.
+}% END: footnotesize
+}
+\label{fig:timing_sequences}
+\end{figure}
+
+We start by estimating the rate of mutation $r$, which here is assumed to apply to the whole tree (a strict clock), from the differences in sampling times and the genetic distance, given by the model of sequence substitution.
+This allows us to change the scale of the tree from units of substitutions to a time-scale measured in years.
+The likelihood of the tree given estimated parameters $r,T_{0},T_{6},T_{7},T_{8}$ can be calculated using methods presented in Subsection~\ref{sub:likelihood}.
+
 
 \subsection{Sequence evolution on a tree\label{sub:evolutionOnTree}}
 
