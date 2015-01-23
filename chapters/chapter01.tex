@@ -124,8 +124,12 @@ As a statistical alternative to an optimality criterion, the likelihood had also
 The idea of using maximum likelihood to estimate evolutionary trees was first proposed by \cite{Edwards1964}, although without a working implementation at the time of the publication.
 Maximum likelihood is a probabilistic method of inference, that evaluates a hypothesis in terms of how probable it is in the light of the observed data.
 In a phylogenetic setting, the likelihood function returns the probability that the proposed model and the proposed tree, understood as a topology and branch lengths, have generated the observed data.
-The evolutionary history and associated set of evolutionary parameters with a higher probability is naturally preferred over a history with a lower probability.
+\myedit{svthree}{
+In general an evolutionary history and associated set of evolutionary parameters with higher probability of generating the observed data is naturally preferred over a history with a lower probability of generating it.
 By using optimization techniques one can find the parameter values that maximize the probability of observing the data.
+}
+% The evolutionary history and associated set of evolutionary parameters with a higher probability is naturally preferred over a history with a lower probability.
+% By using optimization techniques one can find the parameter values that maximize the probability of observing the data.
 In his influential work, \cite{Felsenstein1981} proposed an efficient algorithm for calculating a likelihood of sequence evolution on a tree under an evolutionary model of substitution, the so called `tree pruning' algorithm.
 Unfortunately finding the maximum likelihood tree requires a search through the space of all possible tree topologies; in section \ref{sub:mlburden} we discuss in detail the computational burden associated with these calculations.
 The effort required to exhaustively search through a space of all possible rooted trees grows explosively with the number of taxa, as depicted in Table \ref{tab:maxLikeBurden}.
@@ -643,17 +647,18 @@ This allows us to accommodate all possible paths that evolution might have taken
 From Equation~(\ref{eq:poissonDist}) we know the probability of having $k$ mutations in time interval $t$, thus:
 
 \begin{equation}
-\left\{ P(t)\right\} _{ij}=\underset{k=0}{\overset{\infty}{\sum}}\mathbf{R}^{k}\frac{(r t)^{k}}{k!}e^{-r t}=\underset{k=0}{\overset{\infty}{\sum}}\frac{(\mathbf{R}r t)^{k}}{k!}e^{-r t},
+\left\{ P(t) \right\} _{ij}= \left\{ \underset{k=0}{\overset{\infty}{\sum}}\mathbf{R}^{k}\frac{(r t)^{k}}{k!}e^{-r t} \right\} _{ij} = \left\{ \underset{k=0}{\overset{\infty}{\sum}}\frac{(\mathbf{R}r t)^{k}}{k!}e^{-r t} \right\} _{ij},
 \label{eq:matrixExp1}
 \end{equation}
 
 \noindent
-where $\left\{ P(t)\right\} _{ij}$ denotes the $ij\text{-th}$ element of the transition probability matrix $\mathbf{P}$ over time $t \geq 0$.
+where $\left\{  \cdot \right\} _{ij}$ denotes the $ij\text{-th}$ element of a matrix.
+% the transition probability matrix $\mathbf{P}$ over time $t \geq 0$.
 Let us denote the matrix $\mathbf{R}-\mathbf{I}$, where $\mathbf{I}$ is a $K \times K$ identity matrix, by $\mathbf{Q}$.
 Using the power series definition of the transition probability matrix: $\exp(\mathbf{R})=\underset{k=0}{\overset{\infty}{\sum}}\mathbf{R}^{k}/k!$, we can write Equation~(\ref{eq:matrixExp1}) as:
 
 \begin{equation}
-\left\{ P(t)\right\} _{ij}=e^{\mathbf{R}r t}e^{-r t} =e^{(\mathbf{R}-\mathbf{I})r t}=e^{\mathbf{Q}r t} 
+\left\{ \left\{ P(t)\right\} _{ij} \right\} _{ij} = \left\{ e^{\mathbf{R}r t}e^{-r t} \right\} _{ij} = \left\{ e^{(\mathbf{R}-\mathbf{I})r t} \right\} _{ij}= \left\{ e^{\mathbf{Q}r t} \right\} _{ij}
 \label{eq:matrixExp2}
 \end{equation}
 
@@ -793,6 +798,15 @@ This condition is assumed for strictly computational reasons, i.e. time-reversib
 Subsection~\ref{sub:exponentiation} - is a strategy frequently employed in phylogenetic software to compute the exponentials of rate matrices.
 Time reversibility also simplifies the computation of the likelihood on a tree, since it makes the computation independent of the position of the root, which we will discuss in Subsection~\ref{sub:likelihood}.
 
+
+
+
+
+
+
+
+
+
 \subsection{A simple example: the Jukes and Cantor substitution model\label{sub:jc69}}
 
 In this subsection we will discuss the simplest model of nucleotide substitution, i.e. the JC69 model \citep{Jukes1969}.
@@ -814,16 +828,21 @@ r & r & r & -3r.
 The finite-time transition probability matrix $\mathbf{P}(t)$ for time $t>0$ is calculated using matrix exponentiation  (see Subsection~\ref{sub:exponentiation}):
 
 \begin{align}
-\mathbf{P}\left(t\right) &=& \left[\begin{array}{ccccc}
-p_{0}(t) & p_{1}(t) & \cdots & \cdots & p_{1}(t)\\
-p_{1}(t) & p_{0}(t) &  &  & \vdots\\
-\vdots &  & \ddots & p_{0}(t) & p_{1}(t)\\
-p_{1}(t) & \cdots & \cdots & p_{1}(t) & p_{0}(t)
-\end{array}\right],  \nonumber \\
-&\text{where}& \ensuremath{\begin{cases}
-p_{0}(t)=\frac{1}{4}+\frac{3}{4}e^{-4rt}\\
-p_{1}(t)=\frac{1}{4}-\frac{1}{4}e^{-4rt}
-\end{cases}}.
+% \mathbf{P}\left(t\right) &=& \left[\begin{array}{cccc}
+% p_{0}(t) & p_{1}(t) & p_{1}(t) & p_{1}(t)\\
+% p_{1}(t) & p_{0}(t) & p_{1}(t) & p_{1}(t)\\
+% p_{1}(t) & p_{1}(t) & p_{0}(t) & p_{1}(t)\\
+% p_{1}(t) & p_{1}(t) & p_{1}(t) & p_{0}(t)
+% \end{array}\right]
+%  ,  \nonumber \\
+% &\text{where}& \ensuremath{\begin{cases}
+% p_{0}(t)=\frac{1}{4}+\frac{3}{4}e^{-4rt}\\
+% p_{1}(t)=\frac{1}{4}-\frac{1}{4}e^{-4rt}
+% \end{cases}}.
+p_{ij}\left(t\right)=\begin{cases}
+\frac{1}{4}+\frac{3}{4}e^{-4rt} & \text{if }i=j\\
+\frac{1}{4}-\frac{1}{4}e^{-4rt} & \text{otherwise}
+\end{cases}
 \label{eq:jc69Finite}
 \end{align}
 
@@ -1023,7 +1042,10 @@ L\left(\mathbf{\Theta}|\mathbf{X}\right)=P\left( \mathbf{X} | \mathbf{\Theta} \r
 \noindent
 where $\mathbf{\Theta}$ represents the tree topology, the branch lengths, the parameters of the substitution model and other parameters of interest that we want to estimate.
 This quantity expresses how likely it is to observe the data given a specific value of the parameter(s) of interest $\mathbf{\Theta}$.
-By finding the value of $\mathbf{\Theta}$ that maximizes (\ref{eq:likelihood}) we obtain an estimate of the most plausible hypothesis for the data.
+\myedit{sveight}{
+By finding the value of $\mathbf{\Theta}$ that maximizes (\ref{eq:likelihood}) we obtain an estimate of the most plausible 
+%hypothesis for the data.
+set of parameters given observed data.}
 
 In this thesis we will not discuss maximum likelihood estimation itself, %PL: good, who wants to consider the data to be fixed anyway..
 rather focus on closely related 
@@ -1283,10 +1305,14 @@ The central concept of Bayesian inference is that this parameter has a distribut
 Before the molecular data $\mathbf{X}$ is observed we assume that $\theta$ has a prior distribution $P(\theta)$.
 The prior reflects the prior beliefs about the possible values of the parameter.
 
+\myedit{svnine}{
 The prior choice is perhaps one of the most controversial points of the Bayesian inference.
 The prior distributions may come from the preceding analysis of other sets of data, or they may form some set of biologically plausible values.
 However in some cases there may be no suitable objective distribution at hand, in which case one often resorts to the so-called \emph{vague} or \emph{diffuse} priors, which have large variances.
-All of these proper prior choices lead to a proper posterior distribution, yet some controversies about their choice may still arise.
+Some popular uninformative priors on continuous, unbounded variables may be improper, \textit{i.e.} their distribution is infinitesimal on an infinite range in order to integrate to $1$.
+Among examples of such priors is the uniform distribution on an infinite interval.
+Although many of of these prior choices sill lead to a proper posterior distribution, yet some controversies about their choice may still arise.
+}
 
 % TODO: discuss hyperpriors?
 The prior information is then combined with the likelihood of the data $P\left( \mathbf{X} | \theta \right)$ to form the posterior, via Bayes' theorem (Equation~(\ref{eq:bayesian1})).
@@ -1341,8 +1367,53 @@ Assuming that the sites are independent we can use a binomial model and put a be
 \end{figure}
 
 Figure~\ref{fig:bayes1} shows the resulting posterior distribution along with prior and scaled likelihood.
+The likelihood of the binomial model used in this example is simply:
+
+\begin{align}
+L\left(\theta|x\right)=\left(\begin{array}{c}
+N\\
+x
+\end{array}\right)\theta^{x}(1-\theta)^{N-x}
+\label{eq:binomial_like}
+\end{align}
+
+Equation~\ref{eq:binomial_like} is plotted in Figure~\ref{fig:bayes1} over a range of values of $\theta$, resulting in the black filled distribution.
+The Beta distribution we chose for the prior has a following distribution function:
+
+\begin{align}
+p(\theta)=\frac{1}{B\left(\alpha,\beta\right)}\theta^{\alpha-1}(1-\alpha)^{\beta-1}
+\label{eq:beta_dist}
+\end{align}
+
+Equation~\ref{eq:beta_dist} corresponds to the white filled curve in in Figure~\ref{fig:bayes1}.
+Following the Bayes rule from Equation~\ref{eq:bayesian1} we can combine the likelihood and prior to form the posterior, which then becomes:
+
+\begin{eqnarray}
+p\left(\theta|x\right)=& \frac{\left(\begin{array}{c}
+N\\
+x
+\end{array}\right)\theta^{x}(1-\theta)^{N-x}\times\frac{1}{B\left(\alpha,\beta\right)}\theta^{\alpha-1}\left(1-\theta\right)^{\beta-1}}{\int\left(\begin{array}{c}
+N\\
+x
+\end{array}\right)\theta^{x}(1-\theta)^{N-x}\times\frac{1}{B\left(\alpha,\beta\right)}\theta^{\alpha-1}\left(1-\theta\right)^{\beta-1}d\theta} \nonumber \\
+=& \frac{1}{B\left(\alpha+x,\beta+N-x\right)}\theta^{\alpha+x-1}(1-\theta)^{\beta+N-x-1}
+\label{eq:beta_binom_post}
+\end{eqnarray}
+ 
+Equation~\ref{eq:beta_binom_post} appears as a grey filled area in Figure~\ref{fig:bayes1}.
 This illustrates that the data `pulls' the posterior away from the prior, and the strength by which is does so depends on its variance, resulting in a posterior centered around 0.06 in this case.
 In this example, the posterior distribution can be obtained analytically because the beta distribution is a so-called \emph{conjugate prior} for the binomial model, resulting in the posterior that is also beta-distributed.
+
+
+
+
+
+
+
+
+
+
+
 
 \subsection{Markov Chain Monte Carlo\label{sub:mcmc} }
 
@@ -1354,11 +1425,11 @@ This is where the Markov Chain Monte Carlo (MCMC) algorithm shows its strength a
 
 The Metropolis-Hasting algorithm, as proposed by \citet{Metropolis1953}, is an MCMC algorithm for sampling from multi-dimensional distributions.
 It proceeds by constructing a Markov chain with its states being the values of the parameter of interest $\theta$ and whose equilibrium distribution is the posterior $P\left(\theta|\mathbf{X}\right)$ as defined in Equation~\ref{eq:bayesian1}.
-After choosing an arbitrary starting state for the chain, new candidate states $\theta^{*}$ are generated from the proposal density $q(\theta^{*} | \theta[t])$, also called the kernel.
+After choosing an arbitrary starting state for the chain, new candidate states $\theta^{*}$ are generated from the proposal density, also called the kernel, $q(\theta^{*} | \theta[t]), \; t=1,\ldots,M$, where $M$ is the chain length and $\theta[t]$ is the current value of the chain.
 
 A common kernel choice to propose new state for continuous parameter is to sample from a uniform distribution centered around the current state of the chain, the so-called sliding window kernel: 
 
-$$\theta^{*}\sim U\left[\theta[t]-\omega,\theta[t]+\omega\right],$$
+$$\theta^{*}\sim U\left[\theta[t]-\omega,\theta[t]+\omega\right], \; t=1,\ldots,M,$$
 
 \noindent
 where $\omega$ is the arbitrary window size.
@@ -1374,7 +1445,7 @@ Algorithm~\ref{alg:metropolisHastings} presents the details of the Metropolis-Ha
 %
 \State Pick a starting value of the chain $\theta \left[ t \right]$ for $t=0$.
 %
-\For{int $\left(t=0; \; t<\text{chain length}; \; t++\right)$}
+\For{int $\left(t=1; \; t<M-1; \; t++\right)$}
 %
 \State Generate a candidate state from the proposal distribution (kernel):
 $$\theta^{*} \sim q(\theta[t])$$
