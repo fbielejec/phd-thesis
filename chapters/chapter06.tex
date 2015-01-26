@@ -160,13 +160,42 @@ On an evolutionary history, this assumption is unrealistic; Thorne et al.~\citep
 We propose to achieve both auto-correlation and non-parametric flexibility by extending DPs to have first-order dependence along the evolutionary history.  
 To accomplish this, recent work in Bayesian inference with DPs and their generalization, \emph{Polya urns}, \citep{Guha2010} shows that \emph{infinite hidden Markov models} \citep{Beal2002} in the computer science literature are now as convenient to fit as DPs and will allow for dependence across neighboring branches while retaining their non-parametric behavior.
 
-%TODO: explain hidden markov models
 \begin{remark}{Infinite hidden Markov models}
-Hidden Markov model (HMM) defines a probability distribution over sequences of observations
+Hidden Markov model (HMM) $\left\{ X\left(t\right):\; t=1,2,\ldots\right\}$ defines a probability distribution over sequences of observations $\mathbf{X}=\left\{ X(1), \ldots,X(t) \right\}$ by invoking another sequence of unobserved (\emph{hidden}) discrete state variables $\left\{ C\left(t\right):\; t=1,2,\ldots\right\}$.
+ 
+% Let us denote the past states of these processes  from time $1$ to time $t$ by 
+The model is defined by three parts: first the \emph{transition matrix} of the hidden process, which satisfies the Markov property, i.e.:
 
+\begin{align}
+% \mathbf{P}=\left\{ p_{ij}\right\} ,\text{where }p_{ij}=&P\left\{ C\left(t\right)|C\left(t-1\right),\ldots,C\left(1\right)\right\} \nonumber \\ 
+% =&P\left\{ C\left(t\right)|C\left(t-1\right)\right\} , 
+\mathbf{P}=\left\{ p_{ij}\right\} ,\text{where }p_{ij}=& P\left\{ C\left(t\right)=j|C\left(t-1\right)=i,C\left(t-2\right),\ldots \right\} \nonumber \\ 
+=& P\left\{ C\left(t\right)=j|C\left(t-1\right)=i\right\} 
+\label{eq:hmm_trans}
+\end{align}
 
+\noindent
+secondly the \emph{emitting matrix} of the `state-dependent process', which depends only on the current state of the hidden process and not on the previous states, i.e.:
 
+\begin{align}
+% \mathbf{X}=\left\{ x_{ij}\right\} ,\text{where }x_{ij}=& P\left\{ X\left(t\right)|C\left(t\right),X\left(t-1\right),\ldots,X\left(1\right)\right\} \nonumber \\
+% =&P\left\{ X\left(t\right)|C\left(t\right)\right\} ,
+\mathbf{X}=\left\{ x_{jk}\right\} ,\text{where }x_{jk}=& P\left\{ X\left(t\right)=k|C\left(t\right)=j,X\left(t\right),X\left(t-1\right),\ldots \right\} \nonumber \\
+=&P\left\{ X\left(t\right)=k|C\left(t\right)=j\right\} ,
+\label{eq:hmm_emit}
+\end{align}
 
+\noindent
+and lastly the vector of starting probabilities of being in some state $i$ at the beginning, i.e.:
+
+\begin{align}
+\Pi=\left\{ \pi_{i}\right\} ,\text{where }\pi_{i}=P\left\{ C\left(t=1\right)=i\right\} 
+\label{eq:hmm_start}
+\end{align}
+
+\noindent
+If the Markov chain $\left\{ C\left(t\right) \right\}$ has $m$ states we call $\left\{ X\left(t\right) \right\}$ an $m$-state HMM and $\lambda=\left(\mathbf{P},\mathbf{X},\Pi\right)$ is typically used as a compact notation for an HMM.
+Extending  the \emph{hidden} $\left\{ C\left(t\right) \right\}$ process to a countably infinite number of hidden states for leads to the infinite HMM's.
 \end{remark}
 
 We are pursuing such among-branch approaches and will adopt similar non-parametrics to model among-site variability in $\alpha$ and $\beta$. 
