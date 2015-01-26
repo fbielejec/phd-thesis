@@ -77,7 +77,7 @@ In unrooted trees, the position of the root is unknown, and unlike rooted trees,
 A group of taxa in a phylogeny, consisting of all the descendants sharing a particular ancestor, is called a clade or phylogenetic cluster.
 
 %---FIRST TREES---%
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.6]{first_trees} 
 \caption{
@@ -108,7 +108,7 @@ Later, \cite{Fitch1971} published an dynamic programming algorithm that efficien
 Figure \ref{fig:parsimony} presents an example of parsimony, where among two trees explaining the evolution of sequences {\color{green}AAG}, {\color{green}AAA}, {\color{green}GGA}, {\color{green}AGA} only the most parsimonious one is selected.
 
 %---PARSIMONY TREE---%
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.3]{parsimony} 
 \caption{
@@ -134,7 +134,7 @@ In his influential work, \cite{Felsenstein1981} proposed an efficient algorithm 
 Unfortunately finding the maximum likelihood tree requires a search through the space of all possible tree topologies; in section \ref{sub:mlburden} we discuss in detail the computational burden associated with these calculations.
 The effort required to exhaustively search through a space of all possible rooted trees grows explosively with the number of taxa, as depicted in Table \ref{tab:maxLikeBurden}.
 
-\begin{table}[H]
+\begin{table}[h!]
 \centering
 % \footnotesize{
 \begin{tabular}{cc}
@@ -169,7 +169,7 @@ Bayesian statistical thinking is not a new idea and stems back to the XVII centu
 
 %---BAYES---%
 \begin{remark}{Thomas Bayes}
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.4]{Thomas_Bayes} 
 \caption{
@@ -225,7 +225,7 @@ For rapidly evolving viruses however, it is possible to sample sequences that di
 As opposed to the ultrametric topology assumed for slowly evolving organisms (Figure~\ref{fig:ultrametric}), the dates of the samples themselves can be used to calibrate the molecular clock \citep{Rambaut2000}.
 
 %---SAMPLING SCHEMES---%
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.3]{ultrametric} 
 \caption{
@@ -267,7 +267,7 @@ The process describing how lineages on a genealogy merge to a common ancestor as
 The simplest formulation of the coalescent process described by John Kingman was derived as an approximation of the \textit{Wright-Fisher} \citep{Fisher1930,Wright1931} population model (see Figure~\ref{fig:wright-fisher}).
 
 %---COALESCENT---%
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.4]{wright-fisher} 
 \caption{
@@ -511,7 +511,7 @@ The particular sites of the sequence alignment are then considered to be stochas
 
 %PL: Since you list the mutations for the right branch, you may as well list the one on the left branch as well
 % FB: not sure what you mean, should I add some annotation on that branch? I explicite left it empty, the right branch is longer so it has more substitutions on it than the left one
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \begingroup
 \everymath{\displaystyle}
@@ -573,7 +573,7 @@ A Poisson process with rate $r>0$ is a continuous-time counting process $\left\{
 
 Figure~\ref{fig:poisson} shows a sample of different trajectories for such a process.
 
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.4]{poisson}
 \caption{
@@ -730,7 +730,7 @@ This describes a Continuous-time Markov chain (CTMC), which  we will use to mode
 Every CTMC is completely characterized by its rate matrix $\mathbf{Q}$ and the stochastic matrix $\mathbf{P}(t),\ t\geq0$ is obtained via matrix exponentiation as described in the previous subsection (Subsection~\ref{sub:exponentiation}).
 
 %---SUBSTITUTION MODEL---%
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.5]{substitution} 
 \caption{
@@ -916,7 +916,7 @@ Data is observed only at the external nodes (\emph{tips}), while internal nodes 
 The ancestor of all observed samples is called the \emph{root} of the tree and its height is referred to as the time to the most recent common ancestor (TMRCA).
 
 %---TREE CONCEPT---%
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.35]{treeconcept} 
 \caption{
@@ -940,7 +940,7 @@ Time-stamped sequence data, which frequently arises from studies involving MEP p
 Fo simplicity let us assume a single site, where character sequence data was sampled on dates ranging from $1983$ to $2000$, as seen in Figure~\ref{fig:timing_sequences}.
 We also assume that the tree topology is known and we want to estimate the unknown times $T_{0},T_{6},T_{7},T_{8}$.
 
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.4]{timing_sequences} 
 \caption{
@@ -973,7 +973,7 @@ The process then randomly decides by a coin flip to which of the two descendent 
 Let us assume that the process moved to $x_j$.
 The state $j$ for the node $x_j$ is sampled conditional on the value $i$ already sampled at the root using the branch length expressed in real time $t$ and the vector probabilities in the row $i$ of the finite-time probabilities matrix $\mathbf{P}(t)$, calculated using SVD of the rate matrix $\mathbf{Q}$ that characterizes the CTMC.   
 
-\begin{algorithm}[H]
+\begin{algorithm}[h!]
 \centering
 \begin{algorithmic}[1]
 % \footnotesize{
@@ -1057,7 +1057,7 @@ The likelihood concept is also required in Bayesian inference and enters the fra
 We will now discuss how to calculate the likelihood of observing a particular realization of character sequences at the tips of a tree, given a substitution model with fixed parameters.
 
 %---LIKELIHOOD---%
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.4]{likelihood} 
 \caption{
@@ -1355,7 +1355,7 @@ Suppose that the parameter $\theta$ we want to infer is the proportion of sites 
 Assuming that the sites are independent we can use a binomial model and put a beta prior with parameters $\alpha=2$, $\beta=100$ on the unknown proportion $\theta$, suggesting that \textit{a priori} we prefer small values of the $\theta$ parameter.
 
 %---POSTERIOR PRIOR LIKELIHOOD---%
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.45]{bayes} 
 \caption{
@@ -1535,7 +1535,7 @@ and set $\lambda=10$.
 For the proposal we choose a uniformly distributed jumping kernel with a window size of $w=0.1$.
 
 %---METROPOLIS PATH---%
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.5]{metropolis} 
 \caption{
@@ -1568,7 +1568,7 @@ For reference we now repeat the same procedure, yet this time we set the window 
 The resulting time-series plot is presented in Figure~\ref{fig:window_size}.
 
 %---WINDOW SIZE---%
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.5]{window_size} 
 \caption{
