@@ -1163,7 +1163,7 @@ In other words $T(n)$ is $\mathcal{O}\left(f(n)\right)$ if and only if for all s
 This makes the Big-O notation useful when analyzing algorithms for run-time efficiency and makes it possible to, for example, compare routines without the added overhead of negligible terms, such as the architecture at which the code was run, the choice of language or compiler.
 We will now briefly discuss some of the most common serial computational orders and their examples. 
 
-\begin{algorithm}[H]
+\begin{algorithm}[h!]
 \centering
 \begin{algorithmic}[1]
 % \footnotesize{
@@ -1191,7 +1191,7 @@ We will now briefly discuss some of the most common serial computational orders 
 The simplest, most basic example is an operation that takes the same amount of time every time it is called, thus requiring constant time, i.e. it's computational complexity is that of $\mathcal{O}\left(1\right)$ and does not depend on the input size.
 An example of such routine is listed in the Algorithm~\ref{alg:o1} that evaluates a specific value of a constant.
 
-\begin{algorithm}[H]
+\begin{algorithm}[h!]
 \centering
 \begin{algorithmic}[1]
 % \footnotesize{
@@ -1224,7 +1224,7 @@ An algorithm proceeding at $\mathcal{O}\left(N\right)$ has a run-time that grows
 An example of such a routine is presented as Algorithm~\ref{alg:on}, which searches an array looking for a specific value.
 We should note that the Big-O notation always describes the performance in worst-case scenario, i.e. a full loop has to be executed before a matching element is found, while for the actual real-world problem this does not have to be the case and the loop can return earlier.
 
-\begin{algorithm}[H]
+\begin{algorithm}[h!]
 \centering
 \begin{algorithmic}[1]
 % \footnotesize{
@@ -1438,7 +1438,7 @@ The routine iterates between accept/reject steps for a specified number of times
 Both acceptance and rejection are counted as iterations of the algorithm; in fact the rejections ensure that the probabilistic properties of the target distribution are well represented in the generated sample.  
 Algorithm~\ref{alg:metropolisHastings} presents the details of the Metropolis-Hastings algorithm.
 
-\begin{algorithm}[H]
+\begin{algorithm}[h!]
 \centering
 \begin{algorithmic}[1]
 % \footnotesize{
@@ -1657,7 +1657,7 @@ In order to study phylogeographic processes based on longitude and latitude coor
 % https://radfordneal.wordpress.com/2008/08/17/the-harmonic-mean-of-the-likelihood-worst-monte-carlo-method-ever/
 
 A standard approach to compare models in a Bayesian phylogenetic framework is through the evaluation of Bayes factors (BFs).   
-The BF is a ratio of two marginal likelihoods, which given the observed data $\mathbf{X}$ quantify the plausibility of two models, denoted $M_{1}$ and $M_{2}$ and parametrised in terms of parameters $\theta_{1}$ and $\theta_{2}$ respectively:
+The BF is a ratio of two marginal likelihoods, which given the observed data $\mathbf{X}$ quantify the plausibility of two models, denoted $M_{1}$ and $M_{2}$ and are parametrised in terms of parameters $\theta_{1}$ and $\theta_{2}$ respectively:
 
 % 
 \begin{equation}  
@@ -1667,21 +1667,29 @@ The BF is a ratio of two marginal likelihoods, which given the observed data $\m
 % 
 
 \noindent
-where $P\left(\mathbf{X}|\theta_{i},M_{i}\right)$ is the likelihood function and $P\left(\theta_{i} \mid M_{i} \right)$ is the prior, for $i=1, \ldots, 2$.
-The parameters $\theta_{i},\; i=1, \ldots, 2$ can be possibly multidimensional, making the integral in Equation~\ref{eq:bayes_factor} non-trivial to estimate.
-For a number of years the posterior Harmonic Mean Estimator (HME, \cite{Newton1994}) has been extesively used in Bayesian phylogenetic inference, mainly for the simplicity in it's calculation. 
-To evaluate the HME one only needs the samples from the posterior distribution which are readilly availiable as output form any MCMC program.
+where $P\left(\mathbf{X}|\theta_{i},M_{i}\right)$ is the likelihood function and $P\left(\theta_{i} \mid M_{i} \right)$ is the prior, for $i=1, 2$.
+The parameters $\theta_{i},\; i=1, 2$ can be possibly multidimensional, making the integral in Equation~\ref{eq:bayes_factor} non-trivial to estimate.
+For a number of years the posterior Harmonic Mean Estimator (HME, \cite{Newton1994}) has been extensively used in Bayesian phylogenetic inference, mainly for the simplicity in its calculation. 
+To evaluate the HME one only needs the samples from the posterior distribution which are readily available as output form any MCMC program.
 
-\cite{Meng1996} as well as \cite{Xie2011} warn that despite this computational convenience the HME is a biased estimator of the marginal likelihood, severely overestimating and with potential infinite variance.
-Realizing this has lead to a substantial amount of work invested in the development of efficient methods for estimating marginal likelihoods \citep{Suchard2001,Lemey2009,Li2012}.
-Recently \cite{Lartillot2006} as well as \cite{Xie2011} proposed to incorporate the path sampling (PS) and stepping-stone sampling (SS) methods for accurate estimation of the marginal likelihood into Bayesian phylogenetic frameworks.
-\cite{Baele2012} have proposed the first implementation of PS and SS into phylogenetic inference software.
-Both these techniques rely on drawing MCMC samples from a series of distributions, each of which is a power posterior differing only in its power, along the path going from the prior to the unnormalized posterior defined by the model $M$:  
+Among others, \cite{Meng1996}, \cite{Lartillot2006} and \cite{Xie2011} warn that despite this computational convenience the HME is a biased estimator of the (log) marginal likelihood, severely overestimating the true value and with potentially infinite variance.
+%GB: not typically the correct references for this type of work, so I removed them
+This has lead to a substantial amount of work invested in the development of more accurate methods for estimating (log) marginal likelihoods.
+To this end, \cite{Lartillot2006} introduced path sampling (PS) into the field of phylogenetics, providing several examples for which the HME was drastically outperformed by PS when estimating the marginal likelihood.
+The authors showed that even for simple Gaussian examples, for which the true value of the marginal likelihood can be analytically calculated, the HME was unable to estimate the true underlying value whereas PS proved very reliable for all cases examined. 
+Further, for evolutionary models with high dimensions, the HME severely overestimated the (log) marginal likelihood compared to PS, leading to a plausible explanation for many dubious findings concerning model selection over the years.
+
+Recently, \cite{Xie2011} developed stepping-stone sampling (SS) as a computationally more interesting alternative to path sampling (PS).
+The authors show that by essentially performing the same calculations as for PS, but using the collected samples in a different way, they are able to compose a more efficient (log) marginal likelihood estimator.
+Both PS and SS rely on drawing MCMC samples from a series of distributions, each of which is a power posterior differing only in its power, along the path going from the prior to the unnormalized posterior defined by the model $M$:  
 
 \begin{equation}  
 q_{\beta}\left(\theta\right)=P\left(\mathbf{X}\mid\theta,M\right)^{\beta} \times P\left(\theta\mid M\right).
 \label{eq:ss_ps}
 \end{equation}  
+
+\cite{Baele2012} have proposed the first implementation of PS and SS into phylogenetic inference software.
+
 
 Although offering tremendous improvements in bias and variance over the HME both PS and SS require considerable computational effort as the marginal likelihood can no longer be estimated from the likelihood trace that is being output from the standard MCMC analysis. 
 % When only modest computation is invested to keep marginal likelihood manageable for large data sets, the estimates may suffer from considerable variance, preventing an accurate comparison of two models.
