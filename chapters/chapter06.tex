@@ -78,13 +78,44 @@ Dirichlet Process Priors (DPP) may offer a solution to arrive at efficient estim
 In Subsection \ref{sub:dpp} we further discuss this interesting class of non-parametric prior distributions that we are currently exploring to infer variable selection pressures among lineages using codon substitution models.
 %At the time of writing this chapter we are testing these possibilities, yet exactly how accurate the inference of the transition times can be, and how we can quantify the predictive value of those covariates remains an open question for future studies.
 
-\subsection{Introducing covariates in the epoch model}
+\subsection{Introducing covariates in the epoch model\label{sub:glm_epoch}}
 
 In order to test which factors explain the variation in an evolutionary parameter over time, we are currently exploring a \emph{mixed effects} modeling approach. 
 Using hierarchical modeling we can introduce random effects for the evolutionary response variable \citep{Edo-Matas2011}.
 Assuming effects are additive on the log-scale, we can complete the mixed effects model by incorporating fixed effects to model the impact of covariates on the evolutionary parameters. 
+
+Specifically we parametrize each epoch specific, possibly multidimensional parameter $\Theta_{i},\; i=1,\ldots,M$ as a log-linear function of $P$ predictors $\mathbf{X}=\left(\mathbf{x_1},\ldots,\mathbf{x_P} \right)$:
+
+\begin{align}
+log\left(\Theta_{i}\right)=\beta \mathbf{X} \delta+\varepsilon_{i},\; i=1,\ldots,M,
+\label{eq:mixed_model}
+\end{align}
+
+\noindent
+where following the standard terminology in hierarchical modeling, the random effects $\varepsilon_{i}$ quantify different parameter values for each epoch.
+$\mathbf{\beta}=\left(\beta_1,\ldots,\beta_P \right)^T$ represent the fixed effects and quantify contribution of a particular predictor to the dependent variable and we assume that:  
+
+\begin{equation}
+\beta \sim \text{MVN}(\boldsymbol{\mu},\boldsymbol{\Sigma})
+\label{eq:beta_proposal}
+\end{equation}
+
+\noindent
+The $\left(\delta_1,\ldots,\delta_P \right)$ are binary indicator variables, on which we put independent Bernoulli priors:
+
+\begin{equation}
+\delta_{i} \sim \text{B}\left(1,p\right),\;i=1,\ldots,P.
+\label{eq:indicator_prior}
+\end{equation}
+
+\noindent
+The prior specification in Equation~\ref{eq:indicator_prior} allows for Bayesian stochastic search variable selection (BSSVS), which estimates posterior probabilities of inclusion or exclusion of a particular predictor in Equation~\ref{eq:glm} \cite{Lemey2009}.
+
 This represents an important data integration step, for which we have ample experience \citep{Edo-Matas2011,Streicker2012,Vrancken2014} and that will, for example, provide the opportunity to assess the association between within-host HIV evolutionary dynamics and clinical parameters (such as CD4 counts or viral load). 
-This will lead to more direct testing of hypotheses that attempt to explain HIV divergence stabilization close to the onset of AIDS (e.g., the cellular exhaustion or immune relaxation hypotheses, \citep{Lemey2007}).
+This will lead to more direct testing of hypotheses that attempt to explain HIV divergence stabilization close to the onset of AIDS (e.g., the cellular exhaustion or immune relaxation hypotheses, \citep{Lemey2007}) by allowing us to test the impact of various predictors in the course of the disease progression.
+By using a different parametrization of codon model, such as the GY94 model, parametrized in terms of both the synonymous and non-synonymous rates of substitution, described in Subsection~\ref{sub:dpp} we would be able to disentangle the correlation between synonymous and non-synonymous selection parameters, something that offers an improvement over the approach presented in Chapter~\ref{chap:epoch}.
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %---DPP PRIORS FOR CODON MODELS---%
@@ -127,7 +158,16 @@ Whereas often a single (branch- or site-specific) parameter is drawn from the ba
 A limitation of the DP is that there is no natural ordering for its realizations; any two draws share the same correlation.  
 On an evolutionary history, this assumption is unrealistic; Thorne et al.~\citep{Thorne1998}, Seo et al.~\citep{SKT04} and Aris-Brosou and Yang \citep{Aris-Brosou2002} have long argued for phylogenetic auto-correlation among branch-specific rates.
 We propose to achieve both auto-correlation and non-parametric flexibility by extending DPs to have first-order dependence along the evolutionary history.  
-To accomplish this, recent work in Bayesian inference with DPs and their generalization, \emph{Polya urns}, \citep{Guha2010} shows that \emph{infinite hidden Markov} models \citep{Beal2002} in the computer science literature are now as convenient to fit as DPs and will allow for dependence across neighboring branches while retaining their non-parametric behavior.
+To accomplish this, recent work in Bayesian inference with DPs and their generalization, \emph{Polya urns}, \citep{Guha2010} shows that \emph{infinite hidden Markov models} \citep{Beal2002} in the computer science literature are now as convenient to fit as DPs and will allow for dependence across neighboring branches while retaining their non-parametric behavior.
+
+%TODO: explain hidden markov models
+\begin{remark}{Infinite hidden Markov models}
+Hidden Markov model (HMM) defines a probability distribution over sequences of observations
+
+
+
+
+\end{remark}
 
 We are pursuing such among-branch approaches and will adopt similar non-parametrics to model among-site variability in $\alpha$ and $\beta$. 
 These developments will yield powerful tools to uncover variable selection pressure in coding sequences for many different pathogens, as well as other organisms.
