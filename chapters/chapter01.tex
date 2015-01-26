@@ -77,7 +77,7 @@ In unrooted trees, the position of the root is unknown, and unlike rooted trees,
 A group of taxa in a phylogeny, consisting of all the descendants sharing a particular ancestor, is called a clade or phylogenetic cluster.
 
 %---FIRST TREES---%
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.6]{first_trees} 
 \caption{
@@ -108,7 +108,7 @@ Later, \cite{Fitch1971} published an dynamic programming algorithm that efficien
 Figure \ref{fig:parsimony} presents an example of parsimony, where among two trees explaining the evolution of sequences {\color{green}AAG}, {\color{green}AAA}, {\color{green}GGA}, {\color{green}AGA} only the most parsimonious one is selected.
 
 %---PARSIMONY TREE---%
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.3]{parsimony} 
 \caption{
@@ -134,7 +134,7 @@ In his influential work, \cite{Felsenstein1981} proposed an efficient algorithm 
 Unfortunately finding the maximum likelihood tree requires a search through the space of all possible tree topologies; in section \ref{sub:mlburden} we discuss in detail the computational burden associated with these calculations.
 The effort required to exhaustively search through a space of all possible rooted trees grows explosively with the number of taxa, as depicted in Table \ref{tab:maxLikeBurden}.
 
-\begin{table}[H]
+\begin{table}[h!]
 \centering
 % \footnotesize{
 \begin{tabular}{cc}
@@ -169,7 +169,7 @@ Bayesian statistical thinking is not a new idea and stems back to the XVII centu
 
 %---BAYES---%
 \begin{remark}{Thomas Bayes}
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.4]{Thomas_Bayes} 
 \caption{
@@ -225,7 +225,7 @@ For rapidly evolving viruses however, it is possible to sample sequences that di
 As opposed to the ultrametric topology assumed for slowly evolving organisms (Figure~\ref{fig:ultrametric}), the dates of the samples themselves can be used to calibrate the molecular clock \citep{Rambaut2000}.
 
 %---SAMPLING SCHEMES---%
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.3]{ultrametric} 
 \caption{
@@ -267,7 +267,7 @@ The process describing how lineages on a genealogy merge to a common ancestor as
 The simplest formulation of the coalescent process described by John Kingman was derived as an approximation of the \textit{Wright-Fisher} \citep{Fisher1930,Wright1931} population model (see Figure~\ref{fig:wright-fisher}).
 
 %---COALESCENT---%
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.4]{wright-fisher} 
 \caption{
@@ -511,7 +511,7 @@ The particular sites of the sequence alignment are then considered to be stochas
 
 %PL: Since you list the mutations for the right branch, you may as well list the one on the left branch as well
 % FB: not sure what you mean, should I add some annotation on that branch? I explicite left it empty, the right branch is longer so it has more substitutions on it than the left one
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \begingroup
 \everymath{\displaystyle}
@@ -573,7 +573,7 @@ A Poisson process with rate $r>0$ is a continuous-time counting process $\left\{
 
 Figure~\ref{fig:poisson} shows a sample of different trajectories for such a process.
 
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.4]{poisson}
 \caption{
@@ -730,7 +730,7 @@ This describes a Continuous-time Markov chain (CTMC), which  we will use to mode
 Every CTMC is completely characterized by its rate matrix $\mathbf{Q}$ and the stochastic matrix $\mathbf{P}(t),\ t\geq0$ is obtained via matrix exponentiation as described in the previous subsection (Subsection~\ref{sub:exponentiation}).
 
 %---SUBSTITUTION MODEL---%
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.5]{substitution} 
 \caption{
@@ -916,7 +916,7 @@ Data is observed only at the external nodes (\emph{tips}), while internal nodes 
 The ancestor of all observed samples is called the \emph{root} of the tree and its height is referred to as the time to the most recent common ancestor (TMRCA).
 
 %---TREE CONCEPT---%
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.35]{treeconcept} 
 \caption{
@@ -940,7 +940,7 @@ Time-stamped sequence data, which frequently arises from studies involving MEP p
 Fo simplicity let us assume a single site, where character sequence data was sampled on dates ranging from $1983$ to $2000$, as seen in Figure~\ref{fig:timing_sequences}.
 We also assume that the tree topology is known and we want to estimate the unknown times $T_{0},T_{6},T_{7},T_{8}$.
 
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.4]{timing_sequences} 
 \caption{
@@ -973,7 +973,7 @@ The process then randomly decides by a coin flip to which of the two descendent 
 Let us assume that the process moved to $x_j$.
 The state $j$ for the node $x_j$ is sampled conditional on the value $i$ already sampled at the root using the branch length expressed in real time $t$ and the vector probabilities in the row $i$ of the finite-time probabilities matrix $\mathbf{P}(t)$, calculated using SVD of the rate matrix $\mathbf{Q}$ that characterizes the CTMC.   
 
-\begin{algorithm}[H]
+\begin{algorithm}[h!]
 \centering
 \begin{algorithmic}[1]
 % \footnotesize{
@@ -1057,7 +1057,7 @@ The likelihood concept is also required in Bayesian inference and enters the fra
 We will now discuss how to calculate the likelihood of observing a particular realization of character sequences at the tips of a tree, given a substitution model with fixed parameters.
 
 %---LIKELIHOOD---%
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.4]{likelihood} 
 \caption{
@@ -1163,7 +1163,7 @@ In other words $T(n)$ is $\mathcal{O}\left(f(n)\right)$ if and only if for all s
 This makes the Big-O notation useful when analyzing algorithms for run-time efficiency and makes it possible to, for example, compare routines without the added overhead of negligible terms, such as the architecture at which the code was run, the choice of language or compiler.
 We will now briefly discuss some of the most common serial computational orders and their examples. 
 
-\begin{algorithm}[H]
+\begin{algorithm}[h!]
 \centering
 \begin{algorithmic}[1]
 % \footnotesize{
@@ -1191,7 +1191,7 @@ We will now briefly discuss some of the most common serial computational orders 
 The simplest, most basic example is an operation that takes the same amount of time every time it is called, thus requiring constant time, i.e. it's computational complexity is that of $\mathcal{O}\left(1\right)$ and does not depend on the input size.
 An example of such routine is listed in the Algorithm~\ref{alg:o1} that evaluates a specific value of a constant.
 
-\begin{algorithm}[H]
+\begin{algorithm}[h!]
 \centering
 \begin{algorithmic}[1]
 % \footnotesize{
@@ -1224,7 +1224,7 @@ An algorithm proceeding at $\mathcal{O}\left(N\right)$ has a run-time that grows
 An example of such a routine is presented as Algorithm~\ref{alg:on}, which searches an array looking for a specific value.
 We should note that the Big-O notation always describes the performance in worst-case scenario, i.e. a full loop has to be executed before a matching element is found, while for the actual real-world problem this does not have to be the case and the loop can return earlier.
 
-\begin{algorithm}[H]
+\begin{algorithm}[h!]
 \centering
 \begin{algorithmic}[1]
 % \footnotesize{
@@ -1355,7 +1355,7 @@ Suppose that the parameter $\theta$ we want to infer is the proportion of sites 
 Assuming that the sites are independent we can use a binomial model and put a beta prior with parameters $\alpha=2$, $\beta=100$ on the unknown proportion $\theta$, suggesting that \textit{a priori} we prefer small values of the $\theta$ parameter.
 
 %---POSTERIOR PRIOR LIKELIHOOD---%
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.45]{bayes} 
 \caption{
@@ -1438,7 +1438,7 @@ The routine iterates between accept/reject steps for a specified number of times
 Both acceptance and rejection are counted as iterations of the algorithm; in fact the rejections ensure that the probabilistic properties of the target distribution are well represented in the generated sample.  
 Algorithm~\ref{alg:metropolisHastings} presents the details of the Metropolis-Hastings algorithm.
 
-\begin{algorithm}[H]
+\begin{algorithm}[h!]
 \centering
 \begin{algorithmic}[1]
 % \footnotesize{
@@ -1535,7 +1535,7 @@ and set $\lambda=10$.
 For the proposal we choose a uniformly distributed jumping kernel with a window size of $w=0.1$.
 
 %---METROPOLIS PATH---%
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.5]{metropolis} 
 \caption{
@@ -1568,7 +1568,7 @@ For reference we now repeat the same procedure, yet this time we set the window 
 The resulting time-series plot is presented in Figure~\ref{fig:window_size}.
 
 %---WINDOW SIZE---%
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.5]{window_size} 
 \caption{
@@ -1657,7 +1657,7 @@ In order to study phylogeographic processes based on longitude and latitude coor
 % https://radfordneal.wordpress.com/2008/08/17/the-harmonic-mean-of-the-likelihood-worst-monte-carlo-method-ever/
 
 A standard approach to compare models in a Bayesian phylogenetic framework is through the evaluation of Bayes factors (BFs).   
-The BF is a ratio of two marginal likelihoods, which given the observed data $\mathbf{X}$ quantify the plausibility of two models, denoted $M_{1}$ and $M_{2}$ and parametrised in terms of parameters $\theta_{1}$ and $\theta_{2}$ respectively:
+The BF is a ratio of two marginal likelihoods, which given the observed data $\mathbf{X}$ quantify the plausibility of two models, denoted $M_{1}$ and $M_{2}$ and are parametrised in terms of parameters $\theta_{1}$ and $\theta_{2}$ respectively:
 
 % 
 \begin{equation}  
@@ -1667,21 +1667,29 @@ The BF is a ratio of two marginal likelihoods, which given the observed data $\m
 % 
 
 \noindent
-where $P\left(\mathbf{X}|\theta_{i},M_{i}\right)$ is the likelihood function and $P\left(\theta_{i} \mid M_{i} \right)$ is the prior, for $i=1, \ldots, 2$.
-The parameters $\theta_{i},\; i=1, \ldots, 2$ can be possibly multidimensional, making the integral in Equation~\ref{eq:bayes_factor} non-trivial to estimate.
-For a number of years the posterior Harmonic Mean Estimator (HME, \cite{Newton1994}) has been extesively used in Bayesian phylogenetic inference, mainly for the simplicity in it's calculation. 
-To evaluate the HME one only needs the samples from the posterior distribution which are readilly availiable as output form any MCMC program.
+where $P\left(\mathbf{X}|\theta_{i},M_{i}\right)$ is the likelihood function and $P\left(\theta_{i} \mid M_{i} \right)$ is the prior, for $i=1, 2$.
+The parameters $\theta_{i},\; i=1, 2$ can be possibly multidimensional, making the integral in Equation~\ref{eq:bayes_factor} non-trivial to estimate.
+For a number of years the posterior Harmonic Mean Estimator (HME, \cite{Newton1994}) has been extensively used in Bayesian phylogenetic inference, mainly for the simplicity in its calculation. 
+To evaluate the HME one only needs the samples from the posterior distribution which are readily available as output form any MCMC program.
 
-\cite{Meng1996} as well as \cite{Xie2011} warn that despite this computational convenience the HME is a biased estimator of the marginal likelihood, severely overestimating and with potential infinite variance.
-Realizing this has lead to a substantial amount of work invested in the development of efficient methods for estimating marginal likelihoods \citep{Suchard2001,Lemey2009,Li2012}.
-Recently \cite{Lartillot2006} as well as \cite{Xie2011} proposed to incorporate the path sampling (PS) and stepping-stone sampling (SS) methods for accurate estimation of the marginal likelihood into Bayesian phylogenetic frameworks.
-\cite{Baele2012} have proposed the first implementation of PS and SS into phylogenetic inference software.
-Both these techniques rely on drawing MCMC samples from a series of distributions, each of which is a power posterior differing only in its power, along the path going from the prior to the unnormalized posterior defined by the model $M$:  
+Among others, \cite{Meng1996}, \cite{Lartillot2006} and \cite{Xie2011} warn that despite this computational convenience the HME is a biased estimator of the (log) marginal likelihood, severely overestimating the true value and with potentially infinite variance.
+%GB: not typically the correct references for this type of work, so I removed them
+This has lead to a substantial amount of work invested in the development of more accurate methods for estimating (log) marginal likelihoods.
+To this end, \cite{Lartillot2006} introduced path sampling (PS) into the field of phylogenetics, providing several examples for which the HME was drastically outperformed by PS when estimating the marginal likelihood.
+The authors showed that even for simple Gaussian examples, for which the true value of the marginal likelihood can be analytically calculated, the HME was unable to estimate the true underlying value whereas PS proved very reliable for all cases examined. 
+Further, for evolutionary models with high dimensions, the HME severely overestimated the (log) marginal likelihood compared to PS, leading to a plausible explanation for many dubious findings concerning model selection over the years.
+
+Recently, \cite{Xie2011} developed stepping-stone sampling (SS) as a computationally more interesting alternative to path sampling (PS).
+The authors show that by essentially performing the same calculations as for PS, but using the collected samples in a different way, they are able to compose a more efficient (log) marginal likelihood estimator.
+Both PS and SS rely on drawing MCMC samples from a series of distributions, each of which is a power posterior differing only in its power, along the path going from the prior to the unnormalized posterior defined by the model $M$:  
 
 \begin{equation}  
 q_{\beta}\left(\theta\right)=P\left(\mathbf{X}\mid\theta,M\right)^{\beta} \times P\left(\theta\mid M\right).
 \label{eq:ss_ps}
 \end{equation}  
+
+\cite{Baele2012} have proposed the first implementation of PS and SS into phylogenetic inference software.
+
 
 Although offering tremendous improvements in bias and variance over the HME both PS and SS require considerable computational effort as the marginal likelihood can no longer be estimated from the likelihood trace that is being output from the standard MCMC analysis. 
 % When only modest computation is invested to keep marginal likelihood manageable for large data sets, the estimates may suffer from considerable variance, preventing an accurate comparison of two models.
