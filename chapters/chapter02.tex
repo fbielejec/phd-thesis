@@ -177,7 +177,7 @@ On the other hand, if $m^{\prime} \neq m^{\prime\prime}$,
 the branch traverses $m^{\prime\prime} - m^{\prime}$ epoch boundaries at which times $\mathbf{Q}$ changes. To handle these discontinuities, we imagine a data augmentation procedure to break the inhomogeneous process into a conditionally independent series of homogeneous processes and then integrate out the augmented data.
 
 %---CONVOLUTION ILLUSTRATION---%
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \begingroup
 \everymath{\displaystyle}
@@ -328,7 +328,7 @@ Those buffers are then used to store partial transition matrices and results of 
 Our routine performs operations in batches of equal or smaller size compared to the number of allocated buffers, by pushing those queues to the GPU for parallel execution once the routine has no more buffers available or all work items are queued. Figure~\ref{fig:UpdateConvolveExample} presents an example of update-convolve routine using an asynchronous queue. 
 
 %---UPDATE-CONVOLVE INFOGRAPHIC---%
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.35]{infographic} 
 \caption{
@@ -359,7 +359,7 @@ Specifically, we use a maximum clade credibility (MCC) tree summarizing a Bayesi
 
 
 %---TOPOLOGY FOR SIMULATIONS---%
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 % \color{fgcolor}
 \includegraphics[scale=0.35]{treeplot} 
@@ -491,7 +491,7 @@ We exclude patient 11 from the original study because no sequence data are avail
 The two-epoch discretization allows estimating a separate $\omega$ parameter for the two infection stages in each patient, with $\omega_{2}$ denoting the $d_N/d_S$ ratio before progression and $\omega_{1}$ denoting the same parameter after progression.
 
 %---SHANKARAPPA ANALYSIS RESULTS HPD---%
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 % \color{fgcolor}
 \includegraphics[scale=0.6]{shankarappa_hpd_new} 
@@ -511,7 +511,7 @@ For patients 2, 3, 7 and 9, the drop in mean $\omega$ estimates suggests a shift
 The homogeneous $\omega$ estimate is generally closer to $\omega_{2}$, which can be expected because most evolutionary history takes place prior to progression time. 
 
 %---SHANKARAPPA ANALYSIS RESULTS BF---%
-\begin{table}[H]
+\begin{table}[h!]
 \centering
 % \medskip
 % \begin{minipage}{\textwidth} 
@@ -570,7 +570,7 @@ The discrete diffusion parameters are shared across rate matrices for the spring
 Following \cite{KassRaftery95} we report rates that yield a Bayes factor support interpreted as `strong evidence'.
 
 %---FLU DATA RESULTS MAP---%
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.5]{flu2_epoch} 
 \caption{
@@ -589,7 +589,7 @@ During the autumn and winter epoch on the other hand, we infer mostly circulatio
 
 %---FLU DATA RESULTS PS SS---%
 % \afterpage{\clearpage
-\begin{table}[H]
+\begin{table}[h!]
 \begin{minipage}{\textwidth} 
 \centering
 % \footnotesize{
@@ -625,7 +625,7 @@ To investigate the speed increase offered by a parallel execution of different t
 We perform our analyses on a standard desktop PC equipped with Intel 2$^{\text{nd}}$ Gen Core i7 2 i7-2600K / 3.9 GHz CPU and 16 GB of DDR3 SDRAM along with a NVIDIA GeForce GTX 590 card, carrying two GPU devices with a total of 1024 CUDA cores, running at 1215 MHz and 1536MB of memory per GPU. 
 
 %---STACK SIZE TIMING---%
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=0.6]{timing} 
 \caption{
