@@ -38,7 +38,7 @@ where \texttt{-Djava.library.path} again points to the directory where BEAGLE is
 In order to simulate character sequences, one will need a tree topology, with correspondent branch lengths, as  backbone. In {\bussname}, to import a tree, the user needs simply to go the \textbf{Trees} tab and click the `Choose file' button. After that, a window will open for you to browse though your files and go the desired tree file (see Figure~\ref{fig:loadingtopology}). {\bussname} accepts input trees in newick or nexus formats.
 
 %%
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=\figurescale]{LOAD_TREE.png} 
 \caption{
@@ -64,7 +64,7 @@ For \emph{Exponential Growth}, the user needs to set both the population size pa
 Figure~\ref{fig:demographic} illustrates this step.
 
 %%
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=\figurescale]{DEMOGRAPHIC.png} 
 \caption{
@@ -91,7 +91,7 @@ For the TN93 model, the user needs to supply two $\kappa$ values, and for the GT
 {\bussname} also offers the ability to simulate aminoacid sequences under several widely used empirical models, such as the BLOSUM62, Dayhoff, JTT, FLU and WAG. You can also specify your own aminoacid (base) frequencies by using the 'Base Frequecies' dropdown menu.  
 
 %%
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=\figurescale]{HKY.png} 
 \caption{
@@ -108,7 +108,7 @@ While $\omega$ (omega) controls the ratio of non-synonymous and synonymous subst
 See Figures~\ref{fig:hky} and~\ref{fig:gy94} for examples.
 
 %%
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=\figurescale]{GY94.png} 
 \caption{
@@ -133,7 +133,7 @@ In {\bussname}, the user can add site rate heterogeinity to the simulated data b
 There the user can specify how many categories should be created for the discretized Gamma distribution, as well as set the proportion of invariant sites.
 
 %%
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=\figurescale]{GAMMA.png} 
 \caption{
@@ -150,7 +150,7 @@ The frequency with which each character (nucleotide or codon) appears is also an
 In {\bussname}, one can specify frequencies for nucleotides or codons by going to the \textbf{Partitions} and click the `Frequency Model' button and specify the frequencies (Figure~\ref{fig:bases}). For nucleotides, four parameters need to be specified (default is $1/4$ for all) and for codons, there are $61$ frequencies to be set -- with $1/61$ uniformly for all as default.
 
 %%
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=\figurescale]{BASE_FREQUENCIES.png} 
 \caption{
@@ -177,7 +177,7 @@ For Log-normal and Inverse Gaussian models, the user needs to specify mean, stan
 See Figure \ref{fig:clock2} for an examples.  
 
 %%
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=\figurescale]{CLOCK2.png} 
 \caption{
@@ -199,7 +199,7 @@ Each partition can either have its own topology, or the tree structure can be sh
 Partition settings apply from position in the alignment specified as`from' to position specified as `to', on every position being the multiple of `every' parameter.
 
 %%
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=\figurescale]{MULTIPLE_PARTITIONS.png} 
 \caption{
@@ -245,7 +245,7 @@ In table~\ref{tab:commands} we present the CLI options for each feature in {\bus
 
 % FB: how to color cells in multirow table?
 % TODO: LM: Update the table to show AA options
-\begin{table}[H]
+\begin{table}[h!]
 \begin{center}
 \footnotesize{
 \begin{tabular}{lcc}
@@ -317,7 +317,7 @@ The first true/false statement allows the ancestral sequences in the inner nodes
 The last argument corresponds to the use of the parallel implementation, which is false by default. 
 
 %%
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=\figurescale]{SIMUTAB.png} 
 \caption{
@@ -339,7 +339,7 @@ Then move to \textbf{Partitions} panel and select the just loaded topology from 
 Next click on the button under the \emph{Base Frequencies} column, select codon frequencies as shown in the Figure \ref{fig:CodonFrequencies}.
 Confirm your choice and move to \textbf{Simulation} panel to generate XML or simulate a fasta or nexus file.
 
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=\figurescale]{CODON_FREQUENCIES.png} 
 \caption{
@@ -354,7 +354,7 @@ Just select codon frequencies in the drop-down menu and you're done. The default
 \subsection{Generating codon partitioned data}
 As before start by loading the \href{http://rega.kuleuven.be/cev/ecv/software/buss_files/simtree.figtree}{\emph{SimTree.figtree}} tree file, this time we will however need to set three separate partitions, from different positions in the alignment and simulating to every third alignment position, just like in Figure \ref{fig:CodonPartitoning}.
 
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=\figurescale]{CODON_PARTITIONING.png} 
 \caption{
@@ -387,7 +387,7 @@ In this example we will use a set of taxa shipped with this tutorial in \href{ht
 
 Set the taxa as simulations backbone in drop-list under \emph{Data} column in \textbf{Partitions} panel.
 
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=\figurescale]{TAXA_EDITOR.png} 
 \caption{
@@ -401,7 +401,7 @@ Once you load the taxa set onto {\bussname}, you are ready to simulate under any
 
 Now it's time to set the demographic model that will drive the coalescent. Click on the editor button under \emph{demographic model} column and choose the \emph{Constant Population} model with \emph{Population Size} parameter of $50.0$, like shown in Figure \ref{fig:DemoModel} below.
 
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=\figurescale]{DEMOGRAPHIC_MODEL.png} 
 \caption{
@@ -414,7 +414,7 @@ Now it's time to set the demographic model that will drive the coalescent. Click
 
 To generate the data, click on the \emph{Simulate} button in the \textbf{Simulation} panel. The generated tree (newick format) can be copy-pasted from \textbf{Terminal} panel as shown in Figure \ref{fig:Terminal}.
 
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
 \includegraphics[scale=\figurescale]{TERMINAL_OUTPUT.png} 
 \caption{
