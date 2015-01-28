@@ -1688,12 +1688,10 @@ q_{\beta}\left(\theta\right)=P\left(\mathbf{X}\mid\theta,M\right)^{\beta} \times
 \label{eq:ss_ps}
 \end{equation}  
 
-\cite{Baele2012} have proposed the first implementation of PS and SS into phylogenetic inference software.
-
-
-Although offering tremendous improvements in bias and variance over the HME both PS and SS require considerable computational effort as the marginal likelihood can no longer be estimated from the likelihood trace that is being output from the standard MCMC analysis. 
-% When only modest computation is invested to keep marginal likelihood manageable for large data sets, the estimates may suffer from considerable variance, preventing an accurate comparison of two models.
-Further, great care must also be taken to specify proper priors for all parameters in Equation~\ref{eq:ss_ps}, so as to avoid numerical instabilities when the integration approaches the prior.  
+\cite{Baele2012} have performed a comparative study on the performance of HME, the stabilized/smoothed HME (sHME), the AICM (a posterior simulation-based analogue of Akaike?s information criterion through Markov chain Monte Carlo, PS and SS in a phylogenetic framework.
+The authors showed that PS and SS consistently outperformed the harmonic mean estimators as well as the AICM when comparing demographic models as well as relaxed clock models.
+Although offering tremendous improvements in bias and variance over the HME both PS and SS require considerable computational effort as the (log) marginal likelihood can no longer be estimated from the likelihood trace that is being output from the standard MCMC analysis. 
+Further, great care must also be taken to specify proper priors for all parameters in Equation~\ref{eq:ss_ps}, so as to avoid numerical instabilities when the integration approaches the prior \cite{Baele2013b}.  
 
 
 
