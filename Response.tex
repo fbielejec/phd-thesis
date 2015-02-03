@@ -198,7 +198,6 @@ FB: I don't understand this comment, we have a whole subsection on phylogeograph
 
 
 
-
 \end{itemize}
 
 % 2
@@ -216,6 +215,9 @@ I am not asking for additional analyses here, but merely for additional clarific
 \\
 FB: I don't get the first part of this comment. In the Intro we clearly write:
 "Our Bayesian approach also does not condition on a fixed tree topology but averages over all plausible evolutionary histories." (p 46) \\
+PL: OK, but to make it even more explicit I have added this to the results section (in simulation results): 'In all our analyses of the replicate data, as well as in the analyses of the real-world data sets in the next sections, we consider the tree as random and estimate it from the nucleotide data.' (this still needs to be tagged).
+
+
 
 The simulations are running, I will discuss them during the presentation/
 
@@ -270,7 +272,9 @@ I would find it useful to see a brief discussion on the plausibility of (1.22).
 }% END: it
 }% END: item
 \\
-FB: Does he mean plausibility from a biological perspective or statistical? It's a neccessary condition for the existence of stationary dist.
+FB: Does he mean plausibility from a biological perspective or statistical? It's a necessary condition for the existence of stationary dist.
+Pl: I see it as questioning the plausibility in a biological sense. We now already argue that it is an assumption taken for computational reasons, but at the end of that paragraph we can explicitly state 'Realistic substitution processes are however unlikely to be time-reversible and procedures have also been developed to compute phylogenetic likelihoods under non-reversible models (cite Boussau and Gouy, 2006, see below)'. ...perhaps add in something more from that paper.... and end with 'We note that we use such non-reversible models in our discrete phytogeographic applications (cite Edwards et al., Current Biology, 2011).
+http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.324.620&rep=rep1&type=pdf
 
 
 % 7
@@ -321,7 +325,7 @@ P28, I understand what T(n) is, but would nevertheless find it helpful if it wer
 \\
 FB: I don't understand the question in the definition we clearly define T as being simply a function on a positive subset of real numbers?
 Does he mean we should wrote "time"? but this is not always true?
-
+PL: OK, but can we then state something like this: T(n) can be interpreted as time in most practical situations, but this does necessarily need to be the case, e.g.....?
 
 % 10
 \item {
@@ -388,7 +392,7 @@ I would find it useful to get a bit more detail how a model for the likelihood o
 }% END: item
 \\
 FB: I'm not sure if I understand this comment, we do write that the likelihood is standard tree pruning and there's a whole subsection in the Introduction that delves on that...  We could elaborate on the prior choice here  ...
-
+PL: OK, I would simply point out that we use exactly the same type of CTMC modelling in the response letter. And simply to do something in response to the comment, modify this sentence: "Unlike before, the rate matrix does not necessarily have to be symmetrical, i.e. there exist some i, j such that ..." into "So, we employ the same type of CTMC modelling for discrete phylogeography as for nucleotide substitution processes, which is described in detail in ...(refer to intro section on CTMC), but now for an arbitrary number of location states. And unlike for nucleotide substitution, the rate matrix does not necessarily have to be symmetrical, i.e. there exist some i, j such that ..." 
 
 % 15
 \item {
@@ -399,7 +403,7 @@ P43. What is compositional heterogeneity?
 }% END: it
 }% END: item
 \\
-We now exlipcitely state that we mean across-data (site) heterogeneity:
+We now explicitely state that we mean across-data (site) heterogeneity:
 
 \begin{quote}
 \myeditsvfifteen
@@ -430,7 +434,7 @@ It would be good to state this explicitly.
 }% END: it
 }% END: item
 \\
-FB: I don't understand the comment, I though we explicitely say we use spring and summer as intervals?
+FB: I don't understand the comment, I though we explicitly say we use spring and summer as intervals?
 
 
 
