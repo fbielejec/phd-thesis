@@ -198,7 +198,7 @@ the branch traverses $m^{\prime\prime} - m^{\prime}$ epoch boundaries at which t
 \label{fig:collapsing}
 \end{figure}
 
-Figure~\ref{fig:collapsing} illustrates this action for a branch that spans a single boundary at knwon time $T_1$ with $\mathbf{Q}_1$ governing the process before the boundary and $\mathbf{Q}_2$ after the boundary. Letting $X(T_1) = k$ represent the augmented state of the stochastic process at the boundary, we compute
+Figure~\ref{fig:collapsing} illustrates this action for a branch that spans a single boundary at known time $T_1$ with $\mathbf{Q}_1$ governing the process before the boundary and $\mathbf{Q}_2$ after the boundary. Letting $X(T_1) = k$ represent the augmented state of the stochastic process at the boundary, we compute
 
 \begin{align}
 p_{ij}(t_u, t_v, r_v)
@@ -704,6 +704,8 @@ However, our previous experience with change-point processes in phylogenetics \c
 Instead of trying to identify the most appropriate discretization of time, one may potentially use epoch modeling to approximate more complex functions of time.
 \citet{Rodrigo2008} outline two approaches to allow rate matrices to vary as a function of time, one of which approximates that function by partitioning time into a fine grid of intervals.
 This is likely to be a computationally expensive avenue, but its performance will mostly depend on the availability of dense sampling throughout time \citep{Rodrigo2008}.%
+
+A tutorial which explains how to access the BEAST software comprising the `epoch model' accompanies this Chapter and can be found in Appendix~\ref{app:spread_tuto}.
 
 An interesting direction for further research using the epoch model is to couple epoch-specific parameters to external covariates.
 For the within-host HIV data sets we analyze here, it may be interesting to ask whether $\omega$ varies with changes in CD4+ counts or viral load.
