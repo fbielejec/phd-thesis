@@ -1158,7 +1158,9 @@ if and only if there exists a constant $M>0$ and some $n_0 \in \mathbb{R}_{>0}$ 
 
 
 % \noindent
-In other words $T(n)$ is $\mathcal{O}\left(f(n)\right)$ if and only if for all sufficiently large input values $T(n)$ is bounded from above by some constant multiple of $f(n)$.
+In other words $T(n)$, which can be interpreted as the ``worst-case'' time complexity of an algorithm,
+% Since an algorithm's performance time may vary with different inputs of the same size
+is $\mathcal{O}\left(f(n)\right)$ if and only if for all sufficiently large input values $T(n)$ is bounded from above by some constant multiple of $f(n)$.
 This makes the Big-O notation useful when analyzing algorithms for run-time efficiency and makes it possible to, for example, compare routines without the added overhead of negligible terms, such as the architecture at which the code was run, the choice of language or compiler.
 We will now briefly discuss some of the most common serial computational orders and their examples. 
 
