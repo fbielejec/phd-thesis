@@ -213,12 +213,16 @@ I am not asking for additional analyses here, but merely for additional clarific
 }% END: it
 }% END: item
 \\
-FB: I don't get the first part of this comment. In the Intro we clearly write:
-"Our Bayesian approach also does not condition on a fixed tree topology but averages over all plausible evolutionary histories." (p 46) \\
-PL: OK, but to make it even more explicit I have added this to the results section (in simulation results): 'In all our analyses of the replicate data, as well as in the analyses of the real-world data sets in the next sections, we consider the tree as random and estimate it from the nucleotide data.' (this still needs to be tagged).
+% FB: I don't get the first part of this comment. In the Intro we clearly write:
+% "Our Bayesian approach also does not condition on a fixed tree topology but averages over all plausible evolutionary histories." (p 46) \\
+% PL: OK, but to make it even more explicit I have added this to the results section (in simulation results): 'In all our analyses of the replicate data, as well as in the analyses of the real-world data sets in the next sections, we consider the tree as random and estimate it from the nucleotide data.' (this still needs to be tagged).
+To re-iterate the fact that our model does not condition on a known tree topology we now write:
 
+\begin{quote}
+\myeditsvtwo
+\end{quote}
 
-
+We now also entertain a numbe rof simulations which asses the impact of correcting for time-heterogeneity on tree reconstruction. 
 The simulations are running, I will discuss them during the presentation
 
 
@@ -272,9 +276,10 @@ I would find it useful to see a brief discussion on the plausibility of (1.22).
 }% END: it
 }% END: item
 \\
-FB: Does he mean plausibility from a biological perspective or statistical? It's a necessary condition for the existence of stationary dist.
-Pl: I see it as questioning the plausibility in a biological sense. We now already argue that it is an assumption taken for computational reasons, but at the end of that paragraph we can explicitly state 'Realistic substitution processes are however unlikely to be time-reversible and procedures have also been developed to compute phylogenetic likelihoods under non-reversible models (cite Boussau and Gouy, 2006, see below)'. ...perhaps add in something more from that paper.... and end with 'We note that we use such non-reversible models in our discrete phytogeographic applications (cite Edwards et al., Current Biology, 2011).
-http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.324.620&rep=rep1&type=pdf
+% FB: Does he mean plausibility from a biological perspective or statistical? It's a necessary condition for the existence of stationary dist.
+% Pl: I see it as questioning the plausibility in a biological sense. We now already argue that it is an assumption taken for computational reasons, but at the end of that paragraph we can explicitly state 'Realistic substitution processes are however unlikely to be time-reversible and procedures have also been developed to compute phylogenetic likelihoods under non-reversible models (cite Boussau and Gouy, 2006, see below)'. ...perhaps add in something more from that paper.... and end with 'We note that we use such non-reversible models in our discrete phytogeographic applications (cite Edwards et al., Current Biology, 2011).
+% http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.324.620&rep=rep1&type=pdf
+Done, see my changes to Subsection~\ref{sub:subst_models}.
 
 
 % 7
@@ -391,8 +396,11 @@ I would find it useful to get a bit more detail how a model for the likelihood o
 }% END: it
 }% END: item
 \\
-FB: I'm not sure if I understand this comment, we do write that the likelihood is standard tree pruning and there's a whole subsection in the Introduction that delves on that...  We could elaborate on the prior choice here  ...
-PL: OK, I would simply point out that we use exactly the same type of CTMC modelling in the response letter. And simply to do something in response to the comment, modify this sentence: "Unlike before, the rate matrix does not necessarily have to be symmetrical, i.e. there exist some i, j such that ..." into "So, we employ the same type of CTMC modelling for discrete phylogeography as for nucleotide substitution processes, which is described in detail in ...(refer to intro section on CTMC), but now for an arbitrary number of location states. And unlike for nucleotide substitution, the rate matrix does not necessarily have to be symmetrical, i.e. there exist some i, j such that ..." 
+% FB: I'm not sure if I understand this comment, we do write that the likelihood is standard tree pruning and there's a whole subsection in the Introduction that delves on that...  We could elaborate on the prior choice here  ...
+% PL: OK, I would simply point out that we use exactly the same type of CTMC modelling in the response letter. And simply to do something in response to the comment, modify this sentence: "Unlike before, the rate matrix does not necessarily have to be symmetrical, i.e. there exist some i, j such that ..." into "So, we employ the same type of CTMC modelling for discrete phylogeography as for nucleotide substitution processes, which is described in detail in ...(refer to intro section on CTMC), but now for an arbitrary number of location states. And unlike for nucleotide substitution, the rate matrix does not necessarily have to be symmetrical, i.e. there exist some i, j such that ..." 
+Done, see my changes to the Subsection~\ref{sub:phylogeo}. Actually we don't have to write a response, other than for our own use, as none of the reviewers wanted to see the adjusted manuscript. 
+
+
 
 % 15
 \item {
@@ -420,9 +428,12 @@ Also in Section 2.4.3, the description of the proposal by Bahl et al. (2011) is 
 }% END: it
 }% END: item
 \\
-AAA
-% This becomes p46 now, from "The former is critical to accommodate discrete phylogeographic inference"
+% FB: This becomes p46 now, from "The former is critical to accommodate discrete phylogeographic inference"
+I added a sentence taken from Bahl et al.:
 
+\begin{quote}
+\myeditsvsixteen
+\end{quote}
 
 % 17
 \item {
@@ -547,8 +558,7 @@ I suggest you try a bit to further consolidate the different chapters.
 }% END: it
 }% END: item
 \\
-AAA
-FB: Would be nice if he said where... Only place that I can think of is the first paragraph of the Subsection~\ref{sub:subst_models}  [1.2.4 Markov chain models of sequence substitution] which overlaps with 2.3 Methods of Chapter 2, yet this is th eonly chapter to which he does not address this comment to (...consolidate the different chapters)
+FB: Would be nice if he said where... Only place that I can think of is the first paragraph of the Subsection~\ref{sub:subst_models}  [1.2.4 Markov chain models of sequence substitution] which overlaps with 2.3 Methods of Chapter 2, yet this is the only chapter to which he does not address this comment to (...consolidate the different chapters)
 
 
 

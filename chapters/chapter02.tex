@@ -384,7 +384,9 @@ In Figure~\ref{fig:2RateTree}, we illustrate the tree topology and the transitio
 This tree has 69 tips, is rooted and time-scaled, effectively covering a period of about 18 years. 
 For each replicate data set, we simulate $1000$ nucleotide sites under the Hasegawa, Kishino and Yano (HKY) model \citep{hky85}. 
 We set the substitution rates and base frequencies to values estimated from the real data set.
+\myedit{svtwo}{
 In all our analyses of the replicate data, as well as in the analyses of the real-world data sets in the next sections, we consider the tree as random and estimate it from the nucleotide data.
+}
 
 In a first scenario, we test whether the epoch model correctly identifies a homogeneous nucleotide substitution process. 
 We simulate an alignment evolving under the HKY model with a $\kappa$ parameter (the transition-transversion bias) value of $10.0$ for the whole timespan of the tree. 
@@ -562,11 +564,9 @@ In a second application of the epoch model, we focus on discrete diffusion proce
 This type of phylogeographic inference, where the sampling locations are considered as discrete geographic traits, has gained popularity in recent years, at least partly because of a flexible and efficient Bayesian implementation that connects dispersal dynamics to sequence evolution in time-measured phylogenies \citep{Lemey2009}.
 Recently \citet{Bahl2011} have applied this Bayesian inference framework to investigate the circulation dynamics of global influenza A H3N2 through time.
 Since the authors were interested in capturing the heterogeneity in these dynamics over successive seasonal epidemics between 2003 and 2006, they consider discrete traits that are the product of sampling location and sampling time (epidemic season).
-% TODO: more detail
-
-
-
-
+\myedit{svsixteen}{
+This means they assumed that each geographic region and influenza season is considered to be a discrete character, for example samples collected from October 2002 to February 2003 in New York as assigned discrete state labelled ``New York 2003'' \citep{Bahl2011}.
+}
 Not only does this discretization by sampling time seem counterintuitive for a model that emits discrete outcomes as a continuous function of time, it also considerably increases the dimensionality of the CTMC rate matrix and thus the number of parameters to inform by the sparse spatial data.
 
 Here, we explore epoch time-discretization as a more appropriate alternative to detect temporal heterogeneity in influenza dispersal.
