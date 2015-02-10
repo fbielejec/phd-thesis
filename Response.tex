@@ -69,48 +69,50 @@ Response
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %---SUGGESTED SIMULATION SCENARIOS---%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section*{Simulations}
-
-\begin{itemize}
-
-\subsection*{David Posada}
-
-\item {
-{\it
-\textbf{
-Simulate a number of epochs that do not correspond with the assumed ones.
-}% END: textbf
-}% END: it
-}% END: item
-\\
-Running. \\
-Simulate 3, infer 2 : simulationSet2 \\
-Simulate 2 infer 3 : simulationSet1 
-
-
-\item {
-{\it
-\textbf{
-Simulating under a non-epoch model, for example where different process can apply to contemporaneous branches, would be fundamental to understand the robustness of the model.
-}% END: textbf
-}% END: it
-}% END: item
-\\
-Running (trend\_simulation).
-
-
-
-\item {
-{\it
-\textbf{
-Here it would have been interesting to see the correspondence between simulated and estimated tMRCAs when the true model has one epoch with omega=0.5 (or even better, omega equal to the weighted mean of the n-epoch model).
-}% END: textbf
-}% END: it
-}% END: item
-\\
-Running (deepRootv2).
+% \section*{Simulations}
+% 
+% \begin{itemize}
+% 
+% \subsection*{David Posada}
+% 
+% \item {
+% {\it
+% \textbf{
+% Simulate a number of epochs that do not correspond with the assumed ones.
+% }% END: textbf
+% }% END: it
+% }% END: item
+% \\
+% Running. \\
+% Simulate 3, infer 2 : simulationSet2 \\
+% Simulate 2 infer 3 : simulationSet1 
+% 
+% 
+% \item {
+% {\it
+% \textbf{
+% Simulating under a non-epoch model, for example where different process can apply to contemporaneous branches, would be fundamental to understand the robustness of the model.
+% }% END: textbf
+% }% END: it
+% }% END: item
+% \\
+% Running (trend\_simulation).
+% 
+% 
+% 
+% \item {
+% {\it
+% \textbf{
+% Here it would have been interesting to see the correspondence between simulated and estimated tMRCAs when the true model has one epoch with omega=0.5 (or even better, omega equal to the weighted mean of the n-epoch model).
+% }% END: textbf
+% }% END: it
+% }% END: item
+% \\
+% Running (deepRootv2).
 
 \subsection*{Stijn Vansteelandt}
+
+\begin{itemize}
 
 \item {
 {\it
@@ -121,7 +123,8 @@ epoch model (versus not) has an essential impact on tree reconstruction.
 }% END: it
 }% END: item
 \\
-Running (epoch\_tree\_simulation1 epoch\_tree\_simulation2)
+We are performing a set of simulations to asses this, and the obrained results will be presented during the public defence.
+% Running (epoch\_tree\_simulation1 epoch\_tree\_simulation2)
 
 
 \item {
@@ -132,7 +135,7 @@ How mislead one could be if the data were generated under an epoch model, but an
 }% END: it
 }% END: item
 \\
-Running (simulationSet3).
+We are performing a set of simulations to asses this, and the obrained results will be presented during the public defence.
 
 
 \end{itemize}
@@ -168,7 +171,7 @@ Briefly described the evolutionary models, such as GY94, that are later used.
 }% END: it
 }% END: item
 \\
-Done, there is now a \emph{Markov models of codon evolution} section in the introductory chapter.
+Corrected, there is now a \emph{Markov models of codon evolution} subsection in the introductory chapter, which discusses most popular codon model implementations (see Subsection ~\ref{sub:codon}).
 
 
 % 1b
@@ -180,7 +183,7 @@ Briefly described how to accommodate time-stamped sequences, which is now consid
 }% END: it
 }% END: item
 \\
-Done, see Subsection~\ref{sub:dated_trees}.
+Corrected, see Subsection~\ref{sub:dated_trees}, which describes the methods used in BEAST to accomodate time-stamped sequences as a source of calibration for trees.
 
 
 
@@ -194,8 +197,7 @@ Give a bit more detail on phylogeography, e.g. how do the models look like and w
 }% END: it
 }% END: item
 \\
-Done, I think that the figure and some extra explanations in Subsection~\ref{sub:phylogeo} should make it clear now.
-
+I add a figure and additional explanations in Subsection~\ref{sub:phylogeo}, which should make the subsequent chapters clearer now.. 
 
 \end{itemize}
 
@@ -222,7 +224,7 @@ To re-iterate the fact that our model does not condition on a known tree topolog
 \end{quote}
 
 We now also entertain a number of simulations which asses the impact of correcting for time-heterogeneity on tree reconstruction. 
-The simulations are running, I will discuss them during the presentation.
+The simulations which address the second part of this comment are now being performed, I will discuss them during the public defence.
 
 
 % 3
@@ -234,7 +236,7 @@ P6, lines 5-7: this is not correctly phrased as the parameter values do not have
 }% END: it
 }% END: item
 \\
-This is now rephrased:
+This paragraph is now rephrased:
 
 \begin{quote}
 \myeditsvthree
@@ -278,7 +280,8 @@ I would find it useful to see a brief discussion on the plausibility of (1.22).
 % FB: Does he mean plausibility from a biological perspective or statistical? It's a necessary condition for the existence of stationary dist.
 % Pl: I see it as questioning the plausibility in a biological sense. We now already argue that it is an assumption taken for computational reasons, but at the end of that paragraph we can explicitly state 'Realistic substitution processes are however unlikely to be time-reversible and procedures have also been developed to compute phylogenetic likelihoods under non-reversible models (cite Boussau and Gouy, 2006, see below)'. ...perhaps add in something more from that paper.... and end with 'We note that we use such non-reversible models in our discrete phytogeographic applications (cite Edwards et al., Current Biology, 2011).
 % http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.324.620&rep=rep1&type=pdf
-Done, see my changes to Subsection~\ref{sub:subst_models}.
+Please see my changes to Subsection~\ref{sub:subst_models}.
+We explain the implications of this assumption from biological perspective, as well as recent attempts to relax this assumption, both in the Bayesian phylogeographic framework and more bradly in th econtext of phylogenetic applications.
 
 
 % 7
@@ -330,7 +333,7 @@ P28, I understand what T(n) is, but would nevertheless find it helpful if it wer
 % FB: I don't understand the question in the definition we clearly define T as being simply a function on a positive subset of real numbers?
 % Does he mean we should wrote "time"? but this is not always true?
 % PL: OK, but can we then state something like this: T(n) can be interpreted as time in most practical situations, but this does necessarily need to be the case, e.g.....?
-Done, I now call it the ``worst case time'' scenario.
+Corrected, we now add a passage which explains that we mean the ``worst case time'' scenario.
 
 
 % 10
@@ -358,7 +361,7 @@ P32, Since the author assumes that the reader may have no prior knowledge of Bay
 }% END: it
 }% END: item
 \\
-Corrected. There is now a more elaborate description.
+Corrected. There is now a more elaborate description accompaning this figure (see Subsection~\ref{sub:ex_beta_binom}).
 
 
 
@@ -399,7 +402,8 @@ I would find it useful to get a bit more detail how a model for the likelihood o
 \\
 % FB: I'm not sure if I understand this comment, we do write that the likelihood is standard tree pruning and there's a whole subsection in the Introduction that delves on that...  We could elaborate on the prior choice here  ...
 % PL: OK, I would simply point out that we use exactly the same type of CTMC modelling in the response letter. And simply to do something in response to the comment, modify this sentence: "Unlike before, the rate matrix does not necessarily have to be symmetrical, i.e. there exist some i, j such that ..." into "So, we employ the same type of CTMC modelling for discrete phylogeography as for nucleotide substitution processes, which is described in detail in ...(refer to intro section on CTMC), but now for an arbitrary number of location states. And unlike for nucleotide substitution, the rate matrix does not necessarily have to be symmetrical, i.e. there exist some i, j such that ..." 
-Done, see my changes to the Subsection~\ref{sub:phylogeo}. Actually we don't have to write a response, other than for our own use, as none of the reviewers wanted to see the adjusted manuscript. 
+Please see my changes to the Subsection~\ref{sub:phylogeo}.
+
 
 
 
@@ -436,6 +440,8 @@ I added a sentence taken from Bahl et al.:
 \myeditsvsixteen
 \end{quote}
 
+This further clarifies the distinction between the \emph{ad-hoc} method by Bahel et al. and the ``epoch model'' applied to the global influenza spread problem.
+
 % 17
 \item {
 {\it
@@ -446,7 +452,7 @@ It would be good to state this explicitly.
 }% END: it
 }% END: item
 \\
-Done.
+Corrected.
 
 
 % 18
@@ -487,7 +493,8 @@ Please make clear why the use of mixed effects models could allow this.
 }% END: it
 }% END: item
 \\
-I changed the Subsection~\ref{sub:glm_epoch}, copied some bits from the hierarchical epoch model paper (under construction) and explained we mean the impact of various covariates as well as that by using MG94 parametrization we get a better resolution on selection parameters.
+I changed the Subsection~\ref{sub:glm_epoch}, explaining that by this sentence we mean the impact of various covariates as well as that by using MG94 parametrization we get a better resolution on selection parameters.
+There is also a more elaborate description of the model we plan to use in the upcoming manuscript on the application of the hierarchical epoch model.
 
 
 
@@ -500,7 +507,7 @@ P88. It would be useful to receive a bit more detail what is meant by `infinite 
 }% END: it
 }% END: item
 \\
-I introduce the definition of HMM's in a form of Remark, see Subsection~\ref{sub:dpp}.
+I introduce the definition of HMM's in a form of Remark, please see Subsection~\ref{sub:dpp}.
 
 
 
@@ -525,7 +532,7 @@ This should be very easy to fix.
 }% END: it
 }% END: item
 \\
-There is now a subsection called \emph{Bayesian model selection} at the end of Chapter 1.
+There is now a subsection called \emph{Bayesian model selection} at the end of Chapter 1, which gives a primer on Bayesian model selection that should be sufficient to follow the rest of the manuscript.
 
 
 
@@ -542,7 +549,7 @@ This does not need to be done before the defense, but it could be a nice extensi
 }% END: it
 }% END: item
 \\
-See Simulations.
+We are performing a set of simulations to asses this, and the obrained results will be presented during the public defence.
 
 
 % 3
@@ -559,8 +566,9 @@ I suggest you try a bit to further consolidate the different chapters.
 }% END: it
 }% END: item
 \\
-FB: Would be nice if he said where... Only place that I can think of is the first paragraph of the Subsection~\ref{sub:subst_models}  [1.2.4 Markov chain models of sequence substitution] which overlaps with 2.3 Methods of Chapter 2, yet this is the only chapter to which he does not address this comment to (...consolidate the different chapters)
-
+We carefully screened for repeated paragraphs between the introduction and the other chapters, and could only identify one paragraph that is repeated at th ebeginning of Subsection~\ref{sub:subst_models}.
+This paragraph is now re-sentenced to remove the repetition.
+We acknowledge that isolated sentence might still carry some degree of resemblance, yet we preffer not to remove this in order to also allow the subsequent chapter to function as self-contained work, for readers possibly interested only in a part of the presented work.
 
 
 % 4
@@ -575,7 +583,7 @@ This does not need to be done before the defense, but it could be a nice extensi
 }% END: it
 }% END: item
 \\
-See simulations.
+We are performing a set of simulations to asses this, and the obrained results will be presented during the public defence.
 
 
 % 5
@@ -590,7 +598,7 @@ Moreover, you focus on HPC architectures like GPU and multicores, which are in s
 }% END: it
 }% END: item
 \\
-Rephrased to avoid term:
+I have rephrased the entire paragraph to avoid using the term:
 
 \begin{quote}
 \myeditDPfive
@@ -633,7 +641,8 @@ Page 52: according to the legend in Figure 2.3, a two-epoch plot is missed.
 }% END: it
 }% END: item
 \\
-Hmm I think it wasn't clear that it's all on one plot. Needs re-phrasing:
+Entire set up for the employed simulations is presente din on eplot by th euse of alternating shading. 
+This was perhaps not clear enough from the Figures caption, I have thus rephrased it to state explicitely:
 
 \begin{quote}
 {\bf  Epoch simulation scenarios on an influenza A maximum clade credibility tree topology.} 
@@ -709,7 +718,7 @@ Unless I missed it, the appendices are not cited in the text.
 }% END: it
 }% END: item
 \\
-Done.
+We now reffer to the Appendices in the Chapters to which they apply.
 
 
 \end{itemize}
@@ -724,6 +733,6 @@ Done.
 
 
 
-%\bibliography{epochrefs}
+\bibliography{thesisrefs}
 
 \end{document}

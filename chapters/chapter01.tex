@@ -716,8 +716,10 @@ One needs only to scale and exponentiate the eigenvalues to calculate the diagon
 
 \subsection{Markov chain models of sequence substitution\label{sub:subst_models}}
 
-% TODO markov property is inherited from Poisson process
-Drawing realizations with probabilities defined by $\mathbf{P}$  gives rise to a continuous-time stochastic process $\left\{ X(t):\; t\geq0\right\}$ satisfying the Markov property, such that for every $n\geq 0$, given the time points $0\leq t_{0}\leq t_{1}<\ldots<t_{n}\leq t_{n+1}$ and discrete states $i_{0},i_{1}, \ldots, i_{n},i_{n+1}$, it holds that: 
+After obtaining finite-time transition probabilities given by Equation~\ref{eq:eigen_decomposition} for some time $t\geq0$ one can start drawing realizations, which follow probabilities defined by $\mathbf{P}$.
+These realizations constitute a continuous-time stochastic process $\left\{ X(t):\; t\geq0\right\}$, which inherits the Markov property from the Poisson process modelling the time between any two mutations, as defined in Subsection~\ref{sub:poisson}.
+
+We say that a stochastic process has the Markov property if the conditional probability distribution of future states of the process depends only upon the present state, not on the sequence of events that preceded it, i.e. for every $n\geq 0$, given the time points $0\leq t_{0}\leq t_{1}<\ldots<t_{n}\leq t_{n+1}$ and discrete states $i_{0},i_{1}, \ldots, i_{n},i_{n+1}$, it holds that: 
 
 \begin{align}
 & P\left\{ X(t_{n+1}) = i_{n+1}\mid X(t_{n})=i_{n},\ldots, X(t_{0})=i_{0}\right\}   \nonumber \\
@@ -1349,7 +1351,7 @@ P\left(\theta|\mathbf{X}\right) =\int P\left(\theta,\mathbf{F}|\mathbf{X}\right)
 \label{eq:bayesian3}
 \end{equation}
 
-\subsection{Example: Comparing two sequences with the beta-binomial model}
+\subsection{Example: Comparing two sequences with the beta-binomial model\label{sub:ex_beta_binom}}
 
 As a simple illustration of the concept of Bayesian analysis, let us consider a toy example where two sequences are compared and $x=10$ differences are found out of $N=100$ sites compared.
 Suppose that the parameter $\theta$ we want to infer is the proportion of sites which differ between the two sequences.
