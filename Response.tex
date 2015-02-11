@@ -114,7 +114,7 @@ Briefly described how to accommodate time-stamped sequences, which is now consid
 }% END: item
 \\
 %
-%PL: TODO: rewrite the final paragraph to reflect the dated-tip likelihood model: Essential, we now consider heights (instead of branch lengths) and introduce a new parameter, the rate of evolution r, which allows rescaling genetic distance into time. The task is now to estimate the heights and r from the sequence data, keeping the ti[ heights proportional to their sampling time, with the constant of proportionality being our estimable r.
+%PL: TODO: rewrite the final paragraph to reflect the dated-tip likelihood model: Essential, we now consider heights (instead of branch lengths) and introduce a new parameter, the rate of evolution r, which allows rescaling genetic distance into time. The task is now to estimate the heights and r from the sequence data, keeping the the heights proportional to their sampling time, with the constant of proportionality being our estimable r.
 %
 I added a subsection which describes the methods used in BEAST to accommodate time-stamped sequences as a source for calibrating trees, when such information is available. The first paragraph of this new section is reproduced below:
 
@@ -220,19 +220,13 @@ I would find it useful to see a brief discussion on the plausibility of (1.22).
 % FB: Does he mean plausibility from a biological perspective or statistical? It's a necessary condition for the existence of stationary dist.
 % Pl: I see it as questioning the plausibility in a biological sense. We now already argue that it is an assumption taken for computational reasons, but at the end of that paragraph we can explicitly state 'Realistic substitution processes are however unlikely to be time-reversible and procedures have also been developed to compute phylogenetic likelihoods under non-reversible models (cite Boussau and Gouy, 2006, see below)'. ...perhaps add in something more from that paper.... and end with 'We note that we use such non-reversible models in our discrete phytogeographic applications (cite Edwards et al., Current Biology, 2011).
 % http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.324.620&rep=rep1&type=pdf
-Please see my changes which explain how the assumptions of stationarity and homogeneity of stochastic process governing the evolution connect to each other  
-%PL: Please fix here
-with the assumption of 
-
-and which start with:
+Please see my changes which explain how abandoning the assumptions of stationarity and homogeneity of stochastic processes of evolution affect each other and which start with:
 
 \begin{quote}
 \myeditsvsixone
 \end{quote}
 
-
-
-In addition to explaining the implications of this assumption from biological perspective, we also briefly introduce some of the recent attempts to relax this assumption, both in the Bayesian phylogeographic framework and more broadly in the context of phylogenetic applications:
+Relaxing both of these assumptions leads to processes which are also non-reversible, and addition to explaining the implications of the time-reversibility assumption from biological perspective, we also briefly introduce some of the recent attempts to relax this assumption, both in the Bayesian phylogeographic framework and more broadly in the context of phylogenetic applications:
 
 \begin{quote}
 \myeditsvsixtwo
@@ -268,12 +262,6 @@ This statement now reads:
 \begin{quote}
 \myeditsveight
 \end{quote}
-
-
-
-
-
-
 
 
 
@@ -317,9 +305,11 @@ P32, Since the author assumes that the reader may have no prior knowledge of Bay
 }% END: it
 }% END: item
 \\
-Corrected. There is now a more elaborate description accompanying this figure (see Subsection~\ref{sub:ex_beta_binom}).
+Corrected. There is now a more elaborate description accompanying this figure as well as the derivation of the results, starting with:
 
-
+\begin{quote}
+\myeditsveleven
+\end{quote}
 
 % 12
 \item {
@@ -358,7 +348,7 @@ I would find it useful to get a bit more detail how a model for the likelihood o
 \\
 % FB: I'm not sure if I understand this comment, we do write that the likelihood is standard tree pruning and there's a whole subsection in the Introduction that delves on that...  We could elaborate on the prior choice here  ...
 % PL: OK, I would simply point out that we use exactly the same type of CTMC modelling in the response letter. And simply to do something in response to the comment, modify this sentence: "Unlike before, the rate matrix does not necessarily have to be symmetrical, i.e. there exist some i, j such that ..." into "So, we employ the same type of CTMC modelling for discrete phylogeography as for nucleotide substitution processes, which is described in detail in ...(refer to intro section on CTMC), but now for an arbitrary number of location states. And unlike for nucleotide substitution, the rate matrix does not necessarily have to be symmetrical, i.e. there exist some i, j such that ..." 
-In response to a comment above, we now provide more detail in Subsection~\ref{sub:phylogeo}.
+In response to the first comment raised by the Reviewer, we now provide more detail in Subsection~\ref{sub:phylogeo}, including a figure which complements the explanation of the joint inference of processes generating the sequence data and discrete location data.
 
 
 
@@ -408,7 +398,7 @@ It would be good to state this explicitly.
 }% END: it
 }% END: item
 \\
-This is now states explicitly.
+This is now stated explicitly.
 %PL: where?may be quote here?
 
 
@@ -450,10 +440,13 @@ Please make clear why the use of mixed effects models could allow this.
 }% END: it
 }% END: item
 \\
-I changed Subsection~\ref{sub:glm_epoch}, explaining that by this sentence we mean the impact of various covariates,  and that by using the MG94 parametrization we do not need to assume altho all rate variation is due variation in non-synonymous rates.
-%PL: why not quote it (or at least part of it)?
-There is also a more elaborate description of the model we plan to use in the upcoming manuscript on the application of the hierarchical epoch model.
+I changed the relevant subsection, %PL: why not quote it (or at least part of it)?
+explaining that by this sentence we mean the impact of various covariates,  and that by using the MG94 parametrisation we do not need to assume that all substitution rate variation is due variation in non-synonymous rates.
+There is also a more elaborate description of the model we plan to use in the upcoming manuscript on the application of the hierarchical epoch model, starting with:
 
+\begin{quote}
+\myeditsvtwenty
+\end{quote}
 
 
 % 21
@@ -465,8 +458,9 @@ P88. It would be useful to receive a bit more detail what is meant by `infinite 
 }% END: it
 }% END: item
 \\
-I introduce the definition of HMM's in a form of Remark, please see Subsection~\ref{sub:dpp}.
-
+I now introduce the definition of HMM's and its extension to infinite states under the a form of Remark on page 93,
+% ~\pageref{ref:infinite_hidden_markov}, 
+please see the relevant subsection.
 
 
 \end{itemize}
@@ -507,7 +501,8 @@ This does not need to be done before the defense, but it could be a nice extensi
 }% END: it
 }% END: item
 \\
-We are performing a set of simulations to asses this, and the obrained results will be presented during the public defence.
+Indeed, the cases we examine in this thesis involve testing prior hypotheses with known epoch times.
+We are performing a set of simulations to dress some of the points raised by the reviewer, and the results can serve as a basis for discussion at the public defence.
 
 
 % 3
@@ -524,9 +519,13 @@ I suggest you try a bit to further consolidate the different chapters.
 }% END: it
 }% END: item
 \\
-We carefully screened for repeated paragraphs between the introduction and the other chapters, and could only identify one paragraph that is repeated at th ebeginning of Subsection~\ref{sub:subst_models}.
-This paragraph is now re-sentenced to remove the repetition.
-We acknowledge that isolated sentence might still carry some degree of resemblance, yet we preffer not to remove this in order to also allow the subsequent chapter to function as self-contained work, for readers possibly interested only in a part of the presented work.
+We carefully screened for repeated paragraphs between the introduction and the other chapters, and could only identify one paragraph that is repeated at the beginning of Subsection~\ref{sub:subst_models}.
+This paragraph is now rephrased to remove the repetition.
+
+We acknowledge that isolated sentences might still carry some degree of resemblance, yet we prefer not to remove this so that all chapters remain as self-contained units, for readers that would only be interested in parts of the thesis.
+For Chapter 3, we now clearly reference the SPREAD tutorial that we provide as an appendix, which contains the nuts and the bolts of the software tool that are important for the practitioner.
+This complements the chapter but would be difficult to merge this with the original paper describing SPREAD.
+
 
 
 % 4
@@ -541,7 +540,7 @@ This does not need to be done before the defense, but it could be a nice extensi
 }% END: it
 }% END: item
 \\
-We are performing a set of simulations to asses this, and the obrained results will be presented during the public defence.
+This is an interesting suggestion indeed. We are performing a set of simulations to asses this, and I would be happy to discuss this with the reviewer atthe public defence.
 
 
 % 5
@@ -599,18 +598,21 @@ Page 52: according to the legend in Figure 2.3, a two-epoch plot is missed.
 }% END: it
 }% END: item
 \\
-Entire set up for the employed simulations is presente din on eplot by th euse of alternating shading. 
-This was perhaps not clear enough from the Figures caption, I have thus rephrased it to state explicitely:
+The complete specification of the two simulation scenarios is presented in one plot by using two different epoch delineations (at the top and bottom of the tree) 
+and alternating shading, with one shaded area having a transparency gradient.
+This was perhaps not clear enough in the Figure caption, I have thus rephrased more explicitly:
 
 \begin{quote}
 {\bf  Epoch simulation scenarios on an influenza A maximum clade credibility tree topology.} 
-In the two-epoch example illustrated by the top alternating background
+% \myedit{DPeight}{
+In the two-epoch example illustrated at the top with alternating grey and light grey background
 % at the top, 
-the transition time is set at $t_{1}=7$, creating two epochs with substitution processes governed by infinitesimal rate matrices $\mathbf{Q_{1}}$ and $\mathbf{Q_{2}}$ respectively, separated by the light and dark grey areas and the dotted line.
+the transition time is set at $t_{1}=7$, creating two epochs with substitution processes governed by infinitesimal rate matrices $\mathbf{Q_{1}}$ and $\mathbf{Q_{2}}$ respectively.
+The light area (one of which encompasses  two epochs in the 3-epoch scenario as indicated by the transparency gradient for the leftmost epoch) is separated from the dark grey area by a dotted line.
 In the three-epoch example illustrated 
-by the bottom alternating background
-% at the bottom, 
-transition times are put at $t_{1}=7$ and $t_{2}=15$, creating three epochs with substitution processes governed by infinitesimal rate matrices $\mathbf{Q_{1}}$, $\mathbf{Q_{2}}$ and then again $\mathbf{Q_{1}}$, as indicated by the alternating dark and light areas and the dotted lines.
+at the bottom, % at the bottom, 
+the transition times are put at $t_{1}=7$ and $t_{2}=15$, creating three epochs with substitution processes governed by infinitesimal rate matrices $\mathbf{Q_{1}}$, $\mathbf{Q_{2}}$ and then again $\mathbf{Q_{1}}$, as indicated by the alternating dark and light grey areas.
+% }%END: myedit
 \end{quote}
 
 
@@ -649,7 +651,7 @@ Otherwise it is very difficult to grasp.
 }% END: it
 }% END: item
 \\
-Corrected, all the figures presenting SPREAd output are now in color.
+Corrected, all the figures presenting SPREAD output are now in color.
 
 
 % 12
@@ -676,7 +678,7 @@ Unless I missed it, the appendices are not cited in the text.
 }% END: it
 }% END: item
 \\
-We now reffer to the Appendices in the Chapters to which they apply.
+Thank you for catching this oversight. We now refer to the Appendices in the Chapters to which they apply.
 
 
 \end{itemize}
@@ -685,12 +687,7 @@ We now reffer to the Appendices in the Chapters to which they apply.
 
 
 
-
-
-
-
-
-
+\bibliographystyle{myabbrvnat.bst}
 \bibliography{thesisrefs}
 
 \end{document}

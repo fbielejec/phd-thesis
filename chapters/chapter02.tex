@@ -328,6 +328,8 @@ When creating a BEAGLE instance, we allocate a number of extra buffers in additi
 Those buffers are then used to store partial transition matrices and results of matrix-matrix multiplications operations. 
 Our routine performs operations in batches of equal or smaller size compared to the number of allocated buffers, by pushing those queues to the GPU for parallel execution once the routine has no more buffers available or all work items are queued. Figure~\ref{fig:UpdateConvolveExample} presents an example of update-convolve routine using an asynchronous queue. 
 
+A tutorial which explains how to set up an `epoch model' for analysis in BEAST?BEAGLE can be found in Appendix~\ref{app:spread_tuto}.
+
 %---UPDATE-CONVOLVE INFOGRAPHIC---%
 \begin{figure}[h!]
 \centering
@@ -368,13 +370,13 @@ Specifically, we use a maximum clade credibility (MCC) tree summarizing a Bayesi
 { \footnotesize 
 {\bf  Epoch simulation scenarios on an influenza A maximum clade credibility tree topology.} 
 % \myedit{DPeight}{
-In the two-epoch example illustrated by the top alternating background
+In the two-epoch example illustrated at the top with alternating grey and light grey background
 % at the top, 
-the transition time is set at $t_{1}=7$, creating two epochs with substitution processes governed by infinitesimal rate matrices $\mathbf{Q_{1}}$ and $\mathbf{Q_{2}}$ respectively, separated by the light and dark grey areas and the dotted line.
+the transition time is set at $t_{1}=7$, creating two epochs with substitution processes governed by infinitesimal rate matrices $\mathbf{Q_{1}}$ and $\mathbf{Q_{2}}$ respectively.
+The light area (one of which encompasses  two epochs in the 3-epoch scenario as indicated by the transparency gradient for the leftmost epoch) is separated from the dark grey area by a dotted line.
 In the three-epoch example illustrated 
-by the bottom alternating background
-% at the bottom, 
-transition times are put at $t_{1}=7$ and $t_{2}=15$, creating three epochs with substitution processes governed by infinitesimal rate matrices $\mathbf{Q_{1}}$, $\mathbf{Q_{2}}$ and then again $\mathbf{Q_{1}}$, as indicated by the alternating dark and light areas and the dotted lines.
+at the bottom, % at the bottom, 
+the transition times are put at $t_{1}=7$ and $t_{2}=15$, creating three epochs with substitution processes governed by infinitesimal rate matrices $\mathbf{Q_{1}}$, $\mathbf{Q_{2}}$ and then again $\mathbf{Q_{1}}$, as indicated by the alternating dark and light grey areas.
 % }%END: myedit
 }% END: footnotesize
 }%END: caption
@@ -706,9 +708,7 @@ Instead of trying to identify the most appropriate discretization of time, one m
 \citet{Rodrigo2008} outline two approaches to allow rate matrices to vary as a function of time, one of which approximates that function by partitioning time into a fine grid of intervals.
 This is likely to be a computationally expensive avenue, but its performance will mostly depend on the availability of dense sampling throughout time \citep{Rodrigo2008}.%
 
-A tutorial which explains how to access the BEAST software comprising the `epoch model' accompanies this Chapter and can be found in Appendix~\ref{app:spread_tuto}.
-
-An interesting direction for further research using the epoch model is to couple epoch-specific parameters to external covariates.
+\An interesting direction for further research using the epoch model is to couple epoch-specific parameters to external covariates.
 For the within-host HIV data sets we analyze here, it may be interesting to ask whether $\omega$ varies with changes in CD4+ counts or viral load.
 In our Bayesian framework, we can address this question through formulating a hierarchical phylogenetic model \citep{Edo-Matas2011} over the epoch-specific parameters, considering the covariates as fixed-effects. 
 We can further estimate the posterior probabilities of all possible linear models that may or may not include the covariates using Bayesian stochastic search variable selection \citep{Kuo1998}.  
