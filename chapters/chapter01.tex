@@ -777,9 +777,11 @@ As $t$ goes to infinity the probability that the site is in some state $j$ is no
 This implies that the chain will always display the same long-term behavior, which is why $\mathbf{\Pi}=\{\pi_{i},\ i\in\mathcal{E}\}$ is called a \emph{stationary distribution} (also referred to as the \emph{equilibrium distribution} or \emph{equilibrium frequencies}).
 We can look at the elements of $\mathbf{\Pi}$ as the proportion of time spent in state $j\in\mathcal{E}$ after the Markov chain has run for infinitely long time, that does not depend upon the initial state $i$ of the process.
 In other words, if we sample the initial state from the stationary distribution and then let the process run for some sufficiently long time $t$, then the distribution of the final state will equal the stationary distribution. 
+\myedit{svsixone}{
 From the biological perspective stationarity means that the probability distribution of a certain state (e.g. nucleotide character) is constant over the whole course of evolution; the probability to draw a certain state is the same whenever the sampling is done.
 A process can be stationary and not be homogeneous, for example by varying substitution rates on the tree branches (see \cite{Yang2002} and the discussion in Subsection~\ref{sub:dpp}).
 However the converse is not true, and non-stationarity induces non-homogeneity, as the stochastic process of evolution depends on the stationary distribution.
+}
 
 Another commonly applied constraint is that of \emph{time-reversibility}, meaning that the model does not care which character is the ancestor and which is the descendant so long as all other parameters are held constant.
 For all $i,j\in \mathcal{E}$ and $t\geq 0$ we have:
@@ -800,13 +802,13 @@ By the definition of $\mathbf{\Pi}$ and $\mathbf{P}$ from (\ref{eq:time_reversib
 
 Definition (\ref{eq:time_reversibility1}) and (\ref{eq:time_reversibility2}) are equivalent.
 
-This condition is assumed for strictly computational reasons, i.e. time-reversibility makes it easier to diagonalize $\mathbf{Q}$, which - as we have described in 
-Subsection~\ref{sub:exponentiation} - is a strategy frequently employed in phylogenetic software to compute the exponentials of rate matrices.
+This condition is assumed for strictly computational reasons, i.e. time-reversibility makes it easier to diagonalize $\mathbf{Q}$, which - as we have described in Subsection~\ref{sub:exponentiation} - is a strategy frequently employed in phylogenetic software to compute the exponentials of rate matrices.
 Time reversibility also simplifies the computation of the likelihood on a tree, since it makes the computation independent of the position of the root, which we will discuss in Subsection~\ref{sub:likelihood}.
 
+\myedit{svsixtwo}{
 Realistic substitution processes are however unlikely to be time-reversible, especially since abandoning stationarity and homogeneity assumptions implies abandoning reversibility of the evolutionary process.
 Recenty however procedures have also been developed to compute phylogenetic likelihoods under non-reversible models \citep{Boussau2006}, making the use of non-reversible models plausible also for large state-space discrete phytogeographic applications \citep{Edwards2011}.
-
+}
 
 \subsection{A simple example: the Jukes and Cantor substitution model\label{sub:jc69}}
 
@@ -863,8 +865,8 @@ This is true for most of the substitution models and implies that typical phylog
 In Subsection~\ref{sub:clocks} we discuss how, under certain conditions, the time and substitution rate can be separated.
 
 \subsection{Markov models of codon evolution\label{sub:codon}}
-%TODO: briefly introduce, mg is later, show gy94 
 
+\myedit{svonea}{
 First two computationally tractable codon substitution models were independently proposed by \cite{Muse1994} and \cite{Goldman1994} in the same issue of Molecular Biology and Evolution (MBE).
 In these models, a non-stop codon triplet $n_{1}n_{2}n_{3}$ is considered to be the smallest unit of evolution.
 According to the universal genetic code, there are $4^3$ possible triplets minus three stop codons, resulting in a state space size of $61$ codons.
@@ -874,6 +876,7 @@ Proteins are coded by a set of 20 amino acids, with each amino acid being coded 
 Because there are 61 non-stop codons to encode for 20 amino acids, some amino acids will inevitably be coded by more than 1 codon.
 A substitution that does not change the encoding amino-acid is called a synonymous substitution, while a non-synonymous substitution refers to a substitution that does result in an amino acid substitution.
 Quantifying the rate at which these substitutions occur allows us to infer the selective pressure, which is the main driving force behind molecular evolution.
+}
 
 That is why most of the codon substitution models are parameterized in terms of the rate of non-synonymous (denoted by convention $\beta$) and synonymous ($\alpha$ by convention) substitutions.
 Their ratio $\omega=\beta / \alpha$ is a standard measure of the selective pressure \citep{ThePhylogeneticHandbook}, which is sometimes also denoted $\omega = dN/dS$.
@@ -934,9 +937,10 @@ A rooted binary tree with $n$ leaves has $2n-2$ branches and $n-1$ internal node
 The branching pattern of the tree is called the \emph{topology}. 
 
 \subsection{Dated phylogenetic trees\label{sub:dated_trees}}
-%how to accommodate time-stamped sequences
 
+\myedit{svoneb}{
 Time-stamped sequence data, which frequently arises from studies involving MEP populations for which sequences are sampled at different points in time and the evolutionary rates are high enough for significant changes to occur, can be used to calibrate the molecular clock and convert branch lengths into actual time units.
+}
 
 Fo simplicity let us assume a single site, where character sequence data was sampled on dates ranging from $1983$ to $2000$, as seen in Figure~\ref{fig:timing_sequences}.
 We also assume that the tree topology is known and we want to estimate the unknown times $T_{0},T_{6},T_{7},T_{8}$.
@@ -1620,12 +1624,14 @@ The evolutionary relationship represented by the tree was inferred omitting the 
 rapidly evolving viruses.
 This approach does not need to fix the tree topology, the branch lengths nor the Markov model parameters, and allows for integration over all possible values, requiring only for a specification of a prior distributions for the parameters that we aim to infer.
 
+\myedit{svonec}{
 Central to the Bayesian phylogeographic framework is the hypothesis that sequence evolution is occurring simultaneously with the process of geographical dispersal. 
 The observed data, residing at the $N$ tips of phylogeny $\mathbf{F}$, is recorded as both character sequence data $\mathbf{X}=(X_{1},...,X_{N})$ and discretized geographic locations (countries, districts, cities) $\mathbf{Y}=(Y_{1},...,Y_{N})$, as pictured in the upper facette of Figure~\ref{fig:discrete_phylo_illust}.
 We assume independent stochastic processes are responsible for generating these data, with ancestral states of $\mathbf{X}$ generated as before by a CTMC characterized by rate matrix $\mathbf{Q}$ and the unobserved ancestral locations $(Y_{N+1},...,Y_{2N-2})$ generated by a separate CTMC characterized by rate matrix $\mathbf{\Phi}$ (see Figure~\ref{fig:discrete_phylo_illust}, lower facette).
 The entries of this matrix are the transition rates $\phi_{ij}$ between locations $i$ and $j$.
 Unlike before, the rate matrix does not necessarily have to be symmetrical, i.e. there exist some $i,j$ such that $\phi_{ij}\neq\phi_{ji}$.
 Additionally, a priori one would expect many of the infinitesimal rates to be zero. 
+}
 
 %---DISCRETE PHYLOGEOGRAOHY ILLUSTRATION---%
 \begin{figure}[h!]

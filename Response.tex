@@ -58,10 +58,13 @@
 
 \setcounter{page}{1}
 
+\newcommand{\myTitle}{Continuous-time Markov chain models for pathogen phylodynamics: }
+\newcommand{\mySubtitle}{model extension, simulation and visualisation} % produkcja dystrybucja masturbacja :)
+
 \bigskip
 \medskip
 \noindent{\Large 
-Response 
+Response to the reviewer comments to: \myTitle \mySubtitle.
 }
 \bigskip
 
@@ -171,8 +174,11 @@ Briefly described the evolutionary models, such as GY94, that are later used.
 }% END: it
 }% END: item
 \\
-Corrected, there is now a \emph{Markov models of codon evolution} subsection in the introductory chapter, which discusses most popular codon model implementations (see Subsection ~\ref{sub:codon}).
+Corrected, there is now a \emph{Markov models of codon evolution} subsection in the introductory chapter, which discusses most popular codon model implementations:
 
+\begin{quote}
+\myeditsvonea
+\end{quote}
 
 % 1b
 \item {
@@ -183,7 +189,11 @@ Briefly described how to accommodate time-stamped sequences, which is now consid
 }% END: it
 }% END: item
 \\
-Corrected, see Subsection~\ref{sub:dated_trees}, which describes the methods used in BEAST to accomodate time-stamped sequences as a source of calibration for trees.
+Corrected, I added a subsection which describes the methods used in BEAST to accomodate time-stamped sequences as a source of calibration for trees, when such information is availiable:
+
+\begin{quote}
+\myeditsvoneb
+\end{quote}
 
 
 
@@ -197,7 +207,12 @@ Give a bit more detail on phylogeography, e.g. how do the models look like and w
 }% END: it
 }% END: item
 \\
-I add a figure and additional explanations in Subsection~\ref{sub:phylogeo}, which should make the subsequent chapters clearer now.. 
+I added a figure and additional explanation, which should make the subsequent chapters clearer now. 
+These changes start with:
+
+\begin{quote}
+\myeditsvonec
+\end{quote}
 
 \end{itemize}
 
@@ -279,8 +294,24 @@ I would find it useful to see a brief discussion on the plausibility of (1.22).
 % FB: Does he mean plausibility from a biological perspective or statistical? It's a necessary condition for the existence of stationary dist.
 % Pl: I see it as questioning the plausibility in a biological sense. We now already argue that it is an assumption taken for computational reasons, but at the end of that paragraph we can explicitly state 'Realistic substitution processes are however unlikely to be time-reversible and procedures have also been developed to compute phylogenetic likelihoods under non-reversible models (cite Boussau and Gouy, 2006, see below)'. ...perhaps add in something more from that paper.... and end with 'We note that we use such non-reversible models in our discrete phytogeographic applications (cite Edwards et al., Current Biology, 2011).
 % http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.324.620&rep=rep1&type=pdf
-Please see my changes to Subsection~\ref{sub:subst_models}.
-We explain the implications of this assumption from biological perspective, as well as recent attempts to relax this assumption, both in the Bayesian phylogeographic framework and more bradly in th econtext of phylogenetic applications.
+Please see my changes which explain how the assumptions of stationarity and homogeneity of stochastic process governing the evolution connect to each other  
+
+with the assumption of 
+
+and which start with:
+
+\begin{quote}
+\myeditsvsixone
+\end{quote}
+
+
+
+In addition to explaining the implications of this assumption from biological perspective, we also briefly introduce some of the recent attempts to relax this assumption, both in the Bayesian phylogeographic framework and more bradly in the context of phylogenetic applications:
+
+\begin{quote}
+\myeditsvsixtwo
+\end{quote}
+
 
 
 % 7
