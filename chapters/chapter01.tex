@@ -1050,7 +1050,7 @@ This quantity expresses how likely it is to observe the data given a specific va
 \myedit{sveight}{
 By finding the value of $\mathbf{\Theta}$ that maximizes (\ref{eq:likelihood}) we obtain an estimate of the most plausible 
 %hypothesis for the data.
-set of parameters given observed data.}
+set of parameters given the observed data.}
 
 In this thesis we will not discuss maximum likelihood estimation itself, %PL: good, who wants to consider the data to be fixed anyway..
 rather focus on closely related 
@@ -1313,12 +1313,12 @@ Before the molecular data $\mathbf{X}$ is observed we assume that $\theta$ has a
 The prior reflects the prior beliefs about the possible values of the parameter.
 
 \myedit{svnine}{
-The prior choice is perhaps one of the most controversial points of the Bayesian inference.
-The prior distributions may come from the preceding analysis of other sets of data, or they may form some set of biologically plausible values.
-However in some cases there may be no suitable objective distribution at hand, in which case one often resorts to the so-called \emph{vague} or \emph{diffuse} priors, which have large variances.
+The prior choice is perhaps one of the most controversial aspects of the Bayesian inference.
+The prior distributions may be inspired by previous analyses of other sets of data, or they may form some set of biologically plausible values.
+However in some cases there may be no suitable objective prior knowledge at hand, in which case one often resorts to the so-called \emph{vague} or \emph{diffuse} priors, which have large variances.
 Some popular uninformative priors on continuous, unbounded variables may be improper, \textit{i.e.} their distribution is infinitesimal on an infinite range in order to integrate to $1$.
 Among examples of such priors is the uniform distribution on an infinite interval.
-Although many of of these prior choices sill lead to a proper posterior distribution, yet some controversies about their choice may still arise.
+Although many of these prior choices still lead to a proper posterior distribution, some controversies about their choice may still arise, in particular when the data is poorly informative.
 }
 
 % TODO: discuss hyperpriors?
@@ -1373,7 +1373,7 @@ Assuming that the sites are independent we can use a binomial model and put a be
 \label{fig:bayes1}
 \end{figure}
 
-Figure~\ref{fig:bayes1} shows the resulting posterior distribution along with prior and scaled likelihood.
+Figure~\ref{fig:bayes1} shows the resulting posterior distribution along with the prior and the scaled likelihood.
 The likelihood of the binomial model used in this example is simply:
 
 \begin{align}
@@ -1385,7 +1385,7 @@ x
 \end{align}
 
 Equation~\ref{eq:binomial_like} is plotted in Figure~\ref{fig:bayes1} over a range of values of $\theta$, resulting in the black filled distribution.
-The Beta distribution we chose for the prior has a following distribution function:
+The Beta distribution we choose for the prior has a following distribution function:
 
 \begin{align}
 p(\theta)=\frac{1}{B\left(\alpha,\beta\right)}\theta^{\alpha-1}(1-\alpha)^{\beta-1}
@@ -1393,7 +1393,7 @@ p(\theta)=\frac{1}{B\left(\alpha,\beta\right)}\theta^{\alpha-1}(1-\alpha)^{\beta
 \end{align}
 
 Equation~\ref{eq:beta_dist} corresponds to the white filled curve in in Figure~\ref{fig:bayes1}.
-Following the Bayes rule from Equation~\ref{eq:bayesian1} we can combine the likelihood and prior to form the posterior, which then becomes:
+Following the Bayes rule from Equation~\ref{eq:bayesian1}, we can combine the likelihood and prior to arrive at the posterior, which then becomes:
 
 \begin{eqnarray}
 p\left(\theta|x\right)=& \frac{\left(\begin{array}{c}
@@ -1408,7 +1408,7 @@ x
 \end{eqnarray}
  
 Equation~\ref{eq:beta_binom_post} appears as a grey filled area in Figure~\ref{fig:bayes1}.
-This illustrates that the data `pulls' the posterior away from the prior, and the strength by which is does so depends on its variance, resulting in a posterior centered around 0.06 in this case.
+This illustrates that the data `pulls' the posterior away from the prior, and the strength by which is does so depends on its variance, resulting in a posterior centred around 0.06 in this case.
 In this example, the posterior distribution can be obtained analytically because the beta distribution is a so-called \emph{conjugate prior} for the binomial model, resulting in the posterior that is also beta-distributed.
 
 
