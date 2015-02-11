@@ -116,6 +116,7 @@ Briefly described how to accommodate time-stamped sequences, which is now consid
 %
 %PL: TODO: rewrite the final paragraph to reflect the dated-tip likelihood model: Essential, we now consider heights (instead of branch lengths) and introduce a new parameter, the rate of evolution r, which allows rescaling genetic distance into time. The task is now to estimate the heights and r from the sequence data, keeping the the heights proportional to their sampling time, with the constant of proportionality being our estimable r.
 %
+% FB: done, see below
 I added a subsection which describes the methods used in BEAST to accommodate time-stamped sequences as a source for calibrating trees, when such information is available. The first paragraph of this new section is reproduced below:
 
 \begin{quote}
@@ -274,9 +275,6 @@ P28, I understand what T(n) is, but would nevertheless find it helpful if it wer
 }% END: it
 }% END: item
 \\
-% FB: I don't understand the question in the definition we clearly define T as being simply a function on a positive subset of real numbers?
-% Does he mean we should wrote "time"? but this is not always true?
-% PL: OK, but can we then state something like this: T(n) can be interpreted as time in most practical situations, but this does necessarily need to be the case, e.g.....?
 We now clarified that T(n) represents the ``worst-case' time' complexity of an algorithm.
 
 
@@ -398,9 +396,11 @@ It would be good to state this explicitly.
 }% END: it
 }% END: item
 \\
-This is now stated explicitly.
-%PL: where?may be quote here?
+This is now stated explicitly:
 
+\begin{quote}
+\myeditsvseventeen
+\end{quote}
 
 % 18
 \item {

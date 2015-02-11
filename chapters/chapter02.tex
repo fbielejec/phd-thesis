@@ -199,7 +199,9 @@ the branch traverses $m^{\prime\prime} - m^{\prime}$ epoch boundaries at which t
 \label{fig:collapsing}
 \end{figure}
 
-Figure~\ref{fig:collapsing} illustrates this action for a branch that spans a single boundary at known time $T_1$ with $\mathbf{Q}_1$ governing the process before the boundary and $\mathbf{Q}_2$ after the boundary. Letting $X(T_1) = k$ represent the augmented state of the stochastic process at the boundary, we compute
+\myedit{svseventeen}{
+Figure~\ref{fig:collapsing} illustrates this action for a branch that spans a single boundary at known time $T_1$ with $\mathbf{Q}_1$ governing the process before the boundary and $\mathbf{Q}_2$ after the boundary. Letting $X(T_1) = k$ represent the augmented state of the stochastic process at the boundary, we compute:
+}
 
 \begin{align}
 p_{ij}(t_u, t_v, r_v)
@@ -708,7 +710,7 @@ Instead of trying to identify the most appropriate discretization of time, one m
 \citet{Rodrigo2008} outline two approaches to allow rate matrices to vary as a function of time, one of which approximates that function by partitioning time into a fine grid of intervals.
 This is likely to be a computationally expensive avenue, but its performance will mostly depend on the availability of dense sampling throughout time \citep{Rodrigo2008}.%
 
-\An interesting direction for further research using the epoch model is to couple epoch-specific parameters to external covariates.
+An interesting direction for further research using the epoch model is to couple epoch-specific parameters to external covariates.
 For the within-host HIV data sets we analyze here, it may be interesting to ask whether $\omega$ varies with changes in CD4+ counts or viral load.
 In our Bayesian framework, we can address this question through formulating a hierarchical phylogenetic model \citep{Edo-Matas2011} over the epoch-specific parameters, considering the covariates as fixed-effects. 
 We can further estimate the posterior probabilities of all possible linear models that may or may not include the covariates using Bayesian stochastic search variable selection \citep{Kuo1998}.  
