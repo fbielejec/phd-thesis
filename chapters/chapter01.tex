@@ -866,29 +866,30 @@ In Subsection~\ref{sub:clocks} we discuss how, under certain conditions, the tim
 
 \subsection{Markov models of codon evolution\label{sub:codon}}
 
+
 \myedit{svonea}{
 First two computationally tractable codon substitution models were independently proposed by \cite{Muse1994} and \cite{Goldman1994} in the same issue of Molecular Biology and Evolution (MBE).
 In these models, a non-stop codon triplet $n_{1}n_{2}n_{3}$ is considered to be the smallest unit of evolution.
 According to the universal genetic code, there are $4^3$ possible triplets minus three stop codons, resulting in a state space size of $61$ codons.
-The standard assumption of independence is used, i.e. the substitutions at these three codon positions occur independently, and only a single change per triplet can occur at a given time. 
+The models inherit the standard assumption of independence, i.e. the substitutions at these three codon positions occur independently, and only a single change per triplet can occur at a given time. 
 %%GB: explain in more detail, i.e. more than 1 change is possible in subsequent infinitesimal time intervals
 Proteins are coded by a set of 20 amino acids, with each amino acid being coded by a codon triplet. 
-Because there are 61 non-stop codons to encode for 20 amino acids, some amino acids will inevitably be coded by more than 1 codon.
-A substitution that does not change the encoding amino-acid is called a synonymous substitution, while a non-synonymous substitution refers to a substitution that does result in an amino acid substitution.
-Quantifying the rate at which these substitutions occur allows us to infer the selective pressure, which is the main driving force behind molecular evolution.
+Because there are 61 non-stop codons to encode for 20 amino acids, some amino acids will inevitably be coded by more than one codon.
+A substitution that does not change the encoding amino-acid is called a \emph{synonymous} substitution, while a \emph{non-synonymous} substitution refers to a substitution that does result in an amino acid substitution.
+Quantifying the rate at which these substitutions occur allows us to asses the nature of selective pressure, which is the main driving force behind molecular evolution.
 }
 
-That is why most of the codon substitution models are parameterized in terms of the rate of non-synonymous (denoted by convention $\beta$) and synonymous ($\alpha$ by convention) substitutions.
-Their ratio $\omega=\beta / \alpha$ is a standard measure of the selective pressure \citep{ThePhylogeneticHandbook}, which is sometimes also denoted $\omega = dN/dS$.
-Prevalence of synonymous substitutions over non-synonymous ones leads to a \emph{purifying (negative)} selection, and corresponds to the ratio $\omega <1$.
-If non-synonymous substitutions accumulate at a faster rate than the synonymous substitutions this is coined \emph{positive selection}, improving the fitness of the particular organism and $\omega\approx 1$ signifies neutral evolution.
+That is why codon substitution models are generally parameterized in terms of the rate of non-synonymous (denoted by convention $\beta$) and synonymous ($\alpha$ by convention) substitutions or the ratio of these rates.
+The rate ratio $\omega=\beta / \alpha$ is a standard measure of the selective pressure \citep{ThePhylogeneticHandbook}, which is sometimes also denoted $\omega = dN/dS$.
+A higher rate of synonymous substitutions over non-synonymous can be interpreted as \emph{purifying (negative)} selection, and corresponds to a ratio $\omega <1$.
+Non-synonymous substitutions accumulating at a faster rate than the synonymous substitutions is considered to be evidence for \emph{positive selection}, improving the fitness of the particular organism. Finally, $\omega\approx 1$ represents neutral evolution.
 
-There are several advantages in using codon models over nucleotide-based substitution models.
-Not all DNA positions evolve at the same rate, with non-synonymous substitutions occurring more frequently then synonymous substitutions.
+In addition to the ability to quantify selection, there are also other advantages in using codon models over nucleotide-based substitution models.
+Not all DNA positions evolve at the same rate, with third codon positions generally evolving at higher rates than first or second codon positions because they are predominantly synonymous.
 Although this problem can be mitigated to some extent by using codon-positioned nucleotide substitution models, the fast evolving positions and the state space limited to $4$ character alphabet still can lead to biased estimates over long evolutionary distances, as portrayed in the previous Chapter~\ref{chap:pibuss}.
 
 For the remainder of this chapter we will focus on the GY94 model proposed by \cite{Goldman1994}, which is then utilized in the analysis performed in Chapter~\ref{chap:epoch} and in Chapter~\ref{chap:pibuss}.  
-Muse \& Gaut (MG94) model is discussed in Subsection~\ref{sub:dpp} of Chapter~\ref{chap:discussion}.
+The Muse \& Gaut (MG94) model is discussed in Subsection~\ref{sub:dpp} of Chapter~\ref{chap:discussion}.
 
 The GY94 model is characterized by a substitution rate matrix with following entries:
 
@@ -898,7 +899,7 @@ The GY94 model is characterized by a substitution rate matrix with following ent
 \pi_{j} & \substack{ \text{ \ensuremath{i\rightarrow j} is a synonymous transversion from } \\ \text{codon \ensuremath{i} to \ensuremath{j} } } \\  
 \kappa\cdot\pi_{j} & \substack{ \text{ synonymous transition } } \\
 \omega\cdot\pi_{j} & \substack{ \text{ non-synonymous transversion } } \\
-\omega\cdot\kappa\cdot\pi_{j} & \substack{ \text{ non-synonymous transversion } } \\
+\omega\cdot\kappa\cdot\pi_{j} & \substack{ \text{ non-synonymous transition } } \\
 0 & \substack{ \text{ otherwise} }
 \end{cases},
 \label{eq:gy94}
@@ -908,7 +909,7 @@ The GY94 model is characterized by a substitution rate matrix with following ent
 where the parameter $\kappa$ denotes the transition/transversion ratio, parameter $\omega$ denotes the non-synonymous/synonymous
 rate ratio and $\pi_j$ denotes the equilibrium frequency of codon triplet $j$.
 The parameters $\kappa$ and $\pi_j$ can be thought of as controlling the CTMC process at the DNA level, while the $\omega$ parameter characterizes the selection on non-synonymous substitutions.
-For the GY94 model the synonymous evolutionary rate is fixed to be 1, i.e. $\omega=\beta$.
+For the GY94 model the synonymous evolutionary rate is fixed to be 1, i.e. $\omega=\alpha$.
 
 \subsection{Phylogenetic trees}
 
@@ -939,11 +940,10 @@ The branching pattern of the tree is called the \emph{topology}.
 \subsection{Dated phylogenetic trees\label{sub:dated_trees}}
 
 \myedit{svoneb}{
-Time-stamped sequence data, which frequently arises from studies involving MEP populations for which sequences are sampled at different points in time and the evolutionary rates are high enough for significant changes to occur, can be used to calibrate the molecular clock and convert branch lengths into actual time units.
+Time-stamped or `heterchronous' sequence data, which frequently arises from studies involving MEP populations for which sequences are sampled at different points in time and the evolutionary rates are high enough for significant changes to occur between the sampling times, can be used to calibrate the molecular clock and convert branch lengths into actual time units.
 }
-
-Fo simplicity let us assume a single site, where character sequence data was sampled on dates ranging from $1983$ to $2000$, as seen in Figure~\ref{fig:timing_sequences}.
-We also assume that the tree topology is known and we want to estimate the unknown times $T_{0},T_{6},T_{7},T_{8}$.
+For simplicity let us assume a single site, where character sequence data was sampled on dates ranging from $1983$ to $2000$, as seen in Figure~\ref{fig:timing_sequences}.
+We also assume that the rooted tree topology is known and we want to estimate the unknown times $T_{0},T_{6},T_{7},T_{8}$.
 
 \begin{figure}[h!]
 \centering
@@ -952,7 +952,7 @@ We also assume that the tree topology is known and we want to estimate the unkno
 { \footnotesize 
 {\bf Dated phylogenetic tree.} 
 Discrete characters $CCACT$ observed at the external nodes (the tips of the tree) were sampled at different points in time.
-The tree topology is known and assumed to be true.
+The tree topology is assumed to be known without error, and also the root is known.
 The unknown dates of the internal nodes are labelled $T_{0},T_{6},T_{7},T_{8}$.
 }% END: footnotesize
 }
