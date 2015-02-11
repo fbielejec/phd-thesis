@@ -221,7 +221,7 @@ I would find it useful to see a brief discussion on the plausibility of (1.22).
 % Pl: I see it as questioning the plausibility in a biological sense. We now already argue that it is an assumption taken for computational reasons, but at the end of that paragraph we can explicitly state 'Realistic substitution processes are however unlikely to be time-reversible and procedures have also been developed to compute phylogenetic likelihoods under non-reversible models (cite Boussau and Gouy, 2006, see below)'. ...perhaps add in something more from that paper.... and end with 'We note that we use such non-reversible models in our discrete phytogeographic applications (cite Edwards et al., Current Biology, 2011).
 % http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.324.620&rep=rep1&type=pdf
 Please see my changes which explain how the assumptions of stationarity and homogeneity of stochastic process governing the evolution connect to each other  
-
+%PL: Please fix here
 with the assumption of 
 
 and which start with:
@@ -289,7 +289,7 @@ P28, I understand what T(n) is, but would nevertheless find it helpful if it wer
 % FB: I don't understand the question in the definition we clearly define T as being simply a function on a positive subset of real numbers?
 % Does he mean we should wrote "time"? but this is not always true?
 % PL: OK, but can we then state something like this: T(n) can be interpreted as time in most practical situations, but this does necessarily need to be the case, e.g.....?
-Corrected, we now add a passage which explains that we mean the ``worst case time'' scenario.
+We now clarified that T(n) represents the ``worst-case' time' complexity of an algorithm.
 
 
 % 10
@@ -317,7 +317,7 @@ P32, Since the author assumes that the reader may have no prior knowledge of Bay
 }% END: it
 }% END: item
 \\
-Corrected. There is now a more elaborate description accompaning this figure (see Subsection~\ref{sub:ex_beta_binom}).
+Corrected. There is now a more elaborate description accompanying this figure (see Subsection~\ref{sub:ex_beta_binom}).
 
 
 
@@ -358,7 +358,7 @@ I would find it useful to get a bit more detail how a model for the likelihood o
 \\
 % FB: I'm not sure if I understand this comment, we do write that the likelihood is standard tree pruning and there's a whole subsection in the Introduction that delves on that...  We could elaborate on the prior choice here  ...
 % PL: OK, I would simply point out that we use exactly the same type of CTMC modelling in the response letter. And simply to do something in response to the comment, modify this sentence: "Unlike before, the rate matrix does not necessarily have to be symmetrical, i.e. there exist some i, j such that ..." into "So, we employ the same type of CTMC modelling for discrete phylogeography as for nucleotide substitution processes, which is described in detail in ...(refer to intro section on CTMC), but now for an arbitrary number of location states. And unlike for nucleotide substitution, the rate matrix does not necessarily have to be symmetrical, i.e. there exist some i, j such that ..." 
-Please see my changes to the Subsection~\ref{sub:phylogeo}.
+In response to a comment above, we now provide more detail in Subsection~\ref{sub:phylogeo}.
 
 
 
@@ -372,7 +372,7 @@ P43. What is compositional heterogeneity?
 }% END: it
 }% END: item
 \\
-We now explicitely state that we mean across-data (site) heterogeneity:
+We now explicitly state that this refers to different stationary frequencies for the CTMC.
 
 \begin{quote}
 \myeditsvfifteen
@@ -390,13 +390,13 @@ Also in Section 2.4.3, the description of the proposal by Bahl et al. (2011) is 
 }% END: item
 \\
 % FB: This becomes p46 now, from "The former is critical to accommodate discrete phylogeographic inference"
-I added a sentence taken from Bahl et al.:
+In addition to the detail added to the phylogeography section in the Introduction, I also added a sentence to clarify the approach taken by Bahl et al.:
 
 \begin{quote}
 \myeditsvsixteen
 \end{quote}
 
-This further clarifies the distinction between the \emph{ad-hoc} method by Bahel et al. and the ``epoch model'' applied to the global influenza spread problem.
+This further clarifies the distinction between the \emph{ad-hoc} method by Bahl et al. and the ``epoch model'' applied to the global influenza spread problem.
 
 % 17
 \item {
@@ -408,7 +408,8 @@ It would be good to state this explicitly.
 }% END: it
 }% END: item
 \\
-Corrected.
+This is now states explicitly.
+%PL: where?may be quote here?
 
 
 % 18
@@ -420,7 +421,7 @@ P57. The sentence `To determine the posterior odds, ... of that model' is vague.
 }% END: it
 }% END: item
 \\
-The sentence is rephrased:
+The sentence is rephrased to:
 
 \begin{quote}
 \myeditsveighteen
@@ -449,7 +450,8 @@ Please make clear why the use of mixed effects models could allow this.
 }% END: it
 }% END: item
 \\
-I changed the Subsection~\ref{sub:glm_epoch}, explaining that by this sentence we mean the impact of various covariates as well as that by using MG94 parametrization we get a better resolution on selection parameters.
+I changed Subsection~\ref{sub:glm_epoch}, explaining that by this sentence we mean the impact of various covariates,  and that by using the MG94 parametrization we do not need to assume altho all rate variation is due variation in non-synonymous rates.
+%PL: why not quote it (or at least part of it)?
 There is also a more elaborate description of the model we plan to use in the upcoming manuscript on the application of the hierarchical epoch model.
 
 
