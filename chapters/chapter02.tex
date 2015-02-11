@@ -45,7 +45,8 @@ Although this includes general treatments involving separate composition paramet
 To address this problem, \citet{Foster2004} has developed an approach that maps a restricted, but fixed number of nucleotide composition vectors with estimable frequencies to the tree. 
 %TODO
 \myedit{svfifteen}{
-Set in a Bayesian framework, this approach also integrates over the tree topology and finds improved posterior support estimates for topologies in examples with compositional, across-data heterogeneity, as opposed to inference under a stationary model that would suffer from attraction artifacts due to similar compositional biases. 
+Set in a Bayesian framework, this approach also integrates over the tree topology and finds improved posterior support estimates for topologies in examples with compositional heterogeneity, allowing for different CTMC stationary frequencies in the evolutionary history, 
+as opposed to inference under a stationary model that would suffer from attraction artifacts due to similar compositional biases. 
 }
 Further developments have uncoupled compositional shifts from particular nodes in the tree while estimating the total number of events of compositional drift distributed across the tree using a compound Poisson process \citep{Blanquart2006}. 
 \cite{Blanquart2008} have also combined such approaches for amino acid evolution with models that take into account site-specific substitution patterns induced by protein structure and function.
@@ -549,7 +550,7 @@ Despite the observation that the Bayesian credible intervals for patient 1, 2, 6
 Therefore, we conduct a Bayes factor (BF) test \citep{Suchard2005} that expresses the posterior odds over the prior odds that $\omega_{1} < \omega_{2}$ for the individual analyses of each patient.
 % To determine the posterior odds, we note that the MCMC sample average of an indicator function that the parameter values fall within one competing model space converges to the posterior probability of that model.
 \myedit{sveighteen}{
-The posterior expectation of the indicator function $I\left(\omega_{1} < \omega_{2}\right)$ converges to the posterior probability of that model, allowing us to calculate the the posterior odds.
+To determine the posterior odds for the hypothesis that $\omega_{1} < \omega_{2}$, we note that the MCMC sample average of an indicator function that keeps track of samples for which $\omega_{1} < \omega_{2}$ converges to the posterior probability of that hypothesis.
 }
 The prior odds in our case is simply 1.
 The log Bayes factors listed in Table \ref{tab:shank_bf} suggest generally strong evidence for a declining selective pressure after progression, with one notable exception for patient 5.
@@ -565,7 +566,7 @@ This type of phylogeographic inference, where the sampling locations are conside
 Recently \citet{Bahl2011} have applied this Bayesian inference framework to investigate the circulation dynamics of global influenza A H3N2 through time.
 Since the authors were interested in capturing the heterogeneity in these dynamics over successive seasonal epidemics between 2003 and 2006, they consider discrete traits that are the product of sampling location and sampling time (epidemic season).
 \myedit{svsixteen}{
-This means they assumed that each geographic region and influenza season is considered to be a discrete character, for example samples collected from October 2002 to February 2003 in New York as assigned discrete state labelled ``New York 2003'' \citep{Bahl2011}.
+This means for example that samples collected from October 2002 to February 2003 in New York are assigned to the discrete state labelled as ``New York 2003'', while sampling in the sample location during another seasons will be represented by another state \citep{Bahl2011}.
 }
 Not only does this discretization by sampling time seem counterintuitive for a model that emits discrete outcomes as a continuous function of time, it also considerably increases the dimensionality of the CTMC rate matrix and thus the number of parameters to inform by the sparse spatial data.
 
