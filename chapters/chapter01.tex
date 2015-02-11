@@ -936,10 +936,10 @@ The branching pattern of the tree is called the \emph{topology}.
 \subsection{Dated phylogenetic trees\label{sub:dated_trees}}
 %how to accommodate time-stamped sequences
 
-Time-stamped sequence data, which frequently arises from studies involving MEP populations for which sequences are sampled at different points in time and the evolutionary rates are high enough for significant changes to occur, can be used to calibrate the molecular clock and convert branch lengths into actual time units.
+Time-stamped or `heterchronous' sequence data, which frequently arises from studies involving MEP populations for which sequences are sampled at different points in time and the evolutionary rates are high enough for significant changes to occur between the sampling times, can be used to calibrate the molecular clock and convert branch lengths into actual time units.
 
 Fo simplicity let us assume a single site, where character sequence data was sampled on dates ranging from $1983$ to $2000$, as seen in Figure~\ref{fig:timing_sequences}.
-We also assume that the tree topology is known and we want to estimate the unknown times $T_{0},T_{6},T_{7},T_{8}$.
+We also assume that the rooted tree topology is known and we want to estimate the unknown times $T_{0},T_{6},T_{7},T_{8}$.
 
 \begin{figure}[h!]
 \centering
@@ -948,7 +948,7 @@ We also assume that the tree topology is known and we want to estimate the unkno
 { \footnotesize 
 {\bf Dated phylogenetic tree.} 
 Discrete characters $CCACT$ observed at the external nodes (the tips of the tree) were sampled at different points in time.
-The tree topology is known and assumed to be true.
+The tree topology is assumed to be known without error, and also the root is known.
 The unknown dates of the internal nodes are labelled $T_{0},T_{6},T_{7},T_{8}$.
 }% END: footnotesize
 }
