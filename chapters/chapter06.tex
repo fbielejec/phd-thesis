@@ -84,7 +84,9 @@ In order to test which factors explain the variation in an evolutionary paramete
 Using hierarchical modeling we can introduce random effects for the evolutionary response variable \citep{Edo-Matas2011}.
 Assuming effects are additive on the log-scale, we can complete the mixed effects model by incorporating fixed effects to model the impact of covariates on the evolutionary parameters. 
 
+\myedit{svtwenty}{
 Specifically we parametrize each epoch specific, possibly multidimensional parameter $\Theta_{i},\; i=1,\ldots,M$ as a log-linear function of $P$ predictors $\mathbf{X}=\left(\mathbf{x_1},\ldots,\mathbf{x_P} \right)$:
+}
 
 \begin{align}
 log\left(\Theta_{i}\right)=\beta \mathbf{X} \delta+\varepsilon_{i},\; i=1,\ldots,M,
@@ -160,7 +162,7 @@ On an evolutionary history, this assumption is unrealistic; Thorne et al.~\citep
 We propose to achieve both auto-correlation and non-parametric flexibility by extending DPs to have first-order dependence along the evolutionary history.  
 To accomplish this, recent work in Bayesian inference with DPs and their generalization, \emph{Polya urns}, \citep{Guha2010} shows that \emph{infinite hidden Markov models} \citep{Beal2002} in the computer science literature are now as convenient to fit as DPs and will allow for dependence across neighboring branches while retaining their non-parametric behavior.
 
-\begin{remark}{Infinite hidden Markov models}
+\begin{remark}{Infinite hidden Markov models\label{ref:infinite_hidden_markov}}
 Hidden Markov model (HMM) $\left\{ X\left(t\right):\; t=1,2,\ldots\right\}$ defines a probability distribution over sequences of observations $\mathbf{X}=\left\{ X(1), \ldots,X(t) \right\}$ by invoking another sequence of unobserved (\emph{hidden}) discrete state variables $\left\{ C\left(t\right):\; t=1,2,\ldots\right\}$.
  
 % Let us denote the past states of these processes  from time $1$ to time $t$ by 
