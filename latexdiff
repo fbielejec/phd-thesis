@@ -1,0 +1,36 @@
+#!/bin/bash
+
+REVISION=faaae4e76
+
+# check platform
+platform='unknown'
+unamestr=`uname`
+
+if [ "$unamestr" == 'Linux' ]; then
+  platform='linux'
+else
+  platform='mac'
+fi
+
+
+TMPDIR=$(mktemp -d /tmp/git-latexdiff.XXXXXX)
+
+cd $TMPDIR
+
+git checkout $REVISION
+
+cd ../
+
+latexdiff $TMPDIR/thesis.tex thesis.tex > $TMPDIR/diff.tex
+
+pdflatex -interaction nonstopmode -output-directory $TMPDIR $TMPDIR/diff.tex
+
+if [ $platform == 'linux' ]; then
+  atril $TMPDIR/diff.pdf
+else
+  open $TMPDIR/diff.pdf
+fi
+
+rm -rf $TMPDIR
+
+exit $?
