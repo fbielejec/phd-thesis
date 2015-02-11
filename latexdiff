@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#REVISION=faaae4e76
+REVISION=faaae4e76
 
 # check platform
 platform='unknown'
@@ -12,12 +12,15 @@ else
   platform='mac'
 fi
 
-
 TMPDIR=$(mktemp -d /tmp/git-latexdiff.XXXXXX)
 
-#mkdir TMP/
+cd $TMPDIR
 
-latexdiff Revision0/thesis.tex thesis.tex > $TMPDIR/diff.tex
+git checkout $REVISION
+
+cd ../
+
+latexdiff $TMPDIR/thesis.tex thesis.tex > $TMPDIR/diff.tex
 pdflatex -interaction nonstopmode -output-directory $TMPDIR $TMPDIR/diff.tex
 
 if [ $platform == 'linux' ]; then
