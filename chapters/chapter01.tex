@@ -124,10 +124,10 @@ As a statistical alternative to an optimality criterion, the likelihood had also
 The idea of using maximum likelihood to estimate evolutionary trees was first proposed by \cite{Edwards1964}, although without a working implementation at the time of the publication.
 Maximum likelihood is a probabilistic method of inference, that evaluates a hypothesis in terms of how probable it is in the light of the observed data.
 In a phylogenetic setting, the likelihood function returns the probability that the proposed model and the proposed tree, understood as a topology and branch lengths, have generated the observed data.
-\myedit{svthree}{
+% \myedit{svthree}{
 In general an evolutionary history and associated set of evolutionary parameters with higher probability of generating the observed data is naturally preferred over a history with a lower probability of generating it.
 By using optimization techniques one can find the parameter values that maximize the probability of observing the data.
-}
+% }
 % The evolutionary history and associated set of evolutionary parameters with a higher probability is naturally preferred over a history with a lower probability.
 % By using optimization techniques one can find the parameter values that maximize the probability of observing the data.
 In his influential work, \cite{Felsenstein1981} proposed an efficient algorithm for calculating a likelihood of sequence evolution on a tree under an evolutionary model of substitution, the so called `tree pruning' algorithm.
@@ -435,11 +435,11 @@ Various substitution models for performing analysis on nucleotide, codon or amin
 %The output consists of a simple tab-separated files, with each row corresponding to one value sampled from the posterior distribution, for both the parameter values and actual trees.
 
 %gpus
-\myedit{DPfive}{
+% \myedit{DPfive}{
 % The growing availability of large complex data-sets has led to the term `Big Data'. %being coined.
 % Large sample sizes, such as full genome sequences or the ones generated with next-generation sequencing techniques are increasingly challenging phylogenetic inference.
 The growing availability of large and complex data-sets, such as full genome sequences or the ones generated with next-generation sequencing techniques, are increasingly challenging phylogenetic inference.
-}%END: myedit
+% }%END: myedit
 Fortunately strategies have been proposed to reduce the time that it takes to fit complex phylogenetic models to vast amounts of data.
 These solutions are mainly focused on parallellization and on harnessing the capabilities of modern graphics processing units (GPUs), such as the NVIDIAs Tesla line of GPUs that target the high performance computing market.
 BEAGLE (Broad-platform evolutionary analysis generalized likelihood evaluator, \cite{Ayres2012}), is a library that can be used in conjunction with BEAST and provides an API (Application Programming Interface) that massively parallel graphics processors and other multicore devices can exploit to substantially decrease the runtime of phylogenetic analysis \citep{Suchard2009}.
@@ -777,11 +777,11 @@ As $t$ goes to infinity the probability that the site is in some state $j$ is no
 This implies that the chain will always display the same long-term behavior, which is why $\mathbf{\Pi}=\{\pi_{i},\ i\in\mathcal{E}\}$ is called a \emph{stationary distribution} (also referred to as the \emph{equilibrium distribution} or \emph{equilibrium frequencies}).
 We can look at the elements of $\mathbf{\Pi}$ as the proportion of time spent in state $j\in\mathcal{E}$ after the Markov chain has run for infinitely long time, that does not depend upon the initial state $i$ of the process.
 In other words, if we sample the initial state from the stationary distribution and then let the process run for some sufficiently long time $t$, then the distribution of the final state will equal the stationary distribution. 
-\myedit{svsixone}{
+% \myedit{svsixone}{
 From the biological perspective stationarity means that the probability distribution of a certain state (e.g. nucleotide character) is constant over the whole course of evolution; the probability to draw a certain state is the same whenever the sampling is done.
 A process can be stationary and not be homogeneous, for example by varying substitution rates on the tree branches (see \cite{Yang2002} and the discussion in Subsection~\ref{sub:dpp}).
 However the converse is not true, and non-stationarity induces non-homogeneity, as the stochastic process of evolution depends on the stationary distribution.
-}
+% }
 
 Another commonly applied constraint is that of \emph{time-reversibility}, meaning that the model does not care which character is the ancestor and which is the descendant so long as all other parameters are held constant.
 For all $i,j\in \mathcal{E}$ and $t\geq 0$ we have:
@@ -805,10 +805,10 @@ Definition (\ref{eq:time_reversibility1}) and (\ref{eq:time_reversibility2}) are
 This condition is assumed for strictly computational reasons, i.e. time-reversibility makes it easier to diagonalize $\mathbf{Q}$, which - as we have described in Subsection~\ref{sub:exponentiation} - is a strategy frequently employed in phylogenetic software to compute the exponentials of rate matrices.
 Time reversibility also simplifies the computation of the likelihood on a tree, since it makes the computation independent of the position of the root, which we will discuss in Subsection~\ref{sub:likelihood}.
 
-\myedit{svsixtwo}{
+% \myedit{svsixtwo}{
 Realistic substitution processes are however unlikely to be time-reversible, especially since abandoning stationarity and homogeneity assumptions implies abandoning reversibility of the evolutionary process.
 Recently however procedures have also been developed to compute phylogenetic likelihoods under non-reversible models \citep{Boussau2006}, and such non-reversible models have also been explored for large state-space discrete phylogeographic applications \citep{Edwards2011}.
-}
+% }
 
 \subsection{A simple example: the Jukes and Cantor substitution model\label{sub:jc69}}
 
@@ -867,7 +867,7 @@ In Subsection~\ref{sub:clocks} we discuss how, under certain conditions, the tim
 \subsection{Markov models of codon evolution\label{sub:codon}}
 
 
-\myedit{svonea}{
+% \myedit{svonea}{
 First two computationally tractable codon substitution models were independently proposed by \cite{Muse1994} and \cite{Goldman1994} in the same issue of Molecular Biology and Evolution (MBE).
 In these models, a non-stop codon triplet $n_{1}n_{2}n_{3}$ is considered to be the smallest unit of evolution.
 According to the universal genetic code, there are $4^3$ possible triplets minus three stop codons, resulting in a state space size of $61$ codons.
@@ -877,7 +877,7 @@ Proteins are coded by a set of 20 amino acids, with each amino acid being coded 
 Because there are 61 non-stop codons to encode for 20 amino acids, some amino acids will inevitably be coded by more than one codon.
 A substitution that does not change the encoding amino-acid is called a \emph{synonymous} substitution, while a \emph{non-synonymous} substitution refers to a substitution that does result in an amino acid substitution.
 Quantifying the rate at which these substitutions occur allows us to asses the nature of selective pressure, which is the main driving force behind molecular evolution.
-}
+% }
 
 That is why codon substitution models are generally parameterized in terms of the rate of non-synonymous (denoted by convention $\beta$) and synonymous ($\alpha$ by convention) substitutions or the ratio of these rates.
 The rate ratio $\omega=\beta / \alpha$ is a standard measure of the selective pressure \citep{ThePhylogeneticHandbook}, which is sometimes also denoted $\omega = dN/dS$.
@@ -957,11 +957,11 @@ The unknown dates of the internal nodes are labelled $T_{0},T_{6},T_{7},T_{8}$.
 \label{fig:timing_sequences}
 \end{figure}
 
-\myedit{svoneb}{
+% \myedit{svoneb}{
 We start by considering heights of tree tips and introducing a new parameter, the rate of mutation $r$, which here for simplicity is assumed to apply to the whole tree (a strict clock), which allows us to change the scale of the tree from units of substitutions to a time-scale measured in years.
 
 Both the rate of evolution $r$ and the unobserved heights $T_{0},T_{6},T_{7},T_{8}$ are estimated from the molecular sequence data, with the constraint that the heights are proportional to their sampling time and the ratio of this proportionality being $r$.
-}
+% }
 
 \subsection{Sequence evolution on a tree\label{sub:evolutionOnTree}}
 
@@ -1046,10 +1046,11 @@ L\left(\mathbf{\Theta}|\mathbf{X}\right)=P\left( \mathbf{X} | \mathbf{\Theta} \r
 \noindent
 where $\mathbf{\Theta}$ represents the tree topology, the branch lengths, the parameters of the substitution model and other parameters of interest that we want to estimate.
 This quantity expresses how likely it is to observe the data given a specific value of the parameter(s) of interest $\mathbf{\Theta}$.
-\myedit{sveight}{
+% \myedit{sveight}{
 By finding the value of $\mathbf{\Theta}$ that maximizes (\ref{eq:likelihood}) we obtain an estimate of the most plausible 
 %hypothesis for the data.
-set of parameters given the observed data.}
+set of parameters given the observed data.
+% }
 
 In this thesis we will not discuss maximum likelihood estimation itself, %PL: good, who wants to consider the data to be fixed anyway..
 rather focus on closely related 
@@ -1310,14 +1311,14 @@ The central concept of Bayesian inference is that this parameter has a distribut
 Before the molecular data $\mathbf{X}$ is observed we assume that $\theta$ has a prior distribution $P(\theta)$.
 The prior reflects the prior beliefs about the possible values of the parameter.
 
-\myedit{svnine}{
+% \myedit{svnine}{
 The prior choice is perhaps one of the most controversial aspects of the Bayesian inference.
 The prior distributions may be inspired by previous analyses of other sets of data, or they may form some set of biologically plausible values.
 However in some cases there may be no suitable objective prior knowledge at hand, in which case one often resorts to the so-called \emph{vague} or \emph{diffuse} priors, which have large variances.
 Some popular uninformative priors on continuous, unbounded variables may be improper, \textit{i.e.} their distribution is infinitesimal on an infinite range in order to integrate to $1$.
 Among examples of such priors is the uniform distribution on an infinite interval.
 Although many of these prior choices still lead to a proper posterior distribution, some controversies about their choice may still arise, in particular when the data is poorly informative.
-}
+% }
 
 % TODO: discuss hyperpriors?
 The prior information is then combined with the likelihood of the data $P\left( \mathbf{X} | \theta \right)$ to form the posterior, via Bayes' theorem (Equation~(\ref{eq:bayesian1})).
@@ -1372,10 +1373,10 @@ Assuming that the sites are independent we can use a binomial model and put a be
 \label{fig:bayes1}
 \end{figure}
 
-\myedit{sveleven}{
+% \myedit{sveleven}{
 Figure~\ref{fig:bayes1} shows the resulting posterior distribution along with the prior and the scaled likelihood.
 The likelihood of the binomial model used in this example is simply:
-}
+% }
 
 \begin{align}
 L\left(\theta|x\right)=\left(\begin{array}{c}
@@ -1613,14 +1614,14 @@ The evolutionary relationship represented by the tree was inferred omitting the 
 rapidly evolving viruses.
 This approach does not require fixing the tree topology, the branch lengths nor the Markov model parameters, and allows for integration over all possible values, requiring only for a specification of a prior distributions for the parameters that we aim to infer.
 
-\myedit{svonec}{
+% \myedit{svonec}{
 Central to the Bayesian phylogeographic framework is the hypothesis that sequence evolution is occurring simultaneously with the process of geographical dispersal. 
 The observed data, residing at the $N$ tips of phylogeny $\mathbf{F}$, is recorded as both character sequence data $\mathbf{X}=(X_{1},...,X_{N})$ and discretized geographic locations (countries, districts, cities) $\mathbf{Y}=(Y_{1},...,Y_{N})$, as depicted in the upper facet of Figure~\ref{fig:discrete_phylo_illust}.
 We assume independent stochastic processes are responsible for generating these data, with ancestral states of $\mathbf{X}$ generated as before by a CTMC characterized by rate matrix $\mathbf{Q}$ and the unobserved ancestral locations $(Y_{N+1},...,Y_{2N-2})$ generated by a separate CTMC characterized by rate matrix $\mathbf{\Phi}$ (see Figure~\ref{fig:discrete_phylo_illust}, lower facet).
 The entries of this matrix are the transition rates $\phi_{ij}$ between locations $i$ and $j$.
 Unlike before, the rate matrix does not necessarily have to be symmetrical, i.e. there exist some $i,j$ such that $\phi_{ij}\neq\phi_{ji}$.
 Additionally, a priori one would expect many of the infinitesimal rates to be zero. 
-}
+% }
 
 %---DISCRETE PHYLOGEOGRAOHY ILLUSTRATION---%
 \begin{figure}[h!]

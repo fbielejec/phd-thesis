@@ -44,10 +44,10 @@ To accommodate nonstationarity, \citet{Yang1995}, \citet{Galtier1998} and \citet
 Although this includes general treatments involving separate composition parameters for each tree branch, large trees will inevitably lead to over-parameterized models.
 To address this problem, \citet{Foster2004} has developed an approach that maps a restricted, but fixed number of nucleotide composition vectors with estimable frequencies to the tree. 
 %TODO
-\myedit{svfifteen}{
+% \myedit{svfifteen}{
 Set in a Bayesian framework, this approach also integrates over the tree topology and finds improved posterior support estimates for topologies in examples with compositional heterogeneity, allowing for different CTMC stationary frequencies in the evolutionary history, 
 as opposed to inference under a stationary model that would suffer from attraction artifacts due to similar compositional biases. 
-}
+% }
 Further developments have uncoupled compositional shifts from particular nodes in the tree while estimating the total number of events of compositional drift distributed across the tree using a compound Poisson process \citep{Blanquart2006}. 
 \cite{Blanquart2008} have also combined such approaches for amino acid evolution with models that take into account site-specific substitution patterns induced by protein structure and function.
 
@@ -199,9 +199,9 @@ the branch traverses $m^{\prime\prime} - m^{\prime}$ epoch boundaries at which t
 \label{fig:collapsing}
 \end{figure}
 
-\myedit{svseventeen}{
+% \myedit{svseventeen}{
 Figure~\ref{fig:collapsing} illustrates this action for a branch that spans a single boundary at known time $T_1$ with $\mathbf{Q}_1$ governing the process before the boundary and $\mathbf{Q}_2$ after the boundary. Letting $X(T_1) = k$ represent the augmented state of the stochastic process at the boundary, we compute:
-}
+% }
 
 \begin{align}
 p_{ij}(t_u, t_v, r_v)
@@ -389,9 +389,9 @@ In Figure~\ref{fig:2RateTree}, we illustrate the tree topology and the transitio
 This tree has 69 tips, is rooted and time-scaled, effectively covering a period of about 18 years. 
 For each replicate data set, we simulate $1000$ nucleotide sites under the Hasegawa, Kishino and Yano (HKY) model \citep{hky85}. 
 We set the substitution rates and base frequencies to values estimated from the real data set.
-\myedit{svtwo}{
+% \myedit{svtwo}{
 In all our analyses of the replicate data, as well as in the analyses of the real-world data sets in the next sections, we consider the tree as random and estimate it from the nucleotide data.
-}
+% }
 
 In a first scenario, we test whether the epoch model correctly identifies a homogeneous nucleotide substitution process. 
 We simulate an alignment evolving under the HKY model with a $\kappa$ parameter (the transition-transversion bias) value of $10.0$ for the whole timespan of the tree. 
@@ -553,9 +553,9 @@ patient 9 & $0.895$ & $2.142$\tabularnewline
 Despite the observation that the Bayesian credible intervals for patient 1, 2, 6 and 7 estimates do not overlap, this does not provide a formal test to evaluate their differences.
 Therefore, we conduct a Bayes factor (BF) test \citep{Suchard2005} that expresses the posterior odds over the prior odds that $\omega_{1} < \omega_{2}$ for the individual analyses of each patient.
 % To determine the posterior odds, we note that the MCMC sample average of an indicator function that the parameter values fall within one competing model space converges to the posterior probability of that model.
-\myedit{sveighteen}{
+% \myedit{sveighteen}{
 To determine the posterior odds for the hypothesis that $\omega_{1} < \omega_{2}$, we note that the MCMC sample average of an indicator function that keeps track of samples for which $\omega_{1} < \omega_{2}$ converges to the posterior probability of that hypothesis.
-}
+% }
 The prior odds in our case is simply 1.
 The log Bayes factors listed in Table \ref{tab:shank_bf} suggest generally strong evidence for a declining selective pressure after progression, with one notable exception for patient 5.
 We also provide a Bayes factor that summarizes the joint evidence for $\omega_{1} < \omega_{2}$, which suggest an overall support in favor of the immune relaxation hypothesis (log BF = 2.14), in accordance with previous findings suggesting a general decrease in non-synonymous divergence at late-stage infection \citep{williamson2005, Lemey2007}.
@@ -569,9 +569,9 @@ In a second application of the epoch model, we focus on discrete diffusion proce
 This type of phylogeographic inference, where the sampling locations are considered as discrete geographic traits, has gained popularity in recent years, at least partly because of a flexible and efficient Bayesian implementation that connects dispersal dynamics to sequence evolution in time-measured phylogenies \citep{Lemey2009}.
 Recently \citet{Bahl2011} have applied this Bayesian inference framework to investigate the circulation dynamics of global influenza A H3N2 through time.
 Since the authors were interested in capturing the heterogeneity in these dynamics over successive seasonal epidemics between 2003 and 2006, they consider discrete traits that are the product of sampling location and sampling time (epidemic season).
-\myedit{svsixteen}{
+% \myedit{svsixteen}{
 This means for example that samples collected from October 2002 to February 2003 in New York are assigned to the discrete state labelled as ``New York 2003'', while sampling in the sample location during another seasons will be represented by another state \citep{Bahl2011}.
-}
+% }
 Not only does this discretization by sampling time seem counterintuitive for a model that emits discrete outcomes as a continuous function of time, it also considerably increases the dimensionality of the CTMC rate matrix and thus the number of parameters to inform by the sparse spatial data.
 
 Here, we explore epoch time-discretization as a more appropriate alternative to detect temporal heterogeneity in influenza dispersal.
