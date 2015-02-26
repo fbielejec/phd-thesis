@@ -330,7 +330,7 @@ When creating a BEAGLE instance, we allocate a number of extra buffers in additi
 Those buffers are then used to store partial transition matrices and results of matrix-matrix multiplications operations. 
 Our routine performs operations in batches of equal or smaller size compared to the number of allocated buffers, by pushing those queues to the GPU for parallel execution once the routine has no more buffers available or all work items are queued. Figure~\ref{fig:UpdateConvolveExample} presents an example of update-convolve routine using an asynchronous queue. 
 
-A tutorial which explains how to set up an `epoch model' for analysis in BEAST?BEAGLE can be found in Appendix~\ref{app:spread_tuto}.
+A tutorial which explains how to set up an `epoch model' for analysis in BEAST can be found in Appendix~\ref{app:spread_tuto}.
 
 %---UPDATE-CONVOLVE INFOGRAPHIC---%
 \begin{figure}[h!]
