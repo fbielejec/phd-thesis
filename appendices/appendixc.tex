@@ -434,7 +434,9 @@ Start with loading the \href{http://rega.kuleuven.be/cev/ecv/software/buss_files
 Now go to the \textbf{Simulation} panel and click on \emph{Generate XML} button, saving the file as \emph{generate\_sequences.xml}.
 Open the generated file in your favourite text editor.
 
-We need to define the discrete geographical locations that {\bussname} will sample from. After the  {\color{darkblue}taxa} block paste the following code:
+We need to define the discrete geographical locations that {\bussname} will sample from. After the  {\color{darkblue}\mbox{taxa}} block paste the following code:
+
+\medskip{}
 
 \begin{lstlisting}
 <generalDataType id="geography"> 
@@ -444,7 +446,11 @@ We need to define the discrete geographical locations that {\bussname} will samp
 </generalDataType>
 \end{lstlisting}
 
-Scroll to the {\color{darkblue}frequencyModel} block. Because we have specified $K=3$ discrete locations we need to specify base frequencies for them. Delete the existing {\color{darkblue}frequencyModel} block and paste there following code instead:
+\medskip{}
+
+Scroll to the {\color{darkblue}\mbox{frequencyModel}} block. Because we have specified $K=3$ discrete locations we need to specify base frequencies for them. Delete the existing {\color{darkblue}\mbox{frequencyModel}} block and paste there following code instead:
+
+\medskip{}
 
 \begin{lstlisting}
 <frequencyModel id="freqModel">
@@ -455,10 +461,14 @@ Scroll to the {\color{darkblue}frequencyModel} block. Because we have specified 
 </frequencyModel>
 \end{lstlisting}
 
-Now scroll further down to the substitution model block (defined between {\color{darkblue}HKYModel} tags if you generated the XML using default settings). 
+\medskip{}
+
+Now scroll further down to the substitution model block (defined between {\color{darkblue}\mbox{HKYModel}} tags if you generated the XML using default settings). 
 We need to define a geographical substitution model, driven by a rate matrix. 
 We specify $K\times(K-1)=6$ entries such that the underlying instantaneous rate matrix is asymmetric (non-reversible). 
 Replace the existing block with: 
+
+\medskip{}
 
 \begin{lstlisting}
 <complexSubstitutionModel id="originModel.simulation" randomizeIndicator="false">
@@ -472,7 +482,11 @@ Replace the existing block with:
 </complexSubstitutionModel>
 \end{lstlisting}
 
-Now reference the created substitution model inside {\color{darkblue}siteModel} tags like this:
+\medskip{}
+
+Now reference the created substitution model inside {\color{darkblue}\mbox{siteModel}} tags like this:
+
+\medskip{}
 
 \begin{lstlisting}
 <siteModel id="geoSiteModel.simulation">
@@ -482,7 +496,11 @@ Now reference the created substitution model inside {\color{darkblue}siteModel} 
 </siteModel>
 \end{lstlisting}
 
-Finally all the new elements need to be referenced in the {\color{darkblue}beagleSequenceSimulator} block. We specify one replicate, as every taxa can ultimately have only one geographical trait:
+\medskip{}
+
+Finally all the new elements need to be referenced in the {\color{darkblue}\mbox{beagleSequenceSimulator}} block. We specify one replicate, as every taxa can ultimately have only one geographical trait:
+
+\medskip{}
 
 \begin{lstlisting}
 <beagleSequenceSimulator id="simulator">
@@ -495,6 +513,8 @@ Finally all the new elements need to be referenced in the {\color{darkblue}beagl
   </partition>
 </beagleSequenceSimulator>
 \end{lstlisting}
+
+\medskip{}
 
 Resulting document is availiable as \href{http://rega.kuleuven.be/cev/ecv/software/buss_files/generate\_discrete\_phylogeography\_SimTree.xml}{\emph{generate\_discrete\_phylogeography\_SimTree.xml}} file shipped with this tutorial.
 The created XML can be invoked within BEAST to generate the trait data by issuing the following command:
@@ -509,7 +529,7 @@ Note that the presented example is just a fraction of analysis possible by editi
 
 \subsection{License}
 % LM: licence info I found at BEAST source 
-This is free software; you can redistribute it and/or modify it under the terms of the {GNU} Lesser General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version. This software is distributed in the hope that it will be useful, but {WITHOUT ANY WARRANTY}; without even the implied warranty of {MERCHANTABILITY} or {FITNESS FOR A PARTICULAR PURPOSE}. See the ``GNU Lesser General Public License'':\url{http://www.gnu.org/licenses/lgpl.html} for more details.
+This is free software; you can redistribute it and/or modify it under the terms of the {GNU} Lesser General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version. This software is distributed in the hope that it will be useful, but {WITHOUT ANY WARRANTY}; without even the implied warranty of {MERCHANTABILITY} or {FITNESS FOR A PARTICULAR PURPOSE}. See the ``GNU Lesser General Public License'' (\url{http://www.gnu.org/licenses/lgpl.html}) for more details.
 
 \subsection{Availability and requirements}
 Beagle Sequence Simulator's source code is freely available as a GoogleCode repository:

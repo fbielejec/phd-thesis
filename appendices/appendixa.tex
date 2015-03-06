@@ -50,6 +50,8 @@ Open the file generated in Section~\ref{sec:first} in your favourite text editor
 Scroll down to the block where the HKY model is defined.
 We need to define three separate models for each epoch, corresponding to \textit{HKY$_1$}, \textit{HKY$_2$} and \textit{HKY$_3$}, therefore delete this block and paste there: 
 
+\medskip{}
+
 % TODO: update references to frequency model
 \begin{lstlisting}
   <hkyModel id="hky.1">
@@ -80,8 +82,12 @@ We need to define three separate models for each epoch, corresponding to \textit
   </hkyModel>
 \end{lstlisting}
 
+\medskip{}
+
 The individual models that will make up the epoch model are now available, so we can now setup the epoch model itself.
 Below those three blocks paste:
+
+\medskip{}
 
 \begin{lstlisting}
   <epochBranchModel id="epochModel">
@@ -100,10 +106,14 @@ Below those three blocks paste:
   </epochBranchModel>
 \end{lstlisting}
 
+\medskip{}
+
 Each {\color{darkblue}epoch} block references its corresponding model and transition time that bounds it, with the last (i.e., the furthest in the past) model being unbounded.
 Now go to the line in the XML file where the site model is defined.
 We need to reference the epoch model we just defined as our substitution model of choice.
 Alter the corresponding line to have it look like this:
+
+\medskip{}
 
 \begin{lstlisting}
   <siteModel id="siteModel">
@@ -113,9 +123,13 @@ Alter the corresponding line to have it look like this:
   </siteModel>
 \end{lstlisting}
 
+\medskip{}
+
 Now go to the {\color{darkblue}treeLikelihood} block in the XML file. 
 This block also needs to reference the epoch model.
 Change the corresponding line to read as follows:
+
+\medskip{}
 
 \begin{lstlisting}
   <treeLikelihood id="treeLikelihood">
@@ -127,10 +141,14 @@ Change the corresponding line to read as follows:
   </treeLikelihood>
 \end{lstlisting}
 
+\medskip{}
+
 Since we now have three separate $\kappa$ parameters, we need to define separate transition kernels and separate prior distributions for each of these parameters.
 Go to the {\color{darkblue}operators} block. 
 Look for an operator which references kappa (our $\kappa$ parameter).
 Delete this block and paste there:
+
+\medskip{}
 
 \begin{lstlisting}
   <scaleOperator scaleFactor="0.75" weight="0.1">
@@ -146,10 +164,14 @@ Delete this block and paste there:
   </scaleOperator>
 \end{lstlisting}
 
+\medskip{}
+
 All the other parameters in this analysis are shared, therefore there is no need to define separate transition kernels for them.
 Now look for the {\color{darkblue}prior} block, which you can find within the {\color{darkblue}mcmc} block.
 
 We need three prior distributions, one per each $\kappa$ parameter (in this example we assume lognormally distributed $\kappa$ parameters):
+
+\medskip{}
 
 % \centering
 \begin{lstlisting}
@@ -166,11 +188,15 @@ We need three prior distributions, one per each $\kappa$ parameter (in this exam
   </logNormalPrior>
 \end{lstlisting}
 
+\medskip{}
+
 Naturally we want to log the three parameters of our epoch model. 
 To monitor the analysis we start with the screen log. 
 Look for the following line: <{\color{darkblue}log} {\color{darkblue}id}=\textquotedbl{}screenLog \textquotedbl{}{\color{darkblue}logEvery}=\textquotedbl{}5000\textquotedbl{}>.
 
 Find the {\color{darkblue}column} block where the kappa parameter is referenced and paste these three blocks here instead:
+
+\medskip{}
 
 \begin{lstlisting}
   <column label="kappa.1" sf="6" width="12">
@@ -186,15 +212,21 @@ Find the {\color{darkblue}column} block where the kappa parameter is referenced 
   </column>
 \end{lstlisting}
 
+\medskip{}
+
 We then still need to modify the lines responsible for storing the parameter estimates of the epoch model to file.
 Go to the beginning of the {\color{darkblue}log} block responsible for keeping a log file, i.e. <{\color{darkblue}log} {\color{darkblue}id}=\textquotedbl{}fileLog\textquotedbl{} {\color{darkblue}logEvery}=\textquotedbl{}1000\textquotedbl{}>.
 Find the line which references the \textit{kappa} parameter and paste there instead:
+
+\medskip{}
 
 \begin{lstlisting}
   <parameter idref="kappa.1"/>
   <parameter idref="kappa.2"/>
   <parameter idref="kappa.3"/>
 \end{lstlisting}
+
+\medskip{}
 
 We are done with editing the XML and can proceed to performing the analysis.
 
@@ -208,7 +240,6 @@ In a UNIX/Linux environment, the XML edited in section \ref{sec:xml} can be run 
 \begin{code}
 java -Djava.library.path=/usr/local/lib -jar beast.jar epochExample.xml
 \end{code}
-
 
 \section{Analyzing the output}
 

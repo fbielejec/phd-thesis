@@ -135,7 +135,9 @@ Our work therefore provides a motivation for codon model developments in the Bay
 We are implementing a general form of the Muse \& Gaut (MG94) codon substitution model \citep{Muse1994} that explicitly parameterizes synonymous $\alpha$ and non-synonymous substitution rates $\beta$ by defining the instantaneous rate of replacing codon $i$ with codon $j$ ($i \neq j$) as follows:
 
 \begin{displaymath}
+\footnotesize{
 q_{ij}^{MG} = \begin{cases} \theta_{mn,s}\alpha_{s}^{b}\pi_{n}^{p}, & i \to j \text{ is a one-nucleotide synonymous substitution} \\ & \text{from nucleotide $m$ to nucleotide $n$ in codon position $p$,} \\ \theta_{mn,s}\beta_{s}^{b}\pi_{n}^{p}, & i \to j \text{ is a one-nucleotide non-synonymous substitution} \\ & \text{from nucleotide $m$ to nucleotide $n$ in codon position $p$,} \\ 0, & \text{otherwise.} \end{cases}
+}
 \end{displaymath}
 
 $\pi_{n}^{p}$ denotes the frequency of nucleotide $n$ in codon position $p = 1,2,3$. 
@@ -559,7 +561,7 @@ SPREAD supports such 2D projections based on estimates resulting from a BEAST an
 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.2]{continuous.pdf}
+\includegraphics[scale=0.2]{continuous}
 \caption{
 { \footnotesize 
 {\bf Visualizing continuous phylogeographic reconstructions with uncertainty.} 
@@ -677,7 +679,7 @@ Indels are characterized by two parameters.
 The length represents the number of blocks inserted or deleted, where each block is an integer multiple of 1 for nucleotide or an integer multiple of 3 for codons space. 
 Conversely the location is the position in the sequence where the blocks of characters are inserted or the position where the deletion begins.
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 $$\bullet\; C\;\star C\;\star\; A\;\star\; C\;\star\; T\;\star$$
 \caption{

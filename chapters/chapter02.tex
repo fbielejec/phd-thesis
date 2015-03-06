@@ -100,9 +100,12 @@ From the rate matrix $\mathbf{Q}$, a stochastic matrix $\mathbf{P}$ is computed 
 (t\mathbf{Q})^{j} / j!$. For an overview of methods to numerically approximate a matrix exponential, we refer to \citet{Moler1978}.
 %
 Drawing realizations with probabilities defined by $\mathbf{P}$ gives rise to a stochastic process $\left\{ X(t):\; t\geq0\right\}$ satisfying the Markov property, such that for every $n\geq 0$, given the time points $0\leq t_{0}\leq t_{1}<\ldots<t_{n}\leq t_{n+1}$ and discrete states $i_{0},i_{1}, \ldots, i_{n},i_{n+1}$ it holds that %\newline
-%
-$P\left\{ X(t_{n+1})=i_{n+1}\mid X(t_{n})=i_{n},\ldots, X(t_{0})=i_{0}\right\} =P\left\{ X(t_{n+1})=i_{n+1}\mid X(t_{n})=i_{n}\right\} $. 
-%
+
+\begin{align}
+& P\left\{ X(t_{n+1})=i_{n+1}\mid X(t_{n})=i_{n},\ldots, X(t_{0})=i_{0}\right\} \nonumber \\
+&= P\left\{ X(t_{n+1})=i_{n+1}\mid X(t_{n})=i_{n}\right\}. 
+\end{align}
+
 In general, one refers to the elements of $\mathbf{P}$ as finite-time transition probabilities between the $K$ discrete state-space elements. Let us denote a transition probability between two states $i$ and $j$ over time $u$ to $t+u$ by
 
 \begin{equation}
@@ -499,7 +502,7 @@ We exclude patient 11 from the original study because no sequence data are avail
 The two-epoch discretization allows estimating a separate $\omega$ parameter for the two infection stages in each patient, with $\omega_{2}$ denoting the $d_N/d_S$ ratio before progression and $\omega_{1}$ denoting the same parameter after progression.
 
 %---SHANKARAPPA ANALYSIS RESULTS HPD---%
-\begin{figure}[h!]
+\begin{figure}[H]
 \centering
 % \color{fgcolor}
 \includegraphics[scale=0.6]{shankarappa_hpd_new} 
@@ -518,12 +521,21 @@ The most pronounced differences in $\omega$ before and after progression time ca
 For patients 2, 3, 7 and 9, the drop in mean $\omega$ estimates suggests a shift in neutral or even positive selection ($\omega_{2} \geq 1$) to negative selection ($\omega_{1} < 1 $).
 The homogeneous $\omega$ estimate is generally closer to $\omega_{2}$, which can be expected because most evolutionary history takes place prior to progression time. 
 
+Despite the observation that the Bayesian credible intervals for patient 1, 2, 6 and 7 estimates do not overlap, this does not provide a formal test to evaluate their differences.
+Therefore, we conduct a Bayes factor (BF) test \citep{Suchard2005} that expresses the posterior odds over the prior odds that $\omega_{1} < \omega_{2}$ for the individual analyses of each patient.
+% To determine the posterior odds, we note that the MCMC sample average of an indicator function that the parameter values fall within one competing model space converges to the posterior probability of that model.
+% \myedit{sveighteen}{
+To determine the posterior odds for the hypothesis that $\omega_{1} < \omega_{2}$, we note that the MCMC sample average of an indicator function that keeps track of samples for which $\omega_{1} < \omega_{2}$ converges to the posterior probability of that hypothesis.
+% }
+The prior odds in our case is simply 1.
+The log Bayes factors listed in Table \ref{tab:shank_bf} suggest generally strong evidence for a declining selective pressure after progression, with one notable exception for patient 5.
+
 %---SHANKARAPPA ANALYSIS RESULTS BF---%
-\begin{table}[h!]
+\begin{table}[H]
 \centering
 % \medskip
 % \begin{minipage}{\textwidth} 
-% \footnotesize{
+\footnotesize{
 \begin{tabular}%{ccc}
 {@{}l*{2}{D{.}{.}{7}}@{}}
 \hline 
@@ -540,7 +552,7 @@ patient 9 & $0.895$ & $2.142$\tabularnewline
 \hline 
 \textbf{Joint evidence:} & $0.894$ & $2.14$ \tabularnewline
 \end{tabular}
-% } % END: footnotesize
+} % END: footnotesize
 \caption{
 { \footnotesize 
 {\bf Bayes factor test for decreased selection after progression.} We report the posterior probability that $\omega_{1} < \omega_{2}$ and the corresponding Bayes factor against the alternative that $\omega_{1} \ge \omega_{2}$.
@@ -550,14 +562,6 @@ patient 9 & $0.895$ & $2.142$\tabularnewline
 % \end{minipage}
 \end{table}
 
-Despite the observation that the Bayesian credible intervals for patient 1, 2, 6 and 7 estimates do not overlap, this does not provide a formal test to evaluate their differences.
-Therefore, we conduct a Bayes factor (BF) test \citep{Suchard2005} that expresses the posterior odds over the prior odds that $\omega_{1} < \omega_{2}$ for the individual analyses of each patient.
-% To determine the posterior odds, we note that the MCMC sample average of an indicator function that the parameter values fall within one competing model space converges to the posterior probability of that model.
-% \myedit{sveighteen}{
-To determine the posterior odds for the hypothesis that $\omega_{1} < \omega_{2}$, we note that the MCMC sample average of an indicator function that keeps track of samples for which $\omega_{1} < \omega_{2}$ converges to the posterior probability of that hypothesis.
-% }
-The prior odds in our case is simply 1.
-The log Bayes factors listed in Table \ref{tab:shank_bf} suggest generally strong evidence for a declining selective pressure after progression, with one notable exception for patient 5.
 We also provide a Bayes factor that summarizes the joint evidence for $\omega_{1} < \omega_{2}$, which suggest an overall support in favor of the immune relaxation hypothesis (log BF = 2.14), in accordance with previous findings suggesting a general decrease in non-synonymous divergence at late-stage infection \citep{williamson2005, Lemey2007}.
 
 %%%%%%%%%%%%%%%%%%%%%%
@@ -603,7 +607,7 @@ During the autumn and winter epoch on the other hand, we infer mostly circulatio
 \begin{table}[h!]
 \begin{minipage}{\textwidth} 
 \centering
-% \footnotesize{
+\footnotesize{
 \begin{tabular}{ccc}
 \hline 
 \multirow{2}{*}{\textbf{Model}} & \multicolumn{2}{c}{\textbf{Marginal likelihood}}\tabularnewline
@@ -613,7 +617,7 @@ homogeneous & -827.29 & -825.07\tabularnewline
 7-epoch & -806.36  & -803.40 \tabularnewline
 14-epoch & -798.77  & -795.63 \tabularnewline
 \end{tabular}
-% } % END: footnotesize
+} % END: footnotesize
 \caption{
 { \footnotesize 
 {\bf Marginal likelihood estimates.} Comparison in terms of model fit between a homogeneous model, an epoch model with time discretized into $S=7$ epochs alternating between 2 different rate matrices and an epoch model with time discretized into $S=14$ epochs, alternating between 4 separate rate matrices.
