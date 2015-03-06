@@ -1,6 +1,6 @@
 \documentclass[twoside,openright,titlepage,numbers=noenddot,headinclude,%
                footinclude=true,cleardoublepage=empty,abstractoff,BCOR=5mm,%
-               paper=a4,fontsize=11pt,english]{scrreprt}
+               a4paper,fontsize=11pt,english]{scrreprt}
 
 %%%%%%%%%%%%%%%%
 %---PACKAGES---%
@@ -26,7 +26,8 @@
 \usepackage[toc,page]{appendix}
 % \usepackage{listings}
 
-
+% \usepackage{typearea}
+% \geometry{bottom=20cm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %---USER SPECIFIED LaTeX COMMANDS---%
@@ -64,10 +65,12 @@
 \numberwithin{equation}{chapter}
 \allowdisplaybreaks
 
-% Shaded boxes
+% Remarks
+% change for print/online version
+\newcommand{\remarkcolor}{\color{black}} %maroon
 \newenvironment{remark}[1]{%
   \definecolor{shadecolor}{gray}{0.9}%
-  \begin{shaded}{\color{maroon}\noindent\textsc{#1}}\\%
+  \begin{shaded}{\remarkcolor \noindent\textsc{#1}}\\%
 }{%
   \end{shaded}%
 }

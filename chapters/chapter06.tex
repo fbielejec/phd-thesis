@@ -784,7 +784,7 @@ To properly leverage this computation power, the burden of improving the perform
 Writing and optimizing massively parallel code requires a thorough understanding of the underlying architecture, associated libraries and APIs and the correct use of the performance assessment tools.
 
 \paragraph{}
-Currently it seems that the semiconductor industry has established two, \textit{nomen set omen}, parallel paths for designing multiprocessors.
+Currently it seems that the semiconductor industry has established two, \textit{nomen omen}, parallel paths for designing multiprocessors.
 The \textit{multicore} path began with the idea of putting two CPU cores on the same chip.
 This approach means that the current clock speed of a single core remains the same, but at the same time the vendors are approximately doubling the number of effective cores with every new generation.
 In contrast, the \textit{many-core} path focuses on increasing the throughput of parallel applications by using large numbers of much smaller and simpler cores, and again approximately doubling the number of cores that is put on every new generation of devices. 
@@ -801,7 +801,7 @@ By developing the BEAGLE high-performance library for  evaluating phylogenetic l
 have pioneered the use of GPGPU in statistical phylogenetics.
 %This work has resulted in the development of the Beagle high-performance library for  evaluating phylogenetic likelihoods of biomolecular sequence evolution \citep{Ayres2012}.
 BEAGLE can make use of other highly-parallel processors beside GPUs and is also capable of calling SSE (Streaming SIMD Extensions) as well as AVX (Advanced Vector Extensions) vector instructions, thus achieving improved performance on the current generation of Intel microprocessor architectures.
-The BEAGLEAPI \citep{Ayres2012} can currently be used by a range of phylogenetic software tools, such as MrBayes (\url{http://mrbayes.sourceforge.net}), Garli (\url{https://garli.googlecode.com}), PhyML (\url{https://phyml.googlecode.com}) and BEAST.
+The BEAGLE API \citep{Ayres2012} can currently be used by a range of phylogenetic software tools, such as MrBayes (\url{http://mrbayes.sourceforge.net}), Garli (\url{https://garli.googlecode.com}), PhyML (\url{https://phyml.googlecode.com}) and BEAST.
 
 \paragraph{}
 The use of Graphics Processing Units for scientific computing does not come without some caveats.

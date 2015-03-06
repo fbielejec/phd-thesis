@@ -182,6 +182,12 @@
 % ********************************************************************
 % Hyperreferences
 % ********************************************************************
+
+% change for print/online versions
+\newcommand{\linkcolor}{black} %RoyalBlue
+\newcommand{\citecolor}{black} %webgreen
+\newcommand{\urlcolor}{black} %webbrown
+
 \hypersetup{%
     %draft,	% = no hyperlinking at all (useful in b/w printouts)
     colorlinks=true, linktocpage=true, pdfstartpage=3, pdfstartview=FitV,%
@@ -190,7 +196,7 @@
     breaklinks=true, pdfpagemode=UseNone, pageanchor=true, pdfpagemode=UseOutlines,%
     plainpages=false, bookmarksnumbered, bookmarksopen=true, bookmarksopenlevel=1,%
     hypertexnames=true, pdfhighlight=/O,%nesting=true,%frenchlinks,%
-    urlcolor=webbrown, linkcolor=RoyalBlue, citecolor=webgreen, %pagecolor=RoyalBlue,%
+    urlcolor={\urlcolor}, linkcolor={\linkcolor}, citecolor={\citecolor}, %pagecolor=RoyalBlue,%
     %urlcolor=Black, linkcolor=Black, citecolor=Black, %pagecolor=Black,%
     pdftitle={\myTitle},%
     pdfauthor={\textcopyright\ \myName, \myUni, \myFaculty},%
