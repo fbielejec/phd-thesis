@@ -462,6 +462,8 @@ metropolisHastings <- function(loglikelihood, prior, proposal, window, startvalu
   return(chain)
 }
 
+set.seed(123)
+
 Nsim = 10^3
 startvalue = runif(1, min = 0, max = 1)
 window = 0.1
@@ -485,6 +487,7 @@ theme2 <- theme(
   panel.border = element_blank(),
   panel.grid.major = element_blank(),
   panel.grid.minor = element_blank()
+#   , aspect.ratio = 1/2
 )
 
 labels <- paste("acceptance rate:", round(length(unique(chain)) / Nsim, 2), "\n",
@@ -504,22 +507,14 @@ p <- p + theme2
 print(p, vp = vplayout(1, 1))
 
 p <- ggplot(plotData)
-p <- p + geom_histogram(aes(x = value, y = ..density..), binwidth = 0.01 )    
+p <- p + geom_histogram(aes(x = value, y = ..density..), binwidth = 0.01, color = "white" )    
 p <- p + geom_density(aes(x = value), color = "grey", alpha = 0.2)
 p <- p + xlab("") + ylab("Density")
 p <- p + ggtitle(labels)
 p <- p + theme2
+# 6 x 10
 print(p, vp = vplayout(2, 1))
 
-
-
-# p <- ggplot(plotData)
-# p <- p + geom_line(aes(x = iteration, y = value))    
-# p <- p + geom_hline(aes(yintercept = thetaHat), color = "grey")
-# p <- p + xlab("") + ylab("Chain state")
-# p <- p + theme2
-# p <- p + ggtitle(labels)
-# p
 
 ############################
 #---LIKELIHOOD ON A TREE---#

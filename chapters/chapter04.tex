@@ -99,7 +99,7 @@ The Hasegawa, Kishino and Yano (HKY) model is being set as the substitution mode
 The core of {\bussname} consists of a recursive tree-traversal that is independent of the BEAST inference machinery. 
 The algorithm simulates discrete state realizations by visiting the tree nodes in pre-order fashion, i.e., parental nodes are visited before child nodes.
 When a child node is visited, {\bussname} samples its state from the conditional probabilities of changing to state $j$ given state $i$ at the parental node.
-For a branch length $t$ and clock rate $r$, the finite-time transition probability matrix $\mathbf{P}\left(r \times t\right)$ is calculated through the eigen-decomposition of the infinitesimal rate matrix $\mathbf{Q}$ along that branch. 
+For a branch length $t$ and clock rate $r$, the finite-time transition probability matrix $\mathbf{P}\left(r\times t\right)$ is calculated through the eigen-decomposition of the infinitesimal rate matrix $\mathbf{Q}$ along that branch. 
 For a review of methods to numerically approximate a matrix exponential, we refer to \cite{Moler1978}.
 
 By sharing the set of XML parsers with BEAST, we

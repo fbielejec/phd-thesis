@@ -585,7 +585,7 @@ The discrete diffusion parameters are shared across rate matrices for the spring
 Following \cite{KassRaftery95} we report rates that yield a Bayes factor support interpreted as `strong evidence'.
 
 %---FLU DATA RESULTS MAP---%
-\begin{figure}[h!]
+\begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{flu2_epoch} 
 \caption{
@@ -688,11 +688,13 @@ This has been demonstrated by \citet{Goode2008}, who employed a particular codon
 Using this approach, the authors showed that a considerable number of sites, which are identified as neutral under a time-homogenous model, are under some form of selection in one of the two epoch time periods, implying that neutrality may be context-dependent.
 Codon models that accommodate different categories of sites have not yet been implemented in BEAST, at least partly because they are computationally prohibitive.
 Incorporating such models in an epoch approach would contribute even more to the computational burden.
-We hope however that the parallel implementations we pursue here may still allow practitioners to explore such extensions in future research. %
+We hope however that the parallel implementations we pursue here may still allow practitioners to explore such extensions in future research.
 
-Our second application exemplifies  the use of epoch time-discretization in phylogeographic inferences that consider sampling locations as discrete traits.
+% \nohyphens{
+Our second application exemplifies  the use of epoch time discretization in phylogeographic inferences that consider sampling locations as discrete traits.
 In particular, we demonstrate how epoch modeling can capture seasonality in human influenza A H3N2 circulation dynamics, without the need to complicate location traits with sampling time.
 Based on a data set previously analyzed by \citet{Bahl2011}, we infer different epidemiological connections between the northern hemisphere spring-summer epoch and the autumn-winter epoch.
+% }
 
 In both cases Southeast Asia (and Hong Kong) appear to play a central role in seeding the seasonal epidemics in the different hemispheres (Figure~\ref{fig:2EpochFlu}). 
 However, we remain cautious in interpreting the support for diffusion rates in the context of source-sink dynamics because strong evidence for such a rate being non-zero does not necessarily imply that the diffusion rate itself is high \citep{Faria2013}.

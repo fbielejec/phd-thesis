@@ -128,15 +128,10 @@ In a phylogenetic setting, the likelihood function returns the probability that 
 In general an evolutionary history and associated set of evolutionary parameters with higher probability of generating the observed data is naturally preferred over a history with a lower probability of generating it.
 By using optimization techniques one can find the parameter values that maximize the probability of observing the data.
 % }
-% The evolutionary history and associated set of evolutionary parameters with a higher probability is naturally preferred over a history with a lower probability.
-% By using optimization techniques one can find the parameter values that maximize the probability of observing the data.
-In his influential work, \cite{Felsenstein1981} proposed an efficient algorithm for calculating a likelihood of sequence evolution on a tree under an evolutionary model of substitution, the so called `tree pruning' algorithm.
-Unfortunately finding the maximum likelihood tree requires a search through the space of all possible tree topologies; in section \ref{sub:mlburden} we discuss in detail the computational burden associated with these calculations.
-The effort required to exhaustively search through a space of all possible rooted trees grows explosively with the number of taxa, as depicted in Table \ref{tab:maxLikeBurden}.
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
-% \footnotesize{
+\footnotesize{
 \begin{tabular}{cc}
 % {@{}l*{2}{D{.}{.}{7}}@{}}
 \hline 
@@ -152,7 +147,7 @@ $15$ & $2\times10^{14}$\tabularnewline
 $20$ & $8\times10^{21}$\tabularnewline
 $55$ & $3.19\times10^{86}$\tabularnewline
 \end{tabular}
-% }
+}
 \caption{
 { \footnotesize 
 {\bf{Number of rooted trees per number of taxa.}} For comparison, $4 \times 10^{80} $ is the number of atoms in the observable universe.
@@ -161,11 +156,13 @@ $55$ & $3.19\times10^{86}$\tabularnewline
 \label{tab:maxLikeBurden}
 \end{table}
 
+In his influential work, \cite{Felsenstein1981} proposed an efficient algorithm for calculating a likelihood of sequence evolution on a tree under an evolutionary model of substitution, the so called `tree pruning' algorithm.
+Unfortunately finding the maximum likelihood tree requires a search through the space of all possible tree topologies; in section \ref{sub:mlburden} we discuss in detail the computational burden associated with these calculations.
+The effort required to exhaustively search through a space of all possible rooted trees grows explosively with the number of taxa, as depicted in Table \ref{tab:maxLikeBurden}.
+
 %bayesian
 The advent of powerful and increasingly more attainable computing power has been instrumental to the adoption of statistical methods based on likelihood estimation and the closely related Bayesian methods.
 Bayesian statistical thinking is not a new idea and stems back to the XVII century works of reverend Thomas Bayes, a statistician, philosopher and theologian. 
-
-\clearpage
 
 %---BAYES---%
 \begin{remark}{Thomas Bayes}
@@ -588,8 +585,6 @@ Waiting times between mutations are \emph{iid} exponentially distributed random 
 Let's assume that evolution at a single site is governed by a Poisson process $N$ with some intensity $r$.
 Definition~\ref{def:poisson} implies that under this model the number of mutations $N(t+u)-N(u)$ in some time interval $(u,t+u]$ of length $t$ follows a Poisson distribution with expected number of events $r t$.
 Thus we can write:
-
-\newpage
 
 \begin{align}
 P\left\{ N(t+u)-N(u)=k\right\} & = P\left\{ N(t)=k\right\} \nonumber \\
@@ -1060,9 +1055,13 @@ methods of Bayesian inference.
 %GB: 'enters the framework as the data component' ? sounds weird, please rephrase
 The likelihood concept is also required in Bayesian inference and enters the framework as the data component.
 We will now discuss how to calculate the likelihood of observing a particular realization of character sequences at the tips of a tree, given a substitution model with fixed parameters.
+To calculate the likelihood means in a sense to reverse-engineer the evolution as it happened.
+Figure~\ref{fig:LIKELIHOOD} presents a single site with data $TCACC$ observed at the tips of the tree.
+External nodes are numbered $x_{1}, \ldots x_{5}$, internal nodes $x_{6}, \ldots x_{8}$ and the root is placed at the node $x_{0}$.
+The length of each branch leading to node $i$ is denoted as $t_{i}$. 
 
 %---LIKELIHOOD---%
-\begin{figure}[h!]
+\begin{figure}[H]
 \centering
 \includegraphics[scale=0.4]{likelihood} 
 \caption{
@@ -1073,10 +1072,6 @@ We will now discuss how to calculate the likelihood of observing a particular re
 \label{fig:LIKELIHOOD}
 \end{figure}
 
-To calculate the likelihood means in a sense to reverse-engineer the evolution as it happened.
-Figure~\ref{fig:LIKELIHOOD} presents a single site with data $TCACC$ observed at the tips of the tree.
-External nodes are numbered $x_{1}, \ldots x_{5}$, internal nodes $x_{6}, \ldots x_{8}$ and the root is placed at the node $x_{0}$.
-The length of each branch leading to node $i$ is denoted as $t_{i}$. 
 Using the methods presented in Subsection~\ref{sub:exponentiation}, we calculate the finite-time transition probabilities $p_{ij}(t_{i})$ between all pairs of characters in the alignment.
 To calculate the probability at a single site, we need to sum over all possible combinations that could give rise to the observed character data at that site, in this case:
 

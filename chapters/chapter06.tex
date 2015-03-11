@@ -164,7 +164,7 @@ On an evolutionary history, this assumption is unrealistic; Thorne et al.~\citep
 We propose to achieve both auto-correlation and non-parametric flexibility by extending DPs to have first-order dependence along the evolutionary history.  
 To accomplish this, recent work in Bayesian inference with DPs and their generalization, \emph{Polya urns}, \citep{Guha2010} shows that \emph{infinite hidden Markov models} \citep{Beal2002} in the computer science literature are now as convenient to fit as DPs and will allow for dependence across neighboring branches while retaining their non-parametric behavior.
 
-\begin{remark}{Infinite Hidden Markov models\label{ref:infinite_hidden_markov}}
+\begin{remark}{Hidden Markov models\label{ref:infinite_hidden_markov}}
 A Hidden Markov model (HMM) $\left\{ X\left(t\right):\; t=1,2,\ldots\right\}$ defines a probability distribution over sequences of observations $\mathbf{X}=\left\{ X(1), \ldots,X(t) \right\}$ by invoking another sequence of unobserved (\emph{hidden}) discrete state variables $\left\{ C\left(t\right):\; t=1,2,\ldots\right\}$.
  
 % Let us denote the past states of these processes  from time $1$ to time $t$ by 
@@ -199,13 +199,15 @@ and lastly the vector of starting probabilities of being in some state $i$ at th
 
 \noindent
 If the Markov chain $\left\{ C\left(t\right) \right\}$ has $m$ states we call $\left\{ X\left(t\right) \right\}$ an $m$-state HMM and $\lambda=\left(\mathbf{P},\mathbf{X},\Pi\right)$ is typically used as a compact notation for an HMM.
-Extending the \emph{hidden} $\left\{ C\left(t\right) \right\}$ process to a countably infinite number of hidden states for leads to the infinite HMM's.
+Extending the \emph{hidden} $\left\{ C\left(t\right) \right\}$ process to a countable infinite number of hidden states leads to the infinite HMM's.
 \end{remark}
 
 We are pursuing such among-branch approaches and will adopt similar non-parametrics to model among-site variability in $\alpha$ and $\beta$. 
 These developments will yield powerful tools to uncover variable selection pressure in coding sequences for many different pathogens, as well as other organisms.
 Moreover, they will be essential to accurately estimate time-scales for viral evolutionary histories where standard evolutionary models lead to divergence time underestimation \citep{Wertheim2011}. 
-Such a bias has been attributed to the action of strong purifying selection over long evolutionary time scales, and selection-informed models have been shown to improve branch length estimation \citep{Wertheim2011}, but their implementation in phylogenetic dating software is still lacking.
+Such a bias has been attributed to the action of strong purifying selection over long evolutionary time scales, and selection-informed models have been shown to improve branch length estimation, 
+% \citep{Wertheim2011}, 
+but their implementation in phylogenetic dating software is still lacking.
 
 
 
@@ -814,7 +816,7 @@ This means that the scientific community interested in high-precision computatio
 Perhaps more important is the fact that the host-device scheme, in which the GPUs operate, represents a bottleneck that hampers the effective usage of GPU devices.
 In a typical workflow of a GPGPU program both the host and device memory need to be allocated, host memory needs to be copied to the device, and after executing a GPU kernel the results need to be copied back to the CPU memory.
 The copying happens over a PCI Express bus, a point-to-point serial interface organized in the form of bi-directional lanes (each lane transmits the data in one direction).
-The typical bandwidth of a modern card ranges around $300$ GB/c, while a PCI express bus v3.0 has a theoretical peak speed of 15.75 GB/s in each direction.
+The typical bandwidth of a modern card ranges around $300$ GB/s, while a PCI express bus v3.0 has a theoretical peak speed of 15.75 GB/s in each direction.
 This bottleneck can severely affect the potential for speed increases on GPUs, in fact the impressive peak-performances reported by the vendors are almost never achieved in real-world applications.
 
 % karma/ maxwell 
