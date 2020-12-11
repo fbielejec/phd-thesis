@@ -358,7 +358,7 @@ For small values of $p$ the discrete geometric distribution can be approximated 
 This approximation allows us to move into continuous time, and we can write Equation~\ref{eq:wright-fisher-n-individuals-general} as:
 
 \begin{equation}
-P\left(t_{k}\right)=\frac{n\left(n-1\right)}{2N}\textrm{exp}\left(-\frac{n\left(n-1\right)}{2N}k\right)
+P\left(t_{k}\right)=\frac{n\left(n-1\right)}{2N}\textrm{exp}\left(-\frac{n\left(n-1\right)}{2N} (k-1)\right)
 \label{eq:exponential_time}
 \end{equation}
 
@@ -1417,7 +1417,7 @@ For even the simplest phylogenetic problems, one has to integrate over all possi
 Such highly-dimensional integrals are impossible to calculate analytically.
 This is where the Markov Chain Monte Carlo (MCMC) algorithm shows its strength and provides a powerful method of sampling from the posterior distributions without having to evaluate the marginal probability. %PL: it is a supa-dupa algorithm: http://oldweb.cecm.sfu.ca/~jborwein/algorithms.html
 
-The Metropolis-Hasting algorithm, as proposed by \citet{Metropolis1953}, is an MCMC algorithm for sampling from multi-dimensional distributions.
+The Metropolis-Hasting algorithm, as proposed by \citet{Metropolis1953}, is an MCMC algorithm for sampling from complex, multi-dimensional distributions.
 It proceeds by constructing a Markov chain with its states being the values of the parameter of interest $\theta$ and whose equilibrium distribution is the posterior $P\left(\theta|\mathbf{X}\right)$ as defined in Equation~\ref{eq:bayesian1}.
 After choosing an arbitrary starting state for the chain, new candidate states $\theta^{*}$ are generated from the proposal density, also called the kernel, $q(\theta^{*} | \theta[t]), \; t=1,\ldots,M$, where $M$ is the chain length and $\theta[t]$ is the current value of the chain.
 
